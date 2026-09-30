@@ -56,6 +56,7 @@ essays, not facts.
 | Add a disruption | `npm run new-disruption` → writes `content/disruptions/NN-id.md` |
 | Edit a disruption | `content/disruptions/*.md` — the `id` is a permanent URL, never change it |
 | Add an issue | Write and send in Beehiiv, then `npm run sync-issues` |
+| Write an article or long-term review | `WRITING.md` — the research sheet, the skeleton and the checklist; publish in Beehiiv with the tag **Article** or **Long-term review**, then sync |
 | Fix a typo in an issue | `content/issues/*.md` — it is yours now; the sync will not overwrite it |
 
 ### …how the site looks
