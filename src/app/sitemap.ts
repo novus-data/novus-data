@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 import { footerNav } from '@/config/nav';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { articlesEnabled } from '@/config/launch';
 import { listArticles, listIssues } from '@/lib/content';
 import { listDisruptions, listEntities } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
@@ -53,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  const articleRoutes: MetadataRoute.Sitemap = monitorAndArticlesEnabled
+  const articleRoutes: MetadataRoute.Sitemap = articlesEnabled
     ? articles.map((article) => {
         const published = toDate(article.publishedAt);
         return {
