@@ -7,7 +7,7 @@
  * whole of it, and sits after them.
  */
 
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { articlesEnabled, monitorEnabled } from '@/config/launch';
 
 export interface NavItem {
   href: string;
@@ -33,12 +33,8 @@ export const primaryNav: NavItem[] = [
 /** Shown in the footer. A superset of the primary navigation. */
 export const footerNav: NavItem[] = [
   ...primaryNav,
-  ...(monitorAndArticlesEnabled
-    ? [
-        { href: '/monitor', label: 'Monitor' },
-        { href: '/articles', label: 'Articles' },
-      ]
-    : []),
+  ...(monitorEnabled ? [{ href: '/monitor', label: 'Monitor' }] : []),
+  ...(articlesEnabled ? [{ href: '/articles', label: 'Articles' }] : []),
   // Not in the header: the entity index is reached from the chart, which is
   // where a reader is when the question "what about this name" occurs to them.
   // A sixth header item to reach a seventh page would cost more than it earns.

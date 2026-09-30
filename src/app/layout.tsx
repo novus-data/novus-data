@@ -3,7 +3,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google';
 
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { articlesEnabled } from '@/config/launch';
 // Imported for its side effect: refuses a production build while a
 // launch-critical fact is still missing. Server-only by design.
 import '@/config/input-ledger';
@@ -89,7 +89,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           type="application/feed+json"
           href="/feed.json"
           title={
-            monitorAndArticlesEnabled
+            articlesEnabled
               ? 'Novus Data — briefings, articles and reviews'
               : 'Novus Data — briefings'
           }

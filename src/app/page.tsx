@@ -13,7 +13,7 @@ import { SectionLabel, StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { coverageTopics } from '@/config/coverage';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { articlesEnabled, monitorEnabled } from '@/config/launch';
 import { formatAuthorNames, publication } from '@/config/publication';
 import type { DisruptionSummary, EntityExposure } from '@/lib/disruptions';
 import {
@@ -56,7 +56,7 @@ export default async function HomePage() {
     listDisruptions(),
     listIssues(3),
     buildExposureMatrix(),
-    monitorAndArticlesEnabled ? listArticles(undefined, 3) : Promise.resolve([]),
+    articlesEnabled ? listArticles(undefined, 3) : Promise.resolve([]),
   ]);
 
   const open = disruptions.filter((entry) => entry.status !== 'resolved');
@@ -180,7 +180,7 @@ export default async function HomePage() {
         {/* Gated off for launch (src/config/launch.ts). A link, not a live
             panel: reading the feeds here would put the home page on the
             monitor's fifteen-minute regeneration cycle too. */}
-        {monitorAndArticlesEnabled ? (
+        {monitorEnabled ? (
           <StoryBox
             className="lg:col-span-5"
             kicker="The monitor"

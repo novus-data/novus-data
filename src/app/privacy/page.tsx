@@ -4,7 +4,7 @@ import { Container } from '@/components/container';
 import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
 import { ExternalLink, TextLink } from '@/components/text-link';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { monitorEnabled } from '@/config/launch';
 import { publication } from '@/config/publication';
 import { absoluteUrl, accountsConfigured, env } from '@/lib/env';
 
@@ -39,12 +39,12 @@ export default function PrivacyPage() {
         <Section heading="This site">
           <p>
             The pages you read — the register, the exposure chart, the company and sector pages
-            and the briefing archive{monitorAndArticlesEnabled ? ', plus the monitor' : ''} — are
+            and the briefing archive{monitorEnabled ? ', plus the monitor' : ''} — are
             served as pre-built files. They run no
             analytics, embed no tracking pixels and load no third-party scripts. Nothing you do
             while reading is recorded by Novus Data.
           </p>
-          {monitorAndArticlesEnabled ? (
+          {monitorEnabled ? (
             <p>
               The monitor is rebuilt on the server every fifteen minutes from public data feeds.
               Your browser never contacts those feeds, so none of them learns anything about you.
