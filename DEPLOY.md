@@ -713,9 +713,10 @@ Before sending:
   claims staff, readers or results that do not exist (CLAUDE.md Rules 1 and 2).
 
 An article or long-term review is written the same way, with the content tag
-**Article** or **Long-term review**. At launch these do not appear on the site:
-`/articles` is switched off (`src/config/launch.ts`), so the sync saves them but
-no page shows them. Turning it on needs both Gavin and Alex (`DECISIONS.md`).
+**Article** or **Long-term review**, in the house format in `WRITING.md`. At
+launch these do not appear on the site: `/articles` is switched off
+(`articlesEnabled` in `src/config/launch.ts`), so the sync saves them but no
+page shows them. Turning it on needs both Gavin and Alex (`DECISIONS.md`).
 
 ### 5. Bring it into the site
 

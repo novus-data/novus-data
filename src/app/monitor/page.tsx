@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 import { Container } from '@/components/container';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { monitorEnabled } from '@/config/launch';
 import { AutoRefresh } from '@/components/live/auto-refresh';
 import { ChangingPanel } from '@/components/live/changing-panel';
 import { FlagList } from '@/components/live/flag-list';
@@ -84,7 +84,7 @@ const SECTION_FOR: Record<keyof Omit<LiveSnapshot, 'generatedAt'>, string> = {
 };
 
 export default async function MonitorPage() {
-  if (!monitorAndArticlesEnabled) notFound();
+  if (!monitorEnabled) notFound();
 
   // The register supplies which entries name which places, and the tickers
   // of companies already on the exposure chart — see lib/monitor.ts.

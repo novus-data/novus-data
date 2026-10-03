@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { Container } from '@/components/container';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { articlesEnabled } from '@/config/launch';
 import { IssueList } from '@/components/issue-list';
 import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
  * reach production.
  */
 export default async function ArticlesPage() {
-  if (!monitorAndArticlesEnabled) notFound();
+  if (!articlesEnabled) notFound();
 
   const [reviews, articles] = await Promise.all([listArticles('review'), listArticles('article')]);
   const empty = reviews.length === 0 && articles.length === 0;

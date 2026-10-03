@@ -1,5 +1,5 @@
 import { publication } from '@/config/publication';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { articlesEnabled } from '@/config/launch';
 import { POST_KIND_LABELS, listArticles, listIssues, postPath } from '@/lib/content';
 import { absoluteUrl } from '@/lib/env';
 
@@ -26,7 +26,7 @@ export const dynamic = 'force-static';
 export async function GET() {
   const [briefings, articles] = await Promise.all([
     listIssues(),
-    monitorAndArticlesEnabled ? listArticles() : Promise.resolve([]),
+    articlesEnabled ? listArticles() : Promise.resolve([]),
   ]);
   const posts = [...briefings, ...articles].sort(
     (a, b) => (Date.parse(b.publishedAt) || 0) - (Date.parse(a.publishedAt) || 0),
@@ -35,9 +35,9 @@ export async function GET() {
   const feed = {
     version: 'https://jsonfeed.org/version/1.1',
     title: `${publication.name} — writing`,
-    home_page_url: absoluteUrl(monitorAndArticlesEnabled ? '/articles' : '/briefings'),
+    home_page_url: absoluteUrl(articlesEnabled ? '/articles' : '/briefings'),
     feed_url: absoluteUrl('/feed.json'),
-    description: monitorAndArticlesEnabled
+    description: articlesEnabled
       ? 'Briefings, articles and long-term reviews, newest first. Summaries only; each post is read on its page.'
       : 'Briefings, newest first. Summaries only; each post is read on its page.',
     icon: absoluteUrl('/icon'),
