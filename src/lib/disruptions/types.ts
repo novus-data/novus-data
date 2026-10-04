@@ -125,6 +125,23 @@ export function worstOf(exposures: Array<{ severity: Severity }>): Severity {
 }
 
 /**
+ * The date to print beside `worstOf()`: the oldest `asOf` among the exposures
+ * at that severity. Taking the newest date across every exposure would pair a
+ * months-old "high" with last week's "low" review and make the high look
+ * fresh. Oldest is the conservative choice; it can only overstate age.
+ */
+export function worstAsOf(exposures: Array<{ severity: Severity; asOf: string }>): string | null {
+  const worst = worstOf(exposures);
+  return (
+    exposures
+      .filter((exposure) => exposure.severity === worst)
+      .map((exposure) => exposure.asOf)
+      .sort()
+      .at(0) ?? null
+  );
+}
+
+/**
  * How the exposure was established. This is the difference between reporting
  * and guessing, and the chart shows it rather than burying it.
  */

@@ -697,6 +697,14 @@ Every block of reading text sits in a story box, `StoryBox` in
   case for the site. The hero, the two call-to-action buttons, "What we do",
   the four equal pillars and the decorative grid-line backdrop (`.grid-field`)
   were the template tells and are gone. Do not bring back a hero.
+- **The explainer lead has one footer link, not buttons.** When the register
+  and the archive are both empty, the case for the site leads, and it is the
+  first thing every visitor sees. Two buttons under a tagline is the hero
+  again, boxed. It ends in a text link like every other box.
+- **A full-width box spans at `md` too.** The home page's bands are two
+  columns at `md` and twelve at `lg`, so a box that spans the band uses
+  `FULL_WIDTH` (`md:col-span-2 lg:col-span-12`). With `lg:col-span-12` alone it
+  sits in half the row between 768 and 1023px with the other half empty.
 - **Lists stay one object.** The briefing archive is one box with hairlines
   between issues (a sequence reads as aligned columns); the register is one
   box per entry (each entry is a story).
