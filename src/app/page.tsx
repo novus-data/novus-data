@@ -12,7 +12,7 @@ import { SectionLabel, StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { coverageTopics } from '@/config/coverage';
-import { monitorAndArticlesEnabled } from '@/config/launch';
+import { articlesEnabled, monitorEnabled } from '@/config/launch';
 import { formatAuthorNames, publication } from '@/config/publication';
 import type { DisruptionSummary, EntityExposure } from '@/lib/disruptions';
 import { CATEGORY_LABELS, SEVERITY_LABELS, buildExposureMatrix, listDisruptions } from '@/lib/disruptions';
@@ -42,7 +42,7 @@ export default async function HomePage() {
     listDisruptions(),
     listIssues(3),
     buildExposureMatrix(),
-    monitorAndArticlesEnabled ? listArticles(undefined, 3) : Promise.resolve([]),
+    articlesEnabled ? listArticles(undefined, 3) : Promise.resolve([]),
   ]);
 
   const open = disruptions.filter((entry) => entry.status !== 'resolved');
@@ -160,7 +160,7 @@ export default async function HomePage() {
         {/* Gated off for launch (src/config/launch.ts). A link, not a live
             panel: reading the feeds here would put the home page on the
             monitor's fifteen-minute regeneration cycle too. */}
-        {monitorAndArticlesEnabled ? (
+        {monitorEnabled ? (
           <StoryBox
             className="lg:col-span-5"
             kicker="The monitor"
@@ -178,7 +178,7 @@ export default async function HomePage() {
         ) : null}
 
         <StoryBox
-          className={monitorAndArticlesEnabled ? 'lg:col-span-7' : 'lg:col-span-12'}
+          className={monitorEnabled ? 'lg:col-span-7' : 'lg:col-span-12'}
           kicker={publication.newsletter.name}
           title="The week in writing, by email"
           titleHref="/briefings"
@@ -190,7 +190,7 @@ export default async function HomePage() {
           }
         >
           <p>
-            {monitorAndArticlesEnabled
+            {monitorEnabled
               ? 'The briefing pulls the register and the monitor together: what moved, what it is likely to reach next, and what is worth ignoring.'
               : 'The briefing summarises the register: what moved, what it is likely to reach next, and what is worth ignoring.'}{' '}
             The site is the record; the briefing is the summary.

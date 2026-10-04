@@ -596,6 +596,15 @@ This is the one recurring manual step in the project.
 **Sync promptly after each send.** An issue that falls out of the feed window
 before syncing is not recoverable by the script and has to be copied by hand.
 
+**Articles and long-term reviews follow the same steps**, written in the house
+format in `WRITING.md` and tagged **Article** or **Long-term review** in
+Beehiiv; the tag is what files them under `/articles` (`KIND_TAGS` in
+`src/lib/content/types.ts`), and an untagged post becomes a briefing. When
+helping write one, hold it to that file: the research sheet comes first, the
+analysis is the author's, and every company named carries the same mechanism,
+confidence and source the register requires. `/articles` is gated off by
+`articlesEnabled` in `src/config/launch.ts` until both founders agree.
+
 ## 9. Design tokens
 
 Defined in `src/app/globals.css`. Derived from the existing Novus Data logo and
