@@ -144,7 +144,7 @@ export function PriceChart({
               />
               <span
                 aria-hidden="true"
-                className={`pointer-events-none absolute bottom-[calc(100%+0.5rem)] z-10 w-max ${tipAnchor} rounded-[2px] border border-rule bg-surface-2 px-2.5 py-1.5 text-meta shadow-[0_8px_24px_rgb(0_0_0/0.5)]`}
+                className={`pointer-events-none absolute bottom-[calc(100%+0.5rem)] z-10 w-max ${tipAnchor} rounded-[2px] border border-rule bg-surface-2 px-2.5 py-1.5 text-meta shadow-[0_6px_18px_rgb(11_18_38/0.14)]`}
                 style={{ left: `${x(active)}%` }}
               >
                 <span data-numeric className="block font-semibold text-fg">
