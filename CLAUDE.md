@@ -69,8 +69,10 @@ the root layout and `/debug/content`.
 Anything in `@layer components` loses to it in the cascade. The `.prose-novus`
 overrides in `globals.css` are therefore **deliberately unlayered** — if they are
 moved back inside `@layer components`, issue bodies silently render in the
-plugin's default gray-700 on navy, which is close to invisible. Do not "tidy"
-them into a layer.
+plugin's default grays instead of the site's tokens. (While the site was dark
+that was gray-700 on navy, close to invisible; on the light theme it is
+quieter, which makes it easier to miss, not safer.) Do not "tidy" them into a
+layer.
 
 ## 4. Non-negotiable rules
 
@@ -354,17 +356,19 @@ as refusals. Each line says which it was.
 
 Severity is **magnitude**, so it uses a sequential single-hue ordinal ramp, not
 a categorical palette and not a traffic light. Defined and justified in
-`globals.css`; validated against `--ink` as an ordinal ramp (monotone lightness,
-adjacent gaps above the floor, hue spread 3°, darkest step 3.06:1).
+`globals.css` (monotone lightness, L* gaps of 16.2 and 22.4, and the lightest
+step clear of 3:1 on every surface a cell can sit on).
 
-| Level | Token | Hex | Contrast on `--ink` |
-|---|---|---|---|
-| Low | `--sev-low` | `#44608F` | 3.06:1 |
-| Moderate | `--sev-moderate` | `#7B92BE` | 6.19:1 |
-| High | `--sev-high` | `#B4C8EA` | 11.45:1 |
+| Level | Token | Hex | On a box (`--surface`) | On the ground (`--ink`) |
+|---|---|---|---|---|
+| Low | `--sev-low` | `#6D89B8` | 3.55:1 | 3.25:1 |
+| Moderate | `--sev-moderate` | `#44608F` | 6.33:1 | 5.81:1 |
+| High | `--sev-high` | `#1E2C47` | 13.94:1 | 12.78:1 |
 
-On a dark surface the ramp runs dark → light as severity rises, because the
-lightest step has to be the one that reads as "most". Severity is **never
+On a light ground the ramp runs light → dark as severity rises, because the
+darkest step has to be the one that reads as "most". It ran the other way
+while the site was dark; if the ground ever changes again, the ramp's
+direction changes with it. Severity is **never
 carried by colour alone**: every cell states its level in visually-hidden text,
 the legend is always present, a full table view sits below the chart, and a
 texture channel takes over under `forced-colors`, `prefers-contrast: more` and
@@ -373,7 +377,7 @@ print.
 Confidence is the second, non-colour channel: a solid cell edge for `reported`,
 a dashed edge for `inferred` and `estimated`.
 
-`--status-active` (`#E0A73E`) is the one warm value in the system and is
+`--status-active` (`#B06F00`) is the one warm value in the system and is
 reserved for the "active" disruption status. **It is not available as a chart
 series colour.** A status dot never appears without its word beside it.
 
@@ -598,33 +602,51 @@ before syncing is not recoverable by the script and has to be copied by hand.
 
 ## 9. Design tokens
 
-Defined in `src/app/globals.css`. Derived from the existing Novus Data logo and
-settled — do not reinterpret them.
+Defined in `src/app/globals.css`, derived from the Novus Data logo's navy.
 
-| Token | Hex | Role | Contrast on `--ink` |
+### Light, amended by the author (4 October 2026)
+
+The site was dark throughout, and an earlier version of this section called
+that settled. The author asked for a light site instead. The reasoning that
+holds it: the site is laid out as a newspaper (nameplate, ruled story boxes,
+kickers), and a paper is dark ink on light stock. A navy ground was the one
+thing still arguing with that.
+
+The hues did not change; their roles did. The logo's navy moved from the
+ground to the type. The page ground is a pale paper, and every story box is
+white on it, so the box still reads as a backing.
+
+| Token | Hex | Role | On a box (`--surface`) |
 |---|---|---|---|
-| `--ink` | `#070C20` | Page background | — |
-| `--surface` | `#0E1529` | Raised panels | — |
-| `--surface-2` | `#161F38` | Hover / secondary raised | — |
-| `--border` | `rgba(255,255,255,0.08)` | Default hairline | — |
-| `--border-strong` | `#222D4A` | Emphasised division | — |
-| `--text` | `#F4F6FA` | Primary text | ~17:1 |
-| `--text-muted` | `#9395A0` | Metadata, secondary text | 6.5:1 |
-| `--accent` | `#4C618A` | **Structural only** — borders, fills, non-text marks | **3.1:1 — fails AA for text** |
-| `--accent-text` | `#7B92BE` | Links, focus rings, interactive text | 6.2:1 |
+| `--ink` | `#F6F5F1` | Page ground (name kept; see below) | — |
+| `--surface` | `#FFFFFF` | Story boxes, raised panels | — |
+| `--surface-2` | `#EEEDE7` | Hover / secondary raised | — |
+| `--border` | `rgba(11,18,38,0.12)` | Default hairline | — |
+| `--border-strong` | `#C5C9D3` | Box frames, emphasised division | — |
+| `--text` | `#0B1226` | Primary text | 18.6:1 |
+| `--text-muted` | `#565B69` | Metadata, secondary text | 6.8:1 |
+| `--accent` | `#4C618A` | **Structural** — rules, fills, non-text marks | 6.2:1 |
+| `--accent-text` | `#2F4672` | Links, focus rings, interactive text | 9.4:1 |
 
-**`--accent` is structural-only.** `#4C618A` fails WCAG AA for body text on the
-navy background at 3.1:1 against a 4.5:1 requirement. Use `--accent-text` for
-anything read or clicked. **Do not "correct" this back during a polish pass.**
+**`--ink` is the paper now, and keeps its name on purpose.** Renaming it would
+touch every `bg-ink` utility for no change in behaviour. Read it as "the page
+ground".
 
-**Reading surface (settled — do not relitigate):** the site is dark throughout,
-issue pages included. Long-form legibility is handled by type, not by inverting
-to a light theme mid-site: body at `1.125rem` / `1.75` in `--text` (17:1), measure
-capped at 66ch. A light article page inside a dark site fragments the brand.
+**`--accent` stays structural.** On this ground it would pass AA for text, but
+links and controls use `--accent-text` so they stay distinguishable from rules
+and fills. Do not start using `--accent` for text because it now passes.
+
+**One theme, no toggle.** §13 still forbids a dark/light mode toggle. The site
+is light everywhere, issue pages included. Long-form legibility is handled by
+type: body at `1.125rem` / `1.7` in `--text`, measure capped at 66ch.
+
+**Not yet changed: the social cards and icons.** `src/lib/og.ts` still renders
+them on navy. They are brand images that travel off-site, and whether they
+follow the site is a separate decision.
 
 ### Typography — amended by the author
 
-The palette above is unchanged. The **typefaces and the type scale were
+This amendment left the palette alone. The **typefaces and the type scale were
 replaced** on the author's instruction: the site was reading as generated
 rather than as a publication, and the brief is a classic financial paper.
 
@@ -675,7 +697,8 @@ a rule carries meaning: it closes the title block and opens the content.
 ### The story box — amended by the author (29 September 2026)
 
 The author's brief: the site "looks too vibe coded", and text should sit on a
-backing, in a boxed-article format. So **text no longer floats on `--ink`.**
+backing, in a boxed-article format. So **text no longer floats on the page
+ground.**
 Every block of reading text sits in a story box, `StoryBox` in
 `src/components/story-box.tsx`, styled by `.story` in `globals.css`:
 
@@ -697,6 +720,14 @@ Every block of reading text sits in a story box, `StoryBox` in
   case for the site. The hero, the two call-to-action buttons, "What we do",
   the four equal pillars and the decorative grid-line backdrop (`.grid-field`)
   were the template tells and are gone. Do not bring back a hero.
+- **The explainer lead has one footer link, not buttons.** When the register
+  and the archive are both empty, the case for the site leads, and it is the
+  first thing every visitor sees. Two buttons under a tagline is the hero
+  again, boxed. It ends in a text link like every other box.
+- **A full-width box spans at `md` too.** The home page's bands are two
+  columns at `md` and twelve at `lg`, so a box that spans the band uses
+  `FULL_WIDTH` (`md:col-span-2 lg:col-span-12`). With `lg:col-span-12` alone it
+  sits in half the row between 768 and 1023px with the other half empty.
 - **Lists stay one object.** The briefing archive is one box with hairlines
   between issues (a sequence reads as aligned columns); the register is one
   box per entry (each entry is a story).

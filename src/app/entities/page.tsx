@@ -7,7 +7,7 @@ import { StoryBox } from '@/components/story-box';
 import { TextLink } from '@/components/text-link';
 import { publication } from '@/config/publication';
 import type { EntityProfile } from '@/lib/disruptions';
-import { SEVERITY_LABELS, listEntities } from '@/lib/disruptions';
+import { SEVERITY_LABELS, listEntities, worstAsOf } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
 import { formatShortDate } from '@/lib/format';
 
@@ -117,8 +117,10 @@ export default async function EntitiesPage() {
 }
 
 function EntityRow({ profile }: { profile: EntityProfile }) {
-  const { entity, claims, worstSeverity, lastAssessedAt } = profile;
-  const asOf = lastAssessedAt ? formatShortDate(lastAssessedAt) : null;
+  const { entity, claims, worstSeverity } = profile;
+  // The date of the assessment that set the severity, not the newest of any.
+  const worstDate = worstAsOf(claims.map((claim) => claim.exposure));
+  const asOf = worstDate ? formatShortDate(worstDate) : null;
 
   return (
     <li>
@@ -141,9 +143,9 @@ function EntityRow({ profile }: { profile: EntityProfile }) {
             <>
               <SeveritySwatch severity={worstSeverity} />
               <span className="text-meta text-muted">
-                {SEVERITY_LABELS[worstSeverity]} · <span data-numeric>{claims.length}</span>{' '}
+                {SEVERITY_LABELS[worstSeverity]}
+                {asOf ? ` as of ${asOf}` : ''} · <span data-numeric>{claims.length}</span>{' '}
                 {claims.length === 1 ? 'disruption' : 'disruptions'}
-                {asOf ? `, as of ${asOf}` : ''}
               </span>
             </>
           ) : (
