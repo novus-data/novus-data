@@ -640,9 +640,9 @@ and fills. Do not start using `--accent` for text because it now passes.
 is light everywhere, issue pages included. Long-form legibility is handled by
 type: body at `1.125rem` / `1.7` in `--text`, measure capped at 66ch.
 
-**Not yet changed: the social cards and icons.** `src/lib/og.ts` still renders
-them on navy. They are brand images that travel off-site, and whether they
-follow the site is a separate decision.
+**The social cards and icons follow the site.** `ogColors` in `src/lib/og.ts`
+repeats these values, because generated images cannot read the CSS. Change
+both together.
 
 ### Typography — amended by the author
 

@@ -57,12 +57,16 @@ export function cardFonts() {
   ];
 }
 
-/** Brand values, repeated here because generated images cannot read the CSS. */
+/**
+ * Brand values, repeated here because generated images cannot read the CSS.
+ * They follow the light site (CLAUDE.md §9): navy type on the paper ground.
+ * Keep them in step with the tokens in globals.css.
+ */
 export const ogColors = {
-  ink: '#070c20',
-  surface: '#0e1529',
-  text: '#f4f6fa',
-  muted: '#9395a0',
+  ink: '#f6f5f1',
+  surface: '#ffffff',
+  text: '#0b1226',
+  muted: '#565b69',
   accent: '#4c618a',
 } as const;
 
