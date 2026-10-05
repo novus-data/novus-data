@@ -10,14 +10,16 @@ import { STATUS_LABELS } from '@/lib/disruptions/types';
 import { CHOKEPOINTS } from '@/lib/live/nodes';
 
 /*
- * The visible window: the Americas' east coast to Japan, the Arctic coast to
- * the Cape. Equirectangular, because a locator map only has to say "here",
- * and a plain lon/lat grid keeps the chokepoint coordinates readable in code.
+ * The visible window: Panama to Japan, Scandinavia to the Cape, which is the
+ * tightest box that holds every tracked chokepoint and its label. Wider
+ * windows spent a third of the frame on ocean and continental interior with
+ * no marker in it. Equirectangular, because a locator map only has to say
+ * "here", and a plain lon/lat grid keeps the coordinates readable in code.
  */
-const WEST = -130;
-const EAST = 150;
-const NORTH = 72;
-const SOUTH = -46;
+const WEST = -100;
+const EAST = 145;
+const NORTH = 60;
+const SOUTH = -44;
 const WIDTH = 1000;
 const SCALE = WIDTH / (EAST - WEST);
 const HEIGHT = Math.round((NORTH - SOUTH) * SCALE);
@@ -49,8 +51,9 @@ const LABELS: Record<
   'bab-el-mandeb': { text: 'Bab el-Mandeb', dx: 14, dy: 12, anchor: 'start' },
   hormuz: { text: 'Hormuz', dx: 14, dy: -4, anchor: 'start' },
   'singapore-strait': { text: 'Malacca', dx: 14, dy: 14, anchor: 'start' },
-  'taiwan-strait': { text: 'Taiwan Strait', dx: 0, dy: -18, anchor: 'middle' },
-  panama: { text: 'Panama', dx: -14, dy: 4, anchor: 'end' },
+  'taiwan-strait': { text: 'Taiwan Strait', dx: 0, dy: -20, anchor: 'middle' },
+  // Right of the marker: Panama sits near the frame's west edge.
+  panama: { text: 'Panama', dx: 14, dy: 4, anchor: 'start' },
   bosphorus: { text: 'Bosphorus', dx: 14, dy: -6, anchor: 'start' },
   gibraltar: { text: 'Gibraltar', dx: -14, dy: 12, anchor: 'end' },
   dover: { text: 'Dover', dx: -16, dy: -4, anchor: 'end' },
