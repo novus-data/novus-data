@@ -51,7 +51,7 @@ export const INPUT_LEDGER: InputRecord[] = [
   {
     key: 'publication.positioning',
     provenance: 'assumed',
-    usedOn: ['/', '/about'],
+    usedOn: ['/about'],
     note: 'Drafted. Rewrite in the author’s own words if it does not sound like them.',
     requiredForLaunch: false,
   },

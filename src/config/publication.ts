@@ -56,7 +56,7 @@ export interface Publication {
   openingBody: string;
   /** Why Novus Data exists, in one sentence. Used on / and /about. */
   mission: string;
-  /** Slightly longer positioning paragraph, used on / and /about. */
+  /** Slightly longer positioning paragraph, used on /about. */
   positioning: string;
   primaryReader: string;
   secondaryReaders: string[];
@@ -128,7 +128,7 @@ export const publication: Publication = {
     'To make disruption in physical trade legible to the people it reaches, early enough to act on and sourced well enough to trust.',
 
   positioning:
-    'Physical trade breaks before prices move. Novus Data keeps a register of what is going wrong across the shipping lanes, ports, chokepoints and trade rules that carry the world’s goods — and maps each problem to the companies and sectors it reaches, with the mechanism and the source stated every time.',
+    'A disruption in physical trade reaches a company’s results by a route that can be traced. Novus Data keeps a register of what is going wrong across the shipping lanes, ports, chokepoints and trade rules that carry the world’s goods, and maps each problem to the companies and sectors it reaches, with the mechanism and the source stated every time.',
 
   primaryReader:
     'investors and analysts who need to know how a disruption in physical trade reaches prices, earnings and risk',
