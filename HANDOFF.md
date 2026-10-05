@@ -34,14 +34,19 @@ decide for me. Written to be read once, in order.
   `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` in the **Preview** environment, rather than
   a commit-author restriction. The existing variable now covers **Production
   and Preview**; its redeployment succeeded with the launch guard enabled.
-- **Vercel now builds from the org repo.** The project was re-linked on
-  5 October 2026; PR #19's preview was the first deployment built from
-  `novus-data/novus-data`. Production had not caught up at that point:
-  `www.novusdata.news` still served fork commit `de485f2` (fork PR #4,
-  3 October), because PR #18 merged before the re-link and re-linking does not
-  deploy by itself. The first merge into `claude/practical-einstein-tzfg55`
-  after the re-link is the first org-repo production deploy. Confirm it in
-  Vercel's Deployments list (DEPLOY.md Part 7, the Vercel bullet).
+- **Vercel now builds from the org repo, and production is `main`.** The
+  project was re-linked on 5 October 2026 with `main` as its production branch;
+  PR #19's preview was the first deployment built from `novus-data/novus-data`.
+  Production had not caught up at that point: `www.novusdata.news` still served
+  fork commit `de485f2` (fork PR #4, 3 October), because re-linking does not
+  deploy by itself. PR #18 had merged into `claude/practical-einstein-tzfg55`,
+  the old integration branch, so PR #19 carries it into `main`. The first merge
+  into `main` after the re-link is the first org-repo production deploy;
+  confirm it in Vercel's Deployments list (DEPLOY.md Part 7, the Vercel
+  bullet).
+- **GitHub's default branch is still `claude/practical-einstein-tzfg55`.**
+  Switch it to `main` (repo Settings → General → Default branch) so new PRs
+  target production by default. The old branch can be deleted after that.
 - The earlier production deployment from fork commit `bc458d8` was checked live
   on `www.novusdata.news`. Live checks passed for home, About, Contact, Privacy,
   the feeds and sitemap. Monitor, Articles, direct article pages, article social
