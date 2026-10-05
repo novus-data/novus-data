@@ -40,10 +40,15 @@ export function publicationJsonLd(): Json {
 export function issueJsonLd(issue: Issue, canonicalUrl: string): Json {
   return compact({
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'NewsArticle',
     headline: issue.title,
     description: issue.excerpt ?? undefined,
     datePublished: toDate(issue.publishedAt)?.toISOString(),
+    dateModified: toDate(issue.publishedAt)?.toISOString(),
+    inLanguage: 'en-GB',
+    isAccessibleForFree: true,
+    articleSection: issue.kind,
+    keywords: issue.tags.length > 0 ? issue.tags : undefined,
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
     author: namedAuthors().length > 0
       ? namedAuthors().map((author) => ({ '@type': 'Person', name: author.name }))
