@@ -122,7 +122,7 @@ export const publication: Publication = {
   openingLine: 'Nothing is made in one place any more.',
 
   openingBody:
-    'A drought at a canal, a strike at a terminal, a licence withheld on one processed metal: none of it stays where it happens. It travels through the ships, ports, contracts and inventories that every business now sits downstream of, and it surfaces somewhere far from where it started, usually as a cost, a delay or a missed quarter. Novus Data follows it the whole way: from the disruption, to the lane, to the company.',
+    'A drought at a canal, a strike at a terminal: Novus Data follows each one to the companies it reaches.',
 
   mission:
     'To make disruption in physical trade legible to the people it reaches, early enough to act on and sourced well enough to trust.',

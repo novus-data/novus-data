@@ -72,7 +72,7 @@ export const INPUT_LEDGER: InputRecord[] = [
   {
     key: 'publication.openingLine / openingBody / mission',
     provenance: 'assumed',
-    usedOn: ['/', '/about'],
+    usedOn: ['/'],
     note: 'The home page headline, the paragraph under it and the mission statement. Written with the creative latitude the author asked for — they describe how supply chains work rather than asserting a sourced fact, so nothing here needs a citation. Rewrite freely; it is the most visible copy on the site.',
     requiredForLaunch: false,
   },

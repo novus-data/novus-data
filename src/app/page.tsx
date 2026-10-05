@@ -88,7 +88,9 @@ export default async function HomePage() {
                 {publication.mission}
               </p>
             </StoryBox>
-            <SignInPanel enabled={accountsConfigured()} />
+            {/* Only once accounts are live: before then it would advertise
+                something no reader can use. */}
+            {accountsConfigured() ? <SignInPanel enabled /> : null}
           </div>
         </div>
       </Container>
@@ -144,11 +146,7 @@ export default async function HomePage() {
             </>
           }
         >
-          <p>
-            One entry per problem: chokepoints, ports, trade policy, industrial inputs, energy and
-            labour. Each carries its sources, a status and the date it was last reviewed, so an
-            old assessment never passes for a current one.
-          </p>
+          <p>One entry per problem, each with its sources, status and last review date.</p>
         </StoryBox>
 
         <StoryBox
@@ -163,11 +161,7 @@ export default async function HomePage() {
             </>
           }
         >
-          <p>
-            Each tracked problem is mapped to the companies and sectors it reaches, with the
-            mechanism written out. An assessment needs a mechanism, a confidence level, a date and
-            a source to appear. The site drops any that lacks one when the page is built.
-          </p>
+          <p>An assessment appears only with its mechanism, confidence, date and source.</p>
         </StoryBox>
 
         {/* Gated off for launch (src/config/launch.ts). A link, not a live
@@ -190,105 +184,40 @@ export default async function HomePage() {
           </StoryBox>
         ) : null}
 
-        <StoryBox
-          className={monitorAndArticlesEnabled ? 'lg:col-span-7' : FULL_WIDTH}
-          kicker={publication.newsletter.name}
-          title="The week in writing, by email"
-          titleHref="/briefings"
-          footer={
-            <>
-              <TextLink href="/briefings">Read the archive</TextLink>
-              <TextLink href="/subscribe">Subscribe</TextLink>
-            </>
-          }
-        >
-          <p>
-            {monitorAndArticlesEnabled
-              ? 'The briefing pulls the register and the monitor together: what moved, what it is likely to reach next, and what is worth ignoring.'
-              : 'The briefing summarises the register: what moved, what it is likely to reach next, and what is worth ignoring.'}{' '}
-            The site is the record; the briefing is the summary.
-          </p>
-        </StoryBox>
-      </Band>
-
-      <Band id="who-for" label="Who it is written for">
-        <StoryBox
-          className="lg:col-span-6"
-          kicker="For investors"
-          title="A disruption reaches earnings by a route you can trace"
-        >
-          <p>
-            A chokepoint closing absorbs vessel capacity across a whole market, not one route. A
-            licence on one processed metal can reprice a sector that looked diversified. Each step
-            between the event and a company&rsquo;s results is a link someone can check.
-          </p>
-          <p>
-            The exposure chart names what sits downstream of a problem and how strong the evidence
-            is: reported, inferred or estimated. You can weigh each claim yourself instead of
-            taking it on trust.
-          </p>
-        </StoryBox>
-
-        <StoryBox
-          className="lg:col-span-6"
-          kicker="For operators"
-          title="The decision comes before the confirmation"
-        >
-          <p>
-            A rerouting adds weeks to transit time. That changes safety stock, working capital and
-            every promise made downstream, and the call usually has to be made before the
-            disruption is confirmed.
-          </p>
-          <p>
-            The register gives the problem with its date and sources attached, so you can judge it
-            rather than act on a headline. Where your suppliers or your category appear on the
-            chart, the mechanism is written out, which is what makes it usable in front of a board
-            or a customer.
-          </p>
-        </StoryBox>
-
-        <p className={`text-meta text-muted ${FULL_WIDTH}`}>{publication.disclaimer}</p>
       </Band>
 
       <Band id="more" label="Coverage and what comes next">
         <StoryBox
-          className="lg:col-span-7"
+          className={FULL_WIDTH}
           kicker="Coverage"
           title="What Novus Data watches"
           titleHref="/coverage"
           footer={<TextLink href="/coverage">Why each of these matters</TextLink>}
         >
-          <ul className="grid max-w-none gap-x-8 sm:grid-cols-2">
+          <ul className="grid max-w-none gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
             {coverageTopics.map((topic) => (
-              <li key={topic.id} className="border-t border-hairline py-3">
-                <span className="block font-medium text-fg">{topic.title}</span>
-                <span className="mt-1 block text-[0.875rem]">{topic.summary}</span>
+              <li key={topic.id} className="border-t border-hairline py-2 text-fg">
+                {topic.title}
               </li>
             ))}
           </ul>
         </StoryBox>
 
-        <div className="flex flex-col gap-4 lg:col-span-5">
-          <StoryBox
-            kicker="In development"
-            title={publication.alerts.name}
-            titleHref="/alerts"
-            footer={
-              <>
-                <TextLink href="/alerts">What it will and will not do</TextLink>
-              </>
-            }
-          >
-            <p>
-              The register on your phone, and a notification when it changes: a new disruption
-              opens, one you follow escalates, or a company you hold is added to a problem you are
-              already watching. There is no release date yet, and subscribers to{' '}
-              {publication.newsletter.name} hear first.
-            </p>
-          </StoryBox>
+        <StoryBox
+          className="lg:col-span-6"
+          kicker="In development"
+          title={publication.alerts.name}
+          titleHref="/alerts"
+          footer={<TextLink href="/alerts">What it will and will not do</TextLink>}
+        >
+          <p>A notification when a disruption you follow opens or escalates. No release date yet.</p>
+        </StoryBox>
 
-          <SubscribePanel level={3} heading={`Subscribe to ${publication.newsletter.name}`} />
-        </div>
+        <SubscribePanel
+          level={3}
+          heading={`Subscribe to ${publication.newsletter.name}`}
+          className="lg:col-span-6"
+        />
       </Band>
 
       {formatAuthorNames() ? (

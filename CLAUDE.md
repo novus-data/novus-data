@@ -728,6 +728,13 @@ Every block of reading text sits in a story box, `StoryBox` in
   columns at `md` and twelve at `lg`, so a box that spans the band uses
   `FULL_WIDTH` (`md:col-span-2 lg:col-span-12`). With `lg:col-span-12` alone it
   sits in half the row between 768 and 1023px with the other half empty.
+- **A front-page box is a headline and one sentence** (amended by the author,
+  5 October 2026: the page was "too wordy"). The explanation lives on the page
+  the box links to: Coverage lists topic titles only, and `/coverage` says why
+  each matters. The "Who it is written for" band was cut for the same reason;
+  the footer carries the disclaimer it repeated. The sign-in box shows only
+  once accounts are live. At this cut the empty-register front page was about
+  270 words, down from about 790.
 - **Lists stay one object.** The briefing archive is one box with hairlines
   between issues (a sequence reads as aligned columns); the register is one
   box per entry (each entry is a story).
