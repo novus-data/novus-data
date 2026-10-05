@@ -34,13 +34,14 @@ decide for me. Written to be read once, in order.
   `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` in the **Preview** environment, rather than
   a commit-author restriction. The existing variable now covers **Production
   and Preview**; its redeployment succeeded with the launch guard enabled.
-- **Production still deploys from the fork, not the org repo.** Checked
-  5 October 2026 through Vercel's deployment records: every deployment of the
-  `novus-data` project comes from `arowsom-oss/novus-data`, and
-  `www.novusdata.news` serves fork commit `de485f2` (fork PR #4, 3 October).
-  Nothing merged into `novus-data/novus-data` reaches the live site until the
-  Vercel project is re-pointed at it. **DEPLOY.md Part 7** (the Vercel
-  bullet) has the steps.
+- **Vercel now builds from the org repo.** The project was re-linked on
+  5 October 2026; PR #19's preview was the first deployment built from
+  `novus-data/novus-data`. Production had not caught up at that point:
+  `www.novusdata.news` still served fork commit `de485f2` (fork PR #4,
+  3 October), because PR #18 merged before the re-link and re-linking does not
+  deploy by itself. The first merge into `claude/practical-einstein-tzfg55`
+  after the re-link is the first org-repo production deploy. Confirm it in
+  Vercel's Deployments list (DEPLOY.md Part 7, the Vercel bullet).
 - The earlier production deployment from fork commit `bc458d8` was checked live
   on `www.novusdata.news`. Live checks passed for home, About, Contact, Privacy,
   the feeds and sitemap. Monitor, Articles, direct article pages, article social

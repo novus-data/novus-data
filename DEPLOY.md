@@ -605,13 +605,12 @@ GitHub redirects the old address, both in the browser and for `git`.
   `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` needs that variable enabled for **Preview**,
   rather than disabling the launch guard.
 
-  **Still to do as of 5 October 2026.** Vercel's deployment records show every
-  build of the `novus-data` project coming from `arowsom-oss/novus-data`, so a
-  PR merged in the organisation repo does not reach `www.novusdata.news`.
-  Re-linking does not deploy anything by itself: after switching, merge the
-  next PR or use **Deployments → Create Deployment** from
-  `claude/practical-einstein-tzfg55`. It is done when the newest production
-  deployment names `novus-data/novus-data` as its source. Environment variables
+  **Re-linked on 5 October 2026.** Re-linking does not deploy anything by
+  itself, so production keeps serving the last fork build until the next
+  production deploy: merge a PR into `claude/practical-einstein-tzfg55`, or use
+  **Deployments → Create Deployment** from that branch. It is finished when the
+  newest *production* deployment names `novus-data/novus-data` as its source;
+  a preview from the org repo only proves the link. Environment variables
   belong to the project, not the repository, so they carry over.
 - **Local clones:** `git remote set-url origin
   https://github.com/<name>/novus-data.git`. The redirect works today, but it
