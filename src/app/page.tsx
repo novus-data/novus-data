@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { ActionLink } from '@/components/action';
+import { ChokepointMap } from '@/components/chokepoint-map';
 import { Container } from '@/components/container';
 import { JsonLd } from '@/components/json-ld';
 import { SeveritySwatch } from '@/components/severity-legend';
@@ -94,6 +95,18 @@ export default async function HomePage() {
           </div>
         </div>
       </Container>
+
+      <Band id="chokepoints" label="Chokepoints">
+        <StoryBox
+          className={FULL_WIDTH}
+          kicker="Locator"
+          title="The straits and canals we watch"
+          footer={<TextLink href="/disruptions">Open the register</TextLink>}
+        >
+          <p>A marker fills in when an open register entry concerns that place.</p>
+          <ChokepointMap disruptions={disruptions} />
+        </StoryBox>
+      </Band>
 
       {rest.length > 0 || matrix.rows.length > 0 ? (
         <Band id="register-now" label="In the register now">

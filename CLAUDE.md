@@ -194,6 +194,8 @@ src/lib/format.ts          Dates, issue numbers, reading time.
 src/lib/og.ts              Font data and colours for generated images.
 src/lib/structured-data.ts JSON-LD builders.
 src/components/            Presentational components. One client component.
+  chokepoint-map.tsx         The home page locator map. Static SVG. See §6a.
+  world-outline.ts           Its hand-drawn coastlines and sea lanes. Coarse on purpose.
 src/app/account/           The signed-in page and its server actions. Dynamic.
 src/app/auth/              Magic-link callback and sign-out. Dynamic.
 src/proxy.ts               Session refresh. NOT middleware.ts — renamed in Next 16.
@@ -394,6 +396,35 @@ the register is in for its first months, which is exactly when the chart is
 being judged. Capping the table rather than the cells keeps `table-layout:
 auto`, so headers still size to their titles, and once there are enough columns
 the cap exceeds the container and `w-full` takes over again.
+
+### The chokepoint locator map
+
+`src/components/chokepoint-map.tsx`, on the home page under the lead. It
+plots the ten chokepoints in `src/lib/live/nodes.ts` and fills a marker when
+an **open** register entry lists that id in `places`. That is its only state,
+so it adds no data model and states no figure: a marker is a position, and
+"an open entry names this place" is something a human wrote and dated.
+Resolved entries do not fill a marker.
+
+- **The coastlines are hand-drawn and coarse** (`world-outline.ts`), because
+  Rule 3 rules out a third-party map dataset. They are a degree or two out in
+  places. The chokepoint positions are the accurate part. Do not add detail
+  to the coastlines in a polish pass; a locator map only has to say "here".
+- **A status colour never appears without its word.** A filled marker's label
+  reads "Panama · Active", and the list under the map repeats the status with
+  a link to the entry. Labels are hidden below `sm`, where a line of names
+  under the map stands in for them and the markers scale up 2.5×.
+- **Label positions are set for the worst case**: every marker filled, so
+  every label at its longest ("Bab el-Mandeb · Active", semibold). A shorter
+  label always sits inside its longest version, so if that case is clear no
+  combination of states collides. Moving a label or adding a chokepoint means
+  re-checking that case, against the other labels, every marker (its own ring
+  included) and the frame.
+- **The sea lanes are context, not data.** Dashed, faint and unlabelled; they
+  carry no volumes, counts or claims.
+- **To put a disruption on the map,** list the chokepoint's id in the entry's
+  `places` (`npm run new-disruption` prompts for it). Ports and industrial
+  clusters in `places` are valid but are not drawn on this map.
 
 ## 6b. The account layer
 
