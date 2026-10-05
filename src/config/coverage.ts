@@ -1,8 +1,8 @@
 /**
  * What Novus Data tracks.
  *
- * This is the one file to edit when the beat changes. The home page reads
- * `summary`; /coverage reads everything. Nothing else hardcodes a topic, so
+ * This is the one file to edit when the beat changes. The home page lists
+ * titles only; /coverage reads the rest. Nothing else hardcodes a topic, so
  * adding, cutting or reordering a topic here is the whole job.
  *
  * PROVENANCE: drafted from the project description, not supplied by the
@@ -15,7 +15,7 @@ export interface CoverageTopic {
   /** URL fragment, used for in-page anchors on /coverage. Keep it stable. */
   id: string;
   title: string;
-  /** One line. Used on the home page list. */
+  /** One line. Not rendered at present; the home page lists titles only. */
   summary: string;
   /** What the thing actually is, in plain terms. */
   definition: string;
