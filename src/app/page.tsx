@@ -15,12 +15,25 @@ import { coverageTopics } from '@/config/coverage';
 import { monitorAndArticlesEnabled } from '@/config/launch';
 import { formatAuthorNames, publication } from '@/config/publication';
 import type { DisruptionSummary, EntityExposure } from '@/lib/disruptions';
-import { CATEGORY_LABELS, SEVERITY_LABELS, buildExposureMatrix, listDisruptions } from '@/lib/disruptions';
+import {
+  CATEGORY_LABELS,
+  SEVERITY_LABELS,
+  buildExposureMatrix,
+  listDisruptions,
+  worstAsOf,
+} from '@/lib/disruptions';
 import type { IssueSummary } from '@/lib/content';
 import { listArticles, listIssues } from '@/lib/content';
 import { absoluteUrl, accountsConfigured } from '@/lib/env';
 import { formatIssueLabel, formatLongDate, formatShortDate } from '@/lib/format';
 import { publicationJsonLd } from '@/lib/structured-data';
+
+/**
+ * A box that spans the whole band. `Band` is two columns at `md` and twelve at
+ * `lg`, so a full-width box has to say so at both, or between 768 and 1023px it
+ * takes half the row and leaves the other half empty.
+ */
+const FULL_WIDTH = 'md:col-span-2 lg:col-span-12';
 
 export const metadata: Metadata = {
   title: publication.name,
@@ -70,7 +83,7 @@ export default async function HomePage() {
           )}
 
           <div className="flex flex-col gap-4 lg:col-span-4">
-            <StoryBox as="aside" size="compact" level={2} kicker="Our mission" kickerTone="muted">
+            <StoryBox as="aside" size="compact" level={2} kicker="What it is for" kickerTone="muted">
               <p className="text-[1.1875rem] font-semibold leading-snug tracking-[-0.01em] text-fg">
                 {publication.mission}
               </p>
@@ -85,13 +98,13 @@ export default async function HomePage() {
           {rest.length > 0 ? (
             <AlsoOpen
               disruptions={rest.slice(0, 5)}
-              className={matrix.rows.length > 0 ? 'lg:col-span-7' : 'lg:col-span-12'}
+              className={matrix.rows.length > 0 ? 'lg:col-span-7' : FULL_WIDTH}
             />
           ) : null}
           {matrix.rows.length > 0 ? (
             <MostExposed
               rows={matrix.rows.slice(0, 6)}
-              className={rest.length > 0 ? 'lg:col-span-5' : 'lg:col-span-12'}
+              className={rest.length > 0 ? 'lg:col-span-5' : FULL_WIDTH}
             />
           ) : null}
         </Band>
@@ -104,20 +117,20 @@ export default async function HomePage() {
           {latestIssue && lead ? (
             <LatestBriefing
               issue={latestIssue}
-              className={analysis.length > 0 ? 'lg:col-span-6' : 'lg:col-span-12'}
+              className={analysis.length > 0 ? 'lg:col-span-6' : FULL_WIDTH}
             />
           ) : null}
           {analysis.length > 0 ? (
             <LatestAnalysis
               posts={analysis}
-              className={latestIssue && lead ? 'lg:col-span-6' : 'lg:col-span-12'}
+              className={latestIssue && lead ? 'lg:col-span-6' : FULL_WIDTH}
             />
           ) : null}
         </Band>
       ) : null}
 
       <Band id="inside" label="Inside Novus Data">
-        {explainerLeads ? null : <Explainer size="standard" className="lg:col-span-12" />}
+        {explainerLeads ? null : <Explainer size="standard" className={FULL_WIDTH} />}
 
         <StoryBox
           className="lg:col-span-7"
@@ -178,7 +191,7 @@ export default async function HomePage() {
         ) : null}
 
         <StoryBox
-          className={monitorAndArticlesEnabled ? 'lg:col-span-7' : 'lg:col-span-12'}
+          className={monitorAndArticlesEnabled ? 'lg:col-span-7' : FULL_WIDTH}
           kicker={publication.newsletter.name}
           title="The week in writing, by email"
           titleHref="/briefings"
@@ -202,12 +215,12 @@ export default async function HomePage() {
         <StoryBox
           className="lg:col-span-6"
           kicker="For investors"
-          title="Physical trade breaks before prices move"
+          title="A disruption reaches earnings by a route you can trace"
         >
           <p>
             A chokepoint closing absorbs vessel capacity across a whole market, not one route. A
-            licence on one processed metal can reprice a sector that looked diversified. The gap
-            between the event and the repricing is the only part anyone can act in.
+            licence on one processed metal can reprice a sector that looked diversified. Each step
+            between the event and a company&rsquo;s results is a link someone can check.
           </p>
           <p>
             The exposure chart names what sits downstream of a problem and how strong the evidence
@@ -234,7 +247,7 @@ export default async function HomePage() {
           </p>
         </StoryBox>
 
-        <p className="text-meta text-muted lg:col-span-12">{publication.disclaimer}</p>
+        <p className={`text-meta text-muted ${FULL_WIDTH}`}>{publication.disclaimer}</p>
       </Band>
 
       <Band id="more" label="Coverage and what comes next">
@@ -346,16 +359,7 @@ function Explainer({ size, className }: { size: 'lead' | 'standard'; className?:
       kicker="Why Novus Data exists"
       title={publication.openingLine}
       deck={publication.openingBody}
-      footer={
-        size === 'lead' ? (
-          <div className="flex flex-wrap gap-3 py-1">
-            <ActionLink href="/disruptions">Open the register</ActionLink>
-            <ActionLink href="/exposure" variant="quiet">
-              See who it reaches
-            </ActionLink>
-          </div>
-        ) : undefined
-      }
+      footer={size === 'lead' ? <TextLink href="/disruptions">Open the register</TextLink> : undefined}
     />
   );
 }
@@ -478,10 +482,7 @@ function MostExposed({ rows, className }: { rows: EntityExposure[]; className?: 
 }
 
 function ExposureRow({ row }: { row: EntityExposure }) {
-  const asOf = [...row.byDisruption.values()]
-    .map((exposure) => exposure.asOf)
-    .sort()
-    .at(-1);
+  const asOf = worstAsOf([...row.byDisruption.values()]);
 
   return (
     <li className="py-3 first:pt-0">
@@ -496,9 +497,9 @@ function ExposureRow({ row }: { row: EntityExposure }) {
         <span className="mt-1.5 flex items-center gap-2.5 text-meta">
           <SeveritySwatch severity={row.worstSeverity} />
           <span>
-            {SEVERITY_LABELS[row.worstSeverity]} · <span data-numeric>{row.count}</span>{' '}
-            {row.count === 1 ? 'disruption' : 'disruptions'}
-            {asOf && formatShortDate(asOf) ? `, as of ${formatShortDate(asOf)}` : ''}
+            {SEVERITY_LABELS[row.worstSeverity]}
+            {asOf && formatShortDate(asOf) ? ` as of ${formatShortDate(asOf)}` : ''} ·{' '}
+            <span data-numeric>{row.count}</span> {row.count === 1 ? 'disruption' : 'disruptions'}
           </span>
         </span>
       </Link>

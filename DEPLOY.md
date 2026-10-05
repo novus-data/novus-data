@@ -600,10 +600,19 @@ GitHub redirects the old address, both in the browser and for `git`.
 
   If it still names `arowsom-oss/novus-data`, pushes to the organisation will not
   deploy there. Verify an organisation preview before changing the production
-  source. Keep Production Branch as `claude/practical-einstein-tzfg55`. A preview
+  source. Production Branch is `main` (it was `claude/practical-einstein-tzfg55`
+  until 5 October 2026). A preview
   also needs the required public environment values: a failed preview naming
   `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` needs that variable enabled for **Preview**,
   rather than disabling the launch guard.
+
+  **Re-linked on 5 October 2026.** Re-linking does not deploy anything by
+  itself, so production keeps serving the last fork build until the next
+  production deploy: merge a PR into `main`, or use
+  **Deployments → Create Deployment** from that branch. It is finished when the
+  newest *production* deployment names `novus-data/novus-data` as its source;
+  a preview from the org repo only proves the link. Environment variables
+  belong to the project, not the repository, so they carry over.
 - **Local clones:** `git remote set-url origin
   https://github.com/<name>/novus-data.git`. The redirect works today, but it
   breaks for good if anyone ever creates a new `Novous-Data/novus-data`.

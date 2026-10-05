@@ -19,7 +19,7 @@ on:
   pull_request:
   push:
     branches:
-      - claude/practical-einstein-tzfg55
+      - main
 
 # A new push supersedes an in-flight run on the same ref.
 concurrency:

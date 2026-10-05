@@ -28,17 +28,27 @@ decide for me. Written to be read once, in order.
   forced updates and collisions; they do not establish Beehiiv's live output.
   Run `npm run test:regressions` to repeat them; the checks use temporary
   directories and a local RSS server, with no writes to the production archive.
-- GitHub's Claude app access page says an **organisation owner** must act;
-  repository admin access does not satisfy that requirement. The signed-in
-  account's organisation invitation page shows "Invitation not found". An owner
-  needs to approve Claude for this repository (or invite Alex as an owner).
-  Then start a new Claude Code session with `novus-data/novus-data` selected.
+- Claude now has push access to `novus-data/novus-data` (confirmed 4 October
+  2026 by a push and a merged PR, #18). Work happens in the org repo from here.
 - A failed fork preview was traced to the missing
   `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` in the **Preview** environment, rather than
   a commit-author restriction. The existing variable now covers **Production
   and Preview**; its redeployment succeeded with the launch guard enabled.
-- The production deployment from fork commit `bc458d8` is ready on
-  `www.novusdata.news`. Live checks passed for home, About, Contact, Privacy,
+- **Vercel now builds from the org repo, and production is `main`.** The
+  project was re-linked on 5 October 2026 with `main` as its production branch;
+  PR #19's preview was the first deployment built from `novus-data/novus-data`.
+  Production had not caught up at that point: `www.novusdata.news` still served
+  fork commit `de485f2` (fork PR #4, 3 October), because re-linking does not
+  deploy by itself. PR #18 had merged into `claude/practical-einstein-tzfg55`,
+  the old integration branch, so PR #19 carries it into `main`. The first merge
+  into `main` after the re-link is the first org-repo production deploy;
+  confirm it in Vercel's Deployments list (DEPLOY.md Part 7, the Vercel
+  bullet).
+- **GitHub's default branch is still `claude/practical-einstein-tzfg55`.**
+  Switch it to `main` (repo Settings → General → Default branch) so new PRs
+  target production by default. The old branch can be deleted after that.
+- The earlier production deployment from fork commit `bc458d8` was checked live
+  on `www.novusdata.news`. Live checks passed for home, About, Contact, Privacy,
   the feeds and sitemap. Monitor, Articles, direct article pages, article social
   cards and `/live.json` return 404. The signup button opened the custom-domain
   Beehiiv form, and Contact shows the project address. The earlier privacy draft
