@@ -414,6 +414,12 @@ Resolved entries do not fill a marker.
   reads "Panama · Active", and the list under the map repeats the status with
   a link to the entry. Labels are hidden below `sm`, where a line of names
   under the map stands in for them and the markers scale up 2.5×.
+- **Label positions are set for the worst case**: every marker filled, so
+  every label at its longest ("Bab el-Mandeb · Active", semibold). A shorter
+  label always sits inside its longest version, so if that case is clear no
+  combination of states collides. Moving a label or adding a chokepoint means
+  re-checking that case, against the other labels, every marker (its own ring
+  included) and the frame.
 - **The sea lanes are context, not data.** Dashed, faint and unlabelled; they
   carry no volumes, counts or claims.
 - **To put a disruption on the map,** list the chokepoint's id in the entry's
