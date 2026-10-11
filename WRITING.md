@@ -157,6 +157,10 @@ Novus Data publishes analysis and commentary, not investment advice.
 9. **One idea per article.** A second idea is a second article.
 10. **Headlines state a finding.** "Why the Panama Canal matters" is a topic;
     a finding says what changed and for whom.
+11. **No photographs.** A stock or agency photo is a third-party asset, and
+    the site uses none. A chart you made yourself from sourced data is fine:
+    put the source and date under it. A screenshot of someone else's chart is
+    not yours, so it counts as a photo.
 
 ---
 
@@ -170,6 +174,7 @@ Novus Data publishes analysis and commentary, not investment advice.
       source.
 - [ ] Nothing reads as advice to buy or sell anything.
 - [ ] No banned words (house style, rule 8).
+- [ ] No photographs; any chart is one you made, with its source under it.
 - [ ] "What would change this view" has real, checkable signposts.
 - [ ] Every link opens and goes where it says.
 - [ ] The Beehiiv tag is **Article** or **Long-term review**, not left blank.
