@@ -3,6 +3,44 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
+## Where things stand — 13 October 2026
+
+Shipped to `main` since the launch check below: the light theme (PR #19), the
+slimmer home page (#20), the chokepoint locator map (#21), and the register
+search taken out again (#22, which also added the no-photographs rule to
+WRITING.md). The map's place cards are in PR #23.
+
+**Waiting on Gavin**
+
+- Written confirmation that Alex may make launch decisions alone. Until it is
+  in DECISIONS.md, that file still says a big change needs both.
+- Fixes to the first four articles (Hormuz, the 9 November exclusions,
+  Thirteen dates, Panama), from the review of the 19 drafts. Articles switch
+  on once those are in.
+- A severity for each line in that doc's Register severities table. They
+  become the register's first three entries.
+
+**Waiting on Alex**
+
+- GitHub's default branch is still `claude/practical-einstein-tzfg55` (see
+  the launch check). Switching to `main` and deleting the old branch also
+  closes PR #14, whose changes are already on `main`.
+- Update the local clone used with Cowork. On 11 October it predated commit
+  `93552ec`, so it showed a `.env.local` bug that `main` fixed on 3 October.
+- The source-link check of Gavin's drafts (a CSV of 93 unwrapped URLs, run
+  through Cowork).
+- Allow `rss.beehiiv.com` and `www.novusdata.news` in the Claude cloud
+  environment's network settings, so a session can run the sync and check
+  the live site itself.
+
+**Checked**
+
+- The Beehiiv feed still had zero items on 11 October, fetched from Alex's
+  computer.
+- The live pages make only same-origin requests, so the report-only CSP has
+  nothing to report yet. Check again after the first synced issue: images
+  will come from Beehiiv's servers, which `img-src` does not list.
+
 ## Launch check — 3 October 2026
 
 - The organisation repository, `novus-data/novus-data`, remains the source of

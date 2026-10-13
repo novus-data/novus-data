@@ -179,6 +179,7 @@ Novus Data publishes analysis and commentary, not investment advice.
 - [ ] Every link opens and goes where it says.
 - [ ] The Beehiiv tag is **Article** or **Long-term review**, not left blank.
       A blank tag files the post as a briefing.
+- [ ] If it is about a chokepoint, that place is tagged too (section 7).
 - [ ] The URL slug in Beehiiv is short and final. **Once published it is a
       permanent address; do not change it.**
 - [ ] Read it aloud once. Anything you stumble on, rewrite.
@@ -223,6 +224,11 @@ keeps the record.
    skeleton.
 2. Add the content tag **Article** or **Long-term review**. This tag decides
    where the post appears; without it the post is filed as a briefing.
+   If the post is about one of the ten chokepoints, add that place as a tag
+   too. A reader who selects the place on the home page map then finds the
+   post there. The tags are: Suez, Bab el-Mandeb, Hormuz, Malacca, Taiwan
+   Strait, Panama, Bosphorus, Gibraltar, Dover, Cape of Good Hope. Only tag
+   places the post is about, not ones it mentions in passing.
 3. Publish to the **web**. Emailing an article to subscribers is optional; the
    briefing is what they signed up for.
 4. On your computer: `npm run sync-issues -- --dry-run`, then

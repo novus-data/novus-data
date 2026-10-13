@@ -52,12 +52,14 @@ export const metadata: Metadata = {
  * register at build time, and a band with nothing real in it does not render.
  */
 export default async function HomePage() {
-  const [disruptions, issues, matrix, analysis] = await Promise.all([
+  const [disruptions, briefings, matrix, articles] = await Promise.all([
     listDisruptions(),
-    listIssues(3),
+    listIssues(),
     buildExposureMatrix(),
-    articlesEnabled ? listArticles(undefined, 3) : Promise.resolve([]),
+    articlesEnabled ? listArticles() : Promise.resolve([]),
   ]);
+  const issues = briefings.slice(0, 3);
+  const analysis = articles.slice(0, 3);
 
   const open = disruptions.filter((entry) => entry.status !== 'resolved');
   const [lead, ...rest] = open;
@@ -104,7 +106,9 @@ export default async function HomePage() {
           footer={<TextLink href="/disruptions">Open the register</TextLink>}
         >
           <p>A marker fills in when an open register entry concerns that place.</p>
-          <ChokepointMap disruptions={disruptions} />
+          {/* Articles reach the map only while /articles is switched on, so a
+              card never links to a page that 404s. */}
+          <ChokepointMap disruptions={disruptions} posts={[...briefings, ...articles]} />
         </StoryBox>
       </Band>
 
