@@ -25,6 +25,26 @@ repository, so that rule would really mean "whoever asks Claude first".
 Ownership follows who is responsible for a thing being right, not who typed the
 request.
 
+## Launch calls passed to `arowsom-oss`
+
+Agreed by `Novous-Data` on 2026-10-13, by text message. Asked to confirm
+that `arowsom-oss` can make the launch calls, he replied: "Just tell it to
+handle all of that."
+
+- **Launch calls are now `arowsom-oss`'s alone**: when Articles or the
+  monitor switches on, publishing order, and adding a section. The "both"
+  rule above no longer applies to them.
+- **Money still needs both.** The message was about launch, not about
+  whether or how the site makes money.
+- **The register's claims are still research under a person's name.** The
+  same message asked Claude to "handle" the severity choices and the rewrites
+  after the 14 October CPI release. Claude drafts those; a named person picks
+  them and is recorded as the author. That follows the reason given above:
+  ownership follows who is responsible for a thing being right. If that
+  person is Alex, he goes on the masthead (`publication.authors`) before the
+  first entry he records, or the register would credit Gavin with his
+  choices.
+
 ## Launch
 
 Decided by `arowsom-oss` on 2026-09-23, under the rule above. A big change
@@ -66,5 +86,5 @@ step 3).
 ## Deployment updates
 
 - The production sequence is **#9, then #12, then #11**. The integration branch is `claude/practical-einstein-tzfg55`; #12 must land before the production switch so the prelaunch sign-in notice remains present.
-- Monitor and Articles remain gated off for launch by `src/config/launch.ts`, as two separate switches (`monitorEnabled`, `articlesEnabled`) so either can go live without the other; that includes `/live.json`, direct article URLs, and article entries in `/feed.json`. Enabling either is a new data-surface decision that requires Gavin and Alexander to agree and then updating this record.
+- Monitor and Articles remain gated off for launch by `src/config/launch.ts`, as two separate switches (`monitorEnabled`, `articlesEnabled`) so either can go live without the other; that includes `/live.json`, direct article URLs, and article entries in `/feed.json`. Enabling either is now `arowsom-oss`'s call (see "Launch calls passed to `arowsom-oss`", 2026-10-13); update this record when it happens.
 - The subscribe URL moved from `https://novusdata.beehiiv.com/subscribe` to `https://newsletter.novusdata.news/?modal=signup`; update any remaining documentation that names the old URL.
