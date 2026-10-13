@@ -17,6 +17,7 @@ import matter from 'gray-matter';
 
 import type { ContentDiagnostics, ContentSource, Issue } from '../types';
 import { kindFor } from '../types';
+import { publication } from '@/config/publication';
 import { wordCount } from '@/lib/format';
 
 /**
@@ -197,6 +198,22 @@ function parseIssueFile(file: string, raw: string, warnings: string[]): Issue | 
   const contentHtml = body.trim();
   const tags = normaliseTags(data.tags);
 
+  // Attribution, as in the register: an id that is not on the masthead is a
+  // typo or a stale reference, so warn and fall back to the editor rather
+  // than rendering a name nobody owns.
+  const rawAuthor = normaliseText(data.author);
+  let author: string | null = null;
+  if (rawAuthor) {
+    if (publication.authors.some((person) => person.id === rawAuthor)) {
+      author = rawAuthor;
+    } else {
+      warn(
+        warnings,
+        `${file}: "author" is "${rawAuthor}", which is not an id in publication.authors. The post falls back to the editor's byline.`,
+      );
+    }
+  }
+
   if (data.kind !== undefined && !['briefing', 'article', 'review'].includes(String(data.kind))) {
     warn(
       warnings,
@@ -216,6 +233,7 @@ function parseIssueFile(file: string, raw: string, warnings: string[]): Issue | 
     externalUrl: normaliseText(data.beehiivUrl) ?? normaliseText(data.externalUrl),
     coverImageUrl: normaliseText(data.coverImageUrl),
     tags,
+    author,
     contentHtml: contentHtml.length > 0 ? contentHtml : null,
   };
 }

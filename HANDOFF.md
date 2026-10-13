@@ -3,43 +3,50 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
-## Where things stand — 13 October 2026
+## Where things stand — 13 October 2026, evening
 
-Shipped to `main` since the launch check below: the light theme (PR #19), the
-slimmer home page (#20), the chokepoint locator map (#21), and the register
-search taken out again (#22, which also added the no-photographs rule to
-WRITING.md). The map's place cards are in PR #23.
+Shipped to `main`: light theme (#19), slimmer home page (#20), chokepoint
+map (#21), register search removed and the no-photographs rule (#22), map
+place cards (#23), Gavin's first four articles, hidden (#24), launch calls
+passed to Alex in DECISIONS.md (#25), and the **first three register entries
+with nine exposures, live** (#26). Alex Rowsom is on the masthead.
 
 **Waiting on Gavin**
 
-- Written confirmation that Alex may make launch decisions alone. Until it is
-  in DECISIONS.md, that file still says a big change needs both.
-- Fixes to the first four articles (Hormuz, the 9 November exclusions,
-  Thirteen dates, Panama), from the review of the 19 drafts. Articles switch
-  on once those are in.
-- A severity for each line in that doc's Register severities table. They
-  become the register's first three entries.
+- Mechanisms for the Panama LPG and LNG rows, which were left out.
+- Two source swaps: the CBS link (Thirteen dates, G20 at Doral) opens an
+  unrelated story, and the Dawn link (Fed article, 28 February strikes)
+  opens the e-paper front page. Official announcements instead.
+- The CPI lines in the Fed, jobs and Thirteen dates articles, after the
+  14 October release.
+- The other 15 drafts, in the same content-file format.
 
-**Waiting on Alex**
+**Alex's call: switching Articles on.** A dress rehearsal (Articles switched
+on in a local build only) passed: all four pages, social cards, feed and
+sitemap entries build, the home page shows "Latest analysis", and no request
+fails. The go-live PR flips `articlesEnabled`, sets each `publishedAt` to
+the real date, adds a DECISIONS.md line, and puts Articles in the header
+menu (today it is footer-only; Alex decides). Do it before the 27–28 October
+Fed meeting, or the Fed piece is out of date on arrival.
 
-- GitHub's default branch is still `claude/practical-einstein-tzfg55` (see
-  the launch check). Switching to `main` and deleting the old branch also
-  closes PR #14, whose changes are already on `main`.
-- Update the local clone used with Cowork. On 11 October it predated commit
-  `93552ec`, so it showed a `.env.local` bug that `main` fixed on 3 October.
-- The source-link check of Gavin's drafts (a CSV of 93 unwrapped URLs, run
-  through Cowork).
-- Allow `rss.beehiiv.com` and `www.novusdata.news` in the Claude cloud
-  environment's network settings, so a session can run the sync and check
-  the live site itself.
+**Dates**
+
+- 3 November: the register entries pass 21 days without review and show as
+  stale. Re-check each and set a new `updatedAt` (`npm run review --due`).
+- 9 November: the Section 301 exclusions expire. Move that entry from
+  "watch" to "active", or "resolved" if USTR extends them.
 
 **Checked**
 
-- The Beehiiv feed still had zero items on 11 October, fetched from Alex's
-  computer.
-- The live pages make only same-origin requests, so the report-only CSP has
-  nothing to report yet. Check again after the first synced issue: images
-  will come from Beehiiv's servers, which `img-src` does not list.
+- The Beehiiv feed still had zero items on 13 October. This cloud environment
+  now has network access; Node needs `NODE_USE_ENV_PROXY=1` here for
+  `npm run sync-issues` to reach it.
+- GitHub's default branch is `main`; the old branch is deleted.
+- Alex's local Windows clone (Documents/Codex/.../novus-data) is fetched and
+  clean. Run git there from Windows, not through Cowork's Linux shell, which
+  misreads its line endings and cannot see the `novus-merge-stage` worktree.
+- The CSP still has nothing to report. Check again after the first synced
+  issue: Beehiiv's image host is not in `img-src`.
 
 ## Launch check — 3 October 2026
 

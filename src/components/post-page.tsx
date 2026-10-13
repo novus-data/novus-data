@@ -7,7 +7,7 @@ import { PrintPermalink } from '@/components/print-permalink';
 import { ProseBody } from '@/components/prose-body';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { ExternalLink, TextLink } from '@/components/text-link';
-import { publication } from '@/config/publication';
+import { hasCoAuthors, publication, recordedBy } from '@/config/publication';
 import { POST_KIND_LABELS, postPath, type Issue, type IssueNeighbours, type IssueSummary } from '@/lib/content/types';
 import { absoluteUrl } from '@/lib/env';
 import { formatIssueLabel, formatLongDate, readingTimeMinutes, toDate } from '@/lib/format';
@@ -60,6 +60,9 @@ export function PostPage({ post, previous, next }: { post: Issue } & IssueNeighb
   // A real measurement of the stored text. Omitted entirely when there is no
   // body to measure, rather than defaulted to something.
   const minutes = readingTimeMinutes(post.contentHtml);
+  // With one author the masthead already says who wrote everything; with more
+  // than one, each post names its writer (Rule 2), falling back to the editor.
+  const writer = hasCoAuthors() ? recordedBy(post.author) : null;
 
   return (
     <article>
@@ -92,6 +95,12 @@ export function PostPage({ post, previous, next }: { post: Issue } & IssueNeighb
                   <dd data-numeric className="mt-0.5 text-fg">
                     {number}
                   </dd>
+                </div>
+              ) : null}
+              {writer?.name ? (
+                <div>
+                  <dt className="text-muted">Written by</dt>
+                  <dd className="mt-0.5 text-fg">{writer.name}</dd>
                 </div>
               ) : null}
               {date ? (

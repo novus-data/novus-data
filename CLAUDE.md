@@ -346,6 +346,11 @@ worse than falling back to the editor. The entry page shows **Recorded by** and
 the feed carries `_novus.recordedBy` only once `hasCoAuthors()` is true — with
 one author a per-entry byline just repeats the masthead on every page.
 
+Posts carry the same optional `author` field (an id from the masthead,
+falling back to the editor), and the post page shows **Written by** once
+`hasCoAuthors()` is true. A post's structured data names that one writer,
+never the whole masthead.
+
 Add the second author *before* the first co-written entry. Retro-fitting
 attribution to files that never carried it means guessing who wrote what.
 
