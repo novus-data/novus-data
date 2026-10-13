@@ -190,6 +190,7 @@ src/lib/disruptions/       The register and exposure layer. See section 6a.
 src/lib/accounts/          The account contract and its Supabase store. See 6b.
 src/lib/supabase/          Supabase clients. admin.ts is SERVER ONLY. See 6b.
 src/lib/env.ts             Environment access and URL resolution.
+src/lib/places.ts          Beehiiv tags that file a post under a chokepoint. Pure.
 src/lib/format.ts          Dates, issue numbers, reading time.
 src/lib/og.ts              Font data and colours for generated images.
 src/lib/structured-data.ts JSON-LD builders.
@@ -425,6 +426,18 @@ Resolved entries do not fill a marker.
 - **To put a disruption on the map,** list the chokepoint's id in the entry's
   `places` (`npm run new-disruption` prompts for it). Ports and industrial
   clusters in `places` are valid but are not drawn on this map.
+- **Selecting a place opens a card** with its open register entries and the
+  latest posts tagged with it in Beehiiv (`PLACE_TAGS` in `src/lib/places.ts`;
+  WRITING.md lists the tags for writers). A post reaches a place only through
+  a tag a writer chose, never by matching the text: a briefing that mentions
+  Panama in passing is not about Panama. The cards use the browser's Popover
+  API (a `popovertarget` button, no script), so the home page stays static
+  and the map still ships no JavaScript. Only a place with something to show
+  gets a button, so an empty register and archive leave a plain map.
+  Articles reach the cards only while `articlesEnabled` is on, so a card
+  never links to a page that 404s. Below `sm` the targets over the markers
+  are hidden, because Suez and the Bosphorus sit closer than a fingertip
+  there; the names under the map open the same cards.
 
 ## 6b. The account layer
 
@@ -639,6 +652,11 @@ helping write one, hold it to that file: the research sheet comes first, the
 analysis is the author's, and every company named carries the same mechanism,
 confidence and source the register requires. `/articles` is gated off by
 `articlesEnabled` in `src/config/launch.ts` until both founders agree.
+
+**Any post can go on the map.** Tag a chokepoint in Beehiiv (the tags are
+listed in WRITING.md §7) and the post appears in that place's card on the home
+page map, briefings included. Still no hand-edit: the tag arrives with the
+sync.
 
 ## 9. Design tokens
 

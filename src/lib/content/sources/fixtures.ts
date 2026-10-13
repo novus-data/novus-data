@@ -112,6 +112,9 @@ const rows: FixtureRow[] = [
     excerpt:
       '[SAMPLE] issueNumber is null here. Nothing on the site may derive a number from position, so this issue should render without one rather than being labelled 16.',
     contentHtml: SAMPLE_BODY,
+    // A place tag (src/lib/places.ts) puts it on the home page map, beside
+    // the sample register's Panama entry.
+    tags: ['Panama Canal'],
   },
   {
     slug: 'sample-issue-fifteen',
@@ -120,6 +123,9 @@ const rows: FixtureRow[] = [
     publishedAt: '2026-03-18T08:00:00.000Z',
     excerpt: '[SAMPLE] Placeholder excerpt used to check how a summary wraps in list views.',
     contentHtml: LONG_BODY,
+    // Two places, one with no register entry, and a tag written the way a
+    // hurried writer would: the map should still file it under both.
+    tags: ['hormuz', 'taiwan-strait'],
   },
   {
     slug: 'sample-issue-fourteen',
@@ -273,7 +279,7 @@ const rows: FixtureRow[] = [
     publishedAt: '2026-09-18T08:00:00.000Z',
     excerpt: '[SAMPLE] Placeholder standfirst for an article.',
     contentHtml: SAMPLE_BODY,
-    tags: ['Article'],
+    tags: ['Article', 'Panama'],
   },
   {
     slug: 'sample-article-strike',

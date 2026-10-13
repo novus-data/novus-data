@@ -49,7 +49,18 @@ async function main() {
   const response = await image.default({ params: Promise.resolve({ slug: 'offset-east' }) });
   assert.equal(response.status, 404);
   console.log('PASS hidden article social cards return 404');
-  console.log(`4 content regression groups passed; isolated files: ${root}`);
+
+  const { PLACE_TAGS, placesForTags } = await import('@/lib/places');
+  const { CHOKEPOINTS } = await import('@/lib/live/nodes');
+  const { kindFor } = await import('@/lib/content/types');
+  assert.deepEqual(Object.keys(PLACE_TAGS).sort(), CHOKEPOINTS.map(node => node.id).sort());
+  const allTags = Object.values(PLACE_TAGS).flat().map(tag => tag.toLowerCase().replace(/[-_]+/g, ' '));
+  assert.equal(new Set(allTags).size, allTags.length, 'one tag must not name two places');
+  assert.deepEqual(placesForTags(['Article', 'Strait of Hormuz', 'bab el mandeb', 'HORMUZ', 'Red Sea']), ['hormuz', 'bab-el-mandeb']);
+  assert.deepEqual(placesForTags([]), []);
+  assert.equal(kindFor(undefined, ['Panama Canal']), 'briefing');
+  console.log('PASS place tags cover every chokepoint and leave the post kind alone');
+  console.log(`5 content regression groups passed; isolated files: ${root}`);
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1; });
