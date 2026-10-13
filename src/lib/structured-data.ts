@@ -50,9 +50,12 @@ export function issueJsonLd(issue: Issue, canonicalUrl: string): Json {
     articleSection: issue.kind,
     keywords: issue.tags.length > 0 ? issue.tags : undefined,
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
-    author: namedAuthors().length > 0
-      ? namedAuthors().map((author) => ({ '@type': 'Person', name: author.name }))
-      : undefined,
+    // The person who wrote this post, not the whole masthead: listing every
+    // author would credit co-authors with pieces they did not write.
+    author: (() => {
+      const writer = recordedBy(issue.author);
+      return writer?.name ? { '@type': 'Person', name: writer.name } : undefined;
+    })(),
     publisher: { '@type': 'Organization', name: publication.name },
     image: issue.coverImageUrl ?? undefined,
     isPartOf: {

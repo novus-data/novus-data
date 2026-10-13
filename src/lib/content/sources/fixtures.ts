@@ -313,6 +313,7 @@ const fixtureIssues: Issue[] = rows
   externalUrl: row.externalUrl ?? null,
   coverImageUrl: null,
   tags: row.tags ?? [],
+  author: null,
   contentHtml: row.contentHtml ?? null,
 }))
   // Newest first, as listIssues promises, now that articles are interleaved.

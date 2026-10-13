@@ -68,6 +68,12 @@ export interface IssueSummary {
   externalUrl: string | null;
   coverImageUrl: string | null;
   tags: string[];
+  /**
+   * Who wrote it: an id from `publication.authors`. Null means the editor,
+   * which is the byline of record (Rule 2). An id not on the masthead is
+   * warned about and nulled at load time rather than rendered.
+   */
+  author: string | null;
 }
 
 export interface Issue extends IssueSummary {

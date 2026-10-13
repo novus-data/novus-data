@@ -60,7 +60,20 @@ async function main() {
   assert.deepEqual(placesForTags([]), []);
   assert.equal(kindFor(undefined, ['Panama Canal']), 'briefing');
   console.log('PASS place tags cover every chokepoint and leave the post kind alone');
-  console.log(`5 content regression groups passed; isolated files: ${root}`);
+
+  for (const [slug, author] of [['by-alex', 'alex'], ['by-nobody', 'not-on-masthead'], ['by-default', null]]) {
+    await writeFile(path.join(issues, `${slug}.md`), `---\nslug: "${slug}"\ntitle: "[SAMPLE] ${slug}"\npublishedAt: "2026-10-02"\n${author ? `author: "${author}"\n` : ''}---\n<p>[SAMPLE] isolated author test.</p>`);
+  }
+  const posts = await content.localFilesSource.listIssues();
+  assert.equal(posts.find(p => p.slug === 'by-alex')?.author, 'alex');
+  assert.equal(posts.find(p => p.slug === 'by-nobody')?.author, null);
+  assert.equal(posts.find(p => p.slug === 'by-default')?.author, null);
+  assert.match((await content.readDiagnostics()).warnings.join('\n'), /"author" is "not-on-masthead"/);
+  const { issueJsonLd } = await import('@/lib/structured-data');
+  const ld = issueJsonLd(posts.find(p => p.slug === 'by-default')! as never, 'https://example.invalid/p') as { author?: { name: string } };
+  assert.equal(ld.author?.name, 'Gavin McGreevy', 'a post credits its writer, not the whole masthead');
+  console.log('PASS posts name one writer, and an unknown author falls back to the editor');
+  console.log(`6 content regression groups passed; isolated files: ${root}`);
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1; });
