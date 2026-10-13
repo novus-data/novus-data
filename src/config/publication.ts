@@ -161,11 +161,14 @@ export const publication: Publication = {
       // Only statements that are true and checkable today belong here.
       credentials: [],
     },
-    // Add a second author by appending another entry. Give them a permanent
-    // `id`, and from then on register entries can carry `author: "<their id>"`
-    // so each assessment says who made it. Do that BEFORE the first entry
-    // either of you writes, not after — retro-fitting attribution to files
-    // that never carried it means guessing.
+    // Added on 13 October 2026, before the first register entry, so every
+    // entry can say who made its assessment (DECISIONS.md, "Launch calls
+    // passed to arowsom-oss"). The id is permanent once an entry uses it.
+    {
+      id: 'alex',
+      name: 'Alex Rowsom',
+      credentials: [],
+    },
   ],
 
   // Default is false and stays false unless the author says otherwise.

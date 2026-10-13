@@ -19,6 +19,7 @@ import {
   CONFIDENCE_NOTES,
   SEVERITIES,
   SEVERITY_LABELS,
+  SEVERITY_NOTES,
   STALE_AFTER_DAYS,
 } from '@/lib/disruptions/types';
 import { absoluteUrl, env } from '@/lib/env';
@@ -113,8 +114,17 @@ export default function AboutPage() {
             <p className="mt-4">
               Severity is a three-step scale — {SEVERITIES.map((s) => SEVERITY_LABELS[s].toLowerCase()).join(', ')} — and no finer.
               A more granular scale would imply a precision that reading public sources cannot
-              support.
+              support. It measures how hard the problem lands if the mechanism holds; how sure the
+              assessment is belongs to the confidence level, so the two are never mixed.
             </p>
+            <dl className="mt-4 flex flex-col gap-3">
+              {SEVERITIES.map((severity) => (
+                <div key={severity} className="flex flex-col gap-1 sm:flex-row sm:gap-4">
+                  <dt className="min-w-[7rem] text-fg">{SEVERITY_LABELS[severity]}</dt>
+                  <dd>{SEVERITY_NOTES[severity]}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           <div className="border-t border-hairline pt-6">
