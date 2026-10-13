@@ -108,6 +108,17 @@ export const SEVERITY_LABELS: Record<Severity, string> = {
 };
 
 /**
+ * What each step means, published on /about#method. Severity is how hard the
+ * problem lands if the mechanism holds; how sure we are of that is the
+ * separate confidence level, so neither is counted twice.
+ */
+export const SEVERITY_NOTES: Record<Severity, string> = {
+  low: 'A cost or delay the business can absorb.',
+  moderate: 'Shows up in its prices, margins or schedules.',
+  high: 'Interrupts core operations or a large share of supply.',
+};
+
+/**
  * The rule for every permanent id in the register — a disruption's, an
  * entity's: lowercase letters, digits and single hyphens. It is enforced at
  * load time, so the URL space under /disruptions and /entities is too.
