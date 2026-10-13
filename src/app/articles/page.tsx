@@ -55,42 +55,39 @@ export default async function ArticlesPage() {
             title="Nothing has been published here yet"
           >
             <p>
-              The first articles will appear on this page and stay here permanently. Until then,
-              the <TextLink href="/monitor">monitor</TextLink> and the{' '}
-              <TextLink href="/disruptions">register</TextLink> are where the current picture is.
+              The first articles will appear on this page and stay here permanently. Until then, the{' '}
+              <TextLink href="/disruptions">register</TextLink> is where the current picture is.
             </p>
           </StoryBox>
         ) : (
           <div className="flex flex-col gap-14">
-            <section aria-labelledby="reviews-heading" className="section-rule">
-              <h2 id="reviews-heading" className="text-heading font-semibold text-fg">
-                Long-term reviews
-              </h2>
-              <p className="mt-2 max-w-[64ch] text-[0.9375rem] text-muted">
-                What changed over a quarter or a half-year, what lasted and what faded — read against
-                the register&rsquo;s own record rather than the week&rsquo;s headlines.
-              </p>
-              <div className="mt-5">
-                {reviews.length > 0 ? (
+            {/* A section with nothing in it does not render, as on the home page:
+                a new section should open on what it has, not on what it lacks. */}
+            {reviews.length > 0 ? (
+              <section aria-labelledby="reviews-heading" className="section-rule">
+                <h2 id="reviews-heading" className="text-heading font-semibold text-fg">
+                  Long-term reviews
+                </h2>
+                <p className="mt-2 max-w-[64ch] text-[0.9375rem] text-muted">
+                  What changed over a quarter or a half-year, what lasted and what faded — read
+                  against the register&rsquo;s own record rather than the week&rsquo;s headlines.
+                </p>
+                <div className="mt-5">
                   <IssueList issues={reviews} label="Long-term reviews" basePath="/articles" />
-                ) : (
-                  <p className="text-muted">No long-term review has been published yet.</p>
-                )}
-              </div>
-            </section>
+                </div>
+              </section>
+            ) : null}
 
-            <section aria-labelledby="articles-heading" className="section-rule">
-              <h2 id="articles-heading" className="text-heading font-semibold text-fg">
-                Articles
-              </h2>
-              <div className="mt-5">
-                {articles.length > 0 ? (
+            {articles.length > 0 ? (
+              <section aria-labelledby="articles-heading" className="section-rule">
+                <h2 id="articles-heading" className="text-heading font-semibold text-fg">
+                  Articles
+                </h2>
+                <div className="mt-5">
                   <IssueList issues={articles} label="Articles" basePath="/articles" />
-                ) : (
-                  <p className="text-muted">No article has been published yet.</p>
-                )}
-              </div>
-            </section>
+                </div>
+              </section>
+            ) : null}
           </div>
         )}
       </Container>

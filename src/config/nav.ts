@@ -27,6 +27,10 @@ export const primaryNav: NavItem[] = [
   { href: '/disruptions', label: 'Disruptions' },
   { href: '/exposure', label: 'Exposure' },
   { href: '/briefings', label: 'Briefings' },
+  // A whole section, so it belongs where readers look first rather than in
+  // the footer (Alex's call, 13 October 2026). Shown only while the section
+  // is switched on, so a reader is never sent to a 404.
+  ...(articlesEnabled ? [{ href: '/articles', label: 'Articles' }] : []),
   { href: '/about', label: 'About' },
 ];
 
@@ -34,7 +38,6 @@ export const primaryNav: NavItem[] = [
 export const footerNav: NavItem[] = [
   ...primaryNav,
   ...(monitorEnabled ? [{ href: '/monitor', label: 'Monitor' }] : []),
-  ...(articlesEnabled ? [{ href: '/articles', label: 'Articles' }] : []),
   // Not in the header: the entity index is reached from the chart, which is
   // where a reader is when the question "what about this name" occurs to them.
   // A sixth header item to reach a seventh page would cost more than it earns.
