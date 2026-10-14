@@ -2,7 +2,7 @@
 issueNumber: null
 title: "178 China tariff exclusions expire on 9 November unless USTR acts"
 slug: "china-tariff-exclusions-expire-9-november"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Goods covered by the exclusions face Section 301 duties if entered after 11:59 p.m. on 9 November 2026. No extension had been published by 13 October."
 beehiivUrl: null
 beehiivGuid: null

@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Spot Brent tops $125 as Gulf barrels stay shut in"
 slug: "oil-spot-price-tops-125-gulf-barrels-shut-in"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Spot Brent was 76% above its pre-war level on 6 October 2026. The EIA expects a $105 fourth-quarter average, but oil for prompt delivery trades far above futures."
 beehiivUrl: null
 beehiivGuid: null

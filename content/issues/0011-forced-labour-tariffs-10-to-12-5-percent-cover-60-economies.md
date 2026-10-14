@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Forced-labour tariffs of 10% to 12.5% now cover 60 economies"
 slug: "forced-labour-tariffs-10-to-12-5-percent-cover-60-economies"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "New Section 301 duties took effect on 24 July 2026, as a temporary global surcharge expired. Each country's rate depends on its rules on imports made with forced labour."
 beehiivUrl: null
 beehiivGuid: null

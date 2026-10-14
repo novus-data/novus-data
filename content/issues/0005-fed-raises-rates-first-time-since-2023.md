@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Fed lifts rates for the first time since 2023"
 slug: "fed-raises-rates-first-time-since-2023"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "The Fed raised rates on 16 September 2026, and minutes released on 7 October show most officials expect another rise by year end."
 beehiivUrl: null
 beehiivGuid: null

@@ -2,7 +2,7 @@
 issueNumber: null
 title: "IEEPA tariff refunds pass $120 billion as a third phase opens"
 slug: "ieepa-tariff-refunds-pass-120bn-third-phase"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Customs reports about $122 billion certified for repayment after the Supreme Court ruled that IEEPA does not authorise tariffs. Claims on older entries opened on 6 October 2026."
 beehiivUrl: null
 beehiivGuid: null

@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Hormuz looks empty on ship trackers, yet Gulf crude is moving"
 slug: "hormuz-empty-on-ship-trackers-gulf-crude-moving"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Public AIS data show under four transits a day through Hormuz in September 2026, against 86 a day in 2025. Cargo trackers say most Gulf crude still gets out."
 beehiivUrl: null
 beehiivGuid: null

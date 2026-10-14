@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Europe's gas storage stands near 73% as Qatari LNG stays offline"
 slug: "europe-gas-storage-73-percent-qatari-lng-offline"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "European gas cost more than eight times US gas in September 2026, a gap that is likely to steer spare LNG cargoes this winter."
 beehiivUrl: null
 beehiivGuid: null

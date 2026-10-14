@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Urea's war spike has faded as China lets exports resume"
 slug: "urea-war-spike-faded-china-exports-resume"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "The nitrogen fertiliser peaked at $857 a tonne in April 2026 and was $408 in September, below a year earlier. The price of diammonium phosphate has kept climbing."
 beehiivUrl: null
 beehiivGuid: null

@@ -2,7 +2,7 @@
 issueNumber: null
 title: "New US duty on Brazil exempts beef, coffee and aircraft"
 slug: "new-us-duty-on-brazil-exempts-beef-coffee-aircraft"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "A 25% duty on Brazilian goods took effect on 22 July 2026 with long exemptions. August imports beat a year earlier, when a 40% tariff had just taken effect."
 beehiivUrl: null
 beehiivGuid: null

@@ -48,7 +48,7 @@ async function main() {
   assert.deepEqual(await image.generateStaticParams(), []);
   const response = await image.default({ params: Promise.resolve({ slug: 'offset-east' }) });
   assert.equal(response.status, 404);
-  console.log('PASS hidden article social cards return 404');
+  console.log('PASS article social cards return 404 when hidden or when the slug is not an article');
 
   const { PLACE_TAGS, placesForTags } = await import('@/lib/places');
   const { CHOKEPOINTS } = await import('@/lib/live/nodes');

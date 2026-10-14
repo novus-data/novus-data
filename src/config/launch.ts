@@ -6,5 +6,5 @@
  * empty; the monitor is a new kind of data and needs its own decision. Turning
  * either on needs Gavin and Alex to agree, recorded in DECISIONS.md.
  */
-export const articlesEnabled = false;
+export const articlesEnabled = true;
 export const monitorEnabled = false;
