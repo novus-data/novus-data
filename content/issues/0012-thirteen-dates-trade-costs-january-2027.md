@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Thirteen dates that will set trade costs into January 2027"
 slug: "thirteen-dates-trade-costs-january-2027"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Eight of the thirteen dates fall after the US midterm elections on 3 November 2026, and six of them fall between 9 November and 15 December."
 beehiivUrl: null
 beehiivGuid: null

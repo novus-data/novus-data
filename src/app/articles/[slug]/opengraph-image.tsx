@@ -20,10 +20,12 @@ export default async function ArticleOpengraphImage({ params }: { params: Promis
   if (!articlesEnabled) return new Response(null, { status: 404 });
   const { slug } = await params;
   const issue = await getArticle(slug);
+  // A briefing slug, or none at all, has no article card; the page 404s too.
+  if (!issue) return new Response(null, { status: 404 });
 
   return postCardImage({
-    title: issue?.title ?? publication.name,
-    label: issue ? POST_KIND_LABELS[issue.kind] : null,
-    date: formatLongDate(issue?.publishedAt),
+    title: issue.title,
+    label: POST_KIND_LABELS[issue.kind],
+    date: formatLongDate(issue.publishedAt),
   });
 }

@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Spot box rates are 2.6 times last year's; carriers' rates lag"
 slug: "spot-box-rates-up-2-6-times-carriers-realised-rates-lag"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Drewry's index stood at $4,351 per 40ft container on 8 October 2026, against $1,651 a year earlier, while Hapag-Lloyd's realised rate rose about 9% in the second quarter."
 beehiivUrl: null
 beehiivGuid: null

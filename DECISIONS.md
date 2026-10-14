@@ -45,6 +45,21 @@ handle all of that."
   first entry he records, or the register would credit Gavin with his
   choices.
 
+## Articles go live
+
+Decided by `arowsom-oss` on 2026-10-14, under "Launch calls passed to
+`arowsom-oss`" above. `articlesEnabled` is on, with all 19 of Gavin's
+articles, each dated 14 October 2026.
+
+- Gavin asked, by text on 2026-10-14, for the remaining fixes to be made
+  here ("Tell your Claude to fix it"). The source swaps and the 0010 chart
+  title went in first (#30).
+- The three articles that refer to the 14 October CPI release (the Fed,
+  jobs and Thirteen dates pieces) are accurate when the section opens,
+  before the 8:30 a.m. Eastern release. Claude drafts the update after the
+  release and `arowsom-oss` approves it before it merges, per the register
+  rule above.
+
 ## Launch
 
 Decided by `arowsom-oss` on 2026-09-23, under the rule above. A big change
@@ -86,5 +101,5 @@ step 3).
 ## Deployment updates
 
 - The production sequence is **#9, then #12, then #11**. The integration branch is `claude/practical-einstein-tzfg55`; #12 must land before the production switch so the prelaunch sign-in notice remains present.
-- Monitor and Articles remain gated off for launch by `src/config/launch.ts`, as two separate switches (`monitorEnabled`, `articlesEnabled`) so either can go live without the other; that includes `/live.json`, direct article URLs, and article entries in `/feed.json`. Enabling either is now `arowsom-oss`'s call (see "Launch calls passed to `arowsom-oss`", 2026-10-13); update this record when it happens.
+- Monitor and Articles remain gated off for launch by `src/config/launch.ts`, as two separate switches (`monitorEnabled`, `articlesEnabled`) so either can go live without the other; that includes `/live.json`, direct article URLs, and article entries in `/feed.json`. Articles went live on 2026-10-14 (see "Articles go live"); enabling the monitor is `arowsom-oss`'s call (see "Launch calls passed to `arowsom-oss`", 2026-10-13); update this record when it happens.
 - The subscribe URL moved from `https://novusdata.beehiiv.com/subscribe` to `https://newsletter.novusdata.news/?modal=signup`; update any remaining documentation that names the old URL.

@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Diesel above $6 keeps US parcel fuel surcharges near 29%"
 slug: "diesel-above-6-dollars-parcel-fuel-surcharges-near-29-percent"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "US retail diesel cost 67% more on 5 October 2026 than a year earlier. The diesel-crude price gap, a gauge of refiners' margins, nearly tripled in September."
 beehiivUrl: null
 beehiivGuid: null

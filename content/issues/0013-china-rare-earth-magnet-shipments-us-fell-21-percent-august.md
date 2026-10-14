@@ -2,7 +2,7 @@
 issueNumber: null
 title: "China's rare-earth magnet shipments to the US fell 21% in August"
 slug: "china-rare-earth-magnet-shipments-us-fell-21-percent-august"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "The truce suspended China's broadest export controls, but licensing rules from April 2025 still cover seven heavy rare earths and magnets made from them."
 beehiivUrl: null
 beehiivGuid: null

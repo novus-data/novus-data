@@ -2,7 +2,7 @@
 issueNumber: null
 title: "USMCA moves to yearly reviews after the US declines to extend"
 slug: "usmca-moves-to-yearly-reviews-after-us-declines-extension"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "The agreement stays in force until 2036, but its future will now be reopened every year. Mexico has become a far larger source of US imports than China."
 beehiivUrl: null
 beehiivGuid: null

@@ -3,7 +3,7 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
-## Where things stand — 14 October 2026, evening
+## Where things stand — 14 October 2026
 
 Shipped to `main`: light theme (#19), slimmer home page (#20), chokepoint
 map (#21), register search removed and the no-photographs rule (#22), map
@@ -22,24 +22,21 @@ tags on four articles (Hormuz; Suez and Bab el-Mandeb; Panama twice).
 A rehearsal build with Articles on rendered all 19 pages, and the four map
 cards filled.
 
-**Launch moved to 15 October.** Before the go-live PR merges:
+**Articles went live on 14 October**, all 19, dated 14 October (DECISIONS.md,
+"Articles go live"). Gavin asked for the remaining fixes to be made here: the
+G20 and strike-date sources and the 0010 chart title went in first (#30).
 
-- **Gavin, blocking:** the CPI lines in the Fed, jobs and Thirteen dates
-  articles still treat the 14 October release as upcoming; the CBS link
-  (Thirteen dates, G20 at Doral, which also cites La Voce di New York) and
-  the Dawn link (Fed and jobs articles, 28 February strikes) need official
-  sources; and the Suez/Bab el-Mandeb chart (`c10_lanes.png`) has its title
-  cut off at the right edge, so it needs re-exporting.
-- **Gavin, not blocking:** some figures cite a write-up rather than the
-  source: the magnet figures (The Oregon Group, not Chinese customs), Suez
-  revenue (Daily Beirut), the World Bank urea forecast (Milling MEA) and
-  Brent futures (24/7 Wall St). WRITING.md asks for the primary source.
+Still open:
+
+- **The September CPI update** to the Fed, jobs and Thirteen dates articles,
+  after the 8:30 a.m. Eastern release on 14 October. Claude drafts it from
+  BLS data (via FRED, which BLS feeds; BLS itself blocks scripts) and Alex
+  approves. The new BLS links need a check in a browser.
+- **Not blocking:** some figures cite a write-up rather than the source:
+  the magnet figures (The Oregon Group, not Chinese customs), Suez revenue
+  (Daily Beirut), the World Bank urea forecast (Milling MEA) and Brent
+  futures (24/7 Wall St). WRITING.md asks for the primary source.
 - **Gavin:** mechanisms for the Panama LPG and LNG rows, which were left out.
-- **Alex:** the go-live PR flips `articlesEnabled`, sets each `publishedAt`
-  to the publish date, and adds a DECISIONS.md line. The header menu item
-  appears with it (#28). If the three CPI articles are not fixed in time,
-  take just those three files out in the go-live PR rather than holding the
-  whole section. They were never live, so no published URL breaks.
 
 **Dates**
 

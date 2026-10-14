@@ -2,7 +2,7 @@
 issueNumber: null
 title: "US hiring slows to 29,000 as fuel-driven inflation outpaces pay"
 slug: "us-hiring-slows-to-29000-fuel-inflation-outpaces-pay"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Payrolls rose by 29,000 in September 2026. In August, average hourly pay was 3.1% higher than a year earlier while consumer prices were 3.4% higher."
 beehiivUrl: null
 beehiivGuid: null

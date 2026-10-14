@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Panama Canal restores some capacity after a rainfall squeeze"
 slug: "panama-canal-restores-capacity-after-rainfall-squeeze"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "The canal offers 33 daily booking slots from 15 October 2026 and a deeper Neopanamax draft, but a water deficit remains and NOAA expects a strong El Niño."
 beehiivUrl: null
 beehiivGuid: null

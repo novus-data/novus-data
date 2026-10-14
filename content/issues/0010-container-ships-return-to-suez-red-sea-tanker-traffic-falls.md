@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Container ships return to Suez while Red Sea tanker traffic falls"
 slug: "container-ships-return-to-suez-red-sea-tanker-traffic-falls"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "Maersk and Hapag-Lloyd are moving four more services back to Suez, while tanker transits at Bab al-Mandab fell after a Houthi blockade of Saudi-linked shipping."
 beehiivUrl: null
 beehiivGuid: null

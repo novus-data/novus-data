@@ -2,7 +2,7 @@
 issueNumber: null
 title: "US-China trade truce extended two months, to 10 January 2027"
 slug: "us-china-trade-truce-extended-to-10-january-2027"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "The September summit kept last year's suspensions and produced recommendations for tariff cuts on $30 billion of goods each way, but left rare earths and chips unresolved."
 beehiivUrl: null
 beehiivGuid: null

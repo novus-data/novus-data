@@ -2,7 +2,7 @@
 issueNumber: null
 title: "Strong El Niño forecast puts Panama's next dry season at risk"
 slug: "strong-el-nino-forecast-panama-dry-season-risk"
-publishedAt: "2026-10-13"
+publishedAt: "2026-10-14"
 excerpt: "NOAA gives an 83% chance of the strongest El Niño since 1950 in October to December. During the 2023 El Niño, the canal cut transits to 22 a day."
 beehiivUrl: null
 beehiivGuid: null
