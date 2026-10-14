@@ -3,31 +3,43 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
-## Where things stand — 13 October 2026, evening
+## Where things stand — 14 October 2026, evening
 
 Shipped to `main`: light theme (#19), slimmer home page (#20), chokepoint
 map (#21), register search removed and the no-photographs rule (#22), map
 place cards (#23), Gavin's first four articles, hidden (#24), launch calls
-passed to Alex in DECISIONS.md (#25), and the **first three register entries
-with nine exposures, live** (#26). Alex Rowsom is on the masthead.
+passed to Alex in DECISIONS.md (#25), the **first three register entries
+with nine exposures, live** (#26), per-post bylines (#27) and the Articles
+menu item, shown only once the section is on (#28). Alex Rowsom is on the
+masthead.
 
-**Waiting on Gavin**
+**All 19 of Gavin's articles are in `content/issues/`, hidden.** The other
+15 arrived in his "New stuff" email of 13 October. Every body passes the
+sync sanitiser unchanged; the 24 charts are local, sourced charts, no
+photographs. Two edits on top of Gavin's files: a Daily Maverick link in the
+urea article that ended in `.md` (it opened a raw text file), and map place
+tags on four articles (Hormuz; Suez and Bab el-Mandeb; Panama twice).
+A rehearsal build with Articles on rendered all 19 pages, and the four map
+cards filled.
 
-- Mechanisms for the Panama LPG and LNG rows, which were left out.
-- Two source swaps: the CBS link (Thirteen dates, G20 at Doral) opens an
-  unrelated story, and the Dawn link (Fed article, 28 February strikes)
-  opens the e-paper front page. Official announcements instead.
-- The CPI lines in the Fed, jobs and Thirteen dates articles, after the
-  14 October release.
-- The other 15 drafts, in the same content-file format.
+**Launch moved to 15 October.** Before the go-live PR merges:
 
-**Alex's call: switching Articles on.** A dress rehearsal (Articles switched
-on in a local build only) passed: all four pages, social cards, feed and
-sitemap entries build, the home page shows "Latest analysis", and no request
-fails. The go-live PR flips `articlesEnabled`, sets each `publishedAt` to
-the real date, adds a DECISIONS.md line, and puts Articles in the header
-menu (today it is footer-only; Alex decides). Do it before the 27–28 October
-Fed meeting, or the Fed piece is out of date on arrival.
+- **Gavin, blocking:** the CPI lines in the Fed, jobs and Thirteen dates
+  articles still treat the 14 October release as upcoming; the CBS link
+  (Thirteen dates, G20 at Doral, which also cites La Voce di New York) and
+  the Dawn link (Fed and jobs articles, 28 February strikes) need official
+  sources; and the Suez/Bab el-Mandeb chart (`c10_lanes.png`) has its title
+  cut off at the right edge, so it needs re-exporting.
+- **Gavin, not blocking:** some figures cite a write-up rather than the
+  source: the magnet figures (The Oregon Group, not Chinese customs), Suez
+  revenue (Daily Beirut), the World Bank urea forecast (Milling MEA) and
+  Brent futures (24/7 Wall St). WRITING.md asks for the primary source.
+- **Gavin:** mechanisms for the Panama LPG and LNG rows, which were left out.
+- **Alex:** the go-live PR flips `articlesEnabled`, sets each `publishedAt`
+  to the publish date, and adds a DECISIONS.md line. The header menu item
+  appears with it (#28). If the three CPI articles are not fixed in time,
+  take just those three files out in the go-live PR rather than holding the
+  whole section. They were never live, so no published URL breaks.
 
 **Dates**
 

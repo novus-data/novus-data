@@ -1,0 +1,42 @@
+---
+issueNumber: null
+title: "USMCA moves to yearly reviews after the US declines to extend"
+slug: "usmca-moves-to-yearly-reviews-after-us-declines-extension"
+publishedAt: "2026-10-13"
+excerpt: "The agreement stays in force until 2036, but its future will now be reopened every year. Mexico has become a far larger source of US imports than China."
+beehiivUrl: null
+beehiivGuid: null
+coverImageUrl: null
+kind: article
+tags:
+  - "Article"
+  - "Trade policy, tariffs and export controls"
+---
+<h2>What happened</h2>
+<p>The United States did not agree to extend the United States-Mexico-Canada Agreement (USMCA) at its first joint review on 1 July 2026, the Office of the US Trade Representative (USTR) confirmed in a <a href="https://www.federalregister.gov/documents/2026/10/05/2026-20341/request-for-public-comments-and-notice-of-public-hearing-relating-to-the-operation-of-the-agreement" rel="noopener noreferrer" target="_blank">Federal Register notice</a> published on 5 October. Under Article 34.7 of the agreement, the three countries must now hold a joint review every year until all three confirm a new 16-year term, or until the agreement expires on 1 July 2036. USTR is taking written comments until 11:59 p.m. Eastern on 12 January 2027 and said details of a public hearing will be published on its website.</p>
+<p>Canada and Mexico both said they supported a 16-year extension, according to a <a href="https://www.whitecase.com/insight-alert/usmca-2026-joint-review-united-states-declines-extend-agreement-triggering-annual" rel="noopener noreferrer" target="_blank">White &amp; Case summary</a> of the 1 July meeting. US Trade Representative Jamieson Greer said the United States "did not agree to renew the USMCA in its current form". Canada's trade minister, Dominic LeBlanc, said the parties "agreed on the importance of continuing our discussions". The US and Mexico held negotiating rounds in May and June 2026 on automotive rules of origin, steel and aluminium, economic security and rules of origin for some industrial goods, and began discussions on agriculture, labour and the environment. A third round was scheduled for the week of 20 July in Mexico City. Canada's priority is US sectoral tariffs on steel, aluminium, autos and lumber, the summary said.</p>
+<p>Nothing changes at the border for now. White &amp; Case noted that all current USMCA rights and obligations, including preferential tariffs, remain fully in force.</p>
+<h2>Why it matters</h2>
+<p>North American supply chains have grown. US goods imports from Mexico were $419.3 billion in the first eight months of 2026, up 18% on a year earlier and more than twice the $183.5 billion from China, according to US Census Bureau data for <a href="https://www.census.gov/foreign-trade/balance/c2010.html" rel="noopener noreferrer" target="_blank">Mexico</a> and <a href="https://www.census.gov/foreign-trade/balance/c5700.html" rel="noopener noreferrer" target="_blank">China</a>. Imports from <a href="https://www.census.gov/foreign-trade/balance/c1220.html" rel="noopener noreferrer" target="_blank">Canada</a> were $269.6 billion, up 4%.</p>
+<figure><img src="/article-charts/usmca-moves-to-yearly-reviews-after-us-declines-extension/c09_imports.png" alt="Grouped bar chart of US imports from Mexico, Canada and China in January to August of 2024, 2025 and 2026. In 2026 imports were $419 billion from Mexico, $270 billion from Canada and $184 billion from China." width="1600" height="900" loading="lazy" decoding="async" /><figcaption>US imports from Mexico, Canada and China, January to August 2024 to 2026. Source: US Census Bureau.</figcaption></figure>
+<p>The value of the agreement to companies lies in its preferences. When the US imposed a temporary 10% import surcharge in February 2026, goods entering duty-free from Canada and Mexico under the agreement were exempted, according to <a href="https://www.federalregister.gov/documents/2026/02/25/2026-03824/imposing-a-temporary-import-surcharge-to-address-fundamental-international-payments-problems" rel="noopener noreferrer" target="_blank">Proclamation 11012</a>. Goods entering duty-free under the USMCA are also exempt from the Section 301 duties that took effect on 24 July 2026, according to <a href="https://www.bbvaresearch.com/en/publicaciones/mexico-favorable-position-on-new-us-tariffs-under-section-301-for-forced-labor/" rel="noopener noreferrer" target="_blank">BBVA Research</a>. An annual review puts those preferences, and the rules of origin that decide which goods qualify, back on the table each year. <a href="https://www.hklaw.com/en/insights/publications/2026/07/mexico-ante-una-nueva-etapa-continuidad-del-tmec" rel="noopener noreferrer" target="_blank">Holland &amp; Knight</a> warned that each annual review could become "a forum for pressure, negotiation and conditionality" that may affect long-term investment decisions (translated from Spanish). Decisions to build plants, which pay back over a decade or more, are more exposed to that uncertainty than current trade flows (inferred).</p>
+<h2>Who it reaches</h2>
+<p><em>Manufacturers with plants in Mexico (sector).</em> They rely on USMCA preferences to ship to the US duty-free, and the US is negotiating changes to rules of origin with Mexico. Confidence: reported for the negotiations, inferred for the exposure. Source: White &amp; Case, 2 July 2026.</p>
+<p><em>Carmakers with North American supply chains (sector).</em> Automotive rules of origin were on the agenda of the first US-Mexico round, and Canada is seeking relief from US sectoral tariffs on autos. Confidence: reported. Source: White &amp; Case, 2 July 2026.</p>
+<p><em>Canadian steel, aluminium and lumber producers (sector).</em> Canada's stated priority is US sectoral tariffs on these goods. Confidence: reported. Source: White &amp; Case, 2 July 2026.</p>
+<h2>What would change this view</h2>
+<ul>
+<li><em>A three-way extension.</em> If all three countries confirm a new 16-year term, the annual reviews end.</li>
+<li><em>The USTR hearing.</em> It will show which changes the US will seek. Comments are due by 12 January 2027.</li>
+<li><em>A US-Mexico text.</em> A written agreement from the bilateral rounds would show the price of an extension.</li>
+</ul>
+<h2>Sources</h2>
+<ol>
+<li>Request for public comments and notice of public hearing relating to the operation of the Agreement. USTR, Federal Register, 5 October 2026. <a href="https://www.federalregister.gov/documents/2026/10/05/2026-20341/request-for-public-comments-and-notice-of-public-hearing-relating-to-the-operation-of-the-agreement" rel="noopener noreferrer" target="_blank">link</a></li>
+<li>USMCA 2026 joint review: United States declines to extend agreement, triggering annual reviews. White &amp; Case, 2 July 2026. <a href="https://www.whitecase.com/insight-alert/usmca-2026-joint-review-united-states-declines-extend-agreement-triggering-annual" rel="noopener noreferrer" target="_blank">link</a></li>
+<li>Mexico enters a new phase: USMCA continuity and annual review. Holland &amp; Knight, 2 July 2026. <a href="https://www.hklaw.com/en/insights/publications/2026/07/mexico-ante-una-nueva-etapa-continuidad-del-tmec" rel="noopener noreferrer" target="_blank">link</a></li>
+<li>Trade in goods with Mexico, Canada and China. US Census Bureau, data through August 2026. <a href="https://www.census.gov/foreign-trade/balance/c2010.html" rel="noopener noreferrer" target="_blank">Mexico</a>, <a href="https://www.census.gov/foreign-trade/balance/c1220.html" rel="noopener noreferrer" target="_blank">Canada</a>, <a href="https://www.census.gov/foreign-trade/balance/c5700.html" rel="noopener noreferrer" target="_blank">China</a></li>
+<li>Proclamation 11012. Federal Register, 25 February 2026. <a href="https://www.federalregister.gov/documents/2026/02/25/2026-03824/imposing-a-temporary-import-surcharge-to-address-fundamental-international-payments-problems" rel="noopener noreferrer" target="_blank">link</a></li>
+<li>Mexico: favourable position on new US tariffs under Section 301 for forced labour. BBVA Research, 24 July 2026. <a href="https://www.bbvaresearch.com/en/publicaciones/mexico-favorable-position-on-new-us-tariffs-under-section-301-for-forced-labor/" rel="noopener noreferrer" target="_blank">link</a></li>
+</ol>
+<p><em>Novus Data publishes analysis and commentary, not investment advice. Nothing here is a recommendation to buy or sell any security.</em></p>
