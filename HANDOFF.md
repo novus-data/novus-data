@@ -28,14 +28,15 @@ G20 and strike-date sources and the 0010 chart title went in first (#30).
 
 Still open:
 
-- **The September CPI update** to the Fed, jobs and Thirteen dates articles,
-  after the 8:30 a.m. Eastern release on 14 October. Claude drafts it from
-  BLS data (via FRED, which BLS feeds; BLS itself blocks scripts) and Alex
-  approves. The new BLS links need a check in a browser.
-- **Not blocking:** some figures cite a write-up rather than the source:
-  the magnet figures (The Oregon Group, not Chinese customs), Suez revenue
-  (Daily Beirut), the World Bank urea forecast (Milling MEA) and Brent
-  futures (24/7 Wall St). WRITING.md asks for the primary source.
+- **For Gavin, from the CPI update (#32):** in the jobs article, the "energy
+  shock rather than an overheating economy" inference leaned partly on core
+  inflation easing; core rose to 2.6% in September. His wording is unchanged.
+- **Not blocking:** two figures still cite a write-up rather than the source:
+  the magnet figures (The Oregon Group, not Chinese customs) and Brent
+  futures (24/7 Wall St). The Suez revenue and World Bank urea figures were
+  moved to stronger sources on 14 October, and the urea article carries a
+  dated correction: it had credited the World Bank with a fertiliser-trade
+  share that came from a news report, not the World Bank's outlook.
 - **Gavin:** mechanisms for the Panama LPG and LNG rows, which were left out.
 
 **Dates**
