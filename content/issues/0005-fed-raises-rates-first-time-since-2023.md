@@ -29,7 +29,7 @@ tags:
 <p><em>Workers (sector).</em> Fed officials judged labour-market risks to be broadly balanced, and the unemployment rate was 4.2% in September. Confidence: reported. Sources: FOMC minutes, 7 October 2026; BLS, 2 October 2026.</p>
 <h2>What would change this view</h2>
 <ul>
-<li><em>September inflation data.</em> The consumer price index is due at 8:30 a.m. Eastern on 14 October. Core inflation, which excludes food and energy, was 2.4% in the 12 months to August, down from 2.5% in July. A rise would suggest energy costs are broadening into other prices.</li>
+<li><em>Core inflation.</em> Core inflation, which excludes food and energy, was 2.6% in the 12 months to September, up from 2.4% in August, according to the <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" rel="noopener noreferrer" target="_blank">September CPI report</a> published on 14 October. A rise would suggest energy costs are broadening into other prices.</li>
 <li><em>The 27–28 October meeting.</em> A second increase would confirm the minutes; a pause would suggest officials see the energy shock fading.</li>
 <li><em>Breakeven inflation.</em> A sustained move above 2.5% would suggest investors doubt that inflation will return to the Fed's 2% goal. It was 2.33% on 9 October.</li>
 </ul>
@@ -44,7 +44,7 @@ tags:
 <li>Primary Mortgage Market Survey, weekly. Freddie Mac, to 8 October 2026. <a href="https://www.freddiemac.com/pmms" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>The Employment Situation, September 2026. BLS, 2 October 2026. <a href="https://www.bls.gov/news.release/archives/empsit_10022026.htm" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>Consumer Price Index, August 2026. BLS, 11 September 2026. <a href="https://www.bls.gov/news.release/archives/cpi_09112026.htm" rel="noopener noreferrer" target="_blank">link</a></li>
-<li>Release calendar, October 2026 (CPI on 14 October, 8:30 a.m.). BLS. <a href="https://www.bls.gov/schedule/2026/10_sched.htm" rel="noopener noreferrer" target="_blank">link</a></li>
+<li>Consumer Price Index, September 2026. BLS, 14 October 2026. <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>Open market operations: history of federal funds rate changes. Federal Reserve. <a href="https://www.federalreserve.gov/monetarypolicy/openmarket.htm" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>Letter to the Speaker of the House on military action taken on 28 February 2026 against Iran. The White House, 2 March 2026 (House Document 119-139). <a href="https://www.govinfo.gov/content/pkg/CDOC-119hdoc139/pdf/CDOC-119hdoc139.pdf" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>Israel and US launch strikes on Iran. Daily Maverick, 28 February 2026. <a href="https://www.dailymaverick.co.za/article/2026-02-28-israel-and-us-launch-strikes-on-iran/" rel="noopener noreferrer" target="_blank">link</a></li>
