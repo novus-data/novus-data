@@ -42,6 +42,7 @@ tags:
 <li>Transcript of Chairman Warsh's press conference. Federal Reserve, 16 September 2026. <a href="https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20260916.pdf" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>Employment Situation release schedule, October 2026 reference month: 6 November 2026. BLS. <a href="https://www.bls.gov/schedule/news_release/empsit.htm" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>Release calendar, October 2026 (CPI on 14 October, 8:30 a.m.). BLS. <a href="https://www.bls.gov/schedule/2026/10_sched.htm" rel="noopener noreferrer" target="_blank">link</a></li>
-<li>"The US and Israel on Feb 28 launched ... a joint strike against Iranian targets." Dawn, 13 October 2026. <a href="https://www.dawn.com/news/1976395/we-have-more-than-anyone-in-the-world-trump-denies-reports-us-running-out-of-munitions" rel="noopener noreferrer" target="_blank">link</a></li>
+<li>Letter to the Speaker of the House on military action taken on 28 February 2026 against Iran. The White House, 2 March 2026 (House Document 119-139). <a href="https://www.govinfo.gov/content/pkg/CDOC-119hdoc139/pdf/CDOC-119hdoc139.pdf" rel="noopener noreferrer" target="_blank">link</a></li>
+<li>Israel and US launch strikes on Iran. Daily Maverick, 28 February 2026. <a href="https://www.dailymaverick.co.za/article/2026-02-28-israel-and-us-launch-strikes-on-iran/" rel="noopener noreferrer" target="_blank">link</a></li>
 </ol>
 <p><em>Novus Data publishes analysis and commentary, not investment advice. Nothing here is a recommendation to buy or sell any security.</em></p>
