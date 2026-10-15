@@ -45,6 +45,28 @@ handle all of that."
   first entry he records, or the register would credit Gavin with his
   choices.
 
+## Subscribing by email while Beehiiv's sign-up is in question
+
+Proposed by `arowsom-oss` and agreed by `Novous-Data` on 2026-10-15, by
+email. Temporary.
+
+- On 2026-10-15, test sign-ups through Beehiiv's hosted form did not appear
+  in Audience > Subscribers. Before relying on this change, Audience is to be
+  checked with all statuses shown: with double opt-in on, a sign-up stays
+  pending until its confirmation email is clicked.
+- While `subscribeVia` in `src/config/launch.ts` is `'mailto'`, the subscribe
+  button opens an email to the contact address and the editor adds the
+  sender to Beehiiv by hand. The site stores nothing.
+- The on-site form and subscriber table in the spec of the same day were not
+  adopted: anyone could submit another person's address, and Beehiiv imports
+  skip double opt-in, so an import would claim a permission that was never
+  given. An email sent from the address being subscribed is the record that
+  its owner asked.
+- Revert: set `subscribeVia` to `'beehiiv-link'` once a fresh test address
+  completes Beehiiv's own sign-up and appears in Audience.
+- Not merged until Gavin has checked Audience and approved the subscribe and
+  /privacy copy, including the retention period he is to decide.
+
 ## Articles go live
 
 Decided by `arowsom-oss` on 2026-10-14, under "Launch calls passed to

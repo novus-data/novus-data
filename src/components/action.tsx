@@ -61,6 +61,25 @@ export function ExternalActionLink({
   );
 }
 
+/** A button that opens the reader's mail client. No target: a new tab would be left empty. */
+export function MailActionLink({
+  href,
+  children,
+  variant = 'primary',
+  className,
+}: {
+  href: string;
+  children: ReactNode;
+  variant?: ActionVariant;
+  className?: string;
+}) {
+  return (
+    <a href={href} className={clsx(shared, variants[variant], className)}>
+      {children}
+    </a>
+  );
+}
+
 /**
  * Shown in place of a subscribe control when no subscribe URL is configured.
  * A disabled control that explains itself beats a button that goes nowhere.

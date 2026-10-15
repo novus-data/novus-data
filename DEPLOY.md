@@ -115,7 +115,7 @@ Open each of these and check what it should show.
 | `/briefings` | Before any issues: a plain statement that nothing has been published. After: every issue, newest first |
 | `/coverage` | Seven topics, each with why it matters and what is reported |
 | `/about` | Your name, and only claims you can support |
-| `/subscribe` | The button goes to **your** Beehiiv page |
+| `/subscribe` | The button goes to **your** Beehiiv page, or, while `subscribeVia` in `src/config/launch.ts` is `'mailto'`, opens an email to `NEXT_PUBLIC_CONTACT_EMAIL` |
 | `/contact` | Your email address, as a working `mailto:` link |
 | `/privacy` | Reads accurately — **you are responsible for this page** |
 | `/nonexistent-page` | The branded 404, not a Vercel error page |
