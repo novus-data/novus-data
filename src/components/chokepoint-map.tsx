@@ -340,6 +340,9 @@ export function ChokepointMap({
             ))}
           </ul>
         ) : null}
+
+        {/* A real credit for a real suggestion, asked for by the editors. */}
+        <p className="text-meta text-muted">Map suggested by Mr. Kent.</p>
       </figcaption>
 
       {withCards.map((marker) => (
