@@ -1,7 +1,9 @@
-import { ExternalActionLink, UnavailableAction } from '@/components/action';
+import { ExternalActionLink, MailActionLink, UnavailableAction } from '@/components/action';
 import { StoryBox } from '@/components/story-box';
+import { subscribeVia } from '@/config/launch';
 import { publication } from '@/config/publication';
 import { env } from '@/lib/env';
+import { subscribeMailto } from '@/lib/subscribe';
 
 /**
  * Subscribing happens on Beehiiv, which owns delivery, the subscriber list and
@@ -23,7 +25,16 @@ export function SubscribePanel({
     ? `Published ${publication.cadence}, by email. Free.`
     : 'Delivered by email. Free.';
 
-  const action = env.subscribeUrl ? (
+  // While subscribeVia is 'mailto' (launch.ts), subscribing is an email to the
+  // contact address; the address is also printed, for readers with no mail app.
+  const byEmail = subscribeVia === 'mailto' && env.contactEmail ? env.contactEmail : null;
+
+  const action = byEmail ? (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <MailActionLink href={subscribeMailto(byEmail)}>Subscribe by email</MailActionLink>
+      <span className="text-meta text-muted [overflow-wrap:anywhere]">{byEmail}</span>
+    </div>
+  ) : env.subscribeUrl ? (
     <div>
       <ExternalActionLink href={env.subscribeUrl}>Subscribe on Beehiiv</ExternalActionLink>
     </div>
@@ -47,10 +58,17 @@ export function SubscribePanel({
       title={heading}
       className={className}
       footer={
-        <span>
-          Your address goes to Beehiiv, which sends the emails. Every issue carries an unsubscribe
-          link.
-        </span>
+        byEmail ? (
+          <span>
+            I add each address to the list by hand, so the first briefing may not arrive straight
+            away. Beehiiv then sends the emails. Every issue carries an unsubscribe link.
+          </span>
+        ) : (
+          <span>
+            Your address goes to Beehiiv, which sends the emails. Every issue carries an unsubscribe
+            link.
+          </span>
+        )
       }
     >
       <p>{cadenceLine}</p>
