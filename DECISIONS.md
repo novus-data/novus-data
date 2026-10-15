@@ -60,6 +60,20 @@ articles, each dated 14 October 2026.
   release and `arowsom-oss` approves it before it merges, per the register
   rule above.
 
+## All 19 articles confirmed
+
+Confirmed by `Novous-Data` on 2026-10-15, by email: he is happy for the
+Articles section to be live (it has been since 2026-10-14, see "Articles go
+live") and for all 19 articles to be published.
+
+- His updated files of 14 October were compared sentence by sentence with
+  the live versions. They had nothing the live files lacked; the live files
+  were newer (the September real-earnings, urea and Suez corrections).
+- The oil article's EIA figures were updated before this confirmation, to
+  14 October 2026 data (Brent spot $126.55, Gulf Coast jet fuel $4.56), and
+  its chart redrawn from the same EIA series. The headline and argument
+  still held, so no wording changed.
+
 ## Launch
 
 Decided by `arowsom-oss` on 2026-09-23, under the rule above. A big change
