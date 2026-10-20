@@ -65,7 +65,7 @@ be committed.
 | Key | Purpose | Required |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin, no trailing slash | No — falls back to `$VERCEL_URL`, then `localhost` |
-| `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` | Where the subscribe buttons point | **Yes, before launch** |
+| `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` | Where the subscribe buttons point (unless `subscribeVia` in `src/config/launch.ts` is `'mailto'`) | **Yes, before launch** |
 | `NEXT_PUBLIC_BEEHIIV_HOME_URL` | Footer link to the Beehiiv publication | No |
 | `NEXT_PUBLIC_BEEHIIV_FEED_URL` | Footer RSS link for readers | No |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Public contact address | **Yes, before launch** |

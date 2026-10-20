@@ -663,6 +663,14 @@ listed in WRITING.md §7) and the post appears in that place's card on the home
 page map, briefings included. Still no hand-edit: the tag arrives with the
 sync.
 
+**Subscribing by email (temporary, 15 October 2026).** While `subscribeVia`
+in `src/config/launch.ts` is `'mailto'`, every subscribe button opens an email
+to `NEXT_PUBLIC_CONTACT_EMAIL` (built once in `src/lib/subscribe.ts`) and the
+editor adds the sender to Beehiiv by hand. Nothing is stored on the site, so
+§13 and §14.2 are unchanged; an on-site form was considered and not adopted
+(DECISIONS.md). Set it back to `'beehiiv-link'` once Beehiiv's own sign-up is
+shown to work.
+
 ## 9. Design tokens
 
 Defined in `src/app/globals.css`, derived from the Novus Data logo's navy.

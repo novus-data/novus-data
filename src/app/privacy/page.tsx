@@ -4,7 +4,7 @@ import { Container } from '@/components/container';
 import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
 import { ExternalLink, TextLink } from '@/components/text-link';
-import { monitorEnabled } from '@/config/launch';
+import { monitorEnabled, subscribeVia } from '@/config/launch';
 import { publication } from '@/config/publication';
 import { absoluteUrl, accountsConfigured, env } from '@/lib/env';
 
@@ -133,12 +133,24 @@ export default function PrivacyPage() {
         )}
 
         <Section heading="Subscribing">
-          <p>
-            Subscribing happens on Beehiiv, not here. When you subscribe, your email address goes
-            to Beehiiv, which sends the newsletter, stores the subscriber list and handles
-            unsubscribes. Beehiiv&rsquo;s privacy policy governs what happens to it from that
-            point, and its terms are between you and Beehiiv.
-          </p>
+          {subscribeVia === 'mailto' && env.contactEmail ? (
+            <p>
+              For now, subscribing means emailing {env.contactEmail}. Your message and address
+              sit in that ordinary email account until I add the address to Beehiiv by hand; they
+              are used for nothing else and not shared. {/* TODO(Gavin): decide how long a
+              subscribe email is kept after the address is added, and state it here. */}
+              You can ask for your message to be deleted by emailing the same address. Once your
+              address is on the list, Beehiiv sends the newsletter, stores the subscriber list and
+              handles unsubscribes, and Beehiiv&rsquo;s privacy policy governs it from that point.
+            </p>
+          ) : (
+            <p>
+              Subscribing happens on Beehiiv, not here. When you subscribe, your email address goes
+              to Beehiiv, which sends the newsletter, stores the subscriber list and handles
+              unsubscribes. Beehiiv&rsquo;s privacy policy governs what happens to it from that
+              point, and its terms are between you and Beehiiv.
+            </p>
+          )}
           <p>
             The signup page at newsletter.novusdata.news is run by Beehiiv on our domain; it is
             not part of this site.
@@ -155,7 +167,8 @@ export default function PrivacyPage() {
           {env.contactEmail ? (
             <p>
               If you email {publication.name}, that message and your address sit in an ordinary
-              email account. They are not added to the subscriber list, and they are not shared.
+              email account. They are not added to the subscriber list, and they are not shared,
+              unless the message asks to subscribe.
             </p>
           ) : (
             <p>
