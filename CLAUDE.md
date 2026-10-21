@@ -92,7 +92,14 @@ better than invented.**
 register and the exposure chart do publish claims about named companies — but
 only claims that carry a mechanism, a confidence level, a date and a followable
 source, enforced in code (§6a). Sourced is not the same as invented. Nothing
-else on the site may state a figure at all.
+else on the site may state a figure at all, with one fenced exception below.
+
+**Amended by the author (21 October 2026): the Mancalë Index.** `/mancale`
+publishes figures — weekly ship transits, news share, and the scores derived
+from them — because every one is computed at build time from cited weekly
+data (IMF PortWatch and GDELT) by a method printed on the same page. The data
+file holds only sourced averages; no score is stored or typed by hand
+(§14.1). It does not license a figure anywhere else.
 
 Two fenced exceptions, both `[SAMPLE]`-prefixed, both unreachable without
 `CONTENT_SOURCE=fixtures`, and both throwing at module load if a production
@@ -139,12 +146,44 @@ on any register entry that names nobody. `src/config/publication.ts` exports
 An author entry whose `name` is null is a placeholder, never rendered as a
 person.
 
-### Rule 3 — No third-party assets
+### Rule 3 — No unlicensed third-party assets
 
-No Unsplash, Picsum, placeholder.com or any external image service. No stock
-photography. No copyrighted logos, marks or fonts outside Google Fonts. Visual
-interest comes from typography, layout, spacing, and CSS/SVG written here. Icons
-are inline SVG.
+**Amended by the author (21 October 2026): photographs are allowed, if the
+site can show its right to use each one, next to it.** The rule used to forbid
+photographs outright. What it still forbids is anything the site has no right
+to use, and anything served from someone else's server.
+
+- **Allowed** (the same list the briefing already works to, and the
+  allow-list in `src/lib/photos/types.ts`): your own photos; works of the US
+  federal government, which have no copyright (17 U.S.C. § 105) — check the
+  image is the agency's own, not a contractor's or a third party's; files
+  marked public domain or CC0; Creative Commons BY and BY-SA, crediting the
+  creator, linking the source and the licence, and saying if it was cropped;
+  a port, canal or company press library whose written terms allow editorial
+  use (the terms page is recorded); written permission from the rights holder
+  (who and when are recorded; keep the email).
+- **Never:** NonCommercial (NC) or NoDerivatives (ND) licences, because the
+  site may not stay non-commercial and a crop can count as a change; wire and
+  agency photos (AP, Reuters, Getty, AFP, Bloomberg); stock libraries and image
+  services (Unsplash, Picsum, placeholder.com); anything found through a search
+  engine or on social media; screenshots of other people's work; AI-generated
+  images; a photo of the wrong place, or a file photo presented as current;
+  identifiable private individuals.
+- **Served from this repository.** Files live in `public/photos/` and their
+  licence records in `content/photos/photos.json`. No hotlinking: an image
+  served from another host can change or vanish without notice.
+- **Enforced in code, like the register (§6a).** `getPhoto()` drops a record
+  missing any field its licence needs, with a warning naming the photo, and
+  `<CreditedPhoto>` is the only component that renders one — so a photo
+  without its credit cannot reach a page. Images inside Beehiiv posts arrive
+  through the sync, which cannot check a licence; `npm run sync-issues` warns
+  about any image whose figure caption carries no credit.
+- **A photo has to show what the text is about.** Visual interest still comes
+  first from typography, layout, spacing, and CSS/SVG written here; a photo is
+  evidence, not decoration.
+
+Unchanged: no copyrighted logos, marks or fonts outside Google Fonts. Icons are
+inline SVG.
 
 ### Rule 4 — Ask before installing
 
@@ -174,11 +213,15 @@ step needs account access, write instructions in `DEPLOY.md` instead.
 CONTRIBUTING.md            How two people work on this without breaking the standard.
 content/issues/            The issue archive of record. One .md per issue.
 content/disruptions/       The disruption register. One .md per problem.
+content/indicators/        The Mancalë Index data: weekly averages only. Written by npm run mancale.
+content/photos/            Licence records for every photo the site shows directly. See Rule 3.
+public/photos/             The photo files those records describe. Never hotlinked.
 scripts/sync-issues.ts     Pulls new issues from Beehiiv RSS. The ONLY Beehiiv code.
 scripts/build-preview.ts   Review tooling. Folds the built site into one HTML file.
 scripts/doctor.ts          State of the project + the next action. Reads INPUT_LEDGER.
 scripts/new-disruption.ts  Register scaffolder. Mirrors the loader's validation.
 scripts/review-register.ts The review worklist, by how close each entry is to stale.
+scripts/mancale.ts         Weekly refresh of the Mancalë data. Run by hand. See §8.
 scripts/lib/cli.ts         Shared colour, prompting and .env.local reading.
 src/config/                Every fact the site states, and the navigation.
   publication.ts             The facts. Pure data, no side effects, safe anywhere.
@@ -187,6 +230,8 @@ src/config/                Every fact the site states, and the navigation.
   nav.ts                     Header, footer and sitemap routes.
 src/lib/content/           The issue content layer. See section 6.
 src/lib/disruptions/       The register and exposure layer. See section 6a.
+src/lib/indicators/        The indicators layer (§14.1): the Mancalë Index, scored at build time.
+src/lib/photos/            Photo licence allow-list and checker. See Rule 3.
 src/lib/accounts/          The account contract and its Supabase store. See 6b.
 src/lib/supabase/          Supabase clients. admin.ts is SERVER ONLY. See 6b.
 src/lib/env.ts             Environment access and URL resolution.
@@ -663,6 +708,24 @@ listed in WRITING.md §7) and the post appears in that place's card on the home
 page map, briefings included. Still no hand-edit: the tag arrives with the
 sync.
 
+**The Mancalë Index, weekly (added 21 October 2026).** IMF PortWatch
+publishes new ship data on Tuesdays. Once a week after that:
+
+```
+1. npm run mancale            downloads ship and news data, writes content/indicators/mancale.json
+2. Read the summary it prints (each chokepoint's reading, and any that changed)
+3. git add content/indicators/ && git commit -m "mancale: week of <date>"
+4. git push                   (Vercel deploys; /mancale is rebuilt from the file)
+```
+
+The news download is slow on purpose (GDELT asks for one request every five
+seconds) and resumable: if it stops, run it again. `--ships-csv <file>` reads
+a CSV downloaded by hand from portwatch.imf.org instead of the API — the IMF's
+terms say automated bulk download needs its permission, so use it until
+copyright@imf.org has confirmed. Skipping a week is safe: the page states the
+as-of date and says when it is more than three weeks old. It is not a
+scheduled job, because §13 keeps those out of this repository.
+
 **Subscribing by email (temporary, 15 October 2026).** While `subscribeVia`
 in `src/config/launch.ts` is `'mailto'`, every subscribe button opens an email
 to `NEXT_PUBLIC_CONTACT_EMAIL` (built once in `src/lib/subscribe.ts`) and the
@@ -871,6 +934,7 @@ npm run build            production build (strict — fails on unanswered inputs
 npm run typecheck        tsc --noEmit
 npm run lint             eslint
 npm run sync-issues      pull new issues from Beehiiv
+npm run mancale          weekly refresh of the Mancalë Index data (§8)
 npm run preview          build the single-file review preview
 ```
 
@@ -962,7 +1026,25 @@ existing layer: a document, a tracked assessment and a time series have
 different shapes, different refresh characteristics and different failure modes.
 
 Every indicator needs three things decided before the first one is drawn: a
-**source**, an **as-of timestamp**, and a **defined behaviour when stale**. A
+**source**, an **as-of timestamp**, and a **defined behaviour when stale**.
+
+**Built for one indicator, 21 October 2026: the Mancalë Index** (`/mancale`).
+It is weekly, not live, and it answers the three questions in code:
+
+- **Source:** every chokepoint carries the IMF PortWatch citation, and the
+  GDELT citation once its news volume has been collected. The page states the
+  transformation ("weekly averages and scores calculated by Novus Data"), which
+  the IMF's terms require.
+- **As-of:** `dataThrough` is the last day inside the upstream ship data, never
+  the day the refresh ran.
+- **When stale:** more than 21 days old at build, the page says it had not
+  been refreshed and prints the absolute date (the §6a phrasing, for the same
+  reason).
+
+`content/indicators/mancale.json` holds only sourced weekly averages.
+`src/lib/indicators/mancale-method.ts` scores them at build time and is also
+what the page prints as the method and what the refresh script uses, so the
+three cannot drift (§14a). A change to the method changes its `version`. A
 publication about supply chain disruption that shows last week's freight rate as
 though it were today's would destroy more credibility than this whole site
 builds.

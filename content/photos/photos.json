@@ -1,0 +1,5 @@
+{
+  "format": 1,
+  "note": "Every photo the site shows directly. The file goes in public/photos/; the record goes here. The fields and the allowed licences are documented in src/lib/photos/index.ts and src/lib/photos/types.ts, and the policy in WRITING.md section 4. A photo whose record fails the check does not render.",
+  "photos": []
+}

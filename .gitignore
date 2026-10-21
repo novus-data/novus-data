@@ -43,3 +43,6 @@ next-env.d.ts
 
 # generated single-file site preview (built by npm run preview)
 /preview/
+
+# Mancalë refresh cache (raw downloads; only content/indicators/ is committed)
+/.mancale-cache/

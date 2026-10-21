@@ -54,6 +54,11 @@ const LAYER_BOUNDARIES = [
       "Import from '@/lib/accounts' instead. Which account store is in use is not a page's business.",
   },
   {
+    group: ["@/lib/indicators/sources", "@/lib/indicators/sources/*"],
+    message:
+      "Import from '@/lib/indicators' instead. Where the index data is read from stays behind the layer's API.",
+  },
+  {
     group: ["@/lib/live/sources", "@/lib/live/sources/*"],
     message:
       "Import from '@/lib/live' instead. Which feeds are read, and how, stays behind the live layer's API.",
