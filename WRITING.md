@@ -157,10 +157,21 @@ Novus Data publishes analysis and commentary, not investment advice.
 9. **One idea per article.** A second idea is a second article.
 10. **Headlines state a finding.** "Why the Panama Canal matters" is a topic;
     a finding says what changed and for whom.
-11. **No photographs.** A stock or agency photo is a third-party asset, and
-    the site uses none. A chart you made yourself from sourced data is fine:
-    put the source and date under it. A screenshot of someone else's chart is
-    not yours, so it counts as a photo.
+11. **Photographs only with their credit** (Rule 3, amended 21 October
+    2026). Allowed: your own photos; US federal government images, which are
+    public domain (check the image is the agency's own, not a contractor's);
+    public-domain, CC0, CC BY or CC BY-SA files, such as most of Wikimedia
+    Commons; a port, canal or company press library whose terms allow
+    editorial use. Never: wire, agency or stock photos (AP, Reuters, Getty,
+    AFP, Bloomberg, Unsplash), anything from a search engine or social media,
+    NonCommercial (NC) or NoDerivatives (ND) licences, AI-generated images, a
+    photo of the wrong place, or a file photo presented as current. Put the
+    credit in the caption, in this order: what it shows, then
+    `Photo: <creator> / <source>, <licence>.` Add "Cropped." if you cropped
+    it, and "File photo, <year>." if it is not from this event. A chart you
+    made yourself from sourced data is still fine: put the source and date
+    under it. A screenshot of someone else's chart is not yours, so it counts
+    as a photo and needs a licence.
 
 ---
 
@@ -174,7 +185,10 @@ Novus Data publishes analysis and commentary, not investment advice.
       source.
 - [ ] Nothing reads as advice to buy or sell anything.
 - [ ] No banned words (house style, rule 8).
-- [ ] No photographs; any chart is one you made, with its source under it.
+- [ ] Every photo is from an allowed source (rule 11), and its caption says
+      what it shows and carries the credit: creator, source, licence, and
+      "Cropped." if cropped. Any chart is one you made, with its source
+      under it.
 - [ ] "What would change this view" has real, checkable signposts.
 - [ ] Every link opens and goes where it says.
 - [ ] The Beehiiv tag is **Article** or **Long-term review**, not left blank.

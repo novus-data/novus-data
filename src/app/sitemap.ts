@@ -35,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency:
         href === '/monitor'
           ? 'hourly'
-          : href === '/' || href === '/disruptions' || href === '/exposure' || href === '/briefings'
+          : href === '/' || href === '/disruptions' || href === '/exposure' || href === '/briefings' || href === '/mancale'
             ? 'weekly'
             : 'monthly',
       priority:

@@ -3,6 +3,18 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
+## Added 21 October 2026 — the Mancalë Index and the photo rule
+
+From Gavin, as one patch. **`/mancale`**: the Mancalë Index, a weekly score of
+whether the news about seven chokepoints is louder or quieter than their ship
+traffic justifies (IMF PortWatch and GDELT data, scored at build time by
+`src/lib/indicators/`). Off until Alex switches `mancaleEnabled` on; refreshed
+by hand weekly with `npm run mancale` (CLAUDE.md §8). **Rule 3 amended**:
+photographs are allowed with a recorded licence, enforced by
+`src/lib/photos/`; the sync warns about uncredited images. Both are in
+DECISIONS.md, with what is still open (the IMF's permission for automated
+download; news volume for four chokepoints).
+
 ## Where things stand — 14 October 2026
 
 Shipped to `main`: light theme (#19), slimmer home page (#20), chokepoint

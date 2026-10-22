@@ -10,6 +10,13 @@ export const articlesEnabled = true;
 export const monitorEnabled = false;
 
 /**
+ * The Mancalë Index (/mancale), added 21 October 2026. Built and ready, off
+ * until Alex switches it on: launching a section is his call (DECISIONS.md,
+ * "The Mancalë Index"). Off, /mancale 404s and no navigation links to it.
+ */
+export const mancaleEnabled = false;
+
+/**
  * Where subscribe buttons send a reader. 'beehiiv-link' is the original:
  * Beehiiv's hosted sign-up. 'mailto' is a temporary workaround agreed on
  * 15 October 2026 (DECISIONS.md) while Beehiiv's sign-up was losing test

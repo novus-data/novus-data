@@ -310,6 +310,36 @@ function imagesWithoutAlt(html: string | null): string[] {
     .map((tag) => tag.match(/\ssrc="([^"]*)"/)?.[1] ?? '(image with no src)');
 }
 
+/**
+ * The src of every image in a sanitised body that is not inside a <figure>
+ * whose caption credits it.
+ *
+ * Rule 3 was amended on 21 October 2026 to allow photographs, provided every
+ * one carries its credit (WRITING.md section 4, rule 11). Beehiiv cannot
+ * check a licence, and neither can this script, so this is a prompt rather
+ * than a gate: it looks for the words a credit line uses ("Photo:",
+ * "Credit", "Source:" or "Sources listed", a licence name, "public domain",
+ * ©) in the figure's caption. A chart you made carries "Source: ..." and
+ * passes, as it should.
+ *
+ * The same sanitised-output guarantee as above makes the regular expressions
+ * safe: figures and captions are real, rebuilt tags by now.
+ */
+const CREDIT_WORDS = /photo\s*:|credit|sources?\s*(?::|listed)|©|\bcc[ -]?(?:by|0)\b|public domain|licen[cs]e|courtesy/i;
+
+function imagesWithoutCredit(html: string | null): string[] {
+  if (!html) return [];
+  const credited = new Set<string>();
+  for (const figure of html.match(/<figure\b[\s\S]*?<\/figure>/g) ?? []) {
+    const caption = figure.match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)?.[1] ?? '';
+    if (!CREDIT_WORDS.test(caption.replace(/<[^>]+>/g, ' '))) continue;
+    for (const tag of figure.match(/<img\b[^>]*>/g) ?? []) credited.add(tag);
+  }
+  return (html.match(/<img\b[^>]*>/g) ?? [])
+    .filter((tag) => !credited.has(tag))
+    .map((tag) => tag.match(/\ssrc="([^"]*)"/)?.[1] ?? '(image with no src)');
+}
+
 function sanitiseBody(html: string | null): string | null {
   if (!html) return null;
   const cleaned = sanitizeHtml(html, sanitizeOptions)
@@ -561,6 +591,16 @@ async function main(): Promise<void> {
           '           Describe each one in Beehiiv (or mark it decorative), then re-sync with\n' +
           `           npm run sync-issues -- --force ${slug}\n` +
           noAlt.map((src) => `             ${src}`).join('\n'),
+      );
+    }
+    const noCredit = imagesWithoutCredit(body);
+    if (noCredit.length > 0) {
+      console.warn(
+        `  warning: ${slug} has ${noCredit.length} image${noCredit.length === 1 ? '' : 's'} with no credit in a caption. ` +
+          'Every photo must show its credit (WRITING.md section 4, rule 11).\n' +
+          '           Add "Photo: <creator> / <source>, <licence>" as the caption in Beehiiv, then re-sync with\n' +
+          `           npm run sync-issues -- --force ${slug}\n` +
+          noCredit.map((src) => `             ${src}`).join('\n'),
       );
     }
 

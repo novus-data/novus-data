@@ -96,6 +96,46 @@ live") and for all 19 articles to be published.
   its chart redrawn from the same EIA series. The headline and argument
   still held, so no wording changed.
 
+## The Mancalë Index
+
+Proposed by `Novous-Data` on 2026-10-21, with the code, the method and the
+first week of data in one change. It is a new section and a new kind of data.
+
+- **Launch is `arowsom-oss`'s call** under "Launch calls passed to
+  `arowsom-oss`" above. The change arrives with `mancaleEnabled` off in
+  `src/config/launch.ts`: `/mancale` 404s and nothing links to it. Gavin has
+  asked for it to go live; switching it to `true` is the launch, and this
+  entry should then record when.
+- **Rule 1 was amended to allow it**, narrowly (CLAUDE.md §4): figures on
+  `/mancale` only, each computed at build time from cited weekly data by the
+  method printed on the page. No score is stored or typed by hand.
+- **Before relying on the automatic ship download:** the IMF's terms say
+  automated bulk download of IMF data, and any commercial reuse, need its
+  permission. Gavin is to ask copyright@imf.org. Until then,
+  `npm run mancale -- --ships-csv <file>` uses a CSV downloaded by hand from
+  portwatch.imf.org. **Money still needs both**, and it would also need the
+  IMF's permission for this data.
+- **Known limits, stated on the page:** ship counts miss ships that turn their
+  location signals off (the Hormuz article explains why), the news measure
+  counts passing mentions, and the index is not seasonally adjusted. It
+  describes; it does not forecast.
+- The first data file has news volume for Hormuz, the Red Sea and the Taiwan
+  Strait only: GDELT rate-limited the network it was built on. The first
+  `npm run mancale` from a home connection should fill the other four.
+
+## Photographs allowed, with their licence (Rule 3 amended)
+
+Amended by `Novous-Data`, the author of the rules, on 2026-10-21. The site may
+now show photographs, under the same source list the briefing already follows:
+own photos, US federal government works, public domain or CC0, CC BY and
+CC BY-SA, press libraries whose terms allow editorial use, and written
+permission. NC and ND licences, wire and stock photos, search-engine and
+social-media finds, screenshots and AI images stay out. CLAUDE.md Rule 3 has
+the full text; `src/lib/photos/` enforces it, so a photo without a complete
+licence record does not render. The site's code stays `arowsom-oss`'s call:
+if he wants the policy tightened, it changes in that file and Rule 3
+together.
+
 ## Launch
 
 Decided by `arowsom-oss` on 2026-09-23, under the rule above. A big change

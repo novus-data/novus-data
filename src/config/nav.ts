@@ -7,7 +7,7 @@
  * whole of it, and sits after them.
  */
 
-import { articlesEnabled, monitorEnabled } from '@/config/launch';
+import { articlesEnabled, mancaleEnabled, monitorEnabled } from '@/config/launch';
 
 export interface NavItem {
   href: string;
@@ -31,6 +31,10 @@ export const primaryNav: NavItem[] = [
   // the footer (Alex's call, 13 October 2026). Shown only while the section
   // is switched on, so a reader is never sent to a 404.
   ...(articlesEnabled ? [{ href: '/articles', label: 'Articles' }] : []),
+  // The Mancalë Index: the site's one calculated indicator. In the header
+  // because it is a section readers come back to weekly; move it to the
+  // footer list if seven header items is one too many (Alex's call).
+  ...(mancaleEnabled ? [{ href: '/mancale', label: 'Mancalë' }] : []),
   { href: '/about', label: 'About' },
 ];
 
