@@ -27,4 +27,4 @@ export const mancaleEnabled = false;
  * sign-up and appears in Audience. With no contact address configured,
  * 'mailto' falls back to the Beehiiv link rather than a dead button.
  */
-export const subscribeVia: 'mailto' | 'beehiiv-link' = 'mailto';
+export const subscribeVia: 'mailto' | 'beehiiv-link' = 'beehiiv-link';
