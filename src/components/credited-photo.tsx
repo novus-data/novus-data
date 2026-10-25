@@ -25,9 +25,9 @@ export function CreditedPhoto({ photo, priority = false }: { photo: Photo; prior
         sizes="(min-width: 1088px) 1024px, 100vw"
         className="h-auto w-full border border-hairline"
       />
-      <figcaption className="text-meta leading-relaxed text-muted">
-        <span className="text-fg">{photo.caption}</span>{' '}
-        <span>
+      <figcaption className="flex flex-col gap-0.5 text-muted">
+        <span className="text-meta leading-relaxed text-fg">{photo.caption}</span>
+        <span className="text-xs leading-snug">
           Photo: {credit.title ? <>&ldquo;{credit.title}&rdquo; by </> : null}
           {credit.creator}
           {credit.sourceUrl ? (
