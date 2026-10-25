@@ -101,6 +101,17 @@ data (IMF PortWatch and GDELT) by a method printed on the same page. The data
 file holds only sourced averages; no score is stored or typed by hand
 (§14.1). It does not license a figure anywhere else.
 
+**Proposed extension, 25 October 2026 — the Mancalë scorecard (not yet
+accepted by the author; merging the change that adds this paragraph is the
+acceptance).** `/mancale/scorecard` may also publish counts and rates, because
+each is computed at build time from the same cited weekly data and from the
+label ledger, by the method printed on that page. Nothing is typed by hand.
+The ledger (`content/indicators/mancale-ledger.json`) stores **labels**
+(`narrative-led`, `aligned` and so on), never scores or any figure. It exists
+because a label that has only ever been recomputed from today's data cannot
+show what the site said at the time. It does not license a figure anywhere
+else.
+
 Two fenced exceptions, both `[SAMPLE]`-prefixed, both unreachable without
 `CONTENT_SOURCE=fixtures`, and both throwing at module load if a production
 build touches them:
@@ -213,7 +224,7 @@ step needs account access, write instructions in `DEPLOY.md` instead.
 CONTRIBUTING.md            How two people work on this without breaking the standard.
 content/issues/            The issue archive of record. One .md per issue.
 content/disruptions/       The disruption register. One .md per problem.
-content/indicators/        The Mancalë Index data: weekly averages only. Written by npm run mancale.
+content/indicators/        The Mancalë Index data (weekly averages only) and its label ledger. Written by npm run mancale.
 content/photos/            Licence records for every photo the site shows directly. See Rule 3.
 public/photos/             The photo files those records describe. Never hotlinked.
 scripts/sync-issues.ts     Pulls new issues from Beehiiv RSS. The ONLY Beehiiv code.
@@ -713,10 +724,18 @@ publishes new ship data on Tuesdays. Once a week after that:
 
 ```
 1. npm run mancale            downloads ship and news data, writes content/indicators/mancale.json
+                              and adds one line to mancale-ledger.json (the labels of the latest week)
 2. Read the summary it prints (each chokepoint's reading, and any that changed)
 3. git add content/indicators/ && git commit -m "mancale: week of <date>"
-4. git push                   (Vercel deploys; /mancale is rebuilt from the file)
+4. git push                   (Vercel deploys; /mancale and /mancale/scorecard are rebuilt)
 ```
+
+The ledger line is what lets the scorecard (§14.1) say a call was recorded as it
+happened. It counts as recorded only if it is written within 10 days of the week
+ending, so a refresh that slips past that is still safe, but the calls from that
+week are listed as found afterwards. A ledger line is never edited, and the script
+refuses to run if the file no longer validates. `npm run mancale -- --ledger-only`
+records the latest week from the data already on disk, with no download.
 
 The news download is slow on purpose (GDELT asks for one request every five
 seconds) and resumable: if it stops, run it again. `--ships-csv <file>` reads
@@ -934,7 +953,8 @@ npm run build            production build (strict — fails on unanswered inputs
 npm run typecheck        tsc --noEmit
 npm run lint             eslint
 npm run sync-issues      pull new issues from Beehiiv
-npm run mancale          weekly refresh of the Mancalë Index data (§8)
+npm run mancale          weekly refresh of the Mancalë Index data and ledger (§8; --ledger-only skips the download)
+npm run test:regressions the regression cases, including the scorecard arithmetic
 npm run preview          build the single-file review preview
 ```
 
@@ -1048,6 +1068,36 @@ three cannot drift (§14a). A change to the method changes its `version`. A
 publication about supply chain disruption that shows last week's freight rate as
 though it were today's would destroy more credibility than this whole site
 builds.
+
+**The scorecard, 25 October 2026** (`/mancale/scorecard`, same `mancaleEnabled`
+gate). It tests whether the two sharpest labels (`reality-led`, "Ships ahead of
+news", and `narrative-led`, "News ahead of ships") told a reader anything about
+the next four weeks, using only Mancalë data, so it adds no new kind of data.
+`src/lib/indicators/mancale-scorecard.ts` holds the logic and is pure; the page
+prints its constants (`SCORECARD_METHOD`), so the two cannot drift.
+
+- **A call is the first week of a run of the same label**, not every week of it,
+  so one long episode is one observation.
+- **Every result is set against the ordinary-week rate**, the same outcome
+  measured from every week where the score that has to move started below 1. A
+  rate means nothing without it.
+- **Recorded versus found afterwards.** Only calls whose label was in a ledger
+  line written within 10 days of the week ending are a forward test. The rest
+  are in-sample, because the index's thresholds were chosen while looking at the
+  same history, and the page says so. A recorded week that upstream data later
+  rescores is listed as revised and left out of the counts.
+- **No rate until 10 calls are settled**, shown with a Wilson 95% interval.
+- **The constants (4 weeks, a move of 1 point, the ordinary-week rule, 10
+  calls, 10 days) were fixed on 25 October 2026 before any result was
+  calculated. Do not tune them to a result.** A change is a new
+  `SCORECARD_METHOD.version`, and earlier counts stay under the old one.
+
+Honest reading of the first run, so nobody oversells it: in the history,
+"Ships ahead of news" was followed by the news catching up in 15 of 29 calls
+(52%, range 34% to 69%) against 32% from an ordinary week, and "News ahead of
+ships" by the ships following in 5 of 26 (19%, range 9% to 38%) against 17%.
+That is in-sample and small, and the second result is no different from
+chance. The forward record started with the week of 12 October 2026.
 
 ### 14.2 An app with notifications
 

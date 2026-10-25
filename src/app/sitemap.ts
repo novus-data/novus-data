@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 import { footerNav } from '@/config/nav';
-import { articlesEnabled } from '@/config/launch';
+import { articlesEnabled, mancaleEnabled } from '@/config/launch';
 import { listArticles, listIssues } from '@/lib/content';
 import { listDisruptions, listEntities } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
@@ -89,5 +89,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  return [...staticRoutes, ...disruptionRoutes, ...entityRoutes, ...articleRoutes, ...issueRoutes];
+  // /mancale is in the navigation, so it arrives with the static routes. Its
+  // scorecard is reached from that page, not from the navigation, so it is
+  // listed here, under the same switch.
+  const scorecardRoutes: MetadataRoute.Sitemap = mancaleEnabled
+    ? [{ url: absoluteUrl('/mancale/scorecard'), changeFrequency: 'weekly' as const, priority: 0.6 }]
+    : [];
+
+  return [...staticRoutes, ...scorecardRoutes, ...disruptionRoutes, ...entityRoutes, ...articleRoutes, ...issueRoutes];
 }

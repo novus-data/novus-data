@@ -1,0 +1,8 @@
+{
+  "format": 1,
+  "index": "mancale-ledger",
+  "note": "Written by npm run mancale, one line per refresh, never by hand and never edited afterwards. It records the label each chokepoint had in the latest week when the refresh ran, so the scorecard can show what was recorded before the outcome weeks existed. Labels only: no score is stored.",
+  "entries": [
+    {"weekStart":"2026-10-12","recordedOn":"2026-10-25","methodVersion":"0.2","regimes":{"hormuz":"aligned","bab-el-mandeb":"aligned","suez":"flow-only-normal","panama":"flow-only-elevated","taiwan-strait":"aligned","malacca":"flow-only-surge","bosphorus":"flow-only-severe"}}
+  ]
+}

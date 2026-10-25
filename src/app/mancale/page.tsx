@@ -101,6 +101,20 @@ export default async function MancalePage() {
           <Container className="mt-12 sm:mt-16">
             <Method />
           </Container>
+
+          <Container className="mt-12 sm:mt-16">
+            <StoryBox
+              size="compact"
+              kicker="Scorecard"
+              title="Do the labels tell you anything about what comes next?"
+              footer={<TextLink href="/mancale/scorecard">Read the scorecard</TextLink>}
+            >
+              <p>
+                The index describes the week; it does not forecast. The scorecard checks that in the open, with every call
+                listed and the misses left on the page.
+              </p>
+            </StoryBox>
+          </Container>
         </>
       )}
     </>

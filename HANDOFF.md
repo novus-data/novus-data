@@ -3,6 +3,19 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
+## Added 25 October 2026 — the Mancalë scorecard
+
+From Gavin, as one patch. **`/mancale/scorecard`** tests, in public, whether the
+index's two sharpest labels were followed by the lagging score catching up within
+four weeks, against an ordinary week. Logic in
+`src/lib/indicators/mancale-scorecard.ts`, arithmetic covered by
+`scripts/tests/mancale-scorecard.ts` (`npm run test:regressions`). Behind the same
+`mancaleEnabled` flag as `/mancale`. `npm run mancale` now also writes one line to
+`content/indicators/mancale-ledger.json` (labels only); no new manual step.
+**CLAUDE.md Rule 1 has a proposed extension** for the page's figures, marked as
+proposed, which merging accepts. Method, what the first run showed and the one
+habit it needs are in DECISIONS.md.
+
 ## Added 21 October 2026 — the Mancalë Index and the photo rule
 
 From Gavin, as one patch. **`/mancale`**: the Mancalë Index, a weekly score of

@@ -5,6 +5,7 @@
  *   npm run mancale -- --ships-csv <file> use a PortWatch CSV you downloaded by hand
  *   npm run mancale -- --offline          rebuild from the local cache, no network
  *   npm run mancale -- --refresh-news     re-download news even if the cache is fresh
+ *   npm run mancale -- --ledger-only      no download: record the latest week's labels from the file as it is
  *
  * WHAT IT WRITES
  *
@@ -13,6 +14,14 @@
  * English-language news per week (GDELT). Nothing else. Every score on the
  * page is computed from these at build time by src/lib/indicators/
  * mancale-method.ts, which this script also uses, so the two cannot disagree.
+ *
+ * content/indicators/mancale-ledger.json: one line per refresh, the label each
+ * chokepoint had in the latest week, with the day it was written. Append-only:
+ * an existing line is never changed, and the script refuses to write if the
+ * file does not validate. The scorecard (/mancale/scorecard) uses it to tell
+ * what was recorded before the outcome weeks existed from what was found
+ * afterwards. Labels only: no score is stored. Recording is part of this run,
+ * so it adds no step: `git add content/indicators/` already covers it.
  *
  * WHEN TO RUN IT
  *
@@ -47,6 +56,7 @@ const CACHE = path.join(ROOT, '.mancale-cache');
 const NEWS_CACHE = path.join(CACHE, 'news');
 const SHIPS_CACHE = path.join(CACHE, 'ships.json');
 const OUTPUT = path.join(ROOT, 'content', 'indicators', 'mancale.json');
+const LEDGER = path.join(ROOT, 'content', 'indicators', 'mancale-ledger.json');
 
 const PORTWATCH_QUERY =
   'https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query';
@@ -198,8 +208,91 @@ async function fetchNews(id: string, query: string): Promise<NewsCache | null> {
 }
 
 // ---------------------------------------------------------------------------
+// Ledger
+// ---------------------------------------------------------------------------
+
+/**
+ * Append the latest week's labels to the ledger. Never changes an existing
+ * line, and never writes over a file that does not validate: a ledger that
+ * silently dropped an entry would defeat its only purpose.
+ */
+async function recordLedger(index: import('../src/lib/indicators/types').MancaleIndex) {
+  const { SCORECARD_METHOD, SCORECARD_TESTS, buildScorecard, isTimely, nextLedgerEntry, parseLedger, serializeLedger } = await import(
+    '../src/lib/indicators/mancale-scorecard'
+  );
+  const { MANCALE_REGIME_LABELS } = await import('../src/lib/indicators/types');
+
+  let existing: import('../src/lib/indicators/mancale-scorecard').LedgerEntry[] = [];
+  if (existsSync(LEDGER)) {
+    let parsed: ReturnType<typeof parseLedger>;
+    try {
+      parsed = parseLedger(JSON.parse(await readFile(LEDGER, 'utf8')));
+    } catch (error) {
+      throw new Error(`The ledger could not be read (${(error as Error).message}). Restore it from git; nothing was written.`);
+    }
+    if (parsed.warnings.length > 0) {
+      throw new Error(`The ledger does not validate, so nothing was written:\n  ${parsed.warnings.join('\n  ')}\nRestore it from git.`);
+    }
+    existing = parsed.entries;
+  }
+
+  const entry = nextLedgerEntry(index, todayIso());
+  const already = existing.find((candidate) => candidate.weekStart === entry.weekStart);
+  const last = existing[existing.length - 1];
+
+  if (already) {
+    const changed = Object.entries(entry.regimes).filter(([id, regime]) => already.regimes[id] !== regime);
+    if (changed.length > 0) {
+      warn(
+        `Ledger: the week of ${entry.weekStart} was recorded on ${already.recordedOn}, and the data now scores ${changed
+          .map(([id, regime]) => `${id} as "${MANCALE_REGIME_LABELS[regime]}"`)
+          .join(', ')} instead. The recorded entry is kept as it was; the scorecard lists the difference.`,
+      );
+    } else {
+      info(`Ledger: the week of ${entry.weekStart} is already recorded (${already.recordedOn}).`);
+    }
+  } else if (last && last.weekStart > entry.weekStart) {
+    warn(`Ledger: the latest recorded week (${last.weekStart}) is later than this data's (${entry.weekStart}). Nothing recorded.`);
+  } else {
+    await mkdir(path.dirname(LEDGER), { recursive: true });
+    await writeFile(LEDGER, serializeLedger([...existing, entry]));
+    ok(`Ledger: recorded the week of ${entry.weekStart} (${Object.keys(entry.regimes).length} chokepoints) on ${entry.recordedOn}.`);
+    if (!isTimely(entry)) {
+      warn(
+        `That week ended more than ${SCORECARD_METHOD.timelyWithinDays} days ago, so the scorecard will count it as history, not as a recorded call. Refresh within ${SCORECARD_METHOD.timelyWithinDays} days of each week's end.`,
+      );
+    }
+    for (const test of SCORECARD_TESTS) {
+      for (const point of index.chokepoints) {
+        if (entry.regimes[point.id] === test.regime) {
+          info(`Ledger: ${point.label} is "${MANCALE_REGIME_LABELS[test.regime]}". The scorecard will check the next ${SCORECARD_METHOD.horizonWeeks} weeks.`);
+        }
+      }
+    }
+    existing = [...existing, entry];
+  }
+
+  // Past entries the data no longer agrees with: upstream revised a week.
+  const revisions = buildScorecard(index, existing).revisions;
+  for (const revision of revisions) {
+    warn(
+      `Ledger: ${revision.chokepointLabel}, week of ${revision.weekStart}: recorded "${MANCALE_REGIME_LABELS[revision.recorded]}" on ${revision.recordedOn}, now scores "${MANCALE_REGIME_LABELS[revision.now]}".`,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
 
 async function main() {
+  if (flag('--ledger-only')) {
+    heading('Mancalë: ledger');
+    const { readMancale } = await import('../src/lib/indicators/sources/local-file');
+    const index = await readMancale();
+    if (!index) throw new Error('There is no Mancalë data file to record from. Run npm run mancale first.');
+    await recordLedger(index);
+    return;
+  }
+
   const { MANCALE_CHOKEPOINTS, MANCALE_METHOD, addDays, lastCompleteWeekStart, mondayOf, scoreChokepoint, weeklyMeans } =
     await import('../src/lib/indicators/mancale-method');
   await mkdir(NEWS_CACHE, { recursive: true });
@@ -301,6 +394,10 @@ async function main() {
   for (const warning of index.warnings) warn(warning);
   blank();
   ok(`Wrote ${path.relative(ROOT, OUTPUT)}: week of ${index.latestWeekStart}, data through ${index.dataThrough}.`);
+
+  heading('Mancalë: ledger');
+  await recordLedger(index);
+  blank();
   info('Next: git add content/indicators/ && git commit -m "mancale: week of ' + index.latestWeekStart + '" && git push');
 
   function scoredFrom(text: string): Map<string, string> | null {

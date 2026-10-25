@@ -123,6 +123,46 @@ first week of data in one change. It is a new section and a new kind of data.
   Strait only: GDELT rate-limited the network it was built on. The first
   `npm run mancale` from a home connection should fill the other four.
 
+## The Mancalë scorecard
+
+Proposed by `Novous-Data` on 2026-10-25, drafted by Claude at Gavin's request,
+as one change to `arowsom-oss`. It checks the index in public: whether the two
+sharpest labels ("Ships ahead of news" and "News ahead of ships") were followed
+by the lagging score catching up within four weeks, compared with an ordinary
+week. Whether the labels predict anything is unproven, which is why it is
+tested where readers can see it.
+
+- **Launch is `arowsom-oss`'s call**, and it needs no second switch:
+  `/mancale/scorecard` sits behind `mancaleEnabled`, so it 404s and is out of
+  the sitemap until `/mancale` goes live. Both are then one launch.
+- **No new kind of data.** Outcomes come from the Mancalë data alone. An outside
+  series (the New York Fed's pressure index, FRED) was considered and left out,
+  because it would be a second source with its own terms and a new kind of figure
+  under Rule 1 and §13.
+- **Rule 1 has a proposed extension** (CLAUDE.md §4, marked as proposed): counts
+  and rates on `/mancale/scorecard` only, computed at build time. Merging the
+  change is the author's acceptance. If it is not accepted, drop the page and
+  keep the ledger.
+- **One new file is written by the weekly refresh**: `content/indicators/
+  mancale-ledger.json`, one line per week, labels only, never edited after it is
+  written. It adds no manual step: `npm run mancale` writes it and the existing
+  `git add content/indicators/` covers it. The first line is the week of
+  2026-10-12, written 2026-10-25.
+- **Fixed in advance, and not to be tuned.** The four-week window, the 1-point
+  move, the ordinary-week rule, the 10-call minimum before a rate is shown and
+  the 10-day limit for a call to count as recorded were set on 2026-10-25,
+  before any result was calculated. A change is a new method version.
+- **What the first run showed, stated plainly.** In the history, "Ships ahead of
+  news" was followed by the news catching up in 15 of 29 calls (52%, range 34%
+  to 69%) against 32% from an ordinary week. "News ahead of ships" was followed
+  by the ships in 5 of 26 (19%, range 9% to 38%) against 17%, which is no
+  different from chance. All of it is in-sample, because the index's thresholds
+  were chosen on the same history. Only calls recorded as they happen count as a
+  test, and none has settled yet.
+- **Keeping the forward record honest takes one habit**: run `npm run mancale`
+  within 10 days of each week ending (PortWatch publishes on Tuesdays). A late
+  week is still safe to run, but its calls are listed as found afterwards.
+
 ## Photographs allowed, with their licence (Rule 3 amended)
 
 Amended by `Novous-Data`, the author of the rules, on 2026-10-21. The site may
