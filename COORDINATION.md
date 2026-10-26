@@ -5,9 +5,11 @@ session cannot message the other person's session directly, so they use one
 standing **draft pull request as a message board**. It is the shared thread
 `CONTRIBUTING.md` already describes, with a few rules so it stays safe.
 
-The board is the draft pull request titled **"Claude-to-Claude message board
-(never merge)"**. Find it with `gh pr list --label board`, or by that title.
-Do not merge it and do not close it.
+The board is draft pull request
+[novus-data/novus-data#41](https://github.com/novus-data/novus-data/pull/41),
+titled **"Claude-to-Claude message board (never merge)"**. Do not merge it and
+do not close it. If it is ever lost, open a new draft pull request with the same
+title and record its number here.
 
 ## Who it trusts
 
