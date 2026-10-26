@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { Container } from '@/components/container';
 import { CreditedPhoto } from '@/components/credited-photo';
+import { MancaleMap } from '@/components/mancale/mancale-map';
 import { GapChart, NewsChart, ShipsChart, formatMultiple, formatPerDay, signed } from '@/components/mancale/mancale-charts';
 import { PageHeader } from '@/components/page-header';
 import { SourceList } from '@/components/source-list';
@@ -91,10 +92,17 @@ export default async function MancalePage() {
 
           <Container className="mt-12 sm:mt-16">
             <SectionLabel id="chokepoints">The seven chokepoints, weekly since 2019</SectionLabel>
-            <div className="mt-5 grid gap-5 lg:grid-cols-2 lg:items-start">
-              {index.chokepoints.map((point) => (
-                <ChokepointBox key={point.id} point={point} />
-              ))}
+            {/* Map first in the markup, so it leads below lg; from lg it sits in a
+                sticky right-hand column that stays in view while the charts scroll. */}
+            <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
+              <aside aria-label="Map of the seven chokepoints" className="lg:sticky lg:top-6 lg:order-2">
+                <MancaleMap points={index.chokepoints.map((point) => ({ id: point.id, label: point.label, regime: point.latest.regime }))} />
+              </aside>
+              <div className="flex flex-col gap-5 lg:order-1">
+                {index.chokepoints.map((point) => (
+                  <ChokepointBox key={point.id} point={point} />
+                ))}
+              </div>
             </div>
           </Container>
 
