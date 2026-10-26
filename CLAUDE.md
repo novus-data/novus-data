@@ -252,6 +252,8 @@ src/lib/og.ts              Font data and colours for generated images.
 src/lib/structured-data.ts JSON-LD builders.
 src/components/            Presentational components. One client component.
   chokepoint-map.tsx         The home page locator map. Static SVG. See §6a.
+  chokepoint-map-base.tsx    The drawing both locator maps share (projection, coastlines, lanes).
+  mancale/mancale-map.tsx    The /mancale locator map: markers are Mancalë labels, not register fills. See §6a.
   world-outline.ts           Its hand-drawn coastlines and sea lanes. Coarse on purpose.
 src/app/account/           The signed-in page and its server actions. Dynamic.
 src/app/auth/              Magic-link callback and sign-out. Dynamic.
@@ -499,6 +501,20 @@ Resolved entries do not fill a marker.
   never links to a page that 404s. Below `sm` the targets over the markers
   are hidden, because Suez and the Bosphorus sit closer than a fingertip
   there; the names under the map open the same cards.
+
+### The Mancalë map (26 October 2026)
+
+`src/components/mancale/mancale-map.tsx` draws a second map on `/mancale`, from the
+same `chokepoint-map-base.tsx`. **Its markers mean something different from the
+home map's**: the home map fills a marker when an open register entry names the
+place; this one marks each of the seven chokepoints the index scores by its latest
+Mancalë label, by shape (solid circle: ships ahead of news or disrupted; solid
+square: news ahead of ships; open ring: anything else), never by colour. Do not
+carry register fills onto it or Mancalë shapes onto the home map: a reader would
+take one for the other. Mancalë's `malacca` is the map's `singapore-strait`; a
+missing id throws at build. Its marker links are HTML links over the SVG, hidden
+below `sm` like the home map's, because an `<svg role="img">` hides anything inside
+it from assistive technology.
 
 ## 6b. The account layer
 

@@ -76,10 +76,11 @@ export function MancaleMap({ points }: { points: MancaleMapPoint[] }) {
 
   return (
     <figure className="flex flex-col gap-4">
+      <div className="relative">
       <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="h-auto w-full" role="img" aria-label={description}>
         <MapBase />
         {markers.map((marker) => (
-          <a key={marker.id} href={`#${marker.id}`} aria-label={`${marker.label}: ${marker.word}. Jump to its chart.`}>
+          <g key={marker.id}>
             {SHAPE[marker.regime] === 'square-solid' ? (
               <rect
                 x={marker.x - MARKER_RADIUS}
@@ -108,9 +109,25 @@ export function MancaleMap({ points }: { points: MancaleMapPoint[] }) {
             >
               {marker.number}
             </text>
-          </a>
+          </g>
         ))}
       </svg>
+
+      {/* Real links laid over the markers, as a share of the frame, because an
+          <svg role="img"> hides what is inside it from assistive technology
+          while keyboard focus can still land there. Hidden below `sm`, where
+          neighbouring markers sit closer than a fingertip; the numbered list
+          under the map is the target there. */}
+      {markers.map((marker) => (
+        <a
+          key={marker.id}
+          href={`#${marker.id}`}
+          aria-label={`${marker.label}: ${marker.word}. Jump to its chart.`}
+          className="absolute hidden size-6 -translate-x-1/2 -translate-y-1/2 rounded-full ring-link transition-shadow hover:ring-2 focus-visible:outline-none focus-visible:ring-2 sm:block md:size-7"
+          style={{ left: `${(marker.x / WIDTH) * 100}%`, top: `${(marker.y / HEIGHT) * 100}%` }}
+        />
+      ))}
+      </div>
 
       <figcaption className="flex flex-col gap-3">
         <ol className="flex flex-col">
