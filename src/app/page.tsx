@@ -75,7 +75,13 @@ export default async function HomePage() {
 
       <Nameplate />
 
+      {/* A reader on a phone sees only the lead on the first screen, so the
+          way in sits above it. The full panel stays at the foot of the page. */}
       <Container className="mt-6">
+        <SubscribePanel compact level={2} heading="Get the briefing by email" />
+      </Container>
+
+      <Container className="mt-4">
         <div className="grid gap-4 lg:grid-cols-12 [&>*]:min-w-0">
           {lead ? (
             <LeadDisruption disruption={lead} className="lg:col-span-8" />

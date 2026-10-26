@@ -7,6 +7,7 @@ import { MancaleMap } from '@/components/mancale/mancale-map';
 import { GapChart, NewsChart, ShipsChart, formatMultiple, formatPerDay, signed } from '@/components/mancale/mancale-charts';
 import { PageHeader } from '@/components/page-header';
 import { SourceList } from '@/components/source-list';
+import { SubscribePanel } from '@/components/subscribe-panel';
 import { SectionLabel, StoryBox } from '@/components/story-box';
 import { TextLink } from '@/components/text-link';
 import { mancaleEnabled } from '@/config/launch';
@@ -125,6 +126,10 @@ export default async function MancalePage() {
           </Container>
         </>
       )}
+
+      <Container className="mt-12 sm:mt-16">
+        <SubscribePanel heading="Get the briefing by email" className="max-w-reading" />
+      </Container>
     </>
   );
 }

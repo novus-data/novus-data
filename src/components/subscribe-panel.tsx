@@ -15,10 +15,17 @@ export function SubscribePanel({
   heading = 'Subscribe',
   level = 2,
   className,
+  compact = false,
 }: {
   heading?: string;
   level?: 2 | 3;
   className?: string;
+  /**
+   * A short version for the top of a page: the same facts and the same button
+   * in a compact box, with its own anchor id so a page can carry it and the
+   * full panel below without two elements sharing `#subscribe`.
+   */
+  compact?: boolean;
 }) {
   // Only ever states a schedule that has actually been committed to.
   const cadenceLine = publication.cadence
@@ -52,7 +59,8 @@ export function SubscribePanel({
   return (
     <StoryBox
       as="section"
-      id="subscribe"
+      id={compact ? 'subscribe-top' : 'subscribe'}
+      size={compact ? 'compact' : 'standard'}
       level={level}
       kicker={publication.newsletter.name}
       title={heading}

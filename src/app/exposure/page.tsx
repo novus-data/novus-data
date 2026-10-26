@@ -4,6 +4,7 @@ import { Container } from '@/components/container';
 import { ExposureChart } from '@/components/exposure-chart';
 import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
+import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { buildExposureMatrix } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
@@ -73,6 +74,10 @@ export default async function ExposurePage() {
         >
           <p>Corrections are the most useful thing you can send.</p>
         </StoryBox>
+      </Container>
+
+      <Container className="mt-10">
+        <SubscribePanel heading="Get the briefing by email" className="max-w-reading" />
       </Container>
     </>
   );

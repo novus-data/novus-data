@@ -7,7 +7,9 @@ import { SubscribePanel } from '@/components/subscribe-panel';
 import { ExternalLink, TextLink } from '@/components/text-link';
 import { subscribeVia } from '@/config/launch';
 import { publication } from '@/config/publication';
+import { getIssue, listIssues } from '@/lib/content';
 import { absoluteUrl, env } from '@/lib/env';
+import { formatLongDate, readingTimeMinutes } from '@/lib/format';
 
 export const metadata: Metadata = {
   title: 'Subscribe',
@@ -15,7 +17,14 @@ export const metadata: Metadata = {
   alternates: { canonical: absoluteUrl('/subscribe') },
 };
 
-export default function SubscribePage() {
+export default async function SubscribePage() {
+  // A sample for a reader deciding whether to subscribe: the latest briefing,
+  // with its reading time measured from its own text (never typed by hand).
+  const [latest] = await listIssues(1);
+  const sample = latest ? await getIssue(latest.slug) : null;
+  const minutes = sample ? readingTimeMinutes(sample.contentHtml) : null;
+  const sampleDate = sample ? formatLongDate(sample.publishedAt) : null;
+
   return (
     <>
       <PageHeader
@@ -26,6 +35,27 @@ export default function SubscribePage() {
 
       <Container width="reading" className="mt-8 flex flex-col gap-5">
         <SubscribePanel heading="Subscribe by email" />
+
+        {sample ? (
+          <StoryBox
+            as="section"
+            level={2}
+            id="sample"
+            kicker="A sample"
+            kickerTone="muted"
+            title={sample.title}
+            titleHref={`/briefings/${sample.slug}`}
+            footer={
+              <>
+                {sampleDate ? <time dateTime={sample.publishedAt}>{sampleDate}</time> : null}
+                {minutes !== null ? <span data-numeric>{minutes} min read</span> : null}
+                <TextLink href={`/briefings/${sample.slug}`}>Read the latest briefing</TextLink>
+              </>
+            }
+          >
+            {sample.excerpt ? <p>{sample.excerpt}</p> : null}
+          </StoryBox>
+        ) : null}
 
         <StoryBox as="section" level={2} id="how" kicker="How it works" kickerTone="muted" title="What happens to your address">
           {subscribeVia === 'mailto' && env.contactEmail ? (

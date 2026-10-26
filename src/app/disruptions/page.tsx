@@ -4,6 +4,7 @@ import { Container } from '@/components/container';
 import { PageHeader } from '@/components/page-header';
 import { StatusBadge } from '@/components/status-badge';
 import { StoryBox } from '@/components/story-box';
+import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { CATEGORY_LABELS, isStale, listDisruptions } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
@@ -84,6 +85,10 @@ export default async function DisruptionsPage() {
           </p>
         </Container>
       ) : null}
+
+      <Container className="mt-10">
+        <SubscribePanel heading="Get the briefing by email" className="max-w-reading" />
+      </Container>
     </>
   );
 }
