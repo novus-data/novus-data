@@ -469,7 +469,7 @@ async function main(): Promise<void> {
     fail(
       'BEEHIIV_RSS_URL is not set.\n' +
         '  Add it to .env.local (it is only ever read by this script, never by the site):\n' +
-        '    BEEHIIV_RSS_URL=https://rss.beehiiv.com/feeds/q2HQCm9T6z.xml',
+        '    BEEHIIV_RSS_URL=https://rss.beehiiv.com/feeds/Al3vKLY95D.xml',
     );
   }
 

@@ -902,6 +902,13 @@ Tailwind utility names map onto these: `bg-ink`, `bg-surface`, `bg-surface-2`,
 
 ## 10. Feed findings
 
+**Update, 26 October 2026.** The newsletter moved to a different Beehiiv
+account (`alexs-newsletter-408c44.beehiiv.com`) and its feed is now
+`https://rss.beehiiv.com/feeds/Al3vKLY95D.xml`; sync from that one. It returns
+full post HTML in `content:encoded`, so question 2 below is answered: yes.
+The first account's feed (`q2HQCm9T6z`) still answers but has no items. What
+follows is the original record, kept as written.
+
 **Checked on 3 October 2026.** The publication's public feed,
 `https://rss.beehiiv.com/feeds/q2HQCm9T6z.xml`, returns HTTP 200 and a valid RSS
 channel, but no published issues. The remaining checks require the first issue:

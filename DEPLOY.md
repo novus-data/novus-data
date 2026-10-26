@@ -696,7 +696,9 @@ Start on the free plan. Upgrade only when a feature is actually needed.
 - **Branding:** logo, and the site's colours — background `#070C20`, accent
   `#7B92BE`, text `#F4F6FA` — so the email and the site read as one product.
 - **RSS feed:** use the publication's own public feed,
-  `https://rss.beehiiv.com/feeds/q2HQCm9T6z.xml`. Do not search the settings for
+  `https://rss.beehiiv.com/feeds/Al3vKLY95D.xml` (the account the newsletter moved to
+  in October 2026; the first account's feed, `q2HQCm9T6z`, never carried an
+  issue). Do not search the settings for
   "RSS" — that leads to the paid import screen, which is a different thing. The
   sync script needs this feed. If it ever stops working, tell Alex: issues can
   still be added by hand, but that breaks the one-step rule and needs a fix.

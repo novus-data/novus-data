@@ -67,6 +67,22 @@ email. Temporary.
 - Not merged until Gavin has checked Audience and approved the subscribe and
   /privacy copy, including the retention period he is to decide.
 
+## The newsletter moved to a different Beehiiv account
+
+Done by `arowsom-oss` on or before 2026-10-21, because the first account's
+sign-up was unreliable. Recorded here on 2026-10-26.
+
+- The sign-up button went back to Beehiiv's hosted form (#37, `subscribeVia`
+  is `'beehiiv-link'`). The email fallback beside it stays.
+- The site's footer and subscribe links, and `BEEHIIV_RSS_URL` for
+  `npm run sync-issues`, now point at the new account's publication and feed
+  (`Al3vKLY95D`). The Vercel settings were changed by hand; this repository
+  names only the feed.
+- The first sync from the new feed brought in the 22 October issue. Beehiiv
+  listed it twice, an early copy that still carried two `[GAVIN: confirm or
+  rewrite]` notes and the sent version without them; only the sent version is
+  in the archive.
+
 ## Articles go live
 
 Decided by `arowsom-oss` on 2026-10-14, under "Launch calls passed to
