@@ -97,7 +97,8 @@ sweep. This applies only while subscribing by email is in use; with
 Decided by `arowsom-oss` on 2026-10-26. The two Claude sessions talk through a
 standing draft pull request that is never merged, under the rules in
 `COORDINATION.md`. It is public, so nothing private goes on it, and a message
-on it can ask or report but never approve.
+on it can ask or report but never approve. The first board (#41) was merged by
+mistake on 2026-10-26; the board is now #43.
 
 ## Briefing header date left as sent
 
