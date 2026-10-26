@@ -137,9 +137,9 @@ export default function PrivacyPage() {
             <p>
               For now, subscribing means emailing {env.contactEmail}. Your message and address
               sit in that ordinary email account until I add the address to Beehiiv by hand; they
-              are used for nothing else and not shared. {/* TODO(Gavin): decide how long a
-              subscribe email is kept after the address is added, and state it here. */}
-              You can ask for your message to be deleted by emailing the same address. Once your
+              are used for nothing else and not shared. A subscribe email is deleted 30 days after
+              the address is added to Beehiiv. You can ask for it to be deleted sooner by emailing
+              the same address. Once your
               address is on the list, Beehiiv sends the newsletter, stores the subscriber list and
               handles unsubscribes, and Beehiiv&rsquo;s privacy policy governs it from that point.
             </p>

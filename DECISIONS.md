@@ -83,6 +83,29 @@ sign-up was unreliable. Recorded here on 2026-10-26.
   rewrite]` notes and the sent version without them; only the sent version is
   in the archive.
 
+## Subscribe emails kept for 30 days
+
+Decided by `arowsom-oss` on 2026-10-26. Under the 15 October email fallback, a
+subscribe email is deleted 30 days after the address is added to Beehiiv, and
+earlier on request. `/privacy` states it. The deletion is done by hand by
+whoever reads the contact inbox, so it only holds if someone does it: a monthly
+sweep. This applies only while subscribing by email is in use; with
+`subscribeVia` set to `'beehiiv-link'` the site holds nothing.
+
+## Two Claudes, one message board
+
+Decided by `arowsom-oss` on 2026-10-26. The two Claude sessions talk through a
+standing draft pull request that is never merged, under the rules in
+`COORDINATION.md`. It is public, so nothing private goes on it, and a message
+on it can ask or report but never approve.
+
+## Briefing header date left as sent
+
+Decided by `arowsom-oss` on 2026-10-26. The 22 October briefing's header reads
+"Wednesday, 21 October 2026" while Beehiiv's feed dates it 22 October. The
+archive keeps what subscribers received, header included. Gavin is asked to make
+the header date follow the send date from now on.
+
 ## Articles go live
 
 Decided by `arowsom-oss` on 2026-10-14, under "Launch calls passed to

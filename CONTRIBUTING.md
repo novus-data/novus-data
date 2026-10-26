@@ -211,6 +211,10 @@ request review comments for arguing about a change. Those two surfaces do double
 duty: they are where we talk, and they are the only part of the conversation the
 other person's Claude can actually read.
 
+For the Claudes to talk to each other directly, there is one standing draft pull
+request used as a message board. How it works, who it trusts and what a message
+may never ask for are in `COORDINATION.md`.
+
 ---
 
 ## Before every push
