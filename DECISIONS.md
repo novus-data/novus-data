@@ -106,6 +106,11 @@ first week of data in one change. It is a new section and a new kind of data.
   `src/config/launch.ts`: `/mancale` 404s and nothing links to it. Gavin has
   asked for it to go live; switching it to `true` is the launch, and this
   entry should then record when.
+- **Launched 25 October 2026.** `arowsom-oss` switched `mancaleEnabled` to
+  `true`, which also turns on `/mancale/scorecard`. At launch only Hormuz, the
+  Red Sea and the Taiwan Strait have news data, so only those three can make
+  scorecard calls; the page says so. Taking it down is one line: set the switch
+  back to `false`.
 - **Rule 1 was amended to allow it**, narrowly (CLAUDE.md §4): figures on
   `/mancale` only, each computed at build time from cited weekly data by the
   method printed on the page. No score is stored or typed by hand.

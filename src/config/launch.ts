@@ -10,11 +10,12 @@ export const articlesEnabled = true;
 export const monitorEnabled = false;
 
 /**
- * The Mancalë Index (/mancale), added 21 October 2026. Built and ready, off
- * until Alex switches it on: launching a section is his call (DECISIONS.md,
- * "The Mancalë Index"). Off, /mancale 404s and no navigation links to it.
+ * The Mancalë Index (/mancale), added 21 October 2026 and switched on by Alex
+ * on 25 October 2026 (DECISIONS.md, "The Mancalë Index"). It also gates
+ * /mancale/scorecard. Set to false to take both down: they then 404 and no
+ * navigation links to them.
  */
-export const mancaleEnabled = false;
+export const mancaleEnabled = true;
 
 /**
  * Where subscribe buttons send a reader. 'beehiiv-link' is the original:
