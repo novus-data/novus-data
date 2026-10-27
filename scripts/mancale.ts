@@ -5,6 +5,7 @@
  *   npm run mancale -- --ships-csv <file> use a PortWatch CSV you downloaded by hand
  *   npm run mancale -- --offline          rebuild from the local cache, no network
  *   npm run mancale -- --refresh-news     re-download news even if the cache is fresh
+ *   npm run mancale -- --allow-missing-news  write even if news is missing or stops short of the latest week
  *   npm run mancale -- --ledger-only      no download: record the latest week's labels from the file as it is
  *
  * WHAT IT WRITES
@@ -343,8 +344,15 @@ async function main() {
     // cached file left from an earlier run is ignored, so the hold cannot be
     // bypassed by accident.
     let news = config.newsHold ? null : await readNewsCache(config.id);
+    // Fresh means recent AND retrieved on or after the last day of the latest
+    // complete week. Age alone is not enough: a file pulled six days ago holds
+    // only the first days of a week that has ended since, and a part-week average
+    // would be scored and written to the ledger as though it were the whole week.
     const fresh =
-      news && news.query === config.newsQuery && Date.parse(todayIso()) - Date.parse(news.retrievedAt) <= NEWS_CACHE_MAX_AGE_DAYS * 86_400_000;
+      news &&
+      news.query === config.newsQuery &&
+      news.retrievedAt >= addDays(lastWeek, 6) &&
+      Date.parse(todayIso()) - Date.parse(news.retrievedAt) <= NEWS_CACHE_MAX_AGE_DAYS * 86_400_000;
     if (config.newsHold) {
       info(`${config.id}: news not collected, on hold. ${config.newsHold}`);
     } else if (!flag('--offline') && (!fresh || flag('--refresh-news'))) {
@@ -375,6 +383,37 @@ async function main() {
   }
 
   const previous = existsSync(OUTPUT) ? await readFile(OUTPUT, 'utf8').catch(() => null) : null;
+
+  // Do not write a file whose news is missing or stops short of the latest week.
+  // The ledger below is append-only: a week recorded as ships-only, or from part
+  // of a week's news, stays in it for good and would be counted as a call.
+  const hadNews = new Set<string>();
+  try {
+    const old = JSON.parse(previous ?? '{}') as { chokepoints?: Record<string, { newsSharePct?: unknown[] | null }> };
+    for (const [id, entry] of Object.entries(old.chokepoints ?? {})) if (entry?.newsSharePct) hadNews.add(id);
+  } catch {
+    // an unreadable previous file has nothing to compare against
+  }
+  const newsProblems: string[] = [];
+  for (const config of MANCALE_CHOKEPOINTS) {
+    if (config.newsHold) continue;
+    const entry = chokepoints[config.id] as { newsSharePct: unknown[] | null; newsRetrievedAt: string | null };
+    if (!entry.newsSharePct) {
+      if (hadNews.has(config.id)) newsProblems.push(`${config.label}: the last file had news volume and this run found none.`);
+    } else if ((entry.newsRetrievedAt ?? '') < addDays(lastWeek, 6)) {
+      newsProblems.push(`${config.label}: its news volume was retrieved ${entry.newsRetrievedAt}, before the week of ${lastWeek} ended.`);
+    }
+  }
+  if (newsProblems.length > 0) {
+    const detail = `\n  ${newsProblems.join('\n  ')}`;
+    if (!flag('--allow-missing-news')) {
+      throw new Error(
+        `Nothing was written, because news volume is missing or incomplete:${detail}\nRun again (chokepoints already downloaded are kept), or pass --allow-missing-news to write it anyway. The week's labels would then be recorded in the ledger as they score without it, and the ledger is never edited.`,
+      );
+    }
+    warn(`Writing anyway (--allow-missing-news):${detail}`);
+  }
+
   const output = {
     format: 1,
     index: 'mancale',

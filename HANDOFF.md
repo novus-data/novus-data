@@ -3,6 +3,46 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
+## Added 27 October 2026 — Mancalë link previews, news for the ship-only chokepoints, and a guard
+
+From Gavin, as one patch of four commits. **Not done by this patch: the refresh of
+the week of 19 October.** It needs GDELT from a normal connection (the sandbox it
+was prepared in gets 429) and a PortWatch CSV downloaded by hand, so it is a human
+step; the data files are untouched.
+
+- **`/mancale` and `/mancale/scorecard` now have their own link previews.** A
+  page-level `openGraph` replaces the layout's whole object (the same class of
+  bug as CLAUDE.md §6c), so these two pages were previewing as the site. The
+  scorecard names the site image explicitly because the replacement also drops
+  the inherited one.
+- **Suez and Panama news queries now need a shipping word** (`shipping`, `ships`,
+  `vessels`, `maritime`, `tanker`, `container`), so the news share counts the
+  waterway as a route and not as a political story. Ships-only history is
+  unaffected. This changes what will be counted from here, so it is a decision for
+  the editor to accept (below).
+- **`newsHold` on Malacca and Bosporus.** `npm run mancale` skips news collection
+  for a chokepoint with a `newsHold` and prints why. Two checks are open:
+  - *Malacca:* traffic sits far above the frozen 2019 to 2022 normal, so its flow
+    stress almost never rises. Counting it would pull the scorecard's
+    ordinary-week rate for "News ahead of ships" down (about 17% to about 12.5%
+    with Malacca alone). Decide how to treat it before collecting news.
+  - *Bosporus:* PortWatch's count falls from July, but the Turkish Ministry of
+    Transport's quarterly counts, to the end of June, show no fall of that size.
+    Check the next official count, or a second ship-tracking source. Until then
+    the page's "ships severely disrupted" reading for the Bosporus is unverified.
+  - Delete the `newsHold` line to start collecting, **before** the first
+    collection and not after seeing what the data would say.
+- **A guard in `scripts/mancale.ts`.** The refresh now refuses to write if news is
+  missing or stops short of the latest week for a chokepoint that had it, because
+  the ledger records the week's labels as they score and is never edited: a part
+  week of news would have been recorded as a flow-only label for Hormuz, the Red
+  Sea and Taiwan. Run it again (downloaded chokepoints are kept), or pass
+  `--allow-missing-news` knowing what that records. The news cache is also treated
+  as stale unless it covers the whole latest week.
+
+Open for the editor: accept or reject the Suez/Panama query change; Malacca's
+treatment; the Bosporus reading. Nothing here changes the method version.
+
 ## Added 25 October 2026 — the Mancalë scorecard
 
 From Gavin, as one patch. **`/mancale/scorecard`** tests, in public, whether the
