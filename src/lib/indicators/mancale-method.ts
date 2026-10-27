@@ -91,16 +91,17 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
     id: 'suez',
     label: 'Suez Canal',
     portwatchName: 'Suez Canal',
-    newsQuery: '"Suez Canal" sourcelang:english',
-    note: 'Most Suez traffic also passes Bab el-Mandeb, so the two readings usually move together.',
+    newsQuery: '"Suez Canal" (shipping OR ships OR vessels OR maritime OR tanker OR container) sourcelang:english',
+    note:
+      'Most Suez traffic also passes Bab el-Mandeb, so the two readings usually move together. The news query needs a shipping word next to "Suez Canal", so coverage of the canal in other contexts does not count.',
   },
   {
     id: 'panama',
     label: 'Panama Canal',
     portwatchName: 'Panama Canal',
-    newsQuery: '"Panama Canal" sourcelang:english',
+    newsQuery: '"Panama Canal" (shipping OR ships OR vessels OR maritime OR tanker OR container) sourcelang:english',
     note:
-      'The canal authority sets daily slots and draft limits, and a change to either moves traffic directly. Its advisories explain most changes in this series.',
+      'The canal authority sets daily slots and draft limits, and a change to either moves traffic directly. Its advisories explain most changes in this series. The news query needs a shipping word next to "Panama Canal"; a story about who controls the canal still counts if it mentions shipping, so a political week can read as louder than the ships justify.',
   },
   {
     id: 'taiwan-strait',
