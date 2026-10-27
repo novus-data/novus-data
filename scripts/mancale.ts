@@ -43,6 +43,10 @@
  *
  * The cache (.mancale-cache/, git-ignored) makes the slow news download
  * resumable: run the script again and finished chokepoints are kept.
+ *
+ * A chokepoint whose config in src/lib/indicators/mancale-method.ts carries
+ * `newsHold` is not downloaded for, and is scored on ships only. The line says
+ * why; delete it to start collecting.
  */
 
 import { existsSync } from 'node:fs';
@@ -335,10 +339,15 @@ async function main() {
     if (daily.size === 0) warn(`${config.label}: no ship rows under the PortWatch name "${config.portwatchName}".`);
     const weekly = weeklyMeans(daily);
 
-    let news = await readNewsCache(config.id);
+    // A chokepoint with `newsHold` is scored on ships only: no download, and a
+    // cached file left from an earlier run is ignored, so the hold cannot be
+    // bypassed by accident.
+    let news = config.newsHold ? null : await readNewsCache(config.id);
     const fresh =
       news && news.query === config.newsQuery && Date.parse(todayIso()) - Date.parse(news.retrievedAt) <= NEWS_CACHE_MAX_AGE_DAYS * 86_400_000;
-    if (!flag('--offline') && (!fresh || flag('--refresh-news'))) {
+    if (config.newsHold) {
+      info(`${config.id}: news not collected, on hold. ${config.newsHold}`);
+    } else if (!flag('--offline') && (!fresh || flag('--refresh-news'))) {
       if (index > 0) await sleep(10_000);
       news = (await fetchNews(config.id, config.newsQuery)) ?? (news?.query === config.newsQuery ? news : null);
       if (!news) warn(`${config.label}: no news volume yet. It is scored on ships only; run again later.`);
