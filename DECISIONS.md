@@ -260,6 +260,15 @@ instead if that suits better.
   synced from Beehiiv, so a global change would break links or be overwritten by
   the next sync.
 - *A logo.* There is no file, and the brief forbids approximating one.
+- *A photo on the Panama entry, for now.* A public-domain US Navy photograph of
+  ships waiting to enter the Miraflores Locks (Commons file
+  `US Navy 070828-N-1810F-078`, taken 28 August 2007 by Mass Communication
+  Specialist 2nd Class Todd Frantom) was found and its licence read on its
+  Commons page, but Wikimedia rate-limited this session's downloads, so the file
+  was never fetched and no record was written for a photo nobody has looked at.
+  Add the file and a record with `"places": ["panama"]` (CLAUDE.md Rule 3) and
+  it appears on `/disruptions/panama-canal-drought-restrictions` with no code
+  change. The caption must say it is a file photo from 2007.
 - *A photo on the Section 301 entry.* It has no `places`, because a tariff has no
   location, and a photo that does not show what the text is about breaks Rule 3.
 - *Header Subscribe at tablet width.* At 768px the seven links fill the row.

@@ -8,7 +8,7 @@ import { publication } from '@/config/publication';
 import { env } from '@/lib/env';
 
 const FOOTER_LINK =
-  'inline-flex min-h-11 items-center text-[0.9375rem] text-muted transition-colors hover:text-fg';
+  'inline-flex min-h-11 items-center whitespace-nowrap text-[0.9375rem] text-muted transition-colors hover:text-fg';
 
 /** Marks a link that leaves the site. Inline SVG, per the no-icon-library rule. */
 function ExternalArrow() {
@@ -42,8 +42,10 @@ export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-hairline print:mt-8">
       <Container className="py-12 sm:py-16 print:py-5">
-        <div className="flex flex-col gap-10 md:flex-row md:justify-between md:gap-16">
-          <div className="max-w-sm">
+        <div className="flex flex-col gap-10 md:flex-row md:justify-between md:gap-10 lg:gap-16">
+          {/* Narrower at tablet width so the three link columns keep their
+              labels on one line ("Exposure chart", "Mancalë Index"). */}
+          <div className="max-w-sm md:max-w-[14rem] lg:max-w-sm">
             <Wordmark className="text-[1.125rem]" />
             <p className="mt-3 text-[0.9375rem] text-muted">{publication.shortDescription}</p>
           </div>
