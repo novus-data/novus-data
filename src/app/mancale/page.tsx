@@ -11,6 +11,7 @@ import { SubscribePanel } from '@/components/subscribe-panel';
 import { SectionLabel, StoryBox } from '@/components/story-box';
 import { TextLink } from '@/components/text-link';
 import { mancaleEnabled } from '@/config/launch';
+import { publication } from '@/config/publication';
 import { absoluteUrl } from '@/lib/env';
 import { formatLongDate } from '@/lib/format';
 import {
@@ -24,11 +25,27 @@ import {
 } from '@/lib/indicators';
 import { getPhoto } from '@/lib/photos';
 
+const TITLE = 'Mancalë Index';
+const DESCRIPTION =
+  'Whether the news about seven shipping chokepoints is louder or quieter than their ship traffic justifies. Weekly, from IMF PortWatch and GDELT data.';
+
 export const metadata: Metadata = {
-  title: 'Mancalë Index',
-  description:
-    'Whether the news about seven shipping chokepoints is louder or quieter than their ship traffic justifies. Weekly, from IMF PortWatch and GDELT data.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: absoluteUrl('/mancale') },
+  // A page's own openGraph and twitter replace the layout's whole objects, so
+  // without these two a link to this page previewed as the home page: title
+  // "Novus Data", og:url the site root. The fields the layout supplies (site
+  // name, locale, card type) are repeated because the replacement drops them.
+  openGraph: {
+    type: 'website',
+    siteName: publication.name,
+    title: TITLE,
+    description: DESCRIPTION,
+    url: absoluteUrl('/mancale'),
+    locale: 'en_GB',
+  },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 };
 
 /**

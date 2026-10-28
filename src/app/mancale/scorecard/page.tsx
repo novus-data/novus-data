@@ -7,6 +7,7 @@ import { PageHeader } from '@/components/page-header';
 import { SectionLabel, StoryBox } from '@/components/story-box';
 import { TextLink } from '@/components/text-link';
 import { mancaleEnabled } from '@/config/launch';
+import { publication } from '@/config/publication';
 import { absoluteUrl } from '@/lib/env';
 import { formatLongDate } from '@/lib/format';
 import {
@@ -20,11 +21,33 @@ import {
   type Tally,
 } from '@/lib/indicators';
 
+const TITLE = 'Mancalë scorecard';
+const DESCRIPTION =
+  'Whether the Mancalë Index labels told a reader anything about the next four weeks. Every call is listed, with what followed, and the misses stay on the page.';
+
 export const metadata: Metadata = {
-  title: 'Mancalë scorecard',
-  description:
-    'Whether the Mancalë Index labels told a reader anything about the next four weeks. Every call is listed, with what followed, and the misses stay on the page.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: absoluteUrl('/mancale/scorecard') },
+  // See /mancale: a page-level openGraph and twitter replace the layout's, so
+  // they are set here rather than inherited as the home page's. The replacement
+  // also drops the site's share image, which this page has no card of its own
+  // to supply, so it is named here: the same image the page had before.
+  openGraph: {
+    type: 'website',
+    siteName: publication.name,
+    title: TITLE,
+    description: DESCRIPTION,
+    url: absoluteUrl('/mancale/scorecard'),
+    locale: 'en_GB',
+    images: [{ url: absoluteUrl('/opengraph-image'), width: 1200, height: 630, alt: publication.name }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [absoluteUrl('/opengraph-image')],
+  },
 };
 
 /**
