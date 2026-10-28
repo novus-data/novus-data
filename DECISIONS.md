@@ -221,6 +221,55 @@ licence record does not render. The site's code stays `arowsom-oss`'s call:
 if he wants the policy tightened, it changes in that file and Rule 3
 together.
 
+## Visual refresh (proposed 27 October 2026)
+
+Proposed by Gavin, drafted by his Claude, for Alex's review as one pull
+request. The site's code is `arowsom-oss`'s call, so nothing here is settled
+until he merges it; each item below can be reverted on its own. Gavin's brief
+was to improve the site visually, build a rubric from professional news sites
+(`DESIGN-RUBRIC.md`), add photographs where they are logical, and improve the
+changes a second time against the rubric.
+
+**What changed.** A solid navy primary button, used for subscribe only, labelled
+"Get the free briefing" (it said "Subscribe on Beehiiv"). A one-row subscribe
+strip above the lead, and a Subscribe button in the header from `lg` up and in
+the mobile menu. Boxes that sat beside empty space now hold derived content: the
+latest briefing, the other open entries and the mission in the rail beside the
+lead; exposure rows and articles in three columns. A bordered status label and a
+three-segment severity meter, both still beside their words. A dateline under
+the nameplate ("Register reviewed <date> · Latest briefing <date>", read from the
+data). A key on the home map and slightly firmer sea lanes. A grouped footer and
+"Mancalë Index" in the header and footer. A link to `/about#method` from the
+exposure boxes. Photographs reach a register entry through a `places` field on
+its record (CLAUDE.md Rule 3), on the home lead and the entry page.
+
+**Taken out, and Alex should confirm.** The line "Map suggested by Mr. Kent." is
+gone from both maps. The code comment said the editors had asked for it, so this
+is a one-line revert per map if the credit is still wanted. It was removed
+because a credit line under a map is unusual on a publication and pulls the eye
+from the map to a name the reader cannot place. The credit can move to `/about`
+instead if that suits better.
+
+**Considered and not done.**
+
+- *A big-figure callout on the home page.* Rule 1 forbids stat blocks. Any
+  figure on the front page must come from the register at build time.
+- *Unboxing the secondary content.* The 29 September decision, the author's,
+  stands.
+- *British to American spelling.* Slugs are permanent URLs and article bodies are
+  synced from Beehiiv, so a global change would break links or be overwritten by
+  the next sync.
+- *A logo.* There is no file, and the brief forbids approximating one.
+- *A photo on the Section 301 entry.* It has no `places`, because a tariff has no
+  location, and a photo that does not show what the text is about breaks Rule 3.
+- *Header Subscribe at tablet width.* At 768px the seven links fill the row.
+
+**Found and not fixed.** The latest briefing was published on 22 October and the
+register was last reviewed on 13 October, so the new dateline shows a nine-day
+gap. That is accurate, not a bug, but it is what a reader will see. Separately,
+axe-core reports one target-size failure on `/mancale`: two map marker links
+overlap at 24px. It was there before this change and is not touched by it.
+
 ## Launch
 
 Decided by `arowsom-oss` on 2026-09-23, under the rule above. A big change

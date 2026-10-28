@@ -183,6 +183,14 @@ to use, and anything served from someone else's server.
 - **Served from this repository.** Files live in `public/photos/` and their
   licence records in `content/photos/photos.json`. No hotlinking: an image
   served from another host can change or vanish without notice.
+- **A photo reaches a register entry through `places`, never by hand.** A
+  record may list the tracked places it shows (`"places": ["hormuz"]`);
+  `getPhotoForPlaces()` returns the first photo matching an entry's own
+  `places`. The home page lead and `/disruptions/[id]` use it, so a new entry
+  about a place the site has a photo of picks it up, and one about a place it
+  has none of shows none. A stand-in photo is not allowed: an entry with no
+  geography (a tariff, say) leads without a picture rather than with one that
+  does not show what the text is about.
 - **Enforced in code, like the register (§6a).** `getPhoto()` drops a record
   missing any field its licence needs, with a warning naming the photo, and
   `<CreditedPhoto>` is the only component that renders one — so a photo
@@ -222,6 +230,7 @@ step needs account access, write instructions in `DEPLOY.md` instead.
 
 ```
 CONTRIBUTING.md            How two people work on this without breaking the standard.
+DESIGN-RUBRIC.md           The rubric a visual change is scored against, before and after. See §9.
 content/issues/            The issue archive of record. One .md per issue.
 content/disruptions/       The disruption register. One .md per problem.
 content/indicators/        The Mancalë Index data (weekly averages only) and its label ledger. Written by npm run mancale.
@@ -485,7 +494,12 @@ Resolved entries do not fill a marker.
   re-checking that case, against the other labels, every marker (its own ring
   included) and the frame.
 - **The sea lanes are context, not data.** Dashed, faint and unlabelled; they
-  carry no volumes, counts or claims.
+  carry no volumes, counts or claims. (Firmed up on 27 October 2026, stroke
+  0.45 to 0.6 opacity, because they vanished on a tablet; still faint.)
+- **The map has a key** (27 October 2026): a filled marker is a place an open
+  register entry names, a ring is a place watched with none open, and a dashed
+  line is a sea lane. It is drawn in neutral ink because a status colour never
+  appears without its word.
 - **To put a disruption on the map,** list the chokepoint's id in the entry's
   `places` (`npm run new-disruption` prompts for it). Ports and industrial
   clusters in `places` are valid but are not drawn on this map.
@@ -907,14 +921,68 @@ Every block of reading text sits in a story box, `StoryBox` in
 - **Lists stay one object.** The briefing archive is one box with hairlines
   between issues (a sequence reads as aligned columns); the register is one
   box per entry (each entry is a story).
-- `ActionLink`'s primary variant sits on `--surface-2` so it still reads as a
-  control inside a `--surface` box.
+- **Buttons come in three weights** (`src/components/action.tsx`, 27 October
+  2026). `primary` is solid navy (`--accent-text`, the link colour, 9.4:1 against
+  white) and is for the one thing the site wants a reader to do: subscribe.
+  `secondary` is the old outlined box on `--surface-2`, for "read this story"
+  links inside a box. `quiet` is a hairline outline for a third option. Two solid
+  buttons on one screen would compete, so the lead story's links are not
+  primary. The button says "Get the free briefing", not "Subscribe on Beehiiv":
+  it names what the reader gets, not the vendor. (The mailto fallback still says
+  "Subscribe by email".)
 - **Print:** surfaces already collapse to white, so a box prints as a grey
   frame with its accent top rule. Compact boxes do not split across pages.
 
 Tailwind utility names map onto these: `bg-ink`, `bg-surface`, `bg-surface-2`,
 `text-fg`, `text-muted`, `text-link`, `border-hairline`, `border-rule`,
 `border-accent`.
+
+### The visual refresh — 27 October 2026
+
+Drafted by Gavin's Claude and put to Alex as a pull request (the site's code is
+Alex's call; see DECISIONS.md). Scored before and after against
+`DESIGN-RUBRIC.md`, which a later visual change should be too. What changed, and
+the reasons that should stop it being undone in a polish pass:
+
+- **No box sits beside an empty gap.** Grid rows stretch their boxes to the
+  tallest one, so a short box beside a tall one reads as a hole. The fixes use
+  content, not CSS: the rail beside the lead holds the latest briefing, the other
+  open entries (headlines only; the summary is on the entry page) and the
+  mission, all derived; the exposure rows run in three columns across the full
+  width; articles run in three columns. If a band is ever one narrow box beside
+  a tall one again, change the content or the layout, not `self-start`.
+- **The subscribe strip** above the lead is one row (`SubscribePanel strip`),
+  down from a compact box about as tall as the lead's headline on a phone. It
+  keeps the earlier reasoning that a phone reader's first screen shows the way
+  in. The header has a filled Subscribe button from `lg`; at 768px the seven
+  links already fill the row, so below `lg` the mobile menu and the strip carry
+  it.
+- **Status is a bordered label** (`StatusBadge`, 2px corners, not a pill), still
+  always with its word. **Severity in a row is a three-segment meter**
+  (`SeverityMeter`, one to three segments filled in the severity's colour, built
+  on `.exposure-cell` so the texture channel comes with it), still always with
+  its word. The chart itself is unchanged.
+- **The nameplate carries a dateline**: "Register reviewed <date> · Latest
+  briefing <date>", both read from the data. Absolute dates only, for the
+  reason in §6a: a relative date would freeze at build and understate its age.
+  Home-page card footers use the short mono date (`13 Oct 2026`) throughout;
+  entry and article pages keep the long form.
+- **Navigation.** The header says "Mancalë Index" from `lg` (the suffix is
+  `NavItem.suffix`, hidden below `lg` where there is no room). The footer is
+  three headed lists (`footerGroups` in `src/config/nav.ts`); `footerNav` is
+  derived from them so the sitemap cannot drift.
+- **The exposure boxes link to the published method** (`/about#method`), so a
+  claim and the standard it is held to are one click apart.
+- **Spelling is not changed.** The site is British English (forced-labour,
+  fertiliser); slugs are permanent URLs and article bodies are synced from
+  Beehiiv, so a global change would break links or be undone by the next sync.
+- **Not done, and why.** A big-figure callout (Rule 1: no stat blocks). Unboxing
+  the secondary content (the author's 29 September decision). A logo (there is
+  no file, and the brief forbids approximating one). New social images (they
+  exist).
+- **Typography note.** The table below describes Newsreader and Libre Franklin;
+  the live site sets IBM Plex Sans and Plex Mono (`src/app/layout.tsx`, comments
+  in `globals.css`). The table predates that change and was not rewritten here.
 
 ## 10. Feed findings
 

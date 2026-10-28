@@ -4,9 +4,10 @@ import type { ReactNode } from 'react';
 
 import { ActionLink } from '@/components/action';
 import { ChokepointMap } from '@/components/chokepoint-map';
+import { CreditedPhoto } from '@/components/credited-photo';
 import { Container } from '@/components/container';
 import { JsonLd } from '@/components/json-ld';
-import { SeveritySwatch } from '@/components/severity-legend';
+import { SeverityMeter } from '@/components/severity-legend';
 import { SignInPanel } from '@/components/sign-in-panel';
 import { StatusBadge } from '@/components/status-badge';
 import { SectionLabel, StoryBox } from '@/components/story-box';
@@ -26,7 +27,9 @@ import {
 import type { IssueSummary } from '@/lib/content';
 import { listArticles, listIssues } from '@/lib/content';
 import { absoluteUrl, accountsConfigured } from '@/lib/env';
-import { formatIssueLabel, formatLongDate, formatShortDate } from '@/lib/format';
+import { formatIssueLabel, formatShortDate } from '@/lib/format';
+import type { Photo } from '@/lib/photos';
+import { getPhotoForPlaces } from '@/lib/photos';
 import { publicationJsonLd } from '@/lib/structured-data';
 
 /**
@@ -58,42 +61,66 @@ export default async function HomePage() {
     buildExposureMatrix(),
     articlesEnabled ? listArticles() : Promise.resolve([]),
   ]);
-  const issues = briefings.slice(0, 3);
   const analysis = articles.slice(0, 3);
 
   const open = disruptions.filter((entry) => entry.status !== 'resolved');
   const [lead, ...rest] = open;
-  const latestIssue = issues[0] ?? null;
+  const latestIssue = briefings[0] ?? null;
   // The case for the site leads only while there is no real story to lead with.
   const explainerLeads = !lead && !latestIssue;
 
   const counts = registerCounts(disruptions, matrix.rows.length);
 
+  // The lead's photo, if the site has a licensed one of the place the entry is
+  // about. Found through the entry's `places`, so it needs no hand-edit; an
+  // entry about somewhere with no photo simply leads without one (Rule 3: a
+  // photo has to show what the text is about).
+  const leadPhoto = lead ? await getPhotoForPlaces(lead.places) : null;
+
+  // The two dates the nameplate prints. Both are read from the data, so they
+  // move with the register and the archive and nothing is typed by hand.
+  const registerReviewed =
+    disruptions
+      .map((entry) => entry.updatedAt)
+      .filter(Boolean)
+      .sort()
+      .at(-1) ?? null;
+
   return (
     <>
       <JsonLd data={publicationJsonLd()} />
 
-      <Nameplate />
+      <Nameplate
+        registerReviewed={registerReviewed}
+        latestBriefing={latestIssue?.publishedAt ?? null}
+      />
 
       {/* A reader on a phone sees only the lead on the first screen, so the
-          way in sits above it. The full panel stays at the foot of the page. */}
-      <Container className="mt-6">
-        <SubscribePanel compact level={2} heading="Get the briefing by email" />
+          way in sits above it, as one slim row. The full panel stays at the
+          foot of the page. */}
+      <Container className="mt-5">
+        <SubscribePanel strip />
       </Container>
 
       <Container className="mt-4">
         <div className="grid gap-4 lg:grid-cols-12 [&>*]:min-w-0">
           {lead ? (
-            <LeadDisruption disruption={lead} className="lg:col-span-8" />
+            <LeadDisruption disruption={lead} photo={leadPhoto} className="lg:col-span-8" />
           ) : latestIssue ? (
             <LeadIssue issue={latestIssue} className="lg:col-span-8" />
           ) : (
             <Explainer size="lead" className="lg:col-span-8" />
           )}
 
+          {/* The rail beside the lead, as a paper keeps one: the newest briefing,
+              the other open entries, then what the publication is for. Each is
+              derived, so the rail grows and shrinks with the register and the
+              archive, and none of it is typed by hand. */}
           <div className="flex flex-col gap-4 lg:col-span-4">
+            {latestIssue && lead ? <LatestBriefing issue={latestIssue} /> : null}
+            {rest.length > 0 ? <AlsoOpen disruptions={rest.slice(0, 4)} /> : null}
             <StoryBox as="aside" size="compact" level={2} kicker="What it is for" kickerTone="muted">
-              <p className="text-[1.1875rem] font-semibold leading-snug tracking-[-0.01em] text-fg">
+              <p className="text-[1.0625rem] font-medium leading-snug text-fg">
                 {publication.mission}
               </p>
             </StoryBox>
@@ -111,46 +138,21 @@ export default async function HomePage() {
           title="The straits and canals we watch"
           footer={<TextLink href="/disruptions">Open the register</TextLink>}
         >
-          <p>A marker fills in when an open register entry concerns that place.</p>
           {/* Articles reach the map only while /articles is switched on, so a
               card never links to a page that 404s. */}
           <ChokepointMap disruptions={disruptions} posts={[...briefings, ...articles]} />
         </StoryBox>
       </Band>
 
-      {rest.length > 0 || matrix.rows.length > 0 ? (
-        <Band id="register-now" label="In the register now">
-          {rest.length > 0 ? (
-            <AlsoOpen
-              disruptions={rest.slice(0, 5)}
-              className={matrix.rows.length > 0 ? 'lg:col-span-7' : FULL_WIDTH}
-            />
-          ) : null}
-          {matrix.rows.length > 0 ? (
-            <MostExposed
-              rows={matrix.rows.slice(0, 6)}
-              className={rest.length > 0 ? 'lg:col-span-5' : FULL_WIDTH}
-            />
-          ) : null}
+      {matrix.rows.length > 0 ? (
+        <Band id="exposure" label="Exposure">
+          <MostExposed rows={matrix.rows.slice(0, 6)} className={FULL_WIDTH} />
         </Band>
       ) : null}
 
-      {/* The latest briefing gets its own box only when something else is
-          leading; when it is the lead, repeating it here would say it twice. */}
-      {(latestIssue && lead) || analysis.length > 0 ? (
+      {analysis.length > 0 ? (
         <Band id="writing" label="Writing">
-          {latestIssue && lead ? (
-            <LatestBriefing
-              issue={latestIssue}
-              className={analysis.length > 0 ? 'lg:col-span-6' : FULL_WIDTH}
-            />
-          ) : null}
-          {analysis.length > 0 ? (
-            <LatestAnalysis
-              posts={analysis}
-              className={latestIssue && lead ? 'lg:col-span-6' : FULL_WIDTH}
-            />
-          ) : null}
+          <LatestAnalysis posts={analysis} className={FULL_WIDTH} />
         </Band>
       ) : null}
 
@@ -226,8 +228,17 @@ export default async function HomePage() {
           </ul>
         </StoryBox>
 
+        {/* The subscribe panel leads and is the wider box: it is the thing the
+            site asks a reader to do. The alerts box is a product that does not
+            exist yet, so it is the narrower one and says so. */}
+        <SubscribePanel
+          level={3}
+          heading={`Subscribe to ${publication.newsletter.name}`}
+          className="md:col-span-2 lg:col-span-8"
+        />
+
         <StoryBox
-          className="lg:col-span-6"
+          className="md:col-span-2 lg:col-span-4"
           kicker="In development"
           title={publication.alerts.name}
           titleHref="/alerts"
@@ -235,12 +246,6 @@ export default async function HomePage() {
         >
           <p>A notification when a disruption you follow opens or escalates. No release date yet.</p>
         </StoryBox>
-
-        <SubscribePanel
-          level={3}
-          heading={`Subscribe to ${publication.newsletter.name}`}
-          className="lg:col-span-6"
-        />
       </Band>
 
       {formatAuthorNames() ? (
@@ -258,9 +263,22 @@ export default async function HomePage() {
 /**
  * The front page's name, set as a paper sets its nameplate: large, closed by
  * a double rule, with the strapline beneath. It is the page's h1.
+ *
+ * The right-hand line is a dateline: when the register was last reviewed and
+ * when the latest briefing went out. Both are absolute dates read from the
+ * data, never "today" or "N days ago", because the page is static and a
+ * relative date would freeze at build and only ever understate its age (§6a).
+ * With neither date to print it falls back to "Free to read".
  */
-function Nameplate() {
-  const authors = formatAuthorNames();
+function Nameplate({
+  registerReviewed,
+  latestBriefing,
+}: {
+  registerReviewed: string | null;
+  latestBriefing: string | null;
+}) {
+  const reviewed = registerReviewed ? formatShortDate(registerReviewed) : null;
+  const briefed = latestBriefing ? formatShortDate(latestBriefing) : null;
 
   return (
     <Container className="pt-8 sm:pt-12">
@@ -272,7 +290,25 @@ function Nameplate() {
       <div className="flex flex-col gap-1 border-b border-hairline py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
         <p className="text-[0.9375rem] text-muted">{publication.shortDescription}</p>
         <p className="text-meta text-muted">
-          Free to read{authors ? <> &middot; Written by {authors}</> : null}
+          {reviewed || briefed ? (
+            <>
+              {/* Each half stays on one line; the break, if there is one,
+                  falls between them rather than inside a date. */}
+              {reviewed ? (
+                <span className="whitespace-nowrap">
+                  Register reviewed <time dateTime={registerReviewed ?? undefined}>{reviewed}</time>
+                </span>
+              ) : null}
+              {reviewed && briefed ? <span aria-hidden="true"> &middot; </span> : null}
+              {briefed ? (
+                <span className="whitespace-nowrap">
+                  Latest briefing <time dateTime={latestBriefing ?? undefined}>{briefed}</time>
+                </span>
+              ) : null}
+            </>
+          ) : (
+            'Free to read'
+          )}
         </p>
       </div>
     </Container>
@@ -322,12 +358,14 @@ function Explainer({ size, className }: { size: 'lead' | 'standard'; className?:
  */
 function LeadDisruption({
   disruption,
+  photo,
   className,
 }: {
   disruption: DisruptionSummary;
+  photo: Photo | null;
   className?: string;
 }) {
-  const updated = formatLongDate(disruption.updatedAt);
+  const updated = formatShortDate(disruption.updatedAt);
 
   return (
     <StoryBox
@@ -347,7 +385,9 @@ function LeadDisruption({
             </span>
           ) : null}
           <span className="flex basis-full flex-wrap gap-3 pt-1">
-            <ActionLink href={`/disruptions/${disruption.id}`}>Read the analysis</ActionLink>
+            <ActionLink href={`/disruptions/${disruption.id}`} variant="secondary">
+              Read the analysis
+            </ActionLink>
             {disruption.exposures.length > 0 ? (
               <ActionLink href="/exposure" variant="quiet">
                 See who it reaches
@@ -356,13 +396,17 @@ function LeadDisruption({
           </span>
         </>
       }
-    />
+    >
+      {photo ? (
+        <CreditedPhoto photo={photo} priority sizes="(min-width: 1024px) 700px, 100vw" />
+      ) : null}
+    </StoryBox>
   );
 }
 
 /** Register empty but the briefing has shipped: lead with the latest issue. */
 function LeadIssue({ issue, className }: { issue: IssueSummary; className?: string }) {
-  const date = formatLongDate(issue.publishedAt);
+  const date = formatShortDate(issue.publishedAt);
 
   return (
     <StoryBox
@@ -377,7 +421,9 @@ function LeadIssue({ issue, className }: { issue: IssueSummary; className?: stri
         <>
           {date ? <time dateTime={issue.publishedAt}>{date}</time> : null}
           <span className="flex basis-full pt-1">
-            <ActionLink href={`/briefings/${issue.slug}`}>Read this briefing</ActionLink>
+            <ActionLink href={`/briefings/${issue.slug}`} variant="secondary">
+              Read this briefing
+            </ActionLink>
           </span>
         </>
       }
@@ -385,32 +431,45 @@ function LeadIssue({ issue, className }: { issue: IssueSummary; className?: stri
   );
 }
 
-function AlsoOpen({
-  disruptions,
-  className,
-}: {
-  disruptions: DisruptionSummary[];
-  className?: string;
-}) {
+/**
+ * The other open entries, as headlines for the rail: status, title, and the
+ * facts that say how current and how far-reaching each one is. The summary
+ * lives on the entry's own page and on /disruptions; a rail has no room for
+ * three lines of it per entry.
+ */
+function AlsoOpen({ disruptions }: { disruptions: DisruptionSummary[] }) {
   return (
     <StoryBox
-      className={className}
+      size="compact"
       kicker="Also open"
       title="Other entries in the register"
       footer={<TextLink href="/disruptions">The full register</TextLink>}
     >
       <ul className="story-list max-w-none">
-        {disruptions.map((disruption) => (
-          <li key={disruption.id} className="py-3 first:pt-0">
-            <Link href={`/disruptions/${disruption.id}`} className="group block">
-              <StatusBadge status={disruption.status} />
-              <span className="mt-1 block text-[1.0625rem] font-semibold text-fg transition-colors group-hover:text-link">
-                {disruption.title}
-              </span>
-              <span className="mt-1 block text-[0.9375rem]">{disruption.summary}</span>
-            </Link>
-          </li>
-        ))}
+        {disruptions.map((disruption) => {
+          const reviewed = formatShortDate(disruption.updatedAt);
+          const names = disruption.exposures.length;
+
+          return (
+            <li key={disruption.id} className="py-3 first:pt-0">
+              <Link href={`/disruptions/${disruption.id}`} className="group block">
+                <StatusBadge status={disruption.status} />
+                <span className="mt-2 block text-[1rem] font-semibold leading-snug text-fg transition-colors group-hover:text-link">
+                  {disruption.title}
+                </span>
+                <span className="mt-1 block text-meta">
+                  {reviewed ? (
+                    <>
+                      Reviewed <time dateTime={disruption.updatedAt}>{reviewed}</time>
+                      <span aria-hidden="true"> &middot; </span>
+                    </>
+                  ) : null}
+                  <span data-numeric>{names}</span> {names === 1 ? 'name' : 'names'} affected
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </StoryBox>
   );
@@ -422,9 +481,16 @@ function MostExposed({ rows, className }: { rows: EntityExposure[]; className?: 
       className={className}
       kicker="Most exposed"
       title="Names the open register reaches"
-      footer={<TextLink href="/exposure">The full exposure chart</TextLink>}
+      footer={
+        <>
+          <TextLink href="/exposure">The full exposure chart</TextLink>
+          <TextLink href="/about#method">How these assessments are made</TextLink>
+        </>
+      }
     >
-      <ul className="story-list max-w-none">
+      {/* Three columns from `lg`, two from `sm`: a full-width box with one
+          narrow column of rows in it was most of a screen of white. */}
+      <ul className="grid max-w-none gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
         {rows.map((row) => (
           <ExposureRow key={row.entity.id} row={row} />
         ))}
@@ -437,21 +503,22 @@ function ExposureRow({ row }: { row: EntityExposure }) {
   const asOf = worstAsOf([...row.byDisruption.values()]);
 
   return (
-    <li className="py-3 first:pt-0">
+    <li className="border-t border-hairline py-3">
       <Link href={`/entities/${row.entity.id}`} className="group block">
-        <span className="block text-[1.0625rem] text-fg transition-colors group-hover:text-link">
+        <span className="block text-[1.0625rem] leading-snug text-fg transition-colors group-hover:text-link">
           {row.entity.name}
         </span>
         <span className="mt-0.5 block text-meta">
           {row.entity.ticker ? `${row.entity.ticker} · ` : ''}
           {row.entity.sector}
+          <span aria-hidden="true"> &middot; </span>
+          <span data-numeric>{row.count}</span> {row.count === 1 ? 'disruption' : 'disruptions'}
         </span>
         <span className="mt-1.5 flex items-center gap-2.5 text-meta">
-          <SeveritySwatch severity={row.worstSeverity} />
+          <SeverityMeter severity={row.worstSeverity} />
           <span>
             {SEVERITY_LABELS[row.worstSeverity]}
-            {asOf && formatShortDate(asOf) ? ` as of ${formatShortDate(asOf)}` : ''} ·{' '}
-            <span data-numeric>{row.count}</span> {row.count === 1 ? 'disruption' : 'disruptions'}
+            {asOf && formatShortDate(asOf) ? ` as of ${formatShortDate(asOf)}` : ''}
           </span>
         </span>
       </Link>
@@ -459,14 +526,18 @@ function ExposureRow({ row }: { row: EntityExposure }) {
   );
 }
 
-function LatestBriefing({ issue, className }: { issue: IssueSummary; className?: string }) {
-  const date = formatLongDate(issue.publishedAt);
+/**
+ * The newest briefing, for the rail. Shown only while something else leads the
+ * page; when the briefing is the lead, repeating it here would say it twice.
+ */
+function LatestBriefing({ issue }: { issue: IssueSummary }) {
+  const date = formatShortDate(issue.publishedAt);
   const number = formatIssueLabel(issue.issueNumber);
 
   return (
     <StoryBox
-      className={className}
-      kicker={`From ${publication.newsletter.name}`}
+      size="compact"
+      kicker="Latest briefing"
       title={issue.title}
       titleHref={`/briefings/${issue.slug}`}
       footer={
@@ -491,9 +562,9 @@ function LatestAnalysis({ posts, className }: { posts: IssueSummary[]; className
       titleHref="/articles"
       footer={<TextLink href="/articles">All articles and reviews</TextLink>}
     >
-      <ul className="story-list max-w-none">
+      <ul className="grid max-w-none gap-x-8 md:grid-cols-3">
         {posts.map((post) => (
-          <li key={post.slug} className="py-3 first:pt-0">
+          <li key={post.slug} className="border-t border-hairline py-3">
             <Link href={`/articles/${post.slug}`} className="group block">
               {formatShortDate(post.publishedAt) ? (
                 <time dateTime={post.publishedAt} className="block text-meta">

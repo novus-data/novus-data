@@ -12,6 +12,18 @@ import { articlesEnabled, mancaleEnabled, monitorEnabled } from '@/config/launch
 export interface NavItem {
   href: string;
   label: string;
+  /**
+   * Words the header adds after the label when there is room (from `lg` up).
+   * "Mancalë" alone is a coined word that tells a first-time reader nothing;
+   * "Mancalë Index" says what kind of thing it is. At tablet width the seven
+   * links already fill the row, so the suffix drops out there.
+   */
+  suffix?: string;
+}
+
+export interface NavGroup {
+  heading: string;
+  items: NavItem[];
 }
 
 /**
@@ -34,21 +46,56 @@ export const primaryNav: NavItem[] = [
   // The Mancalë Index: the site's one calculated indicator. In the header
   // because it is a section readers come back to weekly; move it to the
   // footer list if seven header items is one too many (Alex's call).
-  ...(mancaleEnabled ? [{ href: '/mancale', label: 'Mancalë' }] : []),
+  ...(mancaleEnabled ? [{ href: '/mancale', label: 'Mancalë', suffix: 'Index' }] : []),
   { href: '/about', label: 'About' },
 ];
 
-/** Shown in the footer. A superset of the primary navigation. */
+/**
+ * Shown in the footer, in labelled groups. Fourteen links in one grid read as a
+ * sitemap dump; three headed lists tell a reader where to look. Home is not in
+ * a group: the wordmark above them is the way home.
+ */
+export const footerGroups: NavGroup[] = [
+  {
+    heading: 'The record',
+    items: [
+      { href: '/disruptions', label: 'Disruptions' },
+      { href: '/exposure', label: 'Exposure chart' },
+      // Not in the header: the entity index is reached from the chart, which is
+      // where a reader is when the question "what about this name" occurs to
+      // them. A sixth header item to reach a seventh page would cost more than
+      // it earns.
+      { href: '/entities', label: 'Companies' },
+      ...(mancaleEnabled ? [{ href: '/mancale', label: 'Mancalë Index' }] : []),
+      ...(monitorEnabled ? [{ href: '/monitor', label: 'Monitor' }] : []),
+    ],
+  },
+  {
+    heading: 'Writing',
+    items: [
+      { href: '/briefings', label: 'Briefings' },
+      ...(articlesEnabled ? [{ href: '/articles', label: 'Articles' }] : []),
+      { href: '/subscribe', label: 'Subscribe' },
+    ],
+  },
+  {
+    heading: 'About',
+    items: [
+      { href: '/about', label: 'About' },
+      { href: '/coverage', label: 'Coverage' },
+      { href: '/alerts', label: 'Alerts' },
+      { href: '/contact', label: 'Contact' },
+      { href: '/privacy', label: 'Privacy' },
+    ],
+  },
+];
+
+/**
+ * Every internal page the footer reaches, flat. The sitemap reads this, so it
+ * is built from the groups rather than kept beside them: a page added to a
+ * group is in the sitemap with no second edit.
+ */
 export const footerNav: NavItem[] = [
-  ...primaryNav,
-  ...(monitorEnabled ? [{ href: '/monitor', label: 'Monitor' }] : []),
-  // Not in the header: the entity index is reached from the chart, which is
-  // where a reader is when the question "what about this name" occurs to them.
-  // A sixth header item to reach a seventh page would cost more than it earns.
-  { href: '/entities', label: 'Companies' },
-  { href: '/alerts', label: 'Alerts' },
-  { href: '/coverage', label: 'Coverage' },
-  { href: '/subscribe', label: 'Subscribe' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/privacy', label: 'Privacy' },
+  { href: '/', label: 'Home' },
+  ...footerGroups.flatMap((group) => group.items),
 ];

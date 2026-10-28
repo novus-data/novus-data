@@ -147,8 +147,6 @@ export function MancaleMap({ points }: { points: MancaleMapPoint[] }) {
         <p className="text-meta text-muted">
           Solid circle: ships ahead of news, or disrupted. Solid square: news ahead of ships. Open ring: anything else, such as aligned or quiet.
         </p>
-        {/* A real credit for a real suggestion, asked for by the editors. */}
-        <p className="text-meta text-muted">Map suggested by Mr. Kent.</p>
       </figcaption>
     </figure>
   );

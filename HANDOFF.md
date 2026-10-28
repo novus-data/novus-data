@@ -3,6 +3,17 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
+## Added 27 October 2026 — the visual refresh
+
+From Gavin's Claude, as one pull request for Alex. The home page, the buttons,
+the status and severity marks, the footer and the header were reworked, and
+photographs now reach a register entry through `places`. The reasoning, what was
+skipped and the one credit line that was removed are in DECISIONS.md ("Visual
+refresh"); the rules a later change should keep are in CLAUDE.md §9. The rubric
+the changes were scored against is `DESIGN-RUBRIC.md`. No new manual step: the
+dateline, the rail and the photo lookup are all derived. Open: Alex to confirm
+the removed map credit, and the `/mancale` marker target size.
+
 ## Added 25 October 2026 — the Mancalë scorecard
 
 From Gavin, as one patch. **`/mancale/scorecard`** tests, in public, whether the

@@ -12,7 +12,16 @@ import type { Photo } from '@/lib/photos/types';
  * author, source, licence, and any change — which also satisfies the plainer
  * licences. Files are served from public/photos/, never hotlinked (Rule 3).
  */
-export function CreditedPhoto({ photo, priority = false }: { photo: Photo; priority?: boolean }) {
+export function CreditedPhoto({
+  photo,
+  priority = false,
+  sizes = '(min-width: 1088px) 1024px, 100vw',
+}: {
+  photo: Photo;
+  priority?: boolean;
+  /** The `sizes` hint for the browser: how wide the photo is drawn at each breakpoint. */
+  sizes?: string;
+}) {
   const { credit } = photo;
   return (
     <figure className="flex flex-col gap-2">
@@ -22,7 +31,7 @@ export function CreditedPhoto({ photo, priority = false }: { photo: Photo; prior
         width={photo.width}
         height={photo.height}
         priority={priority}
-        sizes="(min-width: 1088px) 1024px, 100vw"
+        sizes={sizes}
         className="h-auto w-full border border-hairline"
       />
       <figcaption className="flex flex-col gap-0.5 text-muted">

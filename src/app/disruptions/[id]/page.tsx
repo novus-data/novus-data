@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Assessment } from '@/components/assessment';
+import { CreditedPhoto } from '@/components/credited-photo';
 import { Container } from '@/components/container';
 import { JsonLd } from '@/components/json-ld';
 import { PrintPermalink } from '@/components/print-permalink';
@@ -21,6 +22,7 @@ import {
 } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
 import { formatLongDate } from '@/lib/format';
+import { getPhotoForPlaces } from '@/lib/photos';
 import { disruptionJsonLd } from '@/lib/structured-data';
 
 export async function generateStaticParams() {
@@ -57,6 +59,12 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
   const updated = formatLongDate(disruption.updatedAt);
   const stale = isStale(disruption.updatedAt);
 
+  // A licensed photo of the place this entry is about, if the site has one,
+  // found through the entry's `places` (src/lib/photos). None is shown for an
+  // entry about somewhere the site has no photo of: Rule 3 says a photo has to
+  // show what the text is about, and a stand-in would not.
+  const photo = await getPhotoForPlaces(disruption.places);
+
   // The person who made this assessment. Falls back to the editor, who stands
   // behind anything the publication prints, and renders nothing at all while
   // there is only one author — see the comment at the <dl> below.
@@ -86,6 +94,8 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
           <h1 className="text-title font-semibold text-fg">{disruption.title}</h1>
 
           <p className="max-w-measure text-subhead text-muted">{disruption.summary}</p>
+
+          {photo ? <CreditedPhoto photo={photo} priority sizes="(min-width: 832px) 780px, 100vw" /> : null}
 
           <dl className="flex flex-wrap gap-x-12 gap-y-3 border-t border-hairline pt-4 text-meta">
             {started ? (
@@ -160,7 +170,10 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
             </p>
           }
           footer={
-            <TextLink href="/exposure">See this alongside every other tracked disruption</TextLink>
+            <>
+              <TextLink href="/exposure">See this alongside every other tracked disruption</TextLink>
+              <TextLink href="/about#method">How these assessments are made</TextLink>
+            </>
           }
         >
           {disruption.exposures.length === 0 ? (

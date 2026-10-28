@@ -1,9 +1,18 @@
+import clsx from 'clsx';
+
 import { ExternalActionLink, MailActionLink, UnavailableAction } from '@/components/action';
 import { StoryBox } from '@/components/story-box';
 import { subscribeVia } from '@/config/launch';
 import { publication } from '@/config/publication';
 import { env } from '@/lib/env';
 import { subscribeMailto } from '@/lib/subscribe';
+
+/**
+ * What the button says. It names the thing the reader gets, not the vendor that
+ * delivers it: "Subscribe on Beehiiv" asks a reader to know what Beehiiv is.
+ * The footer line under the panel still says who sends the emails.
+ */
+const SUBSCRIBE_LABEL = 'Get the free briefing';
 
 /**
  * Subscribing happens on Beehiiv, which owns delivery, the subscriber list and
@@ -15,17 +24,18 @@ export function SubscribePanel({
   heading = 'Subscribe',
   level = 2,
   className,
-  compact = false,
+  strip = false,
 }: {
   heading?: string;
   level?: 2 | 3;
   className?: string;
   /**
-   * A short version for the top of a page: the same facts and the same button
-   * in a compact box, with its own anchor id so a page can carry it and the
-   * full panel below without two elements sharing `#subscribe`.
+   * One slim row for the top of a page: the same facts and the same button,
+   * with its own anchor id so a page can carry it and the full panel below
+   * without two elements sharing `#subscribe`. It replaced a compact box that
+   * was about as tall as the lead story's headline on a phone.
    */
-  compact?: boolean;
+  strip?: boolean;
 }) {
   // Only ever states a schedule that has actually been committed to.
   const cadenceLine = publication.cadence
@@ -43,11 +53,11 @@ export function SubscribePanel({
     </div>
   ) : env.subscribeUrl ? (
     <div>
-      <ExternalActionLink href={env.subscribeUrl}>Subscribe on Beehiiv</ExternalActionLink>
+      <ExternalActionLink href={env.subscribeUrl}>{SUBSCRIBE_LABEL}</ExternalActionLink>
     </div>
   ) : (
     <div>
-      <UnavailableAction>Subscribe on Beehiiv</UnavailableAction>
+      <UnavailableAction>{SUBSCRIBE_LABEL}</UnavailableAction>
       <p className="mt-3 max-w-[52ch] text-meta text-muted">
         No subscribe link is configured yet. Set{' '}
         <code className="[overflow-wrap:anywhere]">NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL</code> to
@@ -56,11 +66,33 @@ export function SubscribePanel({
     </div>
   );
 
+  if (strip) {
+    return (
+      <section
+        id="subscribe-top"
+        aria-label={`Subscribe to ${publication.newsletter.name}`}
+        className={clsx(
+          'flex flex-col gap-3 border border-rule bg-surface px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-5',
+          className,
+        )}
+      >
+        <p className="max-w-measure text-[0.9375rem] text-muted">
+          <span className="font-semibold text-fg">{publication.newsletter.name}</span>
+          <span aria-hidden="true" className="hidden sm:inline">
+            {' '}
+            &middot;{' '}
+          </span>
+          <span className="block sm:inline">{cadenceLine}</span>
+        </p>
+        <div className="shrink-0">{action}</div>
+      </section>
+    );
+  }
+
   return (
     <StoryBox
       as="section"
-      id={compact ? 'subscribe-top' : 'subscribe'}
-      size={compact ? 'compact' : 'standard'}
+      id="subscribe"
       level={level}
       kicker={publication.newsletter.name}
       title={heading}
