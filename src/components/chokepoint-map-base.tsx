@@ -67,8 +67,8 @@ export function MapBase() {
           points={points(lane)}
           fill="none"
           className="stroke-accent"
-          strokeOpacity={0.45}
-          strokeWidth={1.25}
+          strokeOpacity={0.6}
+          strokeWidth={1.5}
           strokeDasharray="4 4"
           strokeLinejoin="round"
           strokeLinecap="round"

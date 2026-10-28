@@ -12,6 +12,7 @@
  *     "width": 1280, "height": 853,            pixels, so the page does not jump
  *     "alt": "A tanker passes through ...",    under 125 characters
  *     "caption": "A tanker in the Strait of Hormuz. File photo, 2019.",
+ *     "places": ["hormuz"],                    optional: tracked-place ids the photo shows
  *     "creator": "U.S. Navy photo by ...",     exactly as the source asks
  *     "title": null,                           the work's own title, if any
  *     "sourceUrl": "https://commons.wikimedia.org/wiki/File:...",
@@ -74,6 +75,17 @@ function check(raw: Record<string, unknown>, index: number, warnings: string[]):
     return refuse('retrievedAt (the day the licence was checked, "YYYY-MM-DD") is required.');
   }
 
+  // Optional. A place id that is not URL-safe is dropped with a warning rather
+  // than failing the photo: the photo is still licensed, it just is not tied
+  // to that place.
+  const places = (Array.isArray(raw.places) ? raw.places : []).filter(
+    (place): place is string => {
+      const ok = typeof place === 'string' && ID_PATTERN.test(place);
+      if (!ok) warnings.push(`Photo ${label}: ignored an invalid place id (${JSON.stringify(place)}).`);
+      return ok;
+    },
+  );
+
   const licenceRaw = text(raw.licence) ?? '';
   if (!(licenceRaw in PHOTO_LICENCES)) {
     const refused = REFUSED_LICENCE_PATTERNS.find((entry) => entry.pattern.test(licenceRaw));
@@ -104,6 +116,7 @@ function check(raw: Record<string, unknown>, index: number, warnings: string[]):
     height,
     alt,
     caption,
+    places,
     credit: {
       creator,
       title: text(raw.title),
@@ -152,4 +165,18 @@ export function readPhotos(): Promise<PhotoDiagnostics> {
 export async function getPhoto(id: string): Promise<Photo | null> {
   const { photos } = await readPhotos();
   return photos.find((photo) => photo.id === id) ?? null;
+}
+
+/**
+ * The first photo that shows any of these places, trying them in order, or
+ * null. This is how a register entry gets its picture: the entry lists its
+ * `places`, and nothing is hand-wired per entry (Rule 6).
+ */
+export async function getPhotoForPlaces(places: readonly string[]): Promise<Photo | null> {
+  const { photos } = await readPhotos();
+  for (const place of places) {
+    const hit = photos.find((photo) => photo.places.includes(place));
+    if (hit) return hit;
+  }
+  return null;
 }

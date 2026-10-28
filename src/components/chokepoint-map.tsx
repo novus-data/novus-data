@@ -249,6 +249,28 @@ export function ChokepointMap({
           {markers.map((marker) => marker.label.text).join(' · ')}
         </p>
 
+        {/* The key. The markers say two things and a map with no key is a
+            picture: a filled marker is a place an open register entry names
+            (its label then gives the status in words); a ring is a place the
+            site watches that has none open. Drawn in neutral ink, because the
+            status colours never appear without their word. */}
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-1.5 text-meta text-muted" aria-label="Map key">
+          <li className="flex items-center gap-2">
+            <span className="size-3 rounded-full bg-fg" aria-hidden="true" />
+            Open register entry
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="size-3 rounded-full border-[1.5px] border-muted bg-surface" aria-hidden="true" />
+            Watched, none open
+          </li>
+          <li className="flex items-center gap-2">
+            <svg width="22" height="6" viewBox="0 0 22 6" aria-hidden="true" focusable="false">
+              <line x1="1" y1="3" x2="21" y2="3" className="stroke-accent" strokeOpacity={0.6} strokeWidth={1.5} strokeDasharray="4 4" strokeLinecap="round" />
+            </svg>
+            Sea lane, for context
+          </li>
+        </ul>
+
         {withCards.length > 0 ? (
           <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-meta text-muted">
             <span>Select a place to see what is published on it:</span>

@@ -80,6 +80,14 @@ export interface Photo {
   alt: string;
   /** What, where and when. "File photo, 2023." if it is not current. */
   caption: string;
+  /**
+   * Ids of the tracked places this photo shows (src/lib/live/nodes.ts), e.g.
+   * "hormuz". A register entry that lists the same place in its `places` gets
+   * this photo with no per-entry edit, so a new entry about a place the site
+   * already has a photo of picks it up, and one about a place it has none of
+   * simply shows none. Empty when the photo is not tied to a place.
+   */
+  places: string[];
   credit: {
     creator: string;
     /** The work's own title, if it has one. */

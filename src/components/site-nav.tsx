@@ -61,7 +61,8 @@ export function SiteNav() {
           <span className="sr-only">— home</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:block">
+        <div className="hidden items-center gap-7 md:flex">
+        <nav aria-label="Primary">
           <ul className="flex items-center gap-7">
             {primaryNav.map((item) => (
               <li key={item.href}>
@@ -76,11 +77,24 @@ export function SiteNav() {
                   )}
                 >
                   {item.label}
+                  {item.suffix ? <span className="hidden lg:inline">&nbsp;{item.suffix}</span> : null}
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
+
+        {/* The one filled control in the header. It appears from `lg` up: at
+            768px the seven links already fill the row. Below that, and in
+            between, the mobile menu and the page's own strip carry it. */}
+        <Link
+          href="/subscribe"
+          aria-current={isActive('/subscribe') ? 'page' : undefined}
+          className="hidden min-h-10 items-center border border-link bg-link px-4 text-[0.9375rem] font-medium text-surface transition-colors hover:border-fg hover:bg-fg lg:inline-flex"
+        >
+          Subscribe
+        </Link>
+        </div>
 
         <button
           type="button"
@@ -109,11 +123,20 @@ export function SiteNav() {
                     )}
                   >
                     {item.label}
+                    {item.suffix ? ` ${item.suffix}` : ''}
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
+          <div className="border-t border-hairline py-3">
+            <Link
+              href="/subscribe"
+              className="flex min-h-12 items-center justify-center border border-link bg-link text-[1.0625rem] font-medium text-surface"
+            >
+              Get the free briefing
+            </Link>
+          </div>
         </Container>
       </div>
     </>

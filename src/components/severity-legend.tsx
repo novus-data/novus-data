@@ -91,3 +91,33 @@ export function SeveritySwatch({
     />
   );
 }
+
+/**
+ * A row's strongest severity as three segments, one to three of them filled.
+ * It says "how much" at a glance where a single swatch only says "which
+ * colour", and it is still the chart's own `.exposure-cell`, so the texture
+ * channel under forced colours and print comes with it. Order is the scale's
+ * (low, moderate, high), so the number of filled segments is the level.
+ * Decorative: every use sits beside the level in words.
+ */
+export function SeverityMeter({
+  severity,
+  className,
+}: {
+  severity: Severity;
+  className?: string;
+}) {
+  const level = SEVERITIES.indexOf(severity) + 1;
+
+  return (
+    <span className={clsx('inline-flex items-center gap-0.5', className)} aria-hidden="true">
+      {SEVERITIES.map((step, index) => (
+        <span
+          key={step}
+          className="exposure-cell !min-h-0 h-3 w-4"
+          data-severity={index < level ? severity : 'none'}
+        />
+      ))}
+    </span>
+  );
+}
