@@ -20,6 +20,25 @@
       "retrievedAt": "2026-10-25",
       "termsUrl": null,
       "permission": null
+    },
+    {
+      "id": "panama-miraflores-locks",
+      "file": "panama-miraflores-locks-2007.jpg",
+      "width": 1600,
+      "height": 698,
+      "alt": "Two chemical tankers, one yellow-hulled and one red, in a lock chamber of the Panama Canal beside the white Miraflores Locks building",
+      "caption": "Ships prepare to enter the Miraflores Locks on the Panama Canal. File photo, August 2007.",
+      "places": [
+        "panama"
+      ],
+      "creator": "Mass Communication Specialist 2nd Class Todd Frantom, U.S. Navy",
+      "title": null,
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_070828-N-1810F-078_Ships_prepare_to_enter_Miraflores_Locks,_one_of_3_locks_used_to_raise_and_lower_ships_as_they_transit_the_canal.jpg",
+      "licence": "public-domain-us-government",
+      "modification": "Resized from the original.",
+      "retrievedAt": "2026-10-28",
+      "termsUrl": null,
+      "permission": null
     }
   ]
 }
