@@ -107,6 +107,16 @@ Decided by `arowsom-oss` on 2026-10-26. The 22 October briefing's header reads
 archive keeps what subscribers received, header included. Gavin is asked to make
 the header date follow the send date from now on.
 
+## Publishing schedule stated on the site
+
+Stated by `Novous-Data` on 2026-10-27; set in the pull request that adds this entry, for `arowsom-oss` to approve:
+Monday, Wednesday, Friday and Sunday, plus special editions. Monday, Wednesday
+and Friday are news editions; Sunday is a longer look at the week ahead. The
+site states only the days (`publication.cadence`), not the edition types. It
+is a forward commitment: the 22 October issue went out on a Thursday. If the
+schedule slips, change the setting rather than leave the claim standing. This
+closes "How often the briefing goes out" under "Still open".
+
 ## Articles go live
 
 Decided by `arowsom-oss` on 2026-10-14, under "Launch calls passed to
@@ -156,7 +166,10 @@ first week of data in one change. It is a new section and a new kind of data.
   method printed on the page. No score is stored or typed by hand.
 - **Before relying on the automatic ship download:** the IMF's terms say
   automated bulk download of IMF data, and any commercial reuse, need its
-  permission. Gavin is to ask copyright@imf.org. Until then,
+  permission. Gavin emailed copyright@imf.org on the evening of 25 October
+  2026 (asking about a weekly automatic download, publishing the derived
+  averages and scores with attribution, and a future paid tier); no reply as of
+  27 October. Until then,
   `npm run mancale -- --ships-csv <file>` uses a CSV downloaded by hand from
   portwatch.imf.org. **Money still needs both**, and it would also need the
   IMF's permission for this data.
@@ -243,12 +256,11 @@ data). A key on the home map and slightly firmer sea lanes. A grouped footer and
 exposure boxes. Photographs reach a register entry through a `places` field on
 its record (CLAUDE.md Rule 3), on the home lead and the entry page.
 
-**Taken out, and Alex should confirm.** The line "Map suggested by Mr. Kent." is
-gone from both maps. The code comment said the editors had asked for it, so this
-is a one-line revert per map if the credit is still wanted. It was removed
-because a credit line under a map is unusual on a publication and pulls the eye
-from the map to a name the reader cannot place. The credit can move to `/about`
-instead if that suits better.
+**Taken out, then put back (28 October).** The line "Map suggested by Mr. Kent."
+was removed from both maps in this change, because a credit line under a map is
+unusual on a publication. Alex asked for it to be restored before merging, since
+the editors had asked for it, so it is back on both. It can move to `/about`
+later if the editors prefer.
 
 **Considered and not done.**
 
@@ -314,7 +326,7 @@ step 3).
 2. Whether the site makes money, and how.
 3. Whose account the site is hosted from.
 4. The minimum content needed before launch.
-5. How often the briefing goes out.
+5. ~~How often the briefing goes out.~~ Decided 2026-10-27, see "Publishing schedule stated on the site".
 6. The launch date.
 
 ## Deployment updates

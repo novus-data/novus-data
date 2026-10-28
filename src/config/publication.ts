@@ -139,9 +139,11 @@ export const publication: Publication = {
     'anyone following trade policy closely enough to need the detail',
   ],
 
-  // Section 0 left this blank. The site therefore never states a schedule.
-  // Set it to e.g. 'weekly' once a cadence is actually being held to.
-  cadence: null,
+  // Gavin's line of 27 October 2026: Monday, Wednesday and Friday are news
+  // editions and Sunday is a longer look at the week ahead, plus special
+  // editions. The site states only the days; it reads as "Published on
+  // Mondays, Wednesdays, Fridays and Sundays, by email" (subscribe panel).
+  cadence: 'on Mondays, Wednesdays, Fridays and Sundays',
 
   methodology: [
     'Everything starts from primary sources wherever they exist: canal and port authority notices, customs and trade statistics, regulatory texts and official releases, and the filings and announcements of the companies involved. Trade press and carrier commentary are used to find stories, not to settle them.',

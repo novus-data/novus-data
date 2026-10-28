@@ -59,6 +59,13 @@ export interface MancaleChokepointConfig {
   label: string;
   portwatchName: string;
   newsQuery: string;
+  /**
+   * When set, `npm run mancale` does not collect news for this chokepoint, and
+   * this says why. It is scored on ships only, and so cannot make a scorecard
+   * call. Delete the line to start collecting; do that before the first
+   * collection, not after seeing what the data would say.
+   */
+  newsHold?: string;
   note: string;
 }
 
@@ -91,16 +98,17 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
     id: 'suez',
     label: 'Suez Canal',
     portwatchName: 'Suez Canal',
-    newsQuery: '"Suez Canal" sourcelang:english',
-    note: 'Most Suez traffic also passes Bab el-Mandeb, so the two readings usually move together.',
+    newsQuery: '"Suez Canal" (shipping OR ships OR vessels OR maritime OR tanker OR container) sourcelang:english',
+    note:
+      'Most Suez traffic also passes Bab el-Mandeb, so the two readings usually move together. The news query needs a shipping word next to "Suez Canal", so coverage of the canal in other contexts does not count.',
   },
   {
     id: 'panama',
     label: 'Panama Canal',
     portwatchName: 'Panama Canal',
-    newsQuery: '"Panama Canal" sourcelang:english',
+    newsQuery: '"Panama Canal" (shipping OR ships OR vessels OR maritime OR tanker OR container) sourcelang:english',
     note:
-      'The canal authority sets daily slots and draft limits, and a change to either moves traffic directly. Its advisories explain most changes in this series.',
+      'The canal authority sets daily slots and draft limits, and a change to either moves traffic directly. Its advisories explain most changes in this series. The news query needs a shipping word next to "Panama Canal"; a story about who controls the canal still counts if it mentions shipping, so a political week can read as louder than the ships justify.',
   },
   {
     id: 'taiwan-strait',
@@ -115,6 +123,8 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
     label: 'Strait of Malacca',
     portwatchName: 'Malacca Strait',
     newsQuery: '("Strait of Malacca" OR "Malacca Strait") sourcelang:english',
+    newsHold:
+      'Its traffic sits far above the frozen 2019–22 normal, so its flow stress almost never rises, and counting it would pull the scorecard\'s ordinary-week rate for "News ahead of ships" down. Decide how to treat that before collecting news.',
     note:
       'Flow stress counts only traffic below normal, so a busier strait scores zero. A lasting shift from the 2019–22 level can reflect a change in tracking coverage as well as in trade.',
   },
@@ -123,6 +133,8 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
     label: 'Bosporus',
     portwatchName: 'Bosporus Strait',
     newsQuery: '("Bosphorus" OR "Bosporus") (shipping OR ships OR vessels OR tankers) sourcelang:english',
+    newsHold:
+      'PortWatch\'s count falls from July, but the Turkish Ministry of Transport\'s quarterly counts, to the end of June, show no fall of that size. Check the next official count, or a second ship-tracking source, before collecting news.',
     note:
       'A lasting shift from the 2019–22 level can reflect a change in tracking coverage as well as in trade. Treat a high reading here with more caution than a sudden one.',
   },
