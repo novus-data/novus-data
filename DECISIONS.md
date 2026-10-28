@@ -258,8 +258,8 @@ its record (CLAUDE.md Rule 3), on the home lead and the entry page.
 
 **Taken out, then put back (28 October).** The line "Map suggested by Mr. Kent."
 was removed from both maps in this change, because a credit line under a map is
-unusual on a publication. Alex asked for it to be restored before merging, since
-the editors had asked for it, so it is back on both. It can move to `/about`
+unusual on a publication. Alex's Claude restored it before merging, since the
+editors had asked for it, so it is back on both. It can move to `/about`
 later if the editors prefer.
 
 **Considered and not done.**

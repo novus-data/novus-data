@@ -11,8 +11,8 @@ photographs now reach a register entry through `places`. The reasoning, what was
 skipped and the one credit line that was removed are in DECISIONS.md ("Visual
 refresh"); the rules a later change should keep are in CLAUDE.md §9. The rubric
 the changes were scored against is `DESIGN-RUBRIC.md`. No new manual step: the
-dateline, the rail and the photo lookup are all derived. Open: Alex to confirm
-the removed map credit, and the `/mancale` marker target size.
+dateline, the rail and the photo lookup are all derived. The map credit was
+restored before merge. Open: the `/mancale` marker target size.
 
 ## Added 27 October 2026 — Mancalë link previews, news for the ship-only chokepoints, and a guard
 
