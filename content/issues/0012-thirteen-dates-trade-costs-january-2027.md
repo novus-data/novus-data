@@ -51,4 +51,5 @@ tags:
 <li>Consumer Price Index, August 2026. BLS, 11 September 2026. <a href="https://www.bls.gov/news.release/archives/cpi_09112026.htm" rel="noopener noreferrer" target="_blank">link</a></li>
 <li>Consumer Price Index, September 2026. BLS, 14 October 2026. <a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm" rel="noopener noreferrer" target="_blank">link</a></li>
 </ol>
+<p><em>Update, 28 October 2026: the Federal Open Market Committee left the target range for the federal funds rate at 3.75% to 4.00% on 28 October, by a vote of 10 to 2. Lisa D. Cook and Beth M. Hammack voted against, preferring to raise the range by a quarter of a percentage point. The statement says inflation "remains elevated". Source: <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm" rel="noopener noreferrer" target="_blank">FOMC statement</a>, Federal Reserve, 28 October 2026. The text above was written before the decision.</em></p>
 <p><em>Novus Data publishes analysis and commentary, not investment advice. Nothing here is a recommendation to buy or sell any security.</em></p>
