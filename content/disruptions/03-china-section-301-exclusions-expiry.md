@@ -5,8 +5,8 @@ shortLabel: "301"
 status: "watch"
 category: "policy"
 startedAt: "2025-12-01"
-updatedAt: "2026-10-13"
-summary: "USTR's extension of 178 exclusions from the Section 301 tariffs on Chinese goods runs out at 11:59 p.m. on 9 November 2026. No further extension had been published by 13 October."
+updatedAt: "2026-11-02"
+summary: "USTR's extension of 178 exclusions from the Section 301 tariffs on Chinese goods runs out at 11:59 p.m. on 9 November 2026. No further extension had been published by 2 November."
 author: "alex"
 sources:
   - title: "Notice of Product Exclusion Extensions: China's Acts, Policies, and Practices Related to Technology Transfer, Intellectual Property, and Innovation"
@@ -27,7 +27,7 @@ exposures:
     severity: "moderate"
     confidence: "reported"
     mechanism: "Fourteen of the exclusions, under heading 9903.88.70, cover equipment used to make solar products; entries after 9 November face the Section 301 duty unless they are extended."
-    asOf: "2026-10-13"
+    asOf: "2026-11-02"
     sources:
       - title: "Notice of Product Exclusion Extensions: China's Acts, Policies, and Practices Related to Technology Transfer, Intellectual Property, and Innovation"
         url: "https://www.federalregister.gov/documents/2025/12/01/2025-21671/notice-of-product-exclusion-extensions-chinas-acts-policies-and-practices-related-to-technology"
@@ -42,7 +42,7 @@ exposures:
     severity: "moderate"
     confidence: "estimated"
     mechanism: "The 164 exclusions under heading 9903.88.69, listed by tariff subheading in Annex A, lapse on 9 November; each importer's exposure depends on whether its product matches an exclusion description exactly."
-    asOf: "2026-10-13"
+    asOf: "2026-11-02"
     sources:
       - title: "Notice of Product Exclusion Extensions: China's Acts, Policies, and Practices Related to Technology Transfer, Intellectual Property, and Innovation"
         url: "https://www.federalregister.gov/documents/2025/12/01/2025-21671/notice-of-product-exclusion-extensions-chinas-acts-policies-and-practices-related-to-technology"
@@ -50,18 +50,22 @@ exposures:
         retrievedAt: "2026-10-13"
   - entity:
       id: "amended-exclusion-importers"
-      name: "Importers of the four amended products"
+      name: "Importers of the five amended products"
       kind: "sector"
       ticker: null
       sector: "Importers"
     severity: "low"
     confidence: "inferred"
-    mechanism: "Four exclusions now refer to the statistical codes that took effect on 1 July 2026, so entries filed under the old codes may not qualify."
-    asOf: "2026-09-02"
+    mechanism: "Five exclusions now refer to the statistical codes that took effect on 1 July 2026, four amended on 2 September and one on 7 October, so entries filed under the old codes may not qualify."
+    asOf: "2026-10-07"
     sources:
       - title: "Notice of Conforming Amendments to Product Exclusions"
         url: "https://www.federalregister.gov/documents/2026/09/02/2026-17925/notice-of-conforming-amendments-to-product-exclusions-chinas-acts-policies-and-practices-related-to"
         publisher: "USTR, Federal Register"
         retrievedAt: "2026-10-13"
+      - title: "Notice of Conforming Amendment to Product Exclusion"
+        url: "https://www.federalregister.gov/documents/2026/10/07/2026-20511/notice-of-conforming-amendment-to-product-exclusion-chinas-acts-policies-and-practices-related-to"
+        publisher: "USTR, Federal Register"
+        retrievedAt: "2026-11-02"
 ---
 <p>Research and sources by Gavin McGreevy; severities assessed by Alex Rowsom on 13 October 2026.</p>
