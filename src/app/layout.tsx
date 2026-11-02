@@ -9,6 +9,7 @@ import { articlesEnabled } from '@/config/launch';
 import '@/config/input-ledger';
 import { publication } from '@/config/publication';
 import { env } from '@/lib/env';
+import { OPEN_GRAPH_LOCALE } from '@/lib/page-metadata';
 
 import './globals.css';
 
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   // preview deployments still emit correct absolute URLs.
   metadataBase: new URL(env.siteUrl),
   title: {
-    default: publication.name,
+    default: publication.homeTitle,
     template: `%s — ${publication.name}`,
   },
   description: publication.description,
@@ -51,14 +52,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: publication.name,
-    title: publication.name,
+    title: publication.homeTitle,
     description: publication.description,
     url: '/',
-    locale: 'en_GB',
+    locale: OPEN_GRAPH_LOCALE,
   },
   twitter: {
     card: 'summary_large_image',
-    title: publication.name,
+    title: publication.homeTitle,
     description: publication.description,
   },
   alternates: {

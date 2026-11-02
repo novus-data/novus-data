@@ -91,6 +91,20 @@ export const INPUT_LEDGER: InputRecord[] = [
     requiredForLaunch: false,
   },
   {
+    key: 'publication.independence',
+    provenance: 'assumed',
+    usedOn: ['/about'],
+    note: 'Drafted for the editor to confirm. It states there are no sponsors, advertisers, affiliate links or paid placements. Cut a sentence, or set the field to null, unless it is true today.',
+    requiredForLaunch: false,
+  },
+  {
+    key: 'publication.homeTitle',
+    provenance: 'assumed',
+    usedOn: ['/', 'search results', 'shared links to the home page'],
+    note: 'Drafted. The words a search result shows for the home page. Change them freely; keep them under about 60 characters.',
+    requiredForLaunch: false,
+  },
+  {
     key: 'publication.primaryReader / secondaryReaders',
     provenance: 'assumed',
     usedOn: ['/about', '/coverage'],

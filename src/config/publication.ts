@@ -43,6 +43,12 @@ export interface AuthorProfile {
 
 export interface Publication {
   name: string;
+  /**
+   * The home page's <title> and the title of a shared link to it. Longer than
+   * `name` because a bare brand name tells a search result nothing. Keep it
+   * under about 60 characters or search engines cut it.
+   */
+  homeTitle: string;
   /** One sentence. The single most repeated line on the site. */
   description: string;
   /** A few words for the footer, where the full sentence would repeat the page. */
@@ -103,6 +109,13 @@ export interface Publication {
     availableFrom: string | null;
   };
   /**
+   * What the publication is paid by, and by whom it is not. Rendered on /about.
+   * Null renders nothing: a claim about independence that has not been
+   * confirmed by the editor must not be published. Every sentence here has to be
+   * true on the day it ships, and the page has to change before the facts do.
+   */
+  independence: string[] | null;
+  /**
    * How mistakes are handled. On a site that names companies this is not
    * boilerplate — it is the thing that makes the rest of it credible.
    */
@@ -113,6 +126,8 @@ export interface Publication {
 
 export const publication: Publication = {
   name: 'Novus Data',
+
+  homeTitle: 'Novus Data — supply chain disruption, tracked',
 
   description:
     'Novus Data tracks disruption in global supply chains, shipping and trade policy, and shows which companies it reaches.',
@@ -148,7 +163,7 @@ export const publication: Publication = {
   methodology: [
     'Everything starts from primary sources wherever they exist: canal and port authority notices, customs and trade statistics, regulatory texts and official releases, and the filings and announcements of the companies involved. Trade press and carrier commentary are used to find stories, not to settle them.',
     'Every entry in the register carries the date it was last reviewed, and every company or sector named against a disruption carries four things: the mechanism by which the problem reaches it, how confident that assessment is, the date of the assessment, and at least one source you can follow. An assessment that cannot supply all four is not published — it is dropped by the site itself, not left to editorial discretion.',
-    'The work is reading rather than modelling. Novus Data does not run a proprietary dataset and does not publish forecasts dressed as numbers. Where something is uncertain, it is marked as inferred or estimated rather than stated flatly.',
+    'The register is built by reading rather than modelling. Novus Data does not run a proprietary dataset behind it and does not publish forecasts dressed as numbers. The one calculated figure on the site, the Mancalë Index, is built from two public feeds by a method printed on its own page, and it describes the past week rather than predicting the next. Where something is uncertain, it is marked as inferred or estimated rather than stated flatly.',
     'The standard is deliberately awkward to meet. It is easy to write that a company is "exposed" to a problem; it is much harder to say by what mechanism, how well established that is, and when it was last checked. Requiring all of it means the chart fills slowly — and that anything on it is worth the space it takes.',
     'Novus Data publishes analysis and commentary. It is not investment advice, it is not a recommendation to buy or sell any security, and it is not a substitute for your own work.',
   ],
@@ -189,6 +204,14 @@ export const publication: Publication = {
     // No date is announced until one is real.
     availableFrom: null,
   },
+
+  // Drafted for the editor to confirm (see INPUT_LEDGER). Both sentences are
+  // statements about money, so they ship only once the editor has said they are
+  // true. Set to null to remove the section.
+  independence: [
+    'Novus Data has no sponsors, advertisers, affiliate links or paid placements, and takes no payment from any company it names.',
+    'If that ever changes, this page changes first, and anything paid for is labelled as paid for.',
+  ],
 
   corrections: [
     'If something here is wrong, it gets corrected rather than quietly edited. A correction to a register entry is made on the entry itself, the review date is updated, and what changed is stated in the briefing that follows.',
