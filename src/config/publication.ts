@@ -205,13 +205,15 @@ export const publication: Publication = {
     availableFrom: null,
   },
 
-  // Drafted for the editor to confirm (see INPUT_LEDGER). Both sentences are
-  // statements about money, so they ship only once the editor has said they are
-  // true. Set to null to remove the section.
-  independence: [
-    'Novus Data has no sponsors, advertisers, affiliate links or paid placements, and takes no payment from any company it names.',
-    'If that ever changes, this page changes first, and anything paid for is labelled as paid for.',
-  ],
+  // Held off until both founders confirm it is true (see INPUT_LEDGER). The two
+  // sentences below are statements about money, so they ship only once that has
+  // happened. To switch the Independence section on, replace `null` with:
+  //
+  //   [
+  //     'Novus Data has no sponsors, advertisers, affiliate links or paid placements, and takes no payment from any company it names.',
+  //     'If that ever changes, this page changes first, and anything paid for is labelled as paid for.',
+  //   ]
+  independence: null,
 
   corrections: [
     'If something here is wrong, it gets corrected rather than quietly edited. A correction to a register entry is made on the entry itself, the review date is updated, and what changed is stated in the briefing that follows.',

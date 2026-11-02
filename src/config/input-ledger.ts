@@ -94,7 +94,7 @@ export const INPUT_LEDGER: InputRecord[] = [
     key: 'publication.independence',
     provenance: 'assumed',
     usedOn: ['/about'],
-    note: 'Drafted for the editor to confirm. It states there are no sponsors, advertisers, affiliate links or paid placements. Cut a sentence, or set the field to null, unless it is true today.',
+    note: 'Held off (set to null) until both founders confirm it. The draft sentences are in a comment beside the field: no sponsors, advertisers, affiliate links or paid placements, and no payment from any company named. Switch it on only if every sentence is true today.',
     requiredForLaunch: false,
   },
   {
