@@ -112,14 +112,15 @@ because a label that has only ever been recomputed from today's data cannot
 show what the site said at the time. It does not license a figure anywhere
 else.
 
-**Proposed extension, 4 November 2026 — the Mancalë chokepoint pages and the home
-box (not yet accepted by the author; merging the change that adds this paragraph
-is the acceptance).** `/mancale/[id]`, one page per chokepoint, may publish the
+**Proposed extension, 4 November 2026 — the Mancalë chokepoint pages (not yet
+accepted by the author; merging the change that adds this paragraph is the
+acceptance).** `/mancale/[id]`, one page per chokepoint, may publish the
 same figures `/mancale` does for that chokepoint, and its share card may state
 what the page states, because each is computed at build time from the same cited
-weekly data by the method printed on `/mancale`. The home page's Mancalë box
-shows **labels and dates only, never a number**. Nothing is typed by hand. It
-does not license a figure anywhere else.
+weekly data by the method printed on `/mancale`. Nothing is typed by hand. It
+does not license a figure, or a label, anywhere else: the home page carries
+nothing from the index (a home box was proposed and held back on 4 November
+2026 while two readings were in doubt).
 
 Two fenced exceptions, both `[SAMPLE]`-prefixed, both unreachable without
 `CONTENT_SOURCE=fixtures`, and both throwing at module load if a production
@@ -273,7 +274,6 @@ src/components/            Presentational components. One client component.
   chokepoint-map-base.tsx    The drawing both locator maps share (projection, coastlines, lanes).
   mancale/mancale-map.tsx    The /mancale locator map: markers are Mancalë labels, not register fills. See §6a.
   mancale/chokepoint-box.tsx One chokepoint's reading and charts, shared by /mancale and /mancale/[id]. See §14.1.
-  mancale/mancale-home-box.tsx The home page's Mancalë box: labels and dates, no figures. See §14.1.
   world-outline.ts           Its hand-drawn coastlines and sea lanes. Coarse on purpose.
 src/app/account/           The signed-in page and its server actions. Dynamic.
 src/app/auth/              Magic-link callback and sign-out. Dynamic.
@@ -1201,7 +1201,7 @@ ships" by the ships following in 5 of 26 (19%, range 9% to 38%) against 17%.
 That is in-sample and small, and the second result is no different from
 chance. The forward record started with the week of 12 October 2026.
 
-**Chokepoint pages and the home box, 4 November 2026** (same `mancaleEnabled`
+**Chokepoint pages, 4 November 2026** (same `mancaleEnabled`
 gate). `/mancale/[id]` gives each chokepoint its own permanent URL and its own
 share card (`opengraph-image.tsx` beside it), so a link to one chokepoint opens on
 that chokepoint and previews as it. The routes are the chokepoints in
@@ -1214,11 +1214,6 @@ stress (solid) and attention (dashed), told apart by line style and a direct
 label, never by colour alone, and prints the date the ship data runs to. A
 chokepoint with no news volume draws the ship line only and says why. Link
 descriptions carry words and dates, never a figure.
-
-The home box (`mancale-home-box.tsx`) lists each chokepoint's latest label with a
-link to its page, and the as-of date, in the §6a phrasing when the data had not
-been refreshed at build. It prints no number: Rule 1 allows the index's figures
-on `/mancale` and its own pages and nowhere else.
 
 ### 14.2 An app with notifications
 
