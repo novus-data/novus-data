@@ -3,10 +3,10 @@ import { notFound } from 'next/navigation';
 
 import { Container } from '@/components/container';
 import { CreditedPhoto } from '@/components/credited-photo';
+import { ChokepointBox, reading } from '@/components/mancale/chokepoint-box';
 import { MancaleMap } from '@/components/mancale/mancale-map';
-import { GapChart, NewsChart, ShipsChart, formatMultiple, formatPerDay, signed } from '@/components/mancale/mancale-charts';
+import { formatMultiple, signed } from '@/components/mancale/mancale-charts';
 import { PageHeader } from '@/components/page-header';
-import { SourceList } from '@/components/source-list';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { SectionLabel, StoryBox } from '@/components/story-box';
 import { TextLink } from '@/components/text-link';
@@ -21,7 +21,6 @@ import {
   MANCALE_REGIMES,
   getMancale,
   type MancaleChokepoint,
-  type MancaleWeek,
 } from '@/lib/indicators';
 import { getPhoto } from '@/lib/photos';
 
@@ -149,10 +148,6 @@ export default async function MancalePage() {
       </Container>
     </>
   );
-}
-
-function reading(week: MancaleWeek): string {
-  return MANCALE_REGIME_LABELS[week.regime];
 }
 
 function Scoreboard({
@@ -284,47 +279,6 @@ function HowToRead() {
         A week where both scores are below {m.quietBelow} is labelled {MANCALE_REGIME_LABELS.quiet.toLowerCase()}. Where
         news volume has not been collected yet, the week is described by ship traffic alone and has no gap.
       </p>
-    </StoryBox>
-  );
-}
-
-function ChokepointBox({ point }: { point: MancaleChokepoint }) {
-  const m = MANCALE_METHOD;
-  const week = point.latest;
-  const news =
-    week.newsXBaseline === null
-      ? 'News volume has not been collected for this chokepoint yet.'
-      : `news coverage ${formatMultiple(week.newsXBaseline)} its normal. Gap ${signed(week.gap ?? 0, 2)}.`;
-  return (
-    <StoryBox
-      as="section"
-      level={3}
-      id={point.id}
-      kicker={reading(week)}
-      title={point.label}
-      deck={
-        <p className="text-muted">
-          Week of {formatLongDate(week.weekStart)}: {formatPerDay(week.transitsPerDay)} ships a day,{' '}
-          {signed(week.flowVsBaselinePct)}% against a normal of {formatPerDay(point.baselineTransitsPerDay)}
-          {week.newsXBaseline === null ? '. ' : '; '}
-          {news} {point.weeksInRegime > 1 ? `${reading(week)} for ${point.weeksInRegime} weeks.` : ''}
-        </p>
-      }
-      footer={<SourceList compact sources={point.sources} />}
-    >
-      <div className="flex flex-col gap-6">
-        <ShipsChart weeks={point.weeks} label={point.label} />
-        {point.hasNews ? (
-          <>
-            <NewsChart weeks={point.weeks} label={point.label} />
-            <GapChart weeks={point.weeks} label={point.label} narrativeLedAt={m.narrativeLedAt} realityLedAt={m.realityLedAt} cap={m.cap} />
-          </>
-        ) : null}
-        <p className="text-meta text-muted">
-          <span className="text-fg">Read with care: </span>
-          {point.note}
-        </p>
-      </div>
     </StoryBox>
   );
 }

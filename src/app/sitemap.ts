@@ -6,6 +6,7 @@ import { listArticles, listIssues } from '@/lib/content';
 import { listDisruptions, listEntities } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
 import { toDate } from '@/lib/format';
+import { getMancale } from '@/lib/indicators';
 
 /**
  * Derived, not listed. Static routes come from the navigation config and issue
@@ -13,11 +14,12 @@ import { toDate } from '@/lib/format';
  * no edit here (Rule 6).
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [issues, articles, disruptions, entities] = await Promise.all([
+  const [issues, articles, disruptions, entities, mancale] = await Promise.all([
     listIssues(),
     listArticles(),
     listDisruptions(),
     listEntities(),
+    mancaleEnabled ? getMancale() : Promise.resolve(null),
   ]);
 
   // The Set is what keeps this correct now that the navigation itself carries a
@@ -96,5 +98,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ? [{ url: absoluteUrl('/mancale/scorecard'), changeFrequency: 'weekly' as const, priority: 0.6 }]
     : [];
 
-  return [...staticRoutes, ...scorecardRoutes, ...disruptionRoutes, ...entityRoutes, ...articleRoutes, ...issueRoutes];
+  // One page per chokepoint, from the same data file the index is built from,
+  // so a chokepoint added by the weekly refresh is listed with no edit here.
+  const chokepointRoutes: MetadataRoute.Sitemap = (mancale?.chokepoints ?? []).map((point) => ({
+    url: absoluteUrl(`/mancale/${point.id}`),
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...scorecardRoutes, ...chokepointRoutes, ...disruptionRoutes, ...entityRoutes, ...articleRoutes, ...issueRoutes];
 }

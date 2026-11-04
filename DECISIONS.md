@@ -221,6 +221,37 @@ tested where readers can see it.
   within 10 days of each week ending (PortWatch publishes on Tuesdays). A late
   week is still safe to run, but its calls are listed as found afterwards.
 
+## Mancalë chokepoint pages
+
+Proposed on 2026-11-03 by Gavin's Claude, on Gavin's instruction ("do the full
+version") and approval to open the pull request. It takes effect when
+`arowsom-oss` merges it; the site's code stays his call.
+
+- **What it adds.** `/mancale/[id]`, one page per chokepoint with its own share
+  card. The sitemap lists the new pages.
+- **No new data and no new dependency.** Every figure comes from the file the
+  index already reads, scored by the same code, through the same component
+  (`ChokepointBox`) that `/mancale` now uses too. The share card uses `next/og`
+  and the fonts already in the repository.
+- **Rule 1 has a proposed extension** (CLAUDE.md §4, marked as proposed): the
+  same figures on a chokepoint's own page and card. Merging the change is the
+  author's acceptance.
+- **No new manual step.** Pages, cards and sitemap entries are derived from the
+  data file. `npm run mancale` plus the existing `git add content/indicators/`
+  is still the whole weekly job.
+- **Gate.** Behind `mancaleEnabled`: off, the new routes 404 and the sitemap
+  drops them, with the rest of the index.
+- **Held back: the home-page box (4 November 2026).** The branch also had a box
+  on the home page listing each chokepoint's latest label. Alex removed it before
+  merging: two of the seven readings were in doubt (the Taiwan Strait's week of
+  19 October rests on a two-day gap in the IMF's data, and the Bosporus reading is
+  unverified), and a front-page box has no room for the "Read with care" note the
+  chokepoint pages carry. It can return once those are settled; it is a separate
+  small change.
+- **Not done.** No data download (the IMF's reply on derived scores is still
+  outstanding), no per-chokepoint item in the header, and no change to the
+  method or the scorecard.
+
 ## Photographs allowed, with their licence (Rule 3 amended)
 
 Amended by `Novous-Data`, the author of the rules, on 2026-10-21. The site may

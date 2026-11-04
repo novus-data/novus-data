@@ -112,6 +112,16 @@ because a label that has only ever been recomputed from today's data cannot
 show what the site said at the time. It does not license a figure anywhere
 else.
 
+**Proposed extension, 4 November 2026 — the Mancalë chokepoint pages (not yet
+accepted by the author; merging the change that adds this paragraph is the
+acceptance).** `/mancale/[id]`, one page per chokepoint, may publish the
+same figures `/mancale` does for that chokepoint, and its share card may state
+what the page states, because each is computed at build time from the same cited
+weekly data by the method printed on `/mancale`. Nothing is typed by hand. It
+does not license a figure, or a label, anywhere else: the home page carries
+nothing from the index (a home box was proposed and held back on 4 November
+2026 while two readings were in doubt).
+
 Two fenced exceptions, both `[SAMPLE]`-prefixed, both unreachable without
 `CONTENT_SOURCE=fixtures`, and both throwing at module load if a production
 build touches them:
@@ -263,6 +273,7 @@ src/components/            Presentational components. One client component.
   chokepoint-map.tsx         The home page locator map. Static SVG. See §6a.
   chokepoint-map-base.tsx    The drawing both locator maps share (projection, coastlines, lanes).
   mancale/mancale-map.tsx    The /mancale locator map: markers are Mancalë labels, not register fills. See §6a.
+  mancale/chokepoint-box.tsx One chokepoint's reading and charts, shared by /mancale and /mancale/[id]. See §14.1.
   world-outline.ts           Its hand-drawn coastlines and sea lanes. Coarse on purpose.
 src/app/account/           The signed-in page and its server actions. Dynamic.
 src/app/auth/              Magic-link callback and sign-out. Dynamic.
@@ -1189,6 +1200,20 @@ Honest reading of the first run, so nobody oversells it: in the history,
 ships" by the ships following in 5 of 26 (19%, range 9% to 38%) against 17%.
 That is in-sample and small, and the second result is no different from
 chance. The forward record started with the week of 12 October 2026.
+
+**Chokepoint pages, 4 November 2026** (same `mancaleEnabled`
+gate). `/mancale/[id]` gives each chokepoint its own permanent URL and its own
+share card (`opengraph-image.tsx` beside it), so a link to one chokepoint opens on
+that chokepoint and previews as it. The routes are the chokepoints in
+`content/indicators/mancale.json` (`generateStaticParams`, `dynamicParams =
+false`), and the sitemap lists them from the same file, so a chokepoint added by
+the weekly refresh arrives with no edit (Rule 6). The page renders
+`ChokepointBox`, the component `/mancale` also renders, so the two cannot
+describe a week differently (§14a). The card draws the last 52 weeks of flow
+stress (solid) and attention (dashed), told apart by line style and a direct
+label, never by colour alone, and prints the date the ship data runs to. A
+chokepoint with no news volume draws the ship line only and says why. Link
+descriptions carry words and dates, never a figure.
 
 ### 14.2 An app with notifications
 
