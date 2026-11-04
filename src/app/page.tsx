@@ -7,6 +7,7 @@ import { ChokepointMap } from '@/components/chokepoint-map';
 import { CreditedPhoto } from '@/components/credited-photo';
 import { Container } from '@/components/container';
 import { JsonLd } from '@/components/json-ld';
+import { MancaleHomeBox } from '@/components/mancale/mancale-home-box';
 import { SeverityMeter } from '@/components/severity-legend';
 import { SignInPanel } from '@/components/sign-in-panel';
 import { StatusBadge } from '@/components/status-badge';
@@ -14,7 +15,7 @@ import { SectionLabel, StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { coverageTopics } from '@/config/coverage';
-import { articlesEnabled, monitorEnabled } from '@/config/launch';
+import { articlesEnabled, mancaleEnabled, monitorEnabled } from '@/config/launch';
 import { formatAuthorNames, publication } from '@/config/publication';
 import type { DisruptionSummary, EntityExposure } from '@/lib/disruptions';
 import {
@@ -28,6 +29,7 @@ import type { IssueSummary } from '@/lib/content';
 import { listArticles, listIssues } from '@/lib/content';
 import { absoluteUrl, accountsConfigured } from '@/lib/env';
 import { formatIssueLabel, formatShortDate } from '@/lib/format';
+import { getMancale } from '@/lib/indicators';
 import type { Photo } from '@/lib/photos';
 import { getPhotoForPlaces } from '@/lib/photos';
 import { publicationJsonLd } from '@/lib/structured-data';
@@ -55,11 +57,12 @@ export const metadata: Metadata = {
  * register at build time, and a band with nothing real in it does not render.
  */
 export default async function HomePage() {
-  const [disruptions, briefings, matrix, articles] = await Promise.all([
+  const [disruptions, briefings, matrix, articles, mancale] = await Promise.all([
     listDisruptions(),
     listIssues(),
     buildExposureMatrix(),
     articlesEnabled ? listArticles() : Promise.resolve([]),
+    mancaleEnabled ? getMancale() : Promise.resolve(null),
   ]);
   const analysis = articles.slice(0, 3);
 
@@ -143,6 +146,14 @@ export default async function HomePage() {
           <ChokepointMap disruptions={disruptions} posts={[...briefings, ...articles]} />
         </StoryBox>
       </Band>
+
+      {/* Labels and dates only (Rule 1); the evidence is one click away. Gated
+          with the rest of the index, and absent when there is no data file. */}
+      {mancale ? (
+        <Band id="mancale" label="Mancalë Index">
+          <MancaleHomeBox index={mancale} className={FULL_WIDTH} />
+        </Band>
+      ) : null}
 
       {matrix.rows.length > 0 ? (
         <Band id="exposure" label="Exposure">
