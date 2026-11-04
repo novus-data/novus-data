@@ -318,6 +318,26 @@ outside collaborator. Becoming an owner: `Novous-Data` invites `arowsom-oss`
 to the organisation with the role **Owner**, and he accepts (DEPLOY.md Part 7,
 step 3).
 
+## Gavin's answers, 2 November 2026
+
+Gavin answered the open list from the message board (#43). Recorded here because
+the board is not an archive.
+
+- **The early 22 October post** (the address without `-8a52`) stays public. It is
+  a second copy of the same issue as `0020`, so it is not added to the archive;
+  each sync reports it as new and the person syncing leaves it out.
+- **The 2 November issue** is written by Alex's Claude, for Alex to send.
+- **The IMF copyright email:** unknown whether it was sent or answered. PortWatch
+  stays a hand download until the IMF confirms.
+- **The 19 October "Week Ahead"** is dropped. It is not in the archive and is not
+  asked about again.
+- **The 28 October diesel post** gets no dated note. Not asked about again.
+- **`articlesEnabled`:** Gavin agrees to articles being on. It has been on since
+  14 October 2026 (see "Articles go live"), so nothing changes.
+- **The Mancalë refresh for the week of 19 October:** Gavin agrees to the Suez and
+  Panama news-query change (#48). The refresh is to be run by Wednesday
+  4 November so the week's labels count as recorded (CLAUDE.md section 8).
+
 ## Still open
 
 1. What goes live on launch day: the main branch as it is, or the main branch
