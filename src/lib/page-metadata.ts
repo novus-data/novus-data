@@ -10,6 +10,19 @@ import { absoluteUrl } from '@/lib/env';
 export const OPEN_GRAPH_LOCALE = 'en_GB';
 
 /**
+ * The site-wide share image, from src/app/opengraph-image.tsx. A page that sets
+ * its own `openGraph` replaces the layout's object whole, and the root file
+ * convention's image goes with it, so it has to be named again here or every
+ * page built on `pageMetadata` previews as text with no picture.
+ */
+const SHARE_IMAGE = {
+  url: '/opengraph-image',
+  width: 1200,
+  height: 630,
+  alt: `${publication.name} — ${publication.description}`,
+};
+
+/**
  * Metadata for an ordinary reading page: title, description, canonical URL and
  * the tags that decide how a shared link previews.
  *
@@ -47,7 +60,13 @@ export function pageMetadata({
       description,
       url,
       locale: OPEN_GRAPH_LOCALE,
+      images: [SHARE_IMAGE],
     },
-    twitter: { card: 'summary_large_image', title: shareTitle, description },
+    twitter: {
+      card: 'summary_large_image',
+      title: shareTitle,
+      description,
+      images: [SHARE_IMAGE.url],
+    },
   };
 }
