@@ -7,15 +7,15 @@ import { StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { CATEGORY_LABELS, isStale, listDisruptions } from '@/lib/disruptions';
-import { absoluteUrl } from '@/lib/env';
 import { formatShortDate } from '@/lib/format';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Disruptions',
   description:
     'The register of tracked supply chain disruptions: what is going wrong, where, how far along it is, and when each entry was last reviewed.',
-  alternates: { canonical: absoluteUrl('/disruptions') },
-};
+  path: '/disruptions',
+});
 
 export default async function DisruptionsPage() {
   const disruptions = await listDisruptions();

@@ -6,13 +6,14 @@ import { StoryBox } from '@/components/story-box';
 import { ExternalLink, TextLink } from '@/components/text-link';
 import { monitorEnabled, subscribeVia } from '@/config/launch';
 import { publication } from '@/config/publication';
-import { absoluteUrl, accountsConfigured, env } from '@/lib/env';
+import { accountsConfigured, env } from '@/lib/env';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Privacy',
   description: `What ${publication.name} does and does not collect.`,
-  alternates: { canonical: absoluteUrl('/privacy') },
-};
+  path: '/privacy',
+});
 
 /*
  * This page is a plain description of how the site actually behaves today. It

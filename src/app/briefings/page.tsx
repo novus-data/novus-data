@@ -8,13 +8,13 @@ import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { publication } from '@/config/publication';
 import { GROUP_ARCHIVE_ABOVE, listIssues, listIssuesByYear } from '@/lib/content';
-import { absoluteUrl } from '@/lib/env';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Briefings',
   description: `Every issue of ${publication.name}, in reverse chronological order.`,
-  alternates: { canonical: absoluteUrl('/briefings') },
-};
+  path: '/briefings',
+});
 
 export default async function BriefingsPage() {
   const issues = await listIssues();

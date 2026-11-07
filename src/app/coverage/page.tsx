@@ -7,13 +7,13 @@ import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { coverageTopics } from '@/config/coverage';
 import { publication } from '@/config/publication';
-import { absoluteUrl } from '@/lib/env';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Coverage',
   description: `The topics ${publication.name} tracks, and why each one matters.`,
-  alternates: { canonical: absoluteUrl('/coverage') },
-};
+  path: '/coverage',
+});
 
 export default function CoveragePage() {
   return (
