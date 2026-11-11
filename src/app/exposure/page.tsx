@@ -7,14 +7,14 @@ import { StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { buildExposureMatrix } from '@/lib/disruptions';
-import { absoluteUrl } from '@/lib/env';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Exposure',
   description:
     'Which tracked supply chain disruptions reach which companies and sectors, with the mechanism, the confidence and the source behind every assessment.',
-  alternates: { canonical: absoluteUrl('/exposure') },
-};
+  path: '/exposure',
+});
 
 export default async function ExposurePage() {
   const matrix = await buildExposureMatrix();

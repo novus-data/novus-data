@@ -40,7 +40,7 @@ import { publicationJsonLd } from '@/lib/structured-data';
 const FULL_WIDTH = 'md:col-span-2 lg:col-span-12';
 
 export const metadata: Metadata = {
-  title: publication.name,
+  title: { absolute: publication.homeTitle },
   description: publication.description,
   alternates: { canonical: absoluteUrl('/') },
 };

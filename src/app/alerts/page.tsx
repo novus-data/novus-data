@@ -6,14 +6,14 @@ import { StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { publication } from '@/config/publication';
-import { absoluteUrl } from '@/lib/env';
 import { formatLongDate } from '@/lib/format';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Alerts',
   description: `${publication.alerts.name}: planned notifications for changes in the disruption register.`,
-  alternates: { canonical: absoluteUrl('/alerts') },
-};
+  path: '/alerts',
+});
 
 /**
  * The alerts app does not exist yet. This page says so in the first sentence.

@@ -5,13 +5,14 @@ import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
 import { MailLink } from '@/components/text-link';
 import { publication } from '@/config/publication';
-import { absoluteUrl, env } from '@/lib/env';
+import { env } from '@/lib/env';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Contact',
   description: `How to reach ${publication.name}.`,
-  alternates: { canonical: absoluteUrl('/contact') },
-};
+  path: '/contact',
+});
 
 export default function ContactPage() {
   return (
