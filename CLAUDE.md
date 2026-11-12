@@ -252,6 +252,7 @@ scripts/doctor.ts          State of the project + the next action. Reads INPUT_L
 scripts/new-disruption.ts  Register scaffolder. Mirrors the loader's validation.
 scripts/review-register.ts The review worklist, by how close each entry is to stale.
 scripts/mancale.ts         Weekly refresh of the Mancalë data. Run by hand. See §8.
+scripts/build-map-land.ts  Builds src/components/world-land.ts from Natural Earth. See §6a.
 scripts/lib/cli.ts         Shared colour, prompting and .env.local reading.
 src/config/                Every fact the site states, and the navigation.
   publication.ts             The facts. Pure data, no side effects, safe anywhere.
@@ -274,7 +275,8 @@ src/components/            Presentational components. One client component.
   chokepoint-map-base.tsx    The drawing both locator maps share (projection, coastlines, lanes).
   mancale/mancale-map.tsx    The /mancale locator map: markers are Mancalë labels, not register fills. See §6a.
   mancale/chokepoint-box.tsx One chokepoint's reading and charts, shared by /mancale and /mancale/[id]. See §14.1.
-  world-outline.ts           Its hand-drawn coastlines and sea lanes. Coarse on purpose.
+  world-land.ts              The land (Natural Earth, public domain), generated. Do not hand-edit.
+  world-outline.ts           The hand-placed sea lanes.
 src/app/account/           The signed-in page and its server actions. Dynamic.
 src/app/auth/              Magic-link callback and sign-out. Dynamic.
 src/proxy.ts               Session refresh. NOT middleware.ts — renamed in Next 16.
@@ -490,10 +492,17 @@ so it adds no data model and states no figure: a marker is a position, and
 "an open entry names this place" is something a human wrote and dated.
 Resolved entries do not fill a marker.
 
-- **The coastlines are hand-drawn and coarse** (`world-outline.ts`), because
-  Rule 3 rules out a third-party map dataset. They are a degree or two out in
-  places. The chokepoint positions are the accurate part. Do not add detail
-  to the coastlines in a polish pass; a locator map only has to say "here".
+- **The coastlines are Natural Earth's, simplified** (amended by the author, 12 November
+  2026; they used to be hand-drawn and coarse, on the reading that Rule 3 ruled out any
+  third-party map dataset). Natural Earth is in the public domain, which is on Rule 3's
+  allowed list, so its 1:50m land layer is used, committed only as the generated
+  `src/components/world-land.ts` (one SVG path, even-odd, in the maps' own projection).
+  Regenerate it with `npx tsx scripts/build-map-land.ts <ne_50m_land.geojson>` (the
+  script says where to get the file) whenever the map window changes. Do not hand-edit
+  the path, and do not add a second dataset without the same check against Rule 3. The
+  chokepoint positions still come from `src/lib/live/nodes.ts`; the sea lanes in
+  `world-outline.ts` are still hand-placed and loose, and on real coastlines a lane may
+  cross a corner of land. They are context, not a route.
 - **A status colour never appears without its word.** A filled marker's label
   reads "Panama · Active", and the list under the map repeats the status with
   a link to the entry. Labels are hidden below `sm`, where a line of names

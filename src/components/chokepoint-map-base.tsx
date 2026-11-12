@@ -1,4 +1,5 @@
-import { LAND, LANES, WATER } from '@/components/world-outline';
+import { LANES } from '@/components/world-outline';
+import { LAND_PATH } from '@/components/world-land';
 
 /*
  * The visible window: Panama to Japan, Scandinavia to the Cape, which is the
@@ -42,24 +43,13 @@ export function MapBase() {
     <>
       <rect width={WIDTH} height={HEIGHT} className="fill-ink" />
 
-      {LAND.map((outline, index) => (
-        <polygon
-          key={`land-${index}`}
-          points={points(outline)}
-          className="fill-surface-2 stroke-rule"
-          strokeWidth={0.75}
-          strokeLinejoin="round"
-        />
-      ))}
-      {WATER.map((outline, index) => (
-        <polygon
-          key={`water-${index}`}
-          points={points(outline)}
-          className="fill-ink stroke-rule"
-          strokeWidth={0.75}
-          strokeLinejoin="round"
-        />
-      ))}
+      <path
+        d={LAND_PATH}
+        fillRule="evenodd"
+        className="fill-surface-2 stroke-rule"
+        strokeWidth={0.75}
+        strokeLinejoin="round"
+      />
 
       {LANES.map((lane, index) => (
         <polyline
