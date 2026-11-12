@@ -369,6 +369,19 @@ the board is not an archive.
   Panama news-query change (#48). The refresh is to be run by Wednesday
   4 November so the week's labels count as recorded (CLAUDE.md section 8).
 
+## The locator maps' coastlines (12 November 2026)
+
+Decided by Alex (`arowsom-oss`, who owns the site's code): the home page and
+`/mancale` maps use real coastlines from Natural Earth's 1:50m land layer
+instead of the hand-drawn ones, so the map reads as a map. Natural Earth is in
+the public domain, which Rule 3 allows. The earlier note that Rule 3 ruled out a
+third-party map dataset was a stricter reading than the rule's own list. Gavin to
+confirm. The land is committed only as a generated file
+(`src/components/world-land.ts`, about 35 KB), built by
+`scripts/build-map-land.ts`; CLAUDE.md section 6a says how to regenerate it. The
+sea lanes are still hand-placed and loose, so on real coastlines one may clip a
+corner of land. They are context only.
+
 ## Still open
 
 1. What goes live on launch day: the main branch as it is, or the main branch
