@@ -8,14 +8,15 @@ import { ExternalLink, TextLink } from '@/components/text-link';
 import { subscribeVia } from '@/config/launch';
 import { publication } from '@/config/publication';
 import { getIssue, listIssues } from '@/lib/content';
-import { absoluteUrl, env } from '@/lib/env';
+import { env } from '@/lib/env';
 import { formatLongDate, readingTimeMinutes } from '@/lib/format';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Subscribe',
   description: `Get ${publication.name} by email.`,
-  alternates: { canonical: absoluteUrl('/subscribe') },
-};
+  path: '/subscribe',
+});
 
 export default async function SubscribePage() {
   // A sample for a reader deciding whether to subscribe: the latest briefing,

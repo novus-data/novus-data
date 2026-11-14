@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { MailLink, TextLink } from '@/components/text-link';
-import { monitorEnabled } from '@/config/launch';
+import { mancaleEnabled, monitorEnabled } from '@/config/launch';
 import {
   formatAuthorNames,
   hasCoAuthors,
@@ -22,13 +22,14 @@ import {
   SEVERITY_NOTES,
   STALE_AFTER_DAYS,
 } from '@/lib/disruptions/types';
-import { absoluteUrl, env } from '@/lib/env';
+import { env } from '@/lib/env';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About',
   description: `Who writes ${publication.name}, what it covers and how each issue is produced.`,
-  alternates: { canonical: absoluteUrl('/about') },
-};
+  path: '/about',
+});
 
 export default function AboutPage() {
   return (
@@ -57,6 +58,15 @@ export default function AboutPage() {
             companies and sectors it reaches. {publication.newsletter.name} summarises the
             movement in both by email.
           </p>
+          {mancaleEnabled ? (
+            <p>
+              The <TextLink href="/mancale">Mancalë Index</TextLink> is the site&rsquo;s one
+              calculated indicator. Each week it sets how unusually much English-language news
+              mentions a shipping chokepoint against how unusually few ships passed through it,
+              both scored from 0 to 6 against a fixed 2019&ndash;22 normal. It describes the past
+              week; it does not forecast.
+            </p>
+          ) : null}
           <p>
             <TextLink standalone href="/coverage">
               Each topic is set out in full, with why it matters
@@ -169,6 +179,14 @@ export default function AboutPage() {
             </p>
           </div> : null}
         </Section>
+
+        {publication.independence && publication.independence.length > 0 ? (
+          <Section heading="Independence" kicker="Standards" id="independence">
+            {publication.independence.map((paragraph) => (
+              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+            ))}
+          </Section>
+        ) : null}
 
         <Section heading="Corrections" kicker="Standards" id="corrections">
           {publication.corrections.map((paragraph) => (

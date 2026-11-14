@@ -9,14 +9,14 @@ import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { publication } from '@/config/publication';
 import { listArticles } from '@/lib/content';
-import { absoluteUrl } from '@/lib/env';
 import { notFound } from 'next/navigation';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Articles',
   description: `Analysis from ${publication.name}: articles on what is moving now, and long-term reviews that step back over months.`,
-  alternates: { canonical: absoluteUrl('/articles') },
-};
+  path: '/articles',
+});
 
 /**
  * Articles and long-term reviews — writing for the site, as distinct from the
