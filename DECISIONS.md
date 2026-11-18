@@ -245,7 +245,7 @@ version") and approval to open the pull request. It takes effect when
   on the home page listing each chokepoint's latest label. Alex removed it before
   merging: two of the seven readings were in doubt (the Taiwan Strait's week of
   19 October rests on a two-day gap in the IMF's data, and the Bosporus reading is
-  unverified), and a front-page box has no room for the "Read with care" note the
+  unverified; both were settled on 18 November 2026, see the entry below), and a front-page box has no room for the "Read with care" note the
   chokepoint pages carry. It can return once those are settled; it is a separate
   small change.
 - **Not done.** No data download (the IMF's reply on derived scores is still
@@ -433,3 +433,23 @@ and put up as one pull request; nothing here is settled until it is merged.
 - The production sequence is **#9, then #12, then #11**. The integration branch is `claude/practical-einstein-tzfg55`; #12 must land before the production switch so the prelaunch sign-in notice remains present.
 - Monitor and Articles remain gated off for launch by `src/config/launch.ts`, as two separate switches (`monitorEnabled`, `articlesEnabled`) so either can go live without the other; that includes `/live.json`, direct article URLs, and article entries in `/feed.json`. Articles went live on 2026-10-14 (see "Articles go live"); enabling the monitor is `arowsom-oss`'s call (see "Launch calls passed to `arowsom-oss`", 2026-10-13); update this record when it happens.
 - The subscribe URL moved from `https://novusdata.beehiiv.com/subscribe` to `https://newsletter.novusdata.news/?modal=signup`; update any remaining documentation that names the old URL.
+
+## Added 18 November 2026 — the Taiwan Strait and Bosporus labels
+
+Gavin approved the wording for the two readings that were in doubt, from the
+11 November notes.
+
+- **Taiwan Strait, week of 19 October.** Shown as measured, with the note
+  "Typhoon Champi shut shipping 21-23 Oct; traffic rebounded 24 Oct". It is not
+  called a data gap: Gavin found no missing days in the IMF series for that week,
+  and the Luzon Strait dipped on the same days while the Korea, Bohai, Malacca
+  and Tsugaru straits stayed normal. The earlier note above that called it a
+  two-day gap is superseded.
+- **Bosporus.** The reading is shown, labelled "IMF PortWatch estimate from
+  satellite ship-position data, not an official count. Official Turkish figures
+  run to June only." It stays ship-only (`newsHold` is unchanged). Revisit it when
+  the Turkish Q3 figures come out.
+- Both are the chokepoint's `note` in `src/lib/indicators/mancale-method.ts`, so
+  they show on `/mancale` and on `/mancale/[id]`. The method version does not
+  change. The home-page box held back on 4 November stays out until the editor
+  asks for it.

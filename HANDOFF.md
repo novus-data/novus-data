@@ -40,7 +40,9 @@ step; the data files are untouched.
   - *Bosporus:* PortWatch's count falls from July, but the Turkish Ministry of
     Transport's quarterly counts, to the end of June, show no fall of that size.
     Check the next official count, or a second ship-tracking source. Until then
-    the page's "ships severely disrupted" reading for the Bosporus is unverified.
+    the page's "ships severely disrupted" reading for the Bosporus is shown as an
+    IMF PortWatch estimate, not an official count (wording approved 18 November
+    2026; revisit when the Turkish Q3 figures come out).
   - Delete the `newsHold` line to start collecting, **before** the first
     collection and not after seeing what the data would say.
 - **A guard in `scripts/mancale.ts`.** The refresh now refuses to write if news is
