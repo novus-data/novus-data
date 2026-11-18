@@ -282,6 +282,9 @@ src/app/auth/              Magic-link callback and sign-out. Dynamic.
 src/proxy.ts               Session refresh. NOT middleware.ts — renamed in Next 16.
 src/app/entities/          Company and sector pages, derived from the register. See 6c.
 src/app/register.json/     JSON Feed of the register — the alerting seam. See 6c.
+src/app/register.csv/      The register as a spreadsheet, one row per assessment. See 6c.
+src/app/data/              /data: what the register publishes as files, and how to cite it. See 6c.
+src/lib/indicators/mancale-places.ts  The one join between register places and Mancalë ids. See 6c.
 src/app/                   Routes, metadata routes, icons, error boundaries.
 src/assets/fonts/          Newsreader TTFs, for icon and social card rendering.
                            Static cuts from the variable source — see src/lib/og.ts.
@@ -470,7 +473,11 @@ reserved for the "active" disruption status. **It is not available as a chart
 series colour.** A status dot never appears without its word beside it.
 
 The matrix is capped at nine columns so it never needs a horizontal scroll
-container, which would clip the CSS hover cards. Below `lg` the matrix is
+container, which would clip the CSS hover cards. Past the cap, the grid keeps only
+the rows that have a cell in its own columns (18 November 2026): a name reached
+only by a disruption beyond the cap would otherwise be a row of empty cells,
+which reads as "no exposure". Every name stays in the per-company list and the
+table below. Below `lg` the matrix is
 replaced by a per-entity list — same data, read down instead of across.
 
 **The table is also capped in width, at roughly one column-width per
@@ -669,6 +676,26 @@ Reached from the chart's row headers, the register entry's exposure list, the
 home page's "most exposed" rows, and the footer. **Not in the header** — a sixth
 header item to reach a seventh page costs more than it earns, and a reader is
 already on the chart when the question occurs to them.
+
+### `/register.csv` and `/data` (18 November 2026)
+
+`/register.csv` is the register as a spreadsheet: one row per assessment, with
+mechanism, severity, confidence, as-of date and sources in their own columns,
+and one row with empty entity columns for an entry that has no assessment yet.
+It is built from `listDisruptions()` like the JSON feed, statically, and holds
+no derived value: no score, rank or count. `/data` describes the files, how
+fresh they are and how to cite them, and states no figure (Rule 1). It is in
+the footer's "The record" group, so the sitemap picks it up with no edit.
+
+### The register and the Mancalë Index link to each other, and only link
+
+`src/lib/indicators/mancale-places.ts` is the single join between a register
+entry's `places` and the index's chokepoint ids (the only difference is
+`malacca` = `singapore-strait`); the Mancalë map reads it too. A register entry
+page shows a box linking to each chokepoint it names that the index scores, and
+`/mancale/[id]` lists the open register entries that name its place, as titles,
+status words and review dates. Neither direction carries a Mancalë label or
+figure off `/mancale`, and the register's assessments never feed the index.
 
 ### `/register.json`
 

@@ -68,6 +68,10 @@ export const footerGroups: NavGroup[] = [
       { href: '/entities', label: 'Companies' },
       ...(mancaleEnabled ? [{ href: '/mancale', label: 'Mancalë Index' }] : []),
       ...(monitorEnabled ? [{ href: '/monitor', label: 'Monitor' }] : []),
+      // The register as files (register.csv, register.json). In the footer
+      // rather than the header: it is for the reader who already trusts the
+      // record enough to take it away.
+      { href: '/data', label: 'Data and downloads' },
     ],
   },
   {

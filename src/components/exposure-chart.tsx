@@ -31,6 +31,15 @@ export function ExposureChart({ matrix }: { matrix: ExposureMatrix }) {
   const columns = matrix.disruptions.slice(0, MAX_COLUMNS);
   const hidden = matrix.disruptions.length - columns.length;
 
+  // Once the register outgrows the column cap, a name reached only by
+  // disruptions beyond it would be a row of empty cells, which reads as "no
+  // exposure" when it means "not shown here". So the grid keeps only the rows
+  // with a cell in its own columns; every name is still in the per-company
+  // list and the table below, which take all of them.
+  const gridRows = hidden > 0
+    ? matrix.rows.filter((row) => columns.some((column) => row.byDisruption.has(column.id)))
+    : matrix.rows;
+
   if (matrix.rows.length === 0 || columns.length === 0) {
     return <EmptyChart />;
   }
@@ -40,7 +49,7 @@ export function ExposureChart({ matrix }: { matrix: ExposureMatrix }) {
       {/* Below lg the matrix would be unreadable, so the same data is rendered
           as a per-company list instead. Both are the same source. */}
       <div className="hidden lg:block">
-        <Matrix columns={columns} rows={matrix.rows} />
+        <Matrix columns={columns} rows={gridRows} />
       </div>
       <div className="lg:hidden">
         <ExposureList matrix={matrix} />
@@ -50,8 +59,9 @@ export function ExposureChart({ matrix }: { matrix: ExposureMatrix }) {
 
       {hidden > 0 ? (
         <p className="text-meta text-muted">
-          The grid shows the {columns.length} most recently reviewed open disruptions.{' '}
-          {hidden} more {hidden === 1 ? 'is' : 'are'} in the table below.
+          The grid shows the {columns.length} most recently reviewed open disruptions and the
+          names they reach. {hidden} more {hidden === 1 ? 'is' : 'are'} in the table below, which
+          lists every assessment.
         </p>
       ) : null}
 

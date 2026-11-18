@@ -382,6 +382,41 @@ confirm. The land is committed only as a generated file
 sea lanes are still hand-placed and loose, so on real coastlines one may clip a
 corner of land. They are context only.
 
+## The register filled out, with a spreadsheet, a data page and links to Mancalë (proposed 18 November 2026)
+
+Proposed by `Novous-Data` on 2026-11-18. Gavin asked his Claude to "make the
+whole entire register" from the project's research and public sources, "code
+it into the website", include Mancalë, and make it a product that can be
+packaged and sold, then hand it to `arowsom-oss` to merge. Drafted by Claude
+and put up as one pull request; nothing here is settled until it is merged.
+
+- **The register's claims (Gavin's call).** Fifteen new entries and updates to
+  Hormuz and Panama, recorded under the editor (`author: "editor"`), because
+  Gavin asked for them in his own words. Per "Launch calls passed to
+  `arowsom-oss`", Claude drafted the severities; `arowsom-oss` should read them
+  before merging and change any he disagrees with, since the register's rule
+  is that a named person picks them. Every exposure carries mechanism,
+  confidence, as-of date and a source, and `npm run doctor` reports no refused
+  claim. No ticker is filled in that was not checked, so most are null.
+- **New routes (the site's code, `arowsom-oss`'s call).** `/register.csv`, the
+  register as a spreadsheet, and `/data`, which describes the files and how to
+  cite them. No new kind of data: both are the register in another shape.
+  No new dependency.
+- **Mancalë links.** Register entry pages link to the chokepoints they name on
+  the index; `/mancale/[id]` lists the open register entries that name its
+  place. Links, titles, status words and dates only: no Mancalë label or figure
+  leaves `/mancale`, so Rule 1's Mancalë amendments are unchanged.
+- **The exposure grid** keeps only rows with a cell in its columns once the
+  register passes nine disruptions; the table and the mobile list still show
+  every name.
+- **Money (needs both).** `/data` says bulk, commercial or redistribution use
+  should be asked about first, at the contact address. That is the only line
+  here about money. Nothing is gated, priced or paid for on the site (§13 is
+  unchanged). Pricing and the product sheet stay outside this repository until
+  both agree, an adult holds any payout account, and the IMF has answered on
+  PortWatch-based figures; the Mancalë Index is excluded from the downloads for
+  that reason.
+
 ## Still open
 
 1. What goes live on launch day: the main branch as it is, or the main branch

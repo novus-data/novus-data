@@ -13,6 +13,7 @@ import type { MancaleIndex } from './types';
 
 export * from './types';
 export { MANCALE_CHOKEPOINTS, MANCALE_METHOD } from './mancale-method';
+export { MANCALE_NODE_FOR, mancaleIdsForPlaces, nodeForMancaleId } from './mancale-places';
 export { SCORECARD_METHOD, SCORECARD_TESTS } from './mancale-scorecard';
 export type { CallStatus, Scorecard, ScorecardCall, ScorecardTestResult, Tally } from './mancale-scorecard';
 

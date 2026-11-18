@@ -2,24 +2,18 @@ import clsx from 'clsx';
 
 import { HEIGHT, MapBase, WIDTH, project } from '@/components/chokepoint-map-base';
 // Labels come from ./types, not the indicators index, which reads files.
+import { MANCALE_NODE_FOR } from '@/lib/indicators/mancale-places';
 import { MANCALE_REGIME_LABELS, type MancaleRegime } from '@/lib/indicators/types';
 import { CHOKEPOINTS } from '@/lib/live/nodes';
 
 /**
  * The Mancalë index names the east end of the Strait of Malacca "malacca";
  * the map's node for it is "singapore-strait". Every other id is the same in
- * both. An id missing here, or a node missing from nodes.ts, throws at build
- * rather than dropping a marker without a word.
+ * both. The join lives in mancale-places.ts so the register's links to the
+ * index read the same table. An id missing there, or a node missing from
+ * nodes.ts, throws at build rather than dropping a marker without a word.
  */
-const NODE_FOR: Record<string, string> = {
-  hormuz: 'hormuz',
-  'bab-el-mandeb': 'bab-el-mandeb',
-  suez: 'suez',
-  panama: 'panama',
-  'taiwan-strait': 'taiwan-strait',
-  malacca: 'singapore-strait',
-  bosphorus: 'bosphorus',
-};
+const NODE_FOR = MANCALE_NODE_FOR;
 
 /**
  * How a marker looks for each label. Shape carries it, not colour: a solid

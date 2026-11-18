@@ -5,15 +5,15 @@ shortLabel: "HRM"
 status: "active"
 category: "chokepoint"
 startedAt: "2026-02-28"
-updatedAt: "2026-11-02"
-summary: "Recorded transits through the Strait of Hormuz averaged 3.3 a day in the week to 25 October 2026, against 86 a day in 2025, after the United States and Israel struck Iran on 28 February. Iran said on 4 October that the strait would stay closed until its conditions were met."
+updatedAt: "2026-11-18"
+summary: "Recorded transits through the Strait of Hormuz averaged 2.3 a day in the seven days to 15 November 2026, against 86 a day in 2025, after the United States and Israel struck Iran on 28 February. Attacks on shipping continue: UKMTO reported two tankers struck in the strait on 16 November, one of them the LPG tanker TARA GAS. Iran said on 4 October that the strait would stay closed until its conditions were met."
 author: "alex"
 places: ["hormuz"]
 sources:
   - title: "Daily chokepoint transit calls"
     url: "https://portwatch.imf.org/"
     publisher: "IMF PortWatch"
-    retrievedAt: "2026-11-02"
+    retrievedAt: "2026-11-18"
   - title: "Iran says Strait of Hormuz to remain closed until US meets conditions"
     url: "https://www.aljazeera.com/news/2026/10/4/iran-says-strait-of-hormuz-to-remain-closed-until-us-meets-conditions"
     publisher: "Al Jazeera"
@@ -22,6 +22,14 @@ sources:
     url: "https://www.eia.gov/outlooks/steo/report/global_oil.php"
     publisher: "US Energy Information Administration"
     retrievedAt: "2026-10-13"
+  - title: "UKMTO reports two tanker attacks in Strait of Hormuz"
+    url: "https://gcaptain.com/ukmto-reports-two-tanker-attacks-in-strait-of-hormuz/"
+    publisher: "gCaptain"
+    retrievedAt: "2026-11-18"
+  - title: "Second strike on LPG tanker in Strait of Hormuz leaves one missing, two injured"
+    url: "https://gcaptain.com/second-strike-on-lpg-tanker-in-strait-of-hormuz-leaves-one-missing-two-injured/"
+    publisher: "gCaptain"
+    retrievedAt: "2026-11-17"
 exposures:
   - entity:
       id: "adnoc"
@@ -83,5 +91,44 @@ exposures:
         url: "https://www.maersk.com/news/articles/2026/08/13/maersk-delivers-strong-q2-and-raises-full-year-guidance"
         publisher: "A.P. Moller-Maersk"
         retrievedAt: "2026-10-13"
+  - entity:
+      id: "gulf-tanker-operators"
+      name: "Tanker operators trading to the Gulf"
+      kind: "sector"
+      ticker: null
+      sector: "Marine shipping"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "UKMTO reported two tankers struck in the strait on 16 November, both left with engine-room fires; India said the LPG tanker TARA GAS was hit twice and one seafarer was missing. Seatrade counted eight vessels attacked in the strait and the Gulf between 1 and 8 November."
+    asOf: "2026-11-16"
+    sources:
+      - title: "UKMTO reports two tanker attacks in Strait of Hormuz"
+        url: "https://gcaptain.com/ukmto-reports-two-tanker-attacks-in-strait-of-hormuz/"
+        publisher: "gCaptain"
+        retrievedAt: "2026-11-18"
+      - title: "Second strike on LPG tanker in Strait of Hormuz leaves one missing, two injured"
+        url: "https://gcaptain.com/second-strike-on-lpg-tanker-in-strait-of-hormuz-leaves-one-missing-two-injured/"
+        publisher: "gCaptain"
+        retrievedAt: "2026-11-17"
+      - title: "Crew abandon tanker in Hormuz, US strikes bulker in Gulf of Oman"
+        url: "https://www.seatrade-maritime.com/security/crew-abandon-tanker-in-hormuz-us-strikes-bulker-in-gulf-of-oman"
+        publisher: "Seatrade Maritime"
+        retrievedAt: "2026-11-18"
+  - entity:
+      id: "gulf-crude-exporters"
+      name: "Gulf crude exporters"
+      kind: "sector"
+      ticker: null
+      sector: "Oil and gas"
+    severity: "moderate"
+    confidence: "inferred"
+    mechanism: "Tankertrackers.com said the capacity of empty VLCCs and Suezmaxes sailing to the region had fallen about 40% since late August, which leaves fewer ships to lift Gulf crude."
+    asOf: "2026-11-17"
+    sources:
+      - title: "Gulf oil flow at risk from lack of empty tankers, tracker says"
+        url: "https://gcaptain.com/gulf-oil-flow-at-risk-from-lack-of-empty-tankers-tracker-says/"
+        publisher: "gCaptain"
+        retrievedAt: "2026-11-17"
 ---
 <p>Research and sources by Gavin McGreevy; severities assessed by Alex Rowsom on 13 October 2026.</p>
+<p>Reviewed on 18 November 2026 by Gavin McGreevy: summary and sources updated, and two assessments added (tanker operators trading to the Gulf; Gulf crude exporters). The earlier assessments are unchanged and keep their own dates.</p>
