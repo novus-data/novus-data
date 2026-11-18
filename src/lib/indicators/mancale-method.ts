@@ -116,7 +116,7 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
     portwatchName: 'Taiwan Strait',
     newsQuery: '"Taiwan Strait" sourcelang:english',
     note:
-      'A very busy lane whose traffic dips around holidays and in typhoon season. The index is not seasonally adjusted, so a short dip with no news is usually seasonal.',
+      'A very busy lane whose traffic dips around holidays and in typhoon season. The index is not seasonally adjusted, so a short dip with no news is usually seasonal. The week of 19 October is shown as measured: Typhoon Champi shut shipping 21-23 Oct; traffic rebounded 24 Oct.',
   },
   {
     id: 'malacca',
@@ -136,7 +136,7 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
     newsHold:
       'PortWatch\'s count falls from July, but the Turkish Ministry of Transport\'s quarterly counts, to the end of June, show no fall of that size. Check the next official count, or a second ship-tracking source, before collecting news.',
     note:
-      'A lasting shift from the 2019–22 level can reflect a change in tracking coverage as well as in trade. Treat a high reading here with more caution than a sudden one.',
+      'IMF PortWatch estimate from satellite ship-position data, not an official count. Official Turkish figures run to June only. A lasting shift from the 2019–22 level can reflect a change in tracking coverage as well as in trade. Treat a high reading here with more caution than a sudden one.',
   },
 ];
 
