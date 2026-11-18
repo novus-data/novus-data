@@ -1,0 +1,80 @@
+---
+id: "la-long-beach-watchmen-strike-risk"
+title: "Watchmen strike risk at Los Angeles and Long Beach"
+shortLabel: "LALB"
+status: "watch"
+category: "labour"
+startedAt: "2026-10-23"
+updatedAt: "2026-11-18"
+summary: "About 250 port watchmen in ILWU Local 26, working under extensions since their contract expired in July 2025, have authorised a strike. The deadline moved from 1 November to 4 and 6 November and then to 20 November, with talks continuing. The employers' association says the terminals where they work handle about 85% of Long Beach cargo and 33% of Los Angeles cargo, and that other dockworkers are unlikely to cross a picket line."
+author: "editor"
+places: ["la-long-beach"]
+sources:
+  - title: "Employers, watchmen at California ports extend contract talks"
+    url: "https://gvwire.com/2026/11/07/employers-watchmen-at-california-ports-extend-contract-talks/"
+    publisher: "Reuters, via GV Wire"
+    retrievedAt: "2026-11-16"
+  - title: "Strike at Los Angeles-Long Beach port delayed as union contract talks continue"
+    url: "https://www.freightwaves.com/news/strike-at-los-angeles-long-beach-port-delayed-as-union-contract-talks-continue"
+    publisher: "FreightWaves"
+    retrievedAt: "2026-11-16"
+  - title: "POLA and POLB watchmen reach stopgap deal to avoid walkout"
+    url: "https://www.logisticsmgmt.com/article/pola_and_polb_watchmen_reach_stopgap_deal_to_avoid_walkout/Port_Strike"
+    publisher: "Logistics Management"
+    retrievedAt: "2026-11-18"
+  - title: "Strike threat looms at eight Los Angeles, Long Beach port terminals"
+    url: "https://gcaptain.com/strike-threat-looms-at-eight-los-angeles-long-beach-port-terminals/"
+    publisher: "gCaptain"
+    retrievedAt: "2026-11-18"
+exposures:
+  - entity:
+      id: "la-long-beach-importers"
+      name: "Importers with cargo at Long Beach and Los Angeles terminals"
+      kind: "sector"
+      ticker: null
+      sector: "Importers"
+    severity: "moderate"
+    confidence: "inferred"
+    mechanism: "The employers' association warned that other ILWU workers are unlikely to cross a Local 26 picket line, which could halt vessel, yard and gate work at the affected terminals and leave cargo already at the port waiting."
+    asOf: "2026-11-07"
+    sources:
+      - title: "Strike threat at Los Angeles, Long Beach ports delayed as union and employers extend talks"
+        url: "https://gcaptain.com/strike-threat-at-los-angeles-long-beach-ports-delayed-as-union-and-employers-extend-talks/"
+        publisher: "gCaptain"
+        retrievedAt: "2026-11-18"
+      - title: "Employers, watchmen at California ports extend contract talks"
+        url: "https://gvwire.com/2026/11/07/employers-watchmen-at-california-ports-extend-contract-talks/"
+        publisher: "Reuters, via GV Wire"
+        retrievedAt: "2026-11-16"
+  - entity:
+      id: "la-long-beach-port-truckers"
+      name: "Truckers working Long Beach and Los Angeles terminal gates"
+      kind: "sector"
+      ticker: null
+      sector: "Trucking"
+    severity: "moderate"
+    confidence: "inferred"
+    mechanism: "Watchmen control and inspect truck entries at terminal gates, so truck access is the first thing a stoppage would touch."
+    asOf: "2026-11-09"
+    sources:
+      - title: "Report on the watchmen contract extension and the watchmen's duties (9 November 2026)"
+        url: "https://www.insurancejournal.com/news/west/2026/11/09/891903.htm"
+        publisher: "Reuters, via Insurance Journal"
+        retrievedAt: "2026-11-16"
+  - entity:
+      id: "us-retailers-replenishment"
+      name: "Retailers restocking after the holidays"
+      kind: "sector"
+      ticker: null
+      sector: "Retail"
+    severity: "low"
+    confidence: "estimated"
+    mechanism: "The National Retail Federation says most holiday merchandise has already arrived, so a stoppage that outlasted the holidays would reach replenishment stock rather than holiday goods."
+    asOf: "2026-11-09"
+    sources:
+      - title: "Import cargo still strong as peak season winds down"
+        url: "https://nrf.com/media-center/press-releases/import-cargo-still-strong-as-peak-season-winds-down"
+        publisher: "National Retail Federation"
+        retrievedAt: "2026-11-16"
+---
+<p>Next: the 20 November deadline. Settled, extended again or a walkout, this entry changes status either way.</p>

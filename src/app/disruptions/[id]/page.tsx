@@ -8,6 +8,7 @@ import { JsonLd } from '@/components/json-ld';
 import { PrintPermalink } from '@/components/print-permalink';
 import { ProseBody } from '@/components/prose-body';
 import { SourceList } from '@/components/source-list';
+import { mancaleEnabled } from '@/config/launch';
 import { hasCoAuthors, publication, recordedBy } from '@/config/publication';
 import { StatusBadge } from '@/components/status-badge';
 import { StoryBox } from '@/components/story-box';
@@ -22,6 +23,7 @@ import {
 } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
 import { formatLongDate } from '@/lib/format';
+import { getMancale, mancaleIdsForPlaces } from '@/lib/indicators';
 import { getPhotoForPlaces } from '@/lib/photos';
 import { disruptionJsonLd } from '@/lib/structured-data';
 
@@ -64,6 +66,16 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
   // entry about somewhere the site has no photo of: Rule 3 says a photo has to
   // show what the text is about, and a stand-in would not.
   const photo = await getPhotoForPlaces(disruption.places);
+
+  // Chokepoints this entry names that the Mancalë Index also scores. Only ones
+  // present in the index's data file are linked, so a link never 404s.
+  const mancale = mancaleEnabled ? await getMancale() : null;
+  const mancaleLinks = mancale
+    ? mancaleIdsForPlaces(disruption.places).flatMap((mancaleId) => {
+        const point = mancale.chokepoints.find((candidate) => candidate.id === mancaleId);
+        return point ? [{ id: point.id, label: point.label }] : [];
+      })
+    : [];
 
   // The person who made this assessment. Falls back to the editor, who stands
   // behind anything the publication prints, and renders nothing at all while
@@ -189,6 +201,40 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
             </ul>
           )}
         </StoryBox>
+
+        {/* The chokepoints this entry names that the Mancalë Index scores, as
+            links and nothing else. The index's labels and figures are licensed
+            for /mancale only (CLAUDE.md §4), so this box names the place and
+            sends the reader there rather than quoting a reading here. */}
+        {mancaleLinks.length > 0 ? (
+          <StoryBox
+            as="section"
+            size="compact"
+            level={2}
+            id="mancale"
+            kicker="Mancalë Index"
+            kickerTone="muted"
+            title={
+              mancaleLinks.length === 1
+                ? 'This chokepoint on the Mancalë Index'
+                : 'These chokepoints on the Mancalë Index'
+            }
+            footer={<TextLink href="/mancale#method">How the index is calculated</TextLink>}
+          >
+            <p>
+              The Mancalë Index compares each week’s ship traffic and news coverage at a chokepoint
+              with a fixed 2019–22 normal. Its readings are published on the index, with their
+              method and sources beside them.
+            </p>
+            <ul className="mt-2 flex flex-col gap-1">
+              {mancaleLinks.map((point) => (
+                <li key={point.id}>
+                  <TextLink href={`/mancale/${point.id}`}>{point.label} on the Mancalë Index</TextLink>
+                </li>
+              ))}
+            </ul>
+          </StoryBox>
+        ) : null}
 
         <StoryBox as="section" level={2} id="sources" kicker="Sources" kickerTone="muted" title="Where this comes from">
           <SourceList sources={disruption.sources} />

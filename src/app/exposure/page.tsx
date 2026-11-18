@@ -39,6 +39,7 @@ export default async function ExposurePage() {
             <>
               <TextLink href="/about#method">The full standard</TextLink>
               <TextLink href="/entities">Browse companies and sectors</TextLink>
+              <TextLink href="/data">Download the data</TextLink>
               <span>Analysis, not investment advice, and not a recommendation about any security.</span>
             </>
           }

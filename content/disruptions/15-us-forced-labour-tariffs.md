@@ -1,0 +1,75 @@
+---
+id: "us-forced-labour-tariffs"
+title: "US forced-labour tariffs of 10% and 12.5% on 60 economies"
+shortLabel: "FLT"
+status: "active"
+category: "policy"
+startedAt: "2026-07-23"
+updatedAt: "2026-11-18"
+summary: "On 23 July 2026 USTR imposed Section 301 tariffs on imports from 60 economies: 10% where it found a ban on imports made with forced labour already in place, and 12.5% where it found none. USMCA-qualifying goods from Mexico and Canada are exempt. The Court of International Trade heard a consolidated challenge on 30 September and did not say when it would rule."
+author: "editor"
+sources:
+  - title: "And the (Tariff) Beat Goes On: New Section 301 Forced-Labor Tariffs Imposed on 60 Countries"
+    url: "https://www.hklaw.com/en/insights/publications/2026/07/and-the-tariff-beat-goes-on"
+    publisher: "Holland & Knight"
+    retrievedAt: "2026-11-18"
+  - title: "Notice of Actions in Section 301 Investigations of Acts, Policies, and Practices of Various Economies"
+    url: "https://www.federalregister.gov/documents/2026/07/28/2026-15181/notice-of-actions-in-section-301-investigations-of-acts-policies-and-practices-of-various-economies"
+    publisher: "USTR, Federal Register"
+    retrievedAt: "2026-10-14"
+  - title: "Trade court questions legal basis of Section 301 forced-labor tariffs"
+    url: "https://www.exfreight.com/section-301-forced-labor-tariffs-court/"
+    publisher: "ExFreight, citing Transport Topics"
+    retrievedAt: "2026-11-18"
+exposures:
+  - entity:
+      id: "importers-vietnam-china"
+      name: "Importers from Vietnam and China"
+      kind: "sector"
+      ticker: null
+      sector: "Importers"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "Both are in the 12.5% tier, the highest."
+    asOf: "2026-07-28"
+    sources:
+      - title: "Notice of Actions in Section 301 Investigations of Acts, Policies, and Practices of Various Economies"
+        url: "https://www.federalregister.gov/documents/2026/07/28/2026-15181/notice-of-actions-in-section-301-investigations-of-acts-policies-and-practices-of-various-economies"
+        publisher: "USTR, Federal Register"
+        retrievedAt: "2026-10-14"
+  - entity:
+      id: "apparel-importers-quota-countries"
+      name: "Apparel importers using Bangladesh, Cambodia, Indonesia and Malaysia"
+      kind: "sector"
+      ticker: null
+      sector: "Apparel"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "USTR plans tariff-rate quotas with an initial three-year duration for these countries, linked to their use of US cotton and textile inputs."
+    asOf: "2026-07-28"
+    sources:
+      - title: "Notice of Actions in Section 301 Investigations of Acts, Policies, and Practices of Various Economies"
+        url: "https://www.federalregister.gov/documents/2026/07/28/2026-15181/notice-of-actions-in-section-301-investigations-of-acts-policies-and-practices-of-various-economies"
+        publisher: "USTR, Federal Register"
+        retrievedAt: "2026-10-14"
+  - entity:
+      id: "mexico-canada-non-usmca-goods"
+      name: "Manufacturers in Mexico and Canada with non-USMCA goods"
+      kind: "sector"
+      ticker: null
+      sector: "Manufacturing"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "USMCA-qualifying goods are exempt; goods that do not qualify pay 10%."
+    asOf: "2026-07-28"
+    sources:
+      - title: "Mexico: favorable position on new US tariffs under Section 301 for forced labor"
+        url: "https://www.bbvaresearch.com/en/publicaciones/mexico-favorable-position-on-new-us-tariffs-under-section-301-for-forced-labor/"
+        publisher: "BBVA Research"
+        retrievedAt: "2026-10-14"
+      - title: "And the (Tariff) Beat Goes On: New Section 301 Forced-Labor Tariffs Imposed on 60 Countries"
+        url: "https://www.hklaw.com/en/insights/publications/2026/07/and-the-tariff-beat-goes-on"
+        publisher: "Holland & Knight"
+        retrievedAt: "2026-11-18"
+---
+<p>Next: the Court of International Trade's ruling in the consolidated forced-labour cases.</p>

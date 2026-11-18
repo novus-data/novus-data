@@ -5,8 +5,8 @@ shortLabel: "PAN"
 status: "easing"
 category: "chokepoint"
 startedAt: "2026-08-20"
-updatedAt: "2026-11-02"
-summary: "The Panama Canal Authority cut booking slots on 20 August 2026, citing below-average rainfall. On 28 September it raised the Neopanamax draft and added a slot from 15 October; Panamax slots stay at 23 a day. On 21 October it reinstated last-minute reservations at the Panamax locks, citing recent close-to-average rainfall, while saying the water deficit persists."
+updatedAt: "2026-11-18"
+summary: "The Panama Canal Authority cut booking slots on 20 August 2026, citing below-average rainfall, then restored capacity in steps: 33 daily slots from 15 October and, in a 9 November advisory citing improving lake levels, 34 slots and the 50-foot maximum draft at the Neopanamax locks. On 21 October it had warned that the water deficit persists and that vessels without a booking may face long delays."
 author: "alex"
 places: ["panama"]
 sources:
@@ -22,6 +22,18 @@ sources:
     url: "https://pancanal.com/wp-content/uploads/2026/10/ADV-39-2026-Modifications-to-the-Transit-Reservation-Booking-System.pdf"
     publisher: "Panama Canal Authority"
     retrievedAt: "2026-11-02"
+  - title: "Panama Canal announces increase in draft and daily transit"
+    url: "https://pancanal.com/en/panama-canal-announces-increase-in-draft-and-daily-transit/"
+    publisher: "Panama Canal Authority"
+    retrievedAt: "2026-11-18"
+  - title: "Panama Canal raises daily transits to 34 and restores 50-foot Neopanamax draft as water levels recover"
+    url: "https://www.marineinsight.com/panama-canal-raises-daily-transits-to-34-and-restores-50-foot-neopanamax-draft-as-water-levels-recover/"
+    publisher: "Marine Insight"
+    retrievedAt: "2026-11-18"
+  - title: "Panama Canal raises daily transit capacity as water conditions improve"
+    url: "https://gcaptain.com/panama-canal-raises-daily-transit-capacity-as-water-conditions-improve/"
+    publisher: "gCaptain"
+    retrievedAt: "2026-11-18"
 exposures:
   - entity:
       id: "container-shipping"
@@ -31,13 +43,17 @@ exposures:
       sector: "Marine shipping"
     severity: "low"
     confidence: "inferred"
-    mechanism: "Advisory A-36-2026 guarantees full-container vessels at least 42 Neopanamax slots a week, and the deeper draft lets the largest ships load closer to capacity."
-    asOf: "2026-09-28"
+    mechanism: "Advisory A-36-2026 guarantees full-container vessels at least 42 Neopanamax slots a week, and the 9 November advisory restored the 50-foot maximum draft at the Neopanamax locks, so the largest ships can load closer to capacity."
+    asOf: "2026-11-09"
     sources:
       - title: "Advisory A-36-2026: Increase in the Number of Neopanamax Booking Slots, Draft Adjustment and Transit Reservation System"
         url: "https://pancanal.com/wp-content/uploads/2026/04/ADV-36-2026-Increase-in-the-Number-of-Neopanamax-Booking-Slots-Draft-Adjustment-and-Transit-Reservation-System.pdf"
         publisher: "Panama Canal Authority"
         retrievedAt: "2026-10-13"
+      - title: "Panama Canal raises daily transits to 34 and restores 50-foot Neopanamax draft as water levels recover"
+        url: "https://www.marineinsight.com/panama-canal-raises-daily-transits-to-34-and-restores-50-foot-neopanamax-draft-as-water-levels-recover/"
+        publisher: "Marine Insight"
+        retrievedAt: "2026-11-18"
   - entity:
       id: "panamax-bulk-and-tankers"
       name: "Panamax bulk and tanker operators"
@@ -46,9 +62,13 @@ exposures:
       sector: "Marine shipping"
     severity: "low"
     confidence: "inferred"
-    mechanism: "The October increase applies to the Neopanamax locks only; Panamax slots stay at 23 a day, two fewer than in early September. On 21 October the authority reinstated last-minute reservations at the Panamax locks, offered when a slot becomes available."
-    asOf: "2026-10-21"
+    mechanism: "Panamax slots were cut from 25 to 23 a day from 15 September. The 9 November advisory adds one Panamax booking slot, offered through the auction for transits on 12 to 17 November and the special competition period for 18 to 23 November."
+    asOf: "2026-11-09"
     sources:
+      - title: "Panama Canal raises daily transit capacity as water conditions improve"
+        url: "https://gcaptain.com/panama-canal-raises-daily-transit-capacity-as-water-conditions-improve/"
+        publisher: "gCaptain"
+        retrievedAt: "2026-11-18"
       - title: "Advisory A-29-2026: Additional Measures to Address Reduced Precipitation in the Canal Watershed"
         url: "https://pancanal.com/wp-content/uploads/2026/08/ADV-29-2026-Additional-Measures-to-Address-Reduced-Precipitation-in-the-Canal-Watershed.pdf"
         publisher: "Panama Canal Authority"
@@ -63,3 +83,4 @@ exposures:
         retrievedAt: "2026-11-02"
 ---
 <p>Research and sources by Gavin McGreevy; severities assessed by Alex Rowsom on 13 October 2026.</p>
+<p>Reviewed on 18 November 2026 by Gavin McGreevy: summary, sources and both assessments updated after the 9 November advisory. Severities unchanged.</p>

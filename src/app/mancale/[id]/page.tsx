@@ -5,13 +5,15 @@ import { ChokepointBox, reading } from '@/components/mancale/chokepoint-box';
 import { Container } from '@/components/container';
 import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
+import { StatusBadge } from '@/components/status-badge';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import { mancaleEnabled } from '@/config/launch';
 import { publication } from '@/config/publication';
+import { listDisruptions } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
 import { formatLongDate } from '@/lib/format';
-import { MANCALE_METHOD, getMancale } from '@/lib/indicators';
+import { MANCALE_METHOD, getMancale, nodeForMancaleId } from '@/lib/indicators';
 
 /**
  * /mancale/[id] — one chokepoint of the Mancalë Index on its own page.
@@ -71,6 +73,15 @@ export default async function MancaleChokepointPage(props: PageProps<'/mancale/[
 
   const others = index.chokepoints.filter((candidate) => candidate.id !== point.id);
 
+  // Open register entries that list this chokepoint's place. Resolved entries
+  // stay on their own pages but are not offered here as current.
+  const place = nodeForMancaleId(point.id);
+  const registerEntries = place
+    ? (await listDisruptions()).filter(
+        (entry) => entry.status !== 'resolved' && entry.places.includes(place),
+      )
+    : [];
+
   return (
     <>
       <PageHeader
@@ -101,6 +112,53 @@ export default async function MancaleChokepointPage(props: PageProps<'/mancale/[
       <Container className="mt-8">
         <ChokepointBox point={point} standalone />
       </Container>
+
+      {/* The register entries that name this place. They come from the
+          register, not from the index: a title, a status in words and a review
+          date, each a human wrote. Nothing here carries a Mancalë figure or
+          label to the register, and nothing carries a register assessment
+          into the index's scores. */}
+      {registerEntries.length > 0 ? (
+        <Container className="mt-8">
+          <StoryBox
+            as="section"
+            size="compact"
+            level={2}
+            kicker="In the register"
+            kickerTone="muted"
+            title="Disruptions recorded at this chokepoint"
+            deck={
+              <p className="text-muted">
+                What the register says is going wrong here, and which companies it reaches. Each
+                entry carries its own sources and review date.
+              </p>
+            }
+            footer={
+              <>
+                <TextLink href="/disruptions">The full register</TextLink>
+                <TextLink href="/exposure">The exposure chart</TextLink>
+              </>
+            }
+          >
+            <ul className="flex flex-col">
+              {registerEntries.map((entry) => (
+                <li
+                  key={entry.id}
+                  className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-hairline py-2"
+                >
+                  <TextLink href={`/disruptions/${entry.id}`}>{entry.title}</TextLink>
+                  <span className="flex items-baseline gap-3 text-meta text-muted">
+                    <StatusBadge status={entry.status} />
+                    <span>
+                      Reviewed <time dateTime={entry.updatedAt}>{formatLongDate(entry.updatedAt)}</time>
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </StoryBox>
+        </Container>
+      ) : null}
 
       <Container className="mt-12 sm:mt-16">
         <StoryBox
