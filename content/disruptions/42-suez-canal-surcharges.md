@@ -1,0 +1,80 @@
+---
+id: "suez-canal-surcharges"
+title: "Suez Canal raises transit surcharges across almost every vessel class"
+shortLabel: "SCA"
+status: "active"
+category: "chokepoint"
+startedAt: "2026-07-15"
+updatedAt: "2026-11-20"
+summary: "The Suez Canal Authority issued a navigation circular raising temporary surcharges on most vessel categories from 15 July 2026, its first broad revision in three years, leaving the base tolls set in 2024 unchanged. Laden crude and product tankers moved to a 37 per cent surcharge on normal dues from 25 per cent, ballast tankers to 27 from 15, LPG and chemical tankers to 32 from 20, LNG carriers to 19 from 7, dry bulk carriers to 22 from 10, and car carriers northbound to 26 from 14. Containerships pay 12 per cent and passenger ships are the one exempt category. The authority had withdrawn a 15 per cent discount for large containerships on 7 April 2026."
+author: "editor"
+places: ["suez"]
+sources:
+  - title: "Suez Canal raises transit fees even as global carriers trickle back"
+    url: "https://www.maritimegateway.com/suez-canal-raises-transit-fees-even-as-global-carriers-trickle-back/"
+    publisher: "Maritime Gateway"
+    retrievedAt: "2026-11-20"
+  - title: "Suez Canal to impose steeper transit charges from mid-July"
+    url: "https://splash247.com/suez-canal-to-impose-steeper-transit-charges-from-mid-july/"
+    publisher: "Splash247"
+    retrievedAt: "2026-11-20"
+  - title: "The Suez Canal is increasing transit fees for ships from mid-July"
+    url: "https://gmk.center/en/news/the-suez-canal-is-increasing-transit-fees-for-ships-from-mid-july/"
+    publisher: "GMK Center"
+    retrievedAt: "2026-11-20"
+  - title: "Suez Canal scraps 15% container rebate as Hormuz crisis drains traffic"
+    url: "https://dredgewire.com/suez-canal-scraps-15-container-rebate-as-hormuz-crisis-drains-traffic-and-reshapes-global-shipping-routes/"
+    publisher: "DredgeWire"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "gulf-tanker-operators"
+      name: "Tanker operators trading to the Gulf"
+      kind: "sector"
+      ticker: null
+      sector: "Marine shipping"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "Laden crude and product tankers carry the steepest increase, to 37 per cent of normal dues, so a canal transit costs materially more at the same time as the Cape alternative costs more in days and fuel."
+    asOf: "2026-07-14"
+    sources:
+      - title: "Suez Canal raises transit fees even as global carriers trickle back"
+        url: "https://www.maritimegateway.com/suez-canal-raises-transit-fees-even-as-global-carriers-trickle-back/"
+        publisher: "Maritime Gateway"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "container-shipping"
+      name: "Container shipping"
+      kind: "sector"
+      ticker: null
+      sector: "Marine shipping"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Containerships face a 12 per cent surcharge and lost the 15 per cent large-vessel discount in April, so the cost of returning to the Suez route rose while carriers were deciding whether to return."
+    asOf: "2026-07-14"
+    sources:
+      - title: "Suez Canal to impose steeper transit charges from mid-July"
+        url: "https://splash247.com/suez-canal-to-impose-steeper-transit-charges-from-mid-july/"
+        publisher: "Splash247"
+        retrievedAt: "2026-11-20"
+      - title: "Suez Canal scraps 15% container rebate as Hormuz crisis drains traffic"
+        url: "https://dredgewire.com/suez-canal-scraps-15-container-rebate-as-hormuz-crisis-drains-traffic-and-reshapes-global-shipping-routes/"
+        publisher: "DredgeWire"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "gas-and-chemical-tanker-operators"
+      name: "LNG, LPG and chemical tanker operators"
+      kind: "sector"
+      ticker: null
+      sector: "Marine shipping"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "The LNG surcharge nearly tripled from 7 to 19 per cent and LPG and chemical tankers went to 32 from 20, which lands on the gas trades at the moment Gulf LNG volumes are already disrupted."
+    asOf: "2026-07-14"
+    sources:
+      - title: "The Suez Canal is increasing transit fees for ships from mid-July"
+        url: "https://gmk.center/en/news/the-suez-canal-is-increasing-transit-fees-for-ships-from-mid-july/"
+        publisher: "GMK Center"
+        retrievedAt: "2026-11-20"
+---
+<p>Worth reading alongside the Red Sea entry rather than on its own. Carriers are returning to the route and the toll on using it has gone up at the same time, so the saving against the Cape of Good Hope is smaller than a straight distance comparison suggests.</p>

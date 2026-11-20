@@ -1,0 +1,65 @@
+---
+id: "eudr-application-date"
+title: "EU deforestation regulation applies from 30 December 2026"
+shortLabel: "EUDR"
+status: "watch"
+category: "policy"
+startedAt: "2026-12-30"
+updatedAt: "2026-11-20"
+summary: "Regulation (EU) 2025/2650, published in December 2025, postponed the EU deforestation regulation by a year so that medium and large operators and traders must comply from 30 December 2026, with micro and small operators following on 30 June 2027. The revision also streamlined due diligence and adjusted definitions. The Commission delivered a mandatory simplification review on 4 May 2026 and confirmed there would be no further delay, and the amended product scope entered into force on 18 September 2026 with newly added products applying from 30 December 2027."
+author: "editor"
+places: []
+sources:
+  - title: "Delay until December 2026 and other developments in the implementation of the EUDR Regulation"
+    url: "https://trade.ec.europa.eu/access-to-markets/en/news/delay-until-december-2026-and-other-developments-implementation-eudr-regulation"
+    publisher: "European Commission, Access2Markets"
+    retrievedAt: "2026-11-20"
+  - title: "Deforestation: Council signs off targeted revision to simplify and postpone the regulation"
+    url: "https://www.consilium.europa.eu/en/press/press-releases/2025/12/18/deforestation-council-signs-off-targeted-revision-to-simplify-and-postpone-the-regulation/"
+    publisher: "Council of the European Union"
+    retrievedAt: "2026-11-20"
+  - title: "EUDR timeline tracker: delays, U-turns and the latest enforcement plan"
+    url: "https://www.coolset.com/academy/eudr-delay-2025-explained"
+    publisher: "Coolset"
+    retrievedAt: "2026-11-20"
+  - title: "The amended EUDR: what has changed and what has remained"
+    url: "https://www.stibbe.com/publications-and-insights/the-amended-eudr-what-has-changed-and-what-has-remained"
+    publisher: "Stibbe"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "eu-commodity-importers-eudr"
+      name: "EU importers of cattle, cocoa, coffee, palm, rubber, soy and wood products"
+      kind: "sector"
+      ticker: null
+      sector: "Importers"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "From 30 December 2026 a medium or large operator must file due diligence statements with geolocation evidence that covered commodities are deforestation-free before placing them on the EU market, so an unmapped supply base blocks the shipment rather than merely costing more."
+    asOf: "2026-09-24"
+    sources:
+      - title: "EUDR timeline tracker: delays, U-turns and the latest enforcement plan"
+        url: "https://www.coolset.com/academy/eudr-delay-2025-explained"
+        publisher: "Coolset"
+        retrievedAt: "2026-11-20"
+      - title: "Delay until December 2026 and other developments in the implementation of the EUDR Regulation"
+        url: "https://trade.ec.europa.eu/access-to-markets/en/news/delay-until-december-2026-and-other-developments-implementation-eudr-regulation"
+        publisher: "European Commission, Access2Markets"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "smallholder-commodity-producers"
+      name: "Smallholder producers in EU-facing supply chains"
+      kind: "sector"
+      ticker: null
+      sector: "Agriculture"
+    severity: "moderate"
+    confidence: "inferred"
+    mechanism: "The obligation sits with the EU operator, which passes the evidence requirement up the chain, so a producer who cannot supply plot-level geolocation data risks being dropped from an EU-facing buyer's approved list."
+    asOf: "2026-11-20"
+    sources:
+      - title: "The amended EUDR: what has changed and what has remained"
+        url: "https://www.stibbe.com/publications-and-insights/the-amended-eudr-what-has-changed-and-what-has-remained"
+        publisher: "Stibbe"
+        retrievedAt: "2026-11-20"
+---
+<p>This is dated five weeks out and is on the register because the date has moved twice already and the Commission has now ruled out a third move. The information system's capacity to handle transaction volume was the stated reason for the previous delay, so the risk to watch is operational rather than legislative.</p>

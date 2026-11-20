@@ -1,0 +1,80 @@
+---
+id: "dram-nand-allocation"
+title: "DRAM and NAND under allocation as AI demand takes fab capacity"
+shortLabel: "DRAM"
+status: "active"
+category: "input"
+startedAt: "2026-01-01"
+updatedAt: "2026-11-20"
+summary: "IDC expects global DRAM supply to grow only 16 per cent in 2026 and NAND 17 per cent, below historical norms, because memory makers are shifting wafer capacity to high-bandwidth memory for AI buyers. TrendForce measured DRAM lead times at about 20 weeks against roughly eight in a balanced market, and distributors report DDR4 and DDR5 under strict allocation with quoted lead times from 8 to 52 weeks depending on the part. Team Group's chief executive told investors on 2 November 2026 that the shortage has not peaked and that the tightest stretch runs from the fourth quarter of 2026 through the second quarter of 2027."
+author: "editor"
+places: []
+sources:
+  - title: "RAM shortage: IDC sees only 16% DRAM supply growth"
+    url: "https://shattered.io/ram-shortage-idc-16-percent-dram-supply-growth-2026/"
+    publisher: "Shattered"
+    retrievedAt: "2026-11-20"
+  - title: "Supply chain brief: market conditions in 2026, November update"
+    url: "https://www.versalogic.com/blog/supply-chain-brief-memory-market-conditions-in-2026/"
+    publisher: "VersaLogic"
+    retrievedAt: "2026-11-20"
+  - title: "The 2026 memory chip shortage: how to source DRAM and NAND in an allocation market"
+    url: "https://a2globalelectronics.com/global-sourcing/the-2026-memory-chip-shortage-how-to-source-dram-and-nand-in-an-allocation-market/"
+    publisher: "A2 Global Electronics"
+    retrievedAt: "2026-11-20"
+  - title: "DDR5 chip prices up 452%, relief slips to 2028"
+    url: "https://tech-insider.org/team-group-ddr5-chip-price-452-percent-shortage-2028-2026/"
+    publisher: "Tech Insider"
+    retrievedAt: "2026-11-20"
+  - title: "When AI steals your memory chips: how EMS and OEM companies can survive the 2026 supply crisis"
+    url: "https://luminovo.com/resources/blog/memory-chip-shortage"
+    publisher: "Luminovo"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "industrial-embedded-oems"
+      name: "Industrial and embedded computing OEMs"
+      kind: "sector"
+      ticker: null
+      sector: "Industrial electronics"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Suppliers have put all DRAM categories under allocation and are rescheduling delivery commitments by more than a month, so a board cannot be built to a committed date even where the design is frozen."
+    asOf: "2026-11-05"
+    sources:
+      - title: "Supply chain brief: market conditions in 2026, November update"
+        url: "https://www.versalogic.com/blog/supply-chain-brief-memory-market-conditions-in-2026/"
+        publisher: "VersaLogic"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "automotive-electronics-suppliers"
+      name: "Automotive electronics suppliers"
+      kind: "sector"
+      ticker: null
+      sector: "Autos"
+    severity: "high"
+    confidence: "inferred"
+    mechanism: "Automotive-grade memory carries the longest quoted lead times of any category, reported above 58 weeks, because qualified automotive parts cannot be substituted with whatever is on the spot market."
+    asOf: "2026-02-18"
+    sources:
+      - title: "When AI steals your memory chips: how EMS and OEM companies can survive the 2026 supply crisis"
+        url: "https://luminovo.com/resources/blog/memory-chip-shortage"
+        publisher: "Luminovo"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "pc-and-server-oems"
+      name: "PC and server OEMs"
+      kind: "sector"
+      ticker: null
+      sector: "Computer hardware"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Memory makers report order books committed well into 2027 and new fabrication capacity is not expected in volume before late 2027 or 2028, so buyers are signing multi-year server DRAM agreements instead of buying quarter by quarter."
+    asOf: "2026-06-18"
+    sources:
+      - title: "The 2026 memory chip shortage: how to source DRAM and NAND in an allocation market"
+        url: "https://a2globalelectronics.com/global-sourcing/the-2026-memory-chip-shortage-how-to-source-dram-and-nand-in-an-allocation-market/"
+        publisher: "A2 Global Electronics"
+        retrievedAt: "2026-11-20"
+---
+<p>This is a demand-side disruption rather than a broken route, which makes it unusual for this register: nothing is blocked, but a buyer without an allocation cannot get parts at any price. The constraint is tool lead times as much as fab space, with lithography and process equipment reported at beyond two years.</p>

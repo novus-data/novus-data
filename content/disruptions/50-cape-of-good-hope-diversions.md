@@ -1,0 +1,65 @@
+---
+id: "cape-of-good-hope-diversions"
+title: "Cape of Good Hope diversions unwinding as carriers return to Suez"
+shortLabel: "CAPE"
+status: "easing"
+category: "chokepoint"
+startedAt: "2023-12-01"
+updatedAt: "2026-11-20"
+summary: "Almost all major container carriers have resumed Asia-Europe services through the Red Sea, and Freightos put Suez traffic at around two thirds of its pre-hostilities volume in November 2026, with a full return expected during the first quarter. Boxship transits through the canal reached 426 in October, up from 315 in September and 230 in October 2025, and Evergreen was the last Ocean Alliance partner to resume. Zim was reported as the only container carrier still avoiding the route. The Cape diversion that defined the trade for nearly three years is therefore unwinding rather than ending."
+author: "editor"
+places: ["cape-of-good-hope", "suez"]
+sources:
+  - title: "Ocean traffic returns to near-normal through Red Sea"
+    url: "https://www.supplychainbrain.com/logistics/ocean-transportation/article/16425057/ocean-traffic-returns-to-nearnormal-through-red-sea"
+    publisher: "SupplyChainBrain"
+    retrievedAt: "2026-11-20"
+  - title: "Major liners set to resume all Asia-Europe services through Suez"
+    url: "https://theloadstar.com/major-liners-set-to-resume-all-asia-europe-services-through-suez/"
+    publisher: "The Loadstar"
+    retrievedAt: "2026-11-20"
+  - title: "Red Sea Brief, 12 November 2026"
+    url: "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief---12-november-2026"
+    publisher: "Lloyd's List Intelligence"
+    retrievedAt: "2026-11-20"
+  - title: "ONE resumes Suez Canal transits as Premier Alliance plans further returns"
+    url: "https://safety4sea.com/one-resumes-suez-canal-transits-as-premier-alliance-plans-further-returns/"
+    publisher: "SAFETY4SEA"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "container-shipping"
+      name: "Container shipping"
+      kind: "sector"
+      ticker: null
+      sector: "Marine shipping"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "Returning to Suez shortens the Asia-Europe rotation and releases vessel capacity that the Cape routing had absorbed, which changes effective supply on the trade as each service switches back."
+    asOf: "2026-11-12"
+    sources:
+      - title: "Ocean traffic returns to near-normal through Red Sea"
+        url: "https://www.supplychainbrain.com/logistics/ocean-transportation/article/16425057/ocean-traffic-returns-to-nearnormal-through-red-sea"
+        publisher: "SupplyChainBrain"
+        retrievedAt: "2026-11-20"
+      - title: "Red Sea Brief, 12 November 2026"
+        url: "https://www.lloydslistintelligence.com/resources/blog/red-sea-brief---12-november-2026"
+        publisher: "Lloyd's List Intelligence"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "southern-africa-bunkering-and-services"
+      name: "Southern African bunkering and ship services"
+      kind: "sector"
+      ticker: null
+      sector: "Ports and terminals"
+    severity: "moderate"
+    confidence: "inferred"
+    mechanism: "Three years of Cape routings created bunkering, stores and crew-change demand at southern African anchorages; as services switch back to Suez that traffic leaves, so the exposure runs the opposite way to most entries here."
+    asOf: "2026-11-20"
+    sources:
+      - title: "Major liners set to resume all Asia-Europe services through Suez"
+        url: "https://theloadstar.com/major-liners-set-to-resume-all-asia-europe-services-through-suez/"
+        publisher: "The Loadstar"
+        retrievedAt: "2026-11-20"
+---
+<p>Two cautions on reading the recovery as complete. Around half of containership transits are running dark, so tracked counts understate traffic; and MSC applied a piracy risk surcharge and a Suez canal surcharge from 15 November, so carriers are pricing the route as still carrying risk even while they sail it.</p>

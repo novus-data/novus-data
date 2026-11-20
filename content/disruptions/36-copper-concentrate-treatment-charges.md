@@ -1,0 +1,80 @@
+---
+id: "copper-concentrate-treatment-charges"
+title: "Copper treatment charges at zero as concentrate runs short"
+shortLabel: "TCRC"
+status: "active"
+category: "input"
+startedAt: "2026-01-01"
+updatedAt: "2026-11-20"
+summary: "Reuters reported in December 2025 that Antofagasta and a Chinese smelter agreed treatment and refining charges for 2026 of zero dollars a tonne and zero cents a pound, against 21.25 dollars and 2.125 cents for 2025, and the IEA recorded that annual benchmark on 2 March 2026 as the lowest annual settlement in the series it tracks. Spot charges went further, assessed at minus 78.50 dollars a tonne on 9 April 2026 and reported at minus 126.80 dollars a tonne at the end of June. The collapse reflects a shortage of mined concentrate rather than excess smelting capacity, which leaves smelters processing for nothing or paying for the privilege."
+author: "editor"
+places: []
+sources:
+  - title: "The 2026 copper treatment charge settled at zero dollars a tonne"
+    url: "https://www.analytics24.com/insights/the-charge-settled-at-zero"
+    publisher: "Analytics24"
+    retrievedAt: "2026-11-20"
+  - title: "Chinese smelters pay miners for copper concentrate as mine supply becomes the key constraint"
+    url: "https://www.cruxinvestor.com/posts/chinese-smelters-pay-miners-for-copper-concentrate-as-mine-supply-becomes-the-key-constraint"
+    publisher: "Crux Investor"
+    retrievedAt: "2026-11-20"
+  - title: "The copper smelter squeeze: how concentrate tightness is priming a 2026 price surge"
+    url: "https://www.skillings.net/copper-smelter-squeeze-concentrate/"
+    publisher: "Skillings Mining Review"
+    retrievedAt: "2026-11-20"
+  - title: "Trade review: tight copper concs supply to keep smelter margins under pressure in Q1"
+    url: "https://www.spglobal.com/energy/en/news-research/latest-news/metals/011226-trade-review-tight-copper-concs-supply-to-keep-smelter-margins-under-pressure-in-q1"
+    publisher: "S&P Global Commodity Insights"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "chinese-copper-smelters"
+      name: "Chinese copper smelters"
+      kind: "sector"
+      ticker: null
+      sector: "Metals"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "The treatment charge is the smelter's processing margin, and at a zero benchmark with negative spot terms that margin is gone, so a smelter either runs at a loss on tolling or idles capacity it has already built."
+    asOf: "2026-06-30"
+    sources:
+      - title: "Chinese smelters pay miners for copper concentrate as mine supply becomes the key constraint"
+        url: "https://www.cruxinvestor.com/posts/chinese-smelters-pay-miners-for-copper-concentrate-as-mine-supply-becomes-the-key-constraint"
+        publisher: "Crux Investor"
+        retrievedAt: "2026-11-20"
+      - title: "The 2026 copper treatment charge settled at zero dollars a tonne"
+        url: "https://www.analytics24.com/insights/the-charge-settled-at-zero"
+        publisher: "Analytics24"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "standalone-custom-smelters"
+      name: "Standalone custom smelters without their own mines"
+      kind: "sector"
+      ticker: null
+      sector: "Metals"
+    severity: "high"
+    confidence: "inferred"
+    mechanism: "A smelter with no equity concentrate has no other revenue line to fall back on, so negative treatment charges leave it unprofitable even while the copper price is high; integrated producers absorb it through the mine."
+    asOf: "2026-08-04"
+    sources:
+      - title: "Chinese smelters pay miners for copper concentrate as mine supply becomes the key constraint"
+        url: "https://www.cruxinvestor.com/posts/chinese-smelters-pay-miners-for-copper-concentrate-as-mine-supply-becomes-the-key-constraint"
+        publisher: "Crux Investor"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "copper-cathode-buyers"
+      name: "Copper cathode buyers"
+      kind: "sector"
+      ticker: null
+      sector: "Metals"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "Cathode term premiums reached record highs on the prevailing copper shortage, so a fabricator pays more above the exchange price for physical metal regardless of where the exchange price sits."
+    asOf: "2026-01-12"
+    sources:
+      - title: "Trade review: tight copper concs supply to keep smelter margins under pressure in Q1"
+        url: "https://www.spglobal.com/energy/en/news-research/latest-news/metals/011226-trade-review-tight-copper-concs-supply-to-keep-smelter-margins-under-pressure-in-q1"
+        publisher: "S&P Global Commodity Insights"
+        retrievedAt: "2026-11-20"
+---
+<p>Treatment charges are the cleanest available read on whether the binding constraint in copper is digging rock or melting it, because the fee moves against whichever side is scarce. Beneficiaries are deliberately not recorded as exposures here, so the miners' side of this does not appear as a severity.</p>
