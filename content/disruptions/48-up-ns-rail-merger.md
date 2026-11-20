@@ -1,0 +1,65 @@
+---
+id: "up-ns-rail-merger"
+title: "Union Pacific and Norfolk Southern merger before the STB"
+shortLabel: "UPNS"
+status: "watch"
+category: "policy"
+startedAt: "2025-07-28"
+updatedAt: "2026-11-20"
+summary: "Union Pacific and Norfolk Southern entered a merger agreement on 28 July 2025 under which Union Pacific would acquire Norfolk Southern through two successive mergers, and shareholders of both companies have approved their respective proposals. The amended application to the Surface Transportation Board estimates annual shipper savings of 3.5 billion dollars and single-line service on more than 88,000 county-to-county lanes, and the applicants offered expanded customer protections in July 2026. On 14 November 2026 groups representing major rail shippers again asked the board to reject the application, arguing that no conditions could address what they see as its flaws and that service problems sit in the first and last mile."
+author: "editor"
+places: []
+sources:
+  - title: "Union Pacific Corp, Form 10-Q for the quarter ended 30 June 2026, pending acquisition"
+    url: "https://www.sec.gov/Archives/edgar/data/0000100885/000010088526000250/unp-20260630.htm"
+    publisher: "US Securities and Exchange Commission"
+    retrievedAt: "2026-11-20"
+  - title: "Shippers' groups again urge STB to reject UP-NS merger"
+    url: "https://www.trains.com/pro/freight/class-i/shippers-groups-again-urge-stb-to-reject-up-ns-merger/"
+    publisher: "Trains"
+    retrievedAt: "2026-11-20"
+  - title: "Creating America's first transcontinental railroad: amended STB merger application"
+    url: "https://www.up.com/press-releases/growth/amended-merger-app-filed-260430"
+    publisher: "Union Pacific"
+    retrievedAt: "2026-11-20"
+  - title: "Union Pacific and Norfolk Southern affirm strength of merger application and offer new customer assurances"
+    url: "https://www.norfolksouthern.com/en/newsroom/news-releases/union-pacific-and-norfolk-southern-affirm-strength-of-merger-application-and-offer-unprecedented-new-customer-assurances"
+    publisher: "Norfolk Southern"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "us-rail-shippers"
+      name: "US rail shippers"
+      kind: "sector"
+      ticker: null
+      sector: "Logistics"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "A decision either way changes routing options and gateway pricing for shippers on both networks, and the Joint Shippers Associations argue the conditions needed to protect them would have to restructure the transaction itself."
+    asOf: "2026-11-14"
+    sources:
+      - title: "Shippers' groups again urge STB to reject UP-NS merger"
+        url: "https://www.trains.com/pro/freight/class-i/shippers-groups-again-urge-stb-to-reject-up-ns-merger/"
+        publisher: "Trains"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "class-i-railroads"
+      name: "Class I railroads"
+      kind: "sector"
+      ticker: null
+      sector: "Rail freight"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "The applicants put the combined railroad at about 40 per cent of US rail ton-miles and 43 per cent of carloadings, so the other Class I carriers' interchange position and competitive access turn on the board's conditions."
+    asOf: "2026-10-08"
+    sources:
+      - title: "Union Pacific Corp, Form 10-Q for the quarter ended 30 June 2026, pending acquisition"
+        url: "https://www.sec.gov/Archives/edgar/data/0000100885/000010088526000250/unp-20260630.htm"
+        publisher: "US Securities and Exchange Commission"
+        retrievedAt: "2026-11-20"
+      - title: "Creating America's first transcontinental railroad: amended STB merger application"
+        url: "https://www.up.com/press-releases/growth/amended-merger-app-filed-260430"
+        publisher: "Union Pacific"
+        retrievedAt: "2026-11-20"
+---
+<p>Recorded as a watch because nothing has changed physically and the decision sits with a regulator. The savings and competition figures on both sides of this are advocacy from parties to the proceeding, and are recorded here as claims made rather than as findings.</p>

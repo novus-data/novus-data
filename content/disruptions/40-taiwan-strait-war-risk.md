@@ -1,0 +1,65 @@
+---
+id: "taiwan-strait-war-risk"
+title: "Taiwan Strait military activity without an insurance repricing"
+shortLabel: "TWN"
+status: "watch"
+category: "chokepoint"
+startedAt: "2026-01-01"
+updatedAt: "2026-11-20"
+summary: "Chinese military activity around Taiwan has continued through 2026, including two days of live-fire drills in the strait announced by the Fujian maritime authority and, in the week ending 15 November, large formations from three theatre commands in an unannounced exercise that Taiwan's defence minister described as area-denial drills. What has not happened is a commercial repricing: reporting through 2026 found no Taiwan-specific war-risk listing from underwriters and no public premium move comparable to the Gulf. This entry exists to record that gap, because insurance moved before traffic did at Hormuz."
+author: "editor"
+places: ["taiwan-strait"]
+sources:
+  - title: "China stages drills in Taiwan Strait defying US warning"
+    url: "https://www.newsweek.com/china-stages-military-drills-in-key-trade-waters-after-rubio-warning-12227056"
+    publisher: "Newsweek"
+    retrievedAt: "2026-11-20"
+  - title: "Asia's two chokepoints: insurers are pricing war at Hormuz and peace at Taiwan"
+    url: "https://midasanalytics.ai/market-pulse/asia-hormuz-taiwan-war-risk-repricing-gap-t3k8"
+    publisher: "Midas Analytics"
+    retrievedAt: "2026-11-20"
+  - title: "The insurance trigger: sovereign guarantees and commercial lawfare as deterrence against a Chinese quarantine of Taiwan"
+    url: "https://cimsec.org/the-insurance-trigger-sovereign-guarantees-and-commercial-lawfare-as-deterrence-against-a-chinese-quarantine-of-taiwan/"
+    publisher: "Center for International Maritime Security"
+    retrievedAt: "2026-11-20"
+  - title: "Coast guard flags about 1,900 Chinese vessels"
+    url: "https://www.taipeitimes.com/News/front/archives/2026/01/29/2003851391"
+    publisher: "Taipei Times"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "container-shipping"
+      name: "Container shipping"
+      kind: "sector"
+      ticker: null
+      sector: "Marine shipping"
+    severity: "low"
+    confidence: "inferred"
+    mechanism: "Exercises have produced temporary diversions around announced areas rather than a route change, and with no war-risk listing in place the cost reaches a carrier as schedule friction rather than as premium."
+    asOf: "2026-11-15"
+    sources:
+      - title: "China stages drills in Taiwan Strait defying US warning"
+        url: "https://www.newsweek.com/china-stages-military-drills-in-key-trade-waters-after-rubio-warning-12227056"
+        publisher: "Newsweek"
+        retrievedAt: "2026-11-20"
+      - title: "Asia's two chokepoints: insurers are pricing war at Hormuz and peace at Taiwan"
+        url: "https://midasanalytics.ai/market-pulse/asia-hormuz-taiwan-war-risk-repricing-gap-t3k8"
+        publisher: "Midas Analytics"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "taiwan-export-logistics"
+      name: "Shippers routing cargo through Taiwanese ports"
+      kind: "sector"
+      ticker: null
+      sector: "Logistics"
+    severity: "low"
+    confidence: "estimated"
+    mechanism: "A formal blockade is not needed for underwriters to raise premiums: expanding exclusion zones or uncertainty about whether a vessel can safely approach Taiwanese and southern Chinese ports would be enough, and insurance can reprice faster than physical freight."
+    asOf: "2026-10-12"
+    sources:
+      - title: "The insurance trigger: sovereign guarantees and commercial lawfare as deterrence against a Chinese quarantine of Taiwan"
+        url: "https://cimsec.org/the-insurance-trigger-sovereign-guarantees-and-commercial-lawfare-as-deterrence-against-a-chinese-quarantine-of-taiwan/"
+        publisher: "Center for International Maritime Security"
+        retrievedAt: "2026-11-20"
+---
+<p>Recorded as a watch with low severity on purpose. Nothing has happened to Taiwan Strait traffic, and the register should say so plainly rather than imply a disruption that is not in the data. The Hormuz precedent is the reason to keep the entry open: Gulf tanker traffic fell from 138 transits to fewer than eight within days of insurers withdrawing cover, before any ship was seized.</p>

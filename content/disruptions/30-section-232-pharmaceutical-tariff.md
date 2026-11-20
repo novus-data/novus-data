@@ -1,0 +1,65 @@
+---
+id: "section-232-pharmaceutical-tariff"
+title: "US Section 232 tariff on patented pharmaceuticals"
+shortLabel: "PHRM"
+status: "active"
+category: "policy"
+startedAt: "2026-07-31"
+updatedAt: "2026-11-20"
+summary: "A proclamation of 2 April 2026 imposed Section 232 duties of up to 100 per cent on imports of patented pharmaceuticals, biologics and their associated ingredients. Reported effective dates are 31 July 2026 for the companies named in Annex III to the proclamation and 29 September 2026 for all other importers. Generic pharmaceuticals, biosimilars and their ingredients are expressly excluded, companies with a most-favoured-nation agreement entered before 2 April 2026 and listed in Annex II are exempt, and firms committing to move production to the United States have been reported as facing a lower 20 per cent rate for four years."
+author: "editor"
+places: []
+sources:
+  - title: "Trump overhauls Section 232 tariffs: what metals and pharmaceutical importers need to know"
+    url: "https://www.bakerdonelson.com/trump-overhauls-section-232-tariffs-what-metals-and-pharmaceutical-importers-need-to-know"
+    publisher: "Baker Donelson"
+    retrievedAt: "2026-11-20"
+  - title: "100% duties, two deadlines: Section 232 pharmaceutical tariffs take effect July 31, 2026"
+    url: "https://www.mallorygroup.com/blog-posts/100-duties-two-deadlines-section-232-pharmaceutical-tariffs-take-effect-july-31-2026"
+    publisher: "Mallory Group"
+    retrievedAt: "2026-11-20"
+  - title: "Trump administration imposes Section 232 tariffs on patented pharmaceutical imports"
+    url: "https://www.crowell.com/en/insights/client-alerts/trump-administration-imposes-section-232-tariffs-on-patented-pharmaceutical-imports-tiered-rate-structure-takes-effect-beginning-july-31-2026"
+    publisher: "Crowell and Moring"
+    retrievedAt: "2026-11-20"
+  - title: "A guide to Trump's Section 232 tariffs, in maps"
+    url: "https://www.cfr.org/articles/guide-trumps-section-232-tariffs-nine-maps"
+    publisher: "Council on Foreign Relations"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "us-patented-drug-importers"
+      name: "US importers of patented drugs and active ingredients"
+      kind: "sector"
+      ticker: null
+      sector: "Importers"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "A duty of up to 100 per cent applies to covered patented pharmaceuticals, biologics and their associated ingredients on entry, inclusive of the ordinary Column 1 duty, unless the importer's supplier is exempt under Annex II."
+    asOf: "2026-10-05"
+    sources:
+      - title: "100% duties, two deadlines: Section 232 pharmaceutical tariffs take effect July 31, 2026"
+        url: "https://www.mallorygroup.com/blog-posts/100-duties-two-deadlines-section-232-pharmaceutical-tariffs-take-effect-july-31-2026"
+        publisher: "Mallory Group"
+        retrievedAt: "2026-11-20"
+      - title: "Trump overhauls Section 232 tariffs: what metals and pharmaceutical importers need to know"
+        url: "https://www.bakerdonelson.com/trump-overhauls-section-232-tariffs-what-metals-and-pharmaceutical-importers-need-to-know"
+        publisher: "Baker Donelson"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "us-generic-drug-importers"
+      name: "US importers of generics and biosimilars"
+      kind: "sector"
+      ticker: null
+      sector: "Importers"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Generic pharmaceuticals, biosimilars and their associated ingredients are expressly excluded from the measure, so the exposure runs through classification disputes rather than the duty itself."
+    asOf: "2026-04-07"
+    sources:
+      - title: "Trump administration imposes Section 232 tariffs on patented pharmaceutical imports"
+        url: "https://www.crowell.com/en/insights/client-alerts/trump-administration-imposes-section-232-tariffs-on-patented-pharmaceutical-imports-tiered-rate-structure-takes-effect-beginning-july-31-2026"
+        publisher: "Crowell and Moring"
+        retrievedAt: "2026-11-20"
+---
+<p>Reviewed note: the two effective dates are reported in opposite order by different advisers. Baker Donelson and Mallory Group both put Annex III companies first on 31 July 2026 and all others on 29 September 2026, and that is the order recorded here; Crowell and Moring reports the reverse. The proclamation itself is the document to settle it against before this entry is relied on.</p>
