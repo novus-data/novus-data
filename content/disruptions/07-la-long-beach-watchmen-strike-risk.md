@@ -2,14 +2,26 @@
 id: "la-long-beach-watchmen-strike-risk"
 title: "Watchmen strike risk at Los Angeles and Long Beach"
 shortLabel: "LALB"
-status: "watch"
+status: "easing"
 category: "labour"
 startedAt: "2026-10-23"
-updatedAt: "2026-11-18"
-summary: "About 250 port watchmen in ILWU Local 26, working under extensions since their contract expired in July 2025, have authorised a strike. The deadline moved from 1 November to 4 and 6 November and then to 20 November, with talks continuing. The employers' association says the terminals where they work handle about 85% of Long Beach cargo and 33% of Los Angeles cargo, and that other dockworkers are unlikely to cross a picket line."
+updatedAt: "2026-11-22"
+summary: "About 250 port watchmen in ILWU Local 26, who had authorised a strike, reached a tentative agreement with the employers' association on 21 November 2026. The terms are not public, and members have not yet voted. The contract is extended until they do. The employers' association says the terminals where the watchmen work handle about 85% of Long Beach cargo and 33% of Los Angeles cargo, and that other dockworkers were unlikely to cross a picket line."
 author: "editor"
 places: ["la-long-beach"]
 sources:
+  - title: "Watchmen Reach Tentative Deal, Averting Strike at LA, Long Beach Ports"
+    url: "https://mynewsla.com/business/2026/11/21/watchmen-reach-tentative-deal-averting-strike-at-la-long-beach-ports/"
+    publisher: "Reuters, via MyNewsLA"
+    retrievedAt: "2026-11-22"
+  - title: "Tentative union deal averts strike at Port of LA-Long Beach"
+    url: "https://www.freightwaves.com/news/tentative-union-deal-averts-strike-at-port-of-la-long-beach"
+    publisher: "FreightWaves"
+    retrievedAt: "2026-11-22"
+  - title: "Watchmen reach tentative deal, averting strike at SoCal Ports"
+    url: "https://www.nbclosangeles.com/news/local/tentative-deal-port-watchmen/3973800/"
+    publisher: "NBC Los Angeles"
+    retrievedAt: "2026-11-22"
   - title: "Employers, watchmen at California ports extend contract talks"
     url: "https://gvwire.com/2026/11/07/employers-watchmen-at-california-ports-extend-contract-talks/"
     publisher: "Reuters, via GV Wire"
@@ -33,10 +45,10 @@ exposures:
       kind: "sector"
       ticker: null
       sector: "Importers"
-    severity: "moderate"
+    severity: "low"
     confidence: "inferred"
-    mechanism: "The employers' association warned that other ILWU workers are unlikely to cross a Local 26 picket line, which could halt vessel, yard and gate work at the affected terminals and leave cargo already at the port waiting."
-    asOf: "2026-11-07"
+    mechanism: "The employers' association warned that other ILWU workers are unlikely to cross a Local 26 picket line, which could halt vessel, yard and gate work at the affected terminals and leave cargo already at the port waiting. A tentative deal reported on 21 November removes that for now; if members reject it, the risk returns."
+    asOf: "2026-11-22"
     sources:
       - title: "Strike threat at Los Angeles, Long Beach ports delayed as union and employers extend talks"
         url: "https://gcaptain.com/strike-threat-at-los-angeles-long-beach-ports-delayed-as-union-and-employers-extend-talks/"
@@ -52,10 +64,10 @@ exposures:
       kind: "sector"
       ticker: null
       sector: "Trucking"
-    severity: "moderate"
+    severity: "low"
     confidence: "inferred"
-    mechanism: "Watchmen control and inspect truck entries at terminal gates, so truck access is the first thing a stoppage would touch."
-    asOf: "2026-11-09"
+    mechanism: "Watchmen control and inspect truck entries at terminal gates, so truck access is the first thing a stoppage would touch. A tentative deal reported on 21 November removes that for now, pending a member vote."
+    asOf: "2026-11-22"
     sources:
       - title: "Report on the watchmen contract extension and the watchmen's duties (9 November 2026)"
         url: "https://www.insurancejournal.com/news/west/2026/11/09/891903.htm"
@@ -77,4 +89,4 @@ exposures:
         publisher: "National Retail Federation"
         retrievedAt: "2026-11-16"
 ---
-<p>Next: the 20 November deadline. Settled, extended again or a walkout, this entry changes status either way.</p>
+<p>Next: the Local 26 members' vote, which has no date yet. A rejection would put this entry back to watch.</p>
