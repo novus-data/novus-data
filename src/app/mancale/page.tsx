@@ -29,7 +29,9 @@ const DESCRIPTION =
   'Whether the news about seven shipping chokepoints is louder or quieter than their ship traffic justifies. Weekly, from IMF PortWatch and GDELT data.';
 
 export const metadata: Metadata = {
-  title: TITLE,
+  // The search result names what the index measures; link previews keep the
+  // short name (TITLE, below).
+  title: 'Mancalë Index: ship traffic and news at shipping chokepoints',
   description: DESCRIPTION,
   alternates: { canonical: absoluteUrl('/mancale') },
   // A page's own openGraph and twitter replace the layout's whole objects, so

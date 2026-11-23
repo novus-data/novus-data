@@ -453,3 +453,47 @@ Gavin approved the wording for the two readings that were in doubt, from the
   they show on `/mancale` and on `/mancale/[id]`. The method version does not
   change. The home-page box held back on 4 November stays out until the editor
   asks for it.
+
+## Search, feeds and sharing (proposed 22 November 2026)
+
+Proposed by Claude for `arowsom-oss`, whose call the site's code is; nothing here
+is settled until the pull request that adds this entry is merged.
+
+- **Posts are canonical on novusdata.news.** Synced posts used to name their
+  Beehiiv copy as canonical, which kept every one of them out of search under
+  this domain. Reasons and the rule in CLAUDE.md §6, "Which copy search engines
+  index". The Beehiiv copy is still linked under each post. To finish the job,
+  `arowsom-oss` turns off "Discoverable on the web" in Beehiiv's SEO settings,
+  so Beehiiv's copies stop competing in search; that is an account step, not
+  code.
+- **Search titles and descriptions.** Index pages are titled by their subject
+  ("Supply chain disruption register") while their headings are unchanged, and a
+  register entry's meta description is its summary shortened at a sentence or
+  word boundary (`src/lib/seo.ts`), never rewritten. Pages allow large image
+  previews, which Google requires for Discover.
+- **The register is described as a Dataset on `/data`**, so Google Dataset Search
+  can list its files. No count or figure; the Mancalë Index is left out, as on
+  `/data`, because its source data's terms govern reuse.
+- **`/rss.xml`**: the writing as RSS 2.0, summaries only, alongside `/feed.json`.
+- **Share and cite lines.** Plain share links (LinkedIn, X, email) under posts and
+  entries, loading nothing until clicked, so `/privacy` is unchanged; each entry
+  prints the citation `/data` asks for.
+- **Writing and register link to each other** through the writers' place tags,
+  as the map does, never by matching text.
+- **Beehiiv's feed footer.** The sync drops the "Powered by beehiiv" link
+  Beehiiv's RSS appends to every post, and it was removed from the 17 posts
+  already synced. Only that link went; the writing is unchanged.
+- **The `/mancale` map's tap targets** no longer overlap (the axe target-size
+  failure recorded under "Visual refresh"). Each link over a marker is now
+  exactly the marker's size, so two targets meet only where two markers do;
+  where the map is drawn narrow, the numbered list under it gives the same
+  links at full size.
+- **Not in this change: anything involving money.** Advertising and sponsorship
+  need both founders (see "How decisions get made"), and pricing stays outside
+  this repository until both agree (18 November entry above).
+- **Out of date above:** "Deployment updates" says the subscribe URL moved to
+  `newsletter.novusdata.news`. The site's buttons now go to the current
+  publication's Beehiiv address, and Beehiiv lists no custom web domain for that
+  publication. `newsletter.novusdata.news` still resolves to Beehiiv, so it is
+  probably still attached to the first account; that could not be checked from
+  here, because Beehiiv blocked the automated request.

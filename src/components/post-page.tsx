@@ -5,12 +5,18 @@ import { Container } from '@/components/container';
 import { JsonLd } from '@/components/json-ld';
 import { PrintPermalink } from '@/components/print-permalink';
 import { ProseBody } from '@/components/prose-body';
+import { ShareLinks } from '@/components/share-links';
+import { StatusBadge } from '@/components/status-badge';
+import { StoryBox } from '@/components/story-box';
 import { SubscribePanel } from '@/components/subscribe-panel';
 import { ExternalLink, TextLink } from '@/components/text-link';
 import { hasCoAuthors, publication, recordedBy } from '@/config/publication';
 import { POST_KIND_LABELS, postPath, type Issue, type IssueNeighbours, type IssueSummary } from '@/lib/content/types';
+// The types module, not the layer index, which pulls in the filesystem source.
+import type { DisruptionSummary } from '@/lib/disruptions/types';
 import { absoluteUrl } from '@/lib/env';
 import { formatIssueLabel, formatLongDate, readingTimeMinutes, toDate } from '@/lib/format';
+import { metaDescription } from '@/lib/seo';
 import { issueJsonLd } from '@/lib/structured-data';
 
 /**
@@ -22,16 +28,28 @@ import { issueJsonLd } from '@/lib/structured-data';
  */
 
 /**
- * The newsletter is published by email first, so where a post exists on the
- * sending platform that copy is canonical. Where it does not — a hand-written
- * post, or anything published after leaving Beehiiv — this page is canonical.
+ * Every post's canonical address is its page on this site.
+ *
+ * It used to be the Beehiiv copy wherever one existed, on the reading that a
+ * post is emailed first and so the sending platform's web copy is the
+ * original. That was written while this site was framed as the newsletter's
+ * information page, which CLAUDE.md §1 records as the wrong framing: this
+ * repository is the archive of record (§6). A canonical link names the copy a
+ * search engine should index, so pointing it at Beehiiv kept every synced post
+ * out of search under novusdata.news, in favour of a copy that sits outside
+ * the register, the map and the subscribe flow. The Beehiiv copy stays linked
+ * under the body ("Originally published on Beehiiv"). Google no longer
+ * recommends cross-domain canonicals for syndicated copies in any case
+ * (CLAUDE.md §6, "Which copy search engines index").
  */
 function canonicalFor(post: IssueSummary): string {
-  return post.externalUrl ?? absoluteUrl(postPath(post));
+  return absoluteUrl(postPath(post));
 }
 
 export function postMetadata(post: Issue): Metadata {
-  const description = post.excerpt ?? publication.description;
+  // Shortened only in the meta tags; the page and its structured data keep the
+  // whole standfirst.
+  const description = metaDescription(post.excerpt ?? publication.description);
   return {
     title: post.title,
     description,
@@ -51,7 +69,18 @@ export function postMetadata(post: Issue): Metadata {
   };
 }
 
-export function PostPage({ post, previous, next }: { post: Issue } & IssueNeighbours) {
+export function PostPage({
+  post,
+  previous,
+  next,
+  registerEntries = [],
+}: { post: Issue } & IssueNeighbours & {
+  /**
+   * Open register entries about the places this post's writer tagged it with
+   * (openEntriesAboutPost in src/lib/related.ts). Empty for an untagged post.
+   */
+  registerEntries?: DisruptionSummary[];
+}) {
   const briefing = post.kind === 'briefing';
   const kindLabel = POST_KIND_LABELS[post.kind];
   const kind = kindLabel.toLowerCase();
@@ -146,10 +175,37 @@ export function PostPage({ post, previous, next }: { post: Issue } & IssueNeighb
               </p>
             ) : null}
 
+            <ShareLinks path={postPath(post)} title={post.title} className="mt-12" />
             <PrintPermalink path={postPath(post)} className="mt-12" />
           </div>
         </div>
       </Container>
+
+      {/* The register's entries about the place this post was tagged with, so a
+          reader can go from the writing to the record it summarises. Decided by
+          the writer's tag, never by matching the text (src/lib/places.ts). */}
+      {registerEntries.length > 0 ? (
+        <Container width="reading" className="mt-5">
+          <StoryBox
+            as="section"
+            size="compact"
+            level={2}
+            kicker="The register"
+            kickerTone="muted"
+            title="Tracked in the register"
+            footer={<TextLink href="/disruptions">Every open disruption</TextLink>}
+          >
+            <ul className="flex flex-col gap-2">
+              {registerEntries.map((entry) => (
+                <li key={entry.id} className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <StatusBadge status={entry.status} />
+                  <TextLink href={`/disruptions/${entry.id}`}>{entry.title}</TextLink>
+                </li>
+              ))}
+            </ul>
+          </StoryBox>
+        </Container>
+      ) : null}
 
       <Container width="reading" className="mt-5">
         <SubscribePanel heading="Get the next briefing by email" />

@@ -10,7 +10,8 @@ import { buildExposureMatrix } from '@/lib/disruptions';
 import { absoluteUrl } from '@/lib/env';
 
 export const metadata: Metadata = {
-  title: 'Exposure',
+  // The page is headed "Exposure"; a search result needs the subject too.
+  title: 'Supply chain exposure by company and sector',
   description:
     'Which tracked supply chain disruptions reach which companies and sectors, with the mechanism, the confidence and the source behind every assessment.',
   alternates: { canonical: absoluteUrl('/exposure') },

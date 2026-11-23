@@ -10,10 +10,10 @@ summary: "Yemen's Houthis declared a maritime embargo on Saudi Arabia on 20 July
 author: "editor"
 places: ["bab-el-mandeb", "suez"]
 sources:
-  - title: "Yemen's Iranian-backed Houthis say they will block Saudi shipping at Red Sea gateway"
-    url: "https://abcnews.com/International/wireStory/yemens-houthis-announce-maritime-embargo-saudi-arabia-134912678"
-    publisher: "Associated Press, via ABC News"
-    retrievedAt: "2026-11-18"
+  - title: "Yemen's Iranian-backed Houthis announce a maritime embargo against Saudi Arabia"
+    url: "https://www.pbs.org/newshour/world/yemens-iranian-backed-houthis-announce-a-maritime-embargo-against-saudi-arabia"
+    publisher: "Associated Press, via PBS News"
+    retrievedAt: "2026-11-23"
   - title: "Houthis warn all ships against calling at Saudi Arabia's ports"
     url: "https://gcaptain.com/houthis-warn-all-ships-against-calling-at-saudi-arabias-ports/"
     publisher: "Bloomberg, via gCaptain"

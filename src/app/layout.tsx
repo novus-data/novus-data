@@ -64,6 +64,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  // Lets search engines show a large preview image from a page, which Google
+  // needs before it will show a story in Discover; without it they may show a
+  // thumbnail at most. A page that sets its own `robots` (/debug/content, which
+  // is noindex) replaces this whole object, which is what it intends.
+  robots: { index: true, follow: true, 'max-image-preview': 'large' },
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
@@ -92,6 +97,18 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             articlesEnabled
               ? 'Novus Data — briefings, articles and reviews'
               : 'Novus Data — briefings'
+          }
+        />
+        {/* The same list as RSS 2.0, for readers and aggregators that do not
+            speak JSON Feed (src/app/rss.xml/route.ts). */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          href="/rss.xml"
+          title={
+            articlesEnabled
+              ? 'Novus Data — briefings, articles and reviews (RSS)'
+              : 'Novus Data — briefings (RSS)'
           }
         />
         <a

@@ -267,6 +267,8 @@ src/lib/accounts/          The account contract and its Supabase store. See 6b.
 src/lib/supabase/          Supabase clients. admin.ts is SERVER ONLY. See 6b.
 src/lib/env.ts             Environment access and URL resolution.
 src/lib/places.ts          Beehiiv tags that file a post under a chokepoint. Pure.
+src/lib/related.ts         Register entries and posts that share a tagged place, linked both ways. Server only.
+src/lib/seo.ts             Meta descriptions shortened to what a search result shows. Pure.
 src/lib/format.ts          Dates, issue numbers, reading time.
 src/lib/og.ts              Font data and colours for generated images.
 src/lib/structured-data.ts JSON-LD builders.
@@ -329,6 +331,35 @@ be called a complete archive. **That depends on syncing before an issue ages out
 of the feed window** (Beehiiv commonly exposes about twenty items). Any issue
 published before this system existed must be back-filled — either sync it now
 while it is still in the window, or write the file by hand.
+
+### Which copy search engines index (22 November 2026)
+
+**Every post's canonical URL is its page on this site**, not the Beehiiv copy.
+It used to point at Beehiiv wherever a post had come from there, on the reading
+that the email is published first. That reading belonged to the newsletter-page
+framing §1 replaced, and its effect was that no synced post could appear in
+search under novusdata.news. Google's guidance since 2023 is that a
+cross-domain canonical is not the tool for syndicated copies anyway (it asks
+the syndicating site to `noindex` instead). The Beehiiv copy stays linked under
+each post. **Do not point the canonical back at Beehiiv**: it would hand every
+post's search presence to a page outside the register, the map and the
+subscribe flow. The other half is an account step, not code: Beehiiv's own
+copies stay indexable until "Discoverable on the web" is turned off in its SEO
+settings (Rule 7: the person with the login does it). Check the next sync still
+picks up new posts afterwards, since it reads Beehiiv's RSS.
+
+The sync also drops the "Powered by beehiiv" link Beehiiv's feed appends to
+every post (`FEED_FOOTER` in `scripts/sync-issues.ts`). It is the feed's
+footer, not the writing, and on this site it read as the article's last line.
+
+### Links between the writing and the register
+
+A register entry lists the briefings and articles whose writers tagged them
+with its place, and a post links to the open register entries about its
+tagged place (`src/lib/related.ts`). The link is the writer's tag, exactly as
+on the map (§6a): never matched from the text. Posts and entries also carry
+plain share links (LinkedIn, X, email) that load nothing until clicked, so
+`/privacy` stays true, and each entry prints the citation `/data` asks for.
 
 ## 6a. The register and the exposure chart
 
@@ -1272,8 +1303,10 @@ timestamps, and the archive has both by design:
 build `feed.json` from `listIssues()`. That was the wrong feed: alerts do not
 fire on newsletters. `src/app/register.json/route.ts` emits the **register**
 instead, which is the actual trigger source, and §6c records why its items are
-state rather than events. An issues feed remains a reasonable reading
-convenience and is still unbuilt; it is not a prerequisite for the app.
+state rather than events. The issues feed was built later, as `/feed.json`
+(JSON Feed) and `/rss.xml` (RSS 2.0, for readers and aggregators that only
+read RSS), both summaries only and both linking to the pages here; neither is
+a prerequisite for the app.
 
 **Where the app's state must NOT live.** Device tokens, per-reader preferences,
 delivery logs and read receipts are mutable, per-user, privacy-bearing data. This

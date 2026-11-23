@@ -3,6 +3,31 @@
 State of the build, what is unresolved, and what I decided when the brief did not
 decide for me. Written to be read once, in order.
 
+## Added 23 November 2026 — search, feeds and links (pull request #79)
+
+From an overnight audit of the live site, as one draft pull request for Alex.
+The reasons are in CLAUDE.md §6 ("Which copy search engines index" and "Links
+between the writing and the register") and the proposal in DECISIONS.md
+("Search, feeds and sharing"). In short:
+- Synced posts are now canonical on novusdata.news instead of Beehiiv.
+- Search titles name the subject.
+- The register carries Dataset markup on `/data`.
+- `/rss.xml` exists.
+- Posts and entries have share links, and entries have a citation line.
+- Register entries and posts link to each other through the writers' place tags.
+- The sync drops Beehiiv's "Powered by beehiiv" footer.
+- The `/mancale` map's tap targets no longer overlap.
+- One expired source link in the register was replaced.
+
+Open, all account steps (DEPLOY.md Part 9):
+- turn off "Discoverable on the web" in Beehiiv
+- verify the domain in Google Search Console with a DNS TXT record and submit the sitemap
+- import the site into Bing Webmaster Tools
+
+Not in the repository, by design: the growth and advertising plan went to Alex
+and Gavin directly, because it carries subscriber numbers and anything about
+money needs both founders.
+
 ## Added 27 October 2026 — the visual refresh
 
 From Gavin's Claude, as one pull request for Alex. The home page, the buttons,

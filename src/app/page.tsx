@@ -40,7 +40,9 @@ import { publicationJsonLd } from '@/lib/structured-data';
 const FULL_WIDTH = 'md:col-span-2 lg:col-span-12';
 
 export const metadata: Metadata = {
-  title: publication.name,
+  // The words a reader searches for, after the name. The nameplate on the page
+  // still reads "Novus Data"; this is the line a search result shows.
+  title: { absolute: `${publication.name} — supply chain disruption tracker and briefing` },
   description: publication.description,
   alternates: { canonical: absoluteUrl('/') },
 };

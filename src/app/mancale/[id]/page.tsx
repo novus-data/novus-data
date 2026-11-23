@@ -44,7 +44,9 @@ export async function generateMetadata(props: PageProps<'/mancale/[id]'>): Promi
   const point = index?.chokepoints.find((candidate) => candidate.id === id);
   if (!index || !point) return { title: 'Not found' };
 
-  const title = `${point.label} · Mancalë Index`;
+  // What the page measures, in the words a reader would search for, before the
+  // index's name: "Strait of Hormuz: weekly ship traffic and news".
+  const title = `${point.label}: weekly ship traffic${point.hasNews ? ' and news' : ''} · Mancalë Index`;
   // Words and dates only. A description travels in link previews, and a figure
   // there is read without the chart or the method beside it.
   const description = `${point.label}, week of ${formatLongDate(point.latest.weekStart)}: ${reading(point.latest)}. Ship traffic${

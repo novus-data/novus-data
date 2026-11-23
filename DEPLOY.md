@@ -707,7 +707,7 @@ Start on the free plan. Upgrade only when a feature is actually needed.
 
 | Where you find it | Becomes | Needed |
 |---|---|---|
-| The signup on the custom domain — `https://newsletter.novusdata.news/?modal=signup`; open it and check the form appears | `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` | **Yes, to launch** |
+| The publication's sign-up page — currently `https://alexs-newsletter-408c44.beehiiv.com/subscribe`; open it and check the form appears. (`newsletter.novusdata.news` is not connected to the current publication; DECISIONS.md, 22 November 2026.) | `NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL` | **Yes, to launch** |
 | The publication's web address — `https://<subdomain>.beehiiv.com` | `NEXT_PUBLIC_BEEHIIV_HOME_URL` | Optional |
 | The RSS feed address from step 2 | `NEXT_PUBLIC_BEEHIIV_FEED_URL` on Vercel, and `BEEHIIV_RSS_URL` for the sync script | Optional for the site, required to sync |
 
@@ -751,3 +751,54 @@ missing or empty full-text body, including a forced re-pull. A description is
 never used as a replacement body. A feed with zero items proves the URL works,
 but cannot prove full-text support. After the first send, compare the dry run
 and imported body against the published issue before committing it.
+
+## Part 9 — Search engines
+
+The site tells search engines which copy of each post is the original
+(CLAUDE.md §6, "Which copy search engines index"). These steps need account
+logins, so a person does them (Rule 7). None adds anything to the site: Search
+Console and Bing Webmaster Tools read what search engines already know, so
+`/privacy` stays true.
+
+### 1. Google Search Console
+
+1. Go to search.google.com/search-console, choose **Add property**, then
+   **Domain**, and enter `novusdata.news`. A Domain property covers `www`, the
+   bare domain and both protocols at once.
+2. Google shows a TXT record. Add it at the DNS host for `novusdata.news`, then
+   press **Verify**. DNS changes can take an hour to be seen.
+3. **Sitemaps** → submit `https://www.novusdata.news/sitemap.xml`.
+4. **URL inspection** → paste the address of a recent post, for example an
+   article under `/articles/`, then press **Request indexing**. Under
+   "Page indexing", the Google-selected canonical should be that same
+   novusdata.news address. If Google still picks the Beehiiv copy, do step 3
+   below and give it a few weeks.
+
+### 2. Bing Webmaster Tools
+
+Go to bing.com/webmasters and choose **Import from Google Search Console**. It
+copies the verified site and its sitemap in one step.
+
+### 3. Stop Beehiiv's copies competing
+
+In Beehiiv: the website's **SEO settings** → turn **Discoverable on the web**
+off. On the older website builder it is **Remove indexing**, turned on.
+Beehiiv's copies then carry `noindex`, which is what Google asks of a
+syndicated copy, and the site's pages are the only ones left to rank.
+
+Afterwards, run `npm run sync-issues -- --dry-run` and check that the feed
+still lists recent posts. The sync reads Beehiiv's RSS feed, not its web pages,
+so it should be unaffected, but it is the one thing to confirm.
+
+### 4. Check the Dataset markup (optional)
+
+Paste `https://www.novusdata.news/data` into Google's Rich Results Test
+(search.google.com/test/rich-results). It should detect a **Dataset**. Being
+listed in Google Dataset Search can take weeks after that.
+
+### What not to do
+
+- Do not pay for links, submit the site to link directories, or swap links
+  with unrelated sites. Google's spam policies count those as link schemes.
+- Do not change a register entry's review date to look fresh. The date means a
+  review happened (CLAUDE.md §6a).

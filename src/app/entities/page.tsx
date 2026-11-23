@@ -19,7 +19,18 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: absoluteUrl('/entities') },
-  openGraph: { title, description, url: absoluteUrl('/entities') },
+  // A page's own openGraph replaces the layout's whole object, image included,
+  // so the site card is named here or a shared link previews with no image
+  // (the same class of bug /mancale/scorecard fixed).
+  openGraph: {
+    type: 'website',
+    siteName: publication.name,
+    title,
+    description,
+    url: absoluteUrl('/entities'),
+    locale: 'en_GB',
+    images: [{ url: absoluteUrl('/opengraph-image'), width: 1200, height: 630, alt: publication.name }],
+  },
 };
 
 export default async function EntitiesPage() {

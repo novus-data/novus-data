@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { PostPage, postMetadata } from '@/components/post-page';
 import { getIssue, getIssueNeighbours, listIssueSlugs } from '@/lib/content';
+import { openEntriesAboutPost } from '@/lib/related';
 
 /**
  * Every issue is a file in this repository, so the full slug list is known at
@@ -27,5 +28,10 @@ export default async function IssuePage(props: PageProps<'/briefings/[slug]'>) {
   const issue = await getIssue(slug);
   if (!issue) notFound();
 
-  return <PostPage post={issue} {...await getIssueNeighbours(slug)} />;
+  const [neighbours, registerEntries] = await Promise.all([
+    getIssueNeighbours(slug),
+    openEntriesAboutPost(issue),
+  ]);
+
+  return <PostPage post={issue} {...neighbours} registerEntries={registerEntries} />;
 }

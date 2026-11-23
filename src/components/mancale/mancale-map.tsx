@@ -111,14 +111,27 @@ export function MancaleMap({ points }: { points: MancaleMapPoint[] }) {
           <svg role="img"> hides what is inside it from assistive technology
           while keyboard focus can still land there. Hidden below `sm`, where
           neighbouring markers sit closer than a fingertip; the numbered list
-          under the map is the target there. */}
+          under the map is the target there.
+
+          Each target is exactly its marker's size, as a share of the map's
+          width, so two targets can only overlap where two markers do. Fixed
+          24px and 28px targets used to overlap Suez and the Bosporus wherever
+          the map is drawn narrow (in the page's two-column layout from `lg`,
+          about 17px apart), so a click there could open the wrong chart. Where
+          a marker is drawn smaller than 24px, the numbered list under the map
+          offers the same links at full size (WCAG 2.5.8's equivalent-control
+          exception). */}
       {markers.map((marker) => (
         <a
           key={marker.id}
           href={`#${marker.id}`}
           aria-label={`${marker.label}: ${marker.word}. Jump to its chart.`}
-          className="absolute hidden size-6 -translate-x-1/2 -translate-y-1/2 rounded-full ring-link transition-shadow hover:ring-2 focus-visible:outline-none focus-visible:ring-2 sm:block md:size-7"
-          style={{ left: `${(marker.x / WIDTH) * 100}%`, top: `${(marker.y / HEIGHT) * 100}%` }}
+          className="absolute hidden aspect-square -translate-x-1/2 -translate-y-1/2 rounded-full ring-link transition-shadow hover:ring-2 focus-visible:outline-none focus-visible:ring-2 sm:block"
+          style={{
+            left: `${(marker.x / WIDTH) * 100}%`,
+            top: `${(marker.y / HEIGHT) * 100}%`,
+            width: `${((MARKER_RADIUS * 2) / WIDTH) * 100}%`,
+          }}
         />
       ))}
       </div>

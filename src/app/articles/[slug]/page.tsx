@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { PostPage, postMetadata } from '@/components/post-page';
 import { articlesEnabled } from '@/config/launch';
 import { getArticle, getArticleNeighbours, listArticleSlugs } from '@/lib/content';
+import { openEntriesAboutPost } from '@/lib/related';
 
 /**
  * An article or long-term review — the same reading page as a briefing, with
@@ -32,5 +33,10 @@ export default async function ArticlePage(props: PageProps<'/articles/[slug]'>) 
   const issue = await getArticle(slug);
   if (!issue) notFound();
 
-  return <PostPage post={issue} {...await getArticleNeighbours(slug)} />;
+  const [neighbours, registerEntries] = await Promise.all([
+    getArticleNeighbours(slug),
+    openEntriesAboutPost(issue),
+  ]);
+
+  return <PostPage post={issue} {...neighbours} registerEntries={registerEntries} />;
 }
