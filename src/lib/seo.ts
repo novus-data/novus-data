@@ -32,7 +32,7 @@ const ABBREVIATIONS = new Set([
 function endsWithAbbreviation(text: string, dotIndex: number): boolean {
   const start = text.lastIndexOf(' ', dotIndex) + 1;
   const token = text.slice(start, dotIndex + 1).replace(/^["“‘(]+/, '').toLowerCase();
-  if (/^(?:[a-z]\.)+$/.test(token)) return true;
+  if (/^(?:[a-z]\.){2,}$/.test(token)) return true;
   return ABBREVIATIONS.has(token.slice(0, -1));
 }
 
