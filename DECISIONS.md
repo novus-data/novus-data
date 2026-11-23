@@ -483,6 +483,11 @@ is settled until the pull request that adds this entry is merged.
 - **Beehiiv's feed footer.** The sync drops the "Powered by beehiiv" link
   Beehiiv's RSS appends to every post, and it was removed from the 17 posts
   already synced. Only that link went; the writing is unchanged.
+- **The `/mancale` map's tap targets** no longer overlap (the axe target-size
+  failure recorded under "Visual refresh"). Each link over a marker is now
+  exactly the marker's size, so two targets meet only where two markers do;
+  where the map is drawn narrow, the numbered list under it gives the same
+  links at full size.
 - **Not in this change: anything involving money.** Advertising and sponsorship
   need both founders (see "How decisions get made"), and pricing stays outside
   this repository until both agree (18 November entry above).
