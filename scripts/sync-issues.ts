@@ -340,13 +340,29 @@ function imagesWithoutCredit(html: string | null): string[] {
     .map((tag) => tag.match(/\ssrc="([^"]*)"/)?.[1] ?? '(image with no src)');
 }
 
+/**
+ * Beehiiv's RSS feed appends a "Powered by beehiiv" link to every post, after
+ * a rule and a line break (its URL carries utm_medium=post_rss). Nobody wrote
+ * it: it is the feed's footer, not the post's, and on this site it read as
+ * the last line of the article. Only that link, and the rule and breaks
+ * directly before it, are removed, and only at the very end of the body.
+ *
+ * Matching with a regular expression is safe for the reason given at
+ * imagesWithoutAlt below: this runs on sanitize-html's output, where every tag
+ * has been rebuilt and every attribute value double-quoted.
+ */
+const FEED_FOOTER =
+  /(?:\s*<br \/>)*\s*(?:<hr \/>)?\s*<a\b[^>]*\shref="https:\/\/www\.beehiiv\.com\/powered-by[^"]*"[^>]*>\s*Powered by beehiiv\s*<\/a>\s*$/i;
+
 function sanitiseBody(html: string | null): string | null {
   if (!html) return null;
   const cleaned = sanitizeHtml(html, sanitizeOptions)
     // Removing a <script> or <style> block leaves the blank line it sat on.
     // Collapse those so the stored file stays readable for hand-editing.
     .replace(/(?:[ \t]*\r?\n){3,}/g, '\n\n')
-    .trim();
+    .trim()
+    .replace(FEED_FOOTER, '')
+    .trimEnd();
   const readableText = stripHtml(cleaned).replace(/&(?:nbsp|#0*160|#x0*a0);/gi, ' ').trim();
   // Empty markup is not an issue body. An image-only issue still has content.
   return readableText || /<img\b[^>]*\ssrc="[^"]+"/.test(cleaned) ? cleaned : null;

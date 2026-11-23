@@ -41,7 +41,7 @@ function passed(name) { checks++; console.log(`PASS ${name}`); }
   await fs.writeFile(path.join(cwd, '.env.local'), `BEEHIIV_RSS_URL=${url}\n`);
   const script = path.join(repo, 'scripts/sync-issues.ts');
   const files = async () => { try { return await fs.readdir(path.join(cwd, 'content/issues')); } catch (e) { if (e.code === 'ENOENT') return []; throw e; } };
-  feed = rss(item('full-text', '<p>[SAMPLE] Complete issue.</p><script>bad()</script>', 'full-text-guid', 'Article'));
+  feed = rss(item('full-text', '<p>[SAMPLE] Complete issue.</p><script>bad()</script><br><hr><a target="_blank" href="https://www.beehiiv.com/powered-by?publication_name=Sample&amp;utm_medium=post_rss">Powered by beehiiv</a>', 'full-text-guid', 'Article'));
   let result = await run(cwd, script, ['--dry-run']);
   assert.equal(result.code, 0, result.out);
   assert.match(result.out, /would write.*Article/);
@@ -56,8 +56,9 @@ function passed(name) { checks++; console.log(`PASS ${name}`); }
   const original = await fs.readFile(issueFile, 'utf8');
   assert.match(original, /Complete issue/);
   assert.doesNotMatch(original, /bad\(\)/);
+  assert.doesNotMatch(original, /Powered by beehiiv|<hr \/>/);
   assert.match(original, /beehiivGuid: "full-text-guid"/);
-  passed('full text saved with stable identity and sanitisation');
+  passed('full text saved with stable identity and sanitisation, feed footer dropped');
 
   feed = rss(item('new-valid'), item('new-missing', null));
   for (const args of [['--dry-run'], []]) {
