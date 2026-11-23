@@ -343,7 +343,10 @@ cross-domain canonical is not the tool for syndicated copies anyway (it asks
 the syndicating site to `noindex` instead). The Beehiiv copy stays linked under
 each post. **Do not point the canonical back at Beehiiv**: it would hand every
 post's search presence to a page outside the register, the map and the
-subscribe flow.
+subscribe flow. The other half is an account step, not code: Beehiiv's own
+copies stay indexable until "Discoverable on the web" is turned off in its SEO
+settings (Rule 7: the person with the login does it). Check the next sync still
+picks up new posts afterwards, since it reads Beehiiv's RSS.
 
 The sync also drops the "Powered by beehiiv" link Beehiiv's feed appends to
 every post (`FEED_FOOTER` in `scripts/sync-issues.ts`). It is the feed's

@@ -462,7 +462,10 @@ is settled until the pull request that adds this entry is merged.
 - **Posts are canonical on novusdata.news.** Synced posts used to name their
   Beehiiv copy as canonical, which kept every one of them out of search under
   this domain. Reasons and the rule in CLAUDE.md §6, "Which copy search engines
-  index". The Beehiiv copy is still linked under each post.
+  index". The Beehiiv copy is still linked under each post. To finish the job,
+  `arowsom-oss` turns off "Discoverable on the web" in Beehiiv's SEO settings,
+  so Beehiiv's copies stop competing in search; that is an account step, not
+  code.
 - **Search titles and descriptions.** Index pages are titled by their subject
   ("Supply chain disruption register") while their headings are unchanged, and a
   register entry's meta description is its summary shortened at a sentence or
