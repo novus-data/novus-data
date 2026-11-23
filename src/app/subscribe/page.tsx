@@ -13,7 +13,12 @@ import { formatLongDate, readingTimeMinutes } from '@/lib/format';
 
 export const metadata: Metadata = {
   title: 'Subscribe',
-  description: `Get ${publication.name} by email.`,
+  // The page people are sent to, so its search result and link preview say
+  // what arrives and how often. The schedule is read from the config, never
+  // typed here (Rule 6).
+  description: `Get ${publication.newsletter.name} free by email: what moved in the supply chain disruption register.${
+    publication.cadence ? ` Published ${publication.cadence}.` : ''
+  }`,
   alternates: { canonical: absoluteUrl('/subscribe') },
 };
 

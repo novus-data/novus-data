@@ -12,7 +12,7 @@ import { absoluteUrl } from '@/lib/env';
 
 export const metadata: Metadata = {
   title: 'Briefings',
-  description: `Every issue of ${publication.name}, in reverse chronological order.`,
+  description: `Every issue of ${publication.newsletter.name}, newest first: the emailed summary of what moved in the ${publication.name} supply chain disruption register.`,
   alternates: { canonical: absoluteUrl('/briefings') },
 };
 
