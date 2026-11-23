@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
 
 import { Container } from '@/components/container';
+import { JsonLd } from '@/components/json-ld';
 import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
 import { MailLink, TextLink } from '@/components/text-link';
 import { mancaleEnabled } from '@/config/launch';
 import { publication } from '@/config/publication';
-import { STALE_AFTER_DAYS } from '@/lib/disruptions';
+import { STALE_AFTER_DAYS, listDisruptions } from '@/lib/disruptions';
 import { absoluteUrl, env } from '@/lib/env';
+import { registerDatasetJsonLd } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: 'Data and downloads',
@@ -25,9 +27,17 @@ export const metadata: Metadata = {
  * themselves are the evidence. Everything listed here is already public and
  * statically built; this page adds no data and stores nothing.
  */
-export default function DataPage() {
+export default async function DataPage() {
+  // The register's own dates, for the Dataset markup (structured-data.ts).
+  // Read from the entries, so they move with the register and nothing here is
+  // typed by hand.
+  const entries = await listDisruptions();
+  const earliestStart = entries.map((entry) => entry.startedAt).filter(Boolean).sort()[0] ?? null;
+  const latestReview = entries.map((entry) => entry.updatedAt).filter(Boolean).sort().at(-1) ?? null;
+
   return (
     <>
+      <JsonLd data={registerDatasetJsonLd({ earliestStart, latestReview })} />
       <PageHeader
         width="reading"
         title="Data and downloads"
@@ -88,6 +98,15 @@ export default function DataPage() {
               <dd className="mt-1 text-muted">
                 Everything written for the site, briefings and articles, as a JSON Feed with
                 summaries and links.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium">
+                <TextLink href="/rss.xml">rss.xml</TextLink>
+              </dt>
+              <dd className="mt-1 text-muted">
+                The same list of briefings and articles as RSS, for feed readers that do not
+                read JSON Feed.
               </dd>
             </div>
             <div>

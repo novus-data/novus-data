@@ -67,6 +67,55 @@ export function issueJsonLd(issue: Issue, canonicalUrl: string): Json {
 }
 
 /**
+ * The register as a schema.org Dataset, for /data.
+ *
+ * Google's Dataset Search lists pages that carry this markup, which is where a
+ * researcher or a journalist looking for disruption data would find the
+ * register's files. Only the register is described: the Mancalë Index is built
+ * on IMF PortWatch and GDELT data whose terms govern reuse, and /data says it
+ * is not part of the downloads.
+ *
+ * No count of entries or rows (Rule 1). The two dates are the register's own:
+ * the earliest date an entry began, and the latest review. The coverage runs
+ * open-ended ("../") because the register is still being kept.
+ */
+export function registerDatasetJsonLd(dates: {
+  earliestStart: string | null;
+  latestReview: string | null;
+}): Json {
+  const day = (value: string | null): string | undefined => {
+    const date = toDate(value);
+    return date ? date.toISOString().slice(0, 10) : undefined;
+  };
+  const start = day(dates.earliestStart);
+
+  return compact({
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: `${publication.name} disruption register`,
+    description:
+      'Disruptions in physical trade (chokepoints, ports, trade measures, inputs, energy, labour and weather), each with its status, start date, review date and sources, and the companies and sectors each one reaches, with the mechanism, severity, confidence, as-of date and sources behind every assessment.',
+    url: absoluteUrl('/data'),
+    creator: { '@type': 'Organization', name: publication.name, url: absoluteUrl('/') },
+    isAccessibleForFree: true,
+    inLanguage: 'en-GB',
+    keywords: ['supply chain', 'shipping', 'trade policy', 'chokepoints', 'disruption', 'exposure'],
+    dateModified: day(dates.latestReview),
+    temporalCoverage: start ? `${start}/..` : undefined,
+    conditionsOfAccess:
+      'Quote or cite any entry with a link to its page and its review date. Ask first for bulk, commercial or redistribution use.',
+    distribution: [
+      { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl('/register.csv') },
+      {
+        '@type': 'DataDownload',
+        encodingFormat: 'application/feed+json',
+        contentUrl: absoluteUrl('/register.json'),
+      },
+    ],
+  });
+}
+
+/**
  * A register entry, as an Article.
  *
  * `datePublished` is when the disruption was first recorded and `dateModified`

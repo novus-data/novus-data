@@ -11,7 +11,8 @@ import { absoluteUrl } from '@/lib/env';
 import { formatShortDate } from '@/lib/format';
 
 export const metadata: Metadata = {
-  title: 'Disruptions',
+  // The page is headed "Disruptions"; a search result needs the subject too.
+  title: 'Supply chain disruption register',
   description:
     'The register of tracked supply chain disruptions: what is going wrong, where, how far along it is, and when each entry was last reviewed.',
   alternates: { canonical: absoluteUrl('/disruptions') },
