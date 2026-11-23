@@ -7,8 +7,9 @@ import { Container } from '@/components/container';
 import { JsonLd } from '@/components/json-ld';
 import { PrintPermalink } from '@/components/print-permalink';
 import { ProseBody } from '@/components/prose-body';
+import { ShareLinks } from '@/components/share-links';
 import { SourceList } from '@/components/source-list';
-import { mancaleEnabled } from '@/config/launch';
+import { articlesEnabled, mancaleEnabled } from '@/config/launch';
 import { hasCoAuthors, publication, recordedBy } from '@/config/publication';
 import { StatusBadge } from '@/components/status-badge';
 import { StoryBox } from '@/components/story-box';
@@ -21,10 +22,13 @@ import {
   isStale,
   listDisruptionIds,
 } from '@/lib/disruptions';
-import { absoluteUrl } from '@/lib/env';
-import { formatLongDate } from '@/lib/format';
+import { POST_KIND_LABELS, postPath } from '@/lib/content';
+import { absoluteUrl, env } from '@/lib/env';
+import { formatLongDate, formatShortDate } from '@/lib/format';
 import { getMancale, mancaleIdsForPlaces } from '@/lib/indicators';
 import { getPhotoForPlaces } from '@/lib/photos';
+import { postsAboutPlaces } from '@/lib/related';
+import { metaDescription } from '@/lib/seo';
 import { disruptionJsonLd } from '@/lib/structured-data';
 
 export async function generateStaticParams() {
@@ -39,14 +43,18 @@ export async function generateMetadata(props: PageProps<'/disruptions/[id]'>): P
   const disruption = await getDisruption(id);
   if (!disruption) return { title: 'Disruption not found' };
 
+  // The summary runs to several sentences; search results and link previews
+  // show about one. The page and its structured data keep the whole summary.
+  const description = metaDescription(disruption.summary);
+
   return {
     title: disruption.title,
-    description: disruption.summary,
+    description,
     alternates: { canonical: absoluteUrl(`/disruptions/${disruption.id}`) },
     openGraph: {
       type: 'article',
       title: disruption.title,
-      description: disruption.summary,
+      description,
       url: absoluteUrl(`/disruptions/${disruption.id}`),
     },
   };
@@ -76,6 +84,10 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
         return point ? [{ id: point.id, label: point.label }] : [];
       })
     : [];
+
+  // Briefings and articles whose writers tagged them with this entry's place,
+  // newest first (src/lib/related.ts). Decided by the tag, never by the text.
+  const coverage = await postsAboutPlaces(disruption.places);
 
   // The person who made this assessment. Falls back to the editor, who stands
   // behind anything the publication prints, and renders nothing at all while
@@ -239,10 +251,57 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
         <StoryBox as="section" level={2} id="sources" kicker="Sources" kickerTone="muted" title="Where this comes from">
           <SourceList sources={disruption.sources} />
         </StoryBox>
+
+        {coverage.length > 0 ? (
+          <StoryBox
+            as="section"
+            size="compact"
+            level={2}
+            id="coverage"
+            kicker="Coverage"
+            kickerTone="muted"
+            title="Briefings and articles about this place"
+            footer={
+              <>
+                <TextLink href="/briefings">Every briefing</TextLink>
+                {articlesEnabled ? <TextLink href="/articles">Every article</TextLink> : null}
+              </>
+            }
+          >
+            <ul className="flex flex-col gap-3">
+              {coverage.map((post) => (
+                <li key={post.slug}>
+                  <TextLink href={postPath(post)}>{post.title}</TextLink>
+                  <p className="mt-0.5 text-meta text-muted">
+                    {POST_KIND_LABELS[post.kind]}
+                    {formatShortDate(post.publishedAt) ? (
+                      <>
+                        {' · '}
+                        <time data-numeric dateTime={post.publishedAt}>
+                          {formatShortDate(post.publishedAt)}
+                        </time>
+                      </>
+                    ) : null}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </StoryBox>
+        ) : null}
       </Container>
 
-      <Container width="reading" className="mt-8">
-        <PrintPermalink path={`/disruptions/${disruption.id}`} className="mb-2" />
+      <Container width="reading" className="mt-8 flex flex-col gap-3">
+        <ShareLinks path={`/disruptions/${disruption.id}`} title={disruption.title} />
+        {/* The citation /data asks for, filled in, so quoting an entry correctly
+            takes no work. Only with a real site address: a citation naming a
+            preview or localhost address would send a reader nowhere. */}
+        {env.siteUrlIsConfigured && updated ? (
+          <p className="max-w-measure text-meta text-muted">
+            Cite this entry as: Novus Data, “{disruption.title}”, disruption register, last reviewed{' '}
+            {updated}, {env.siteUrl}/disruptions/{disruption.id}
+          </p>
+        ) : null}
+        <PrintPermalink path={`/disruptions/${disruption.id}`} />
         <p className="max-w-measure text-meta text-muted">
           {publication.disclaimer}
         </p>

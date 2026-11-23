@@ -58,6 +58,27 @@ export function MailLink({
   );
 }
 
+/**
+ * A `mailto:` link with its own words ("Email"), for a message the reader
+ * writes, such as passing a page on. Not an ExternalLink, for MailLink's
+ * reason above.
+ */
+export function MailtoLink({
+  href,
+  children,
+  className,
+}: {
+  href: `mailto:${string}`;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <a href={href} className={clsx(baseClasses, className)}>
+      {children}
+    </a>
+  );
+}
+
 /** Outbound link. Always rel-hardened; never opens a tab silently. */
 export function ExternalLink({
   className,
