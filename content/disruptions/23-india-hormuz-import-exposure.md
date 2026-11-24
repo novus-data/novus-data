@@ -1,0 +1,65 @@
+---
+id: "india-hormuz-import-exposure"
+title: "India's crude, LNG and LPG exposure to the Strait of Hormuz"
+shortLabel: "INDI"
+status: "easing"
+category: "energy"
+startedAt: "2026-02-28"
+updatedAt: "2026-11-20"
+summary: "S&P Global put about 52 per cent of India's roughly 5 million barrels a day of crude imports through the Strait of Hormuz when the conflict began, up from 41 per cent in 2025 as refiners had cut Russian purchases. Reported figures for the first nine months of FY2026 put 55 per cent of India's LNG imports and 88 per cent of its LPG imports through the same water. Crude imports crossed 5 million barrels a day again in June on higher Russian volumes and new Latin American and African cargoes, so the crude leg has largely recovered while LPG remains the concentrated exposure."
+author: "editor"
+places: ["hormuz"]
+sources:
+  - title: "India weighs alternate crudes, refining costs, economic fallout as Iran conflict drags on"
+    url: "https://www.spglobal.com/energy/en/news-research/latest-news/crude-oil/030526-india-weighs-alternate-crudes-refining-costs-economic-fallout-as-iran-conflict-drags-on"
+    publisher: "S&P Global Commodity Insights"
+    retrievedAt: "2026-11-20"
+  - title: "Is India in an oil and gas crisis? Iran war and Strait of Hormuz disruption"
+    url: "https://www.wrightresearch.in/blog/is-india-in-an-oil-gas-crisis-iran-war-strait-of-hormuz-disruption/"
+    publisher: "Wright Research"
+    retrievedAt: "2026-11-20"
+  - title: "India's oil comeback: how refiners navigated the Strait of Hormuz crisis"
+    url: "https://www.outlookbusiness.com/amp/story/economy-and-policy/indias-oil-comeback-how-refiners-navigated-the-strait-of-hormuz-crisis"
+    publisher: "Outlook Business"
+    retrievedAt: "2026-11-20"
+  - title: "India spots opportunity in Venezuelan crude as Hormuz crisis squeezes supplies"
+    url: "https://www.spglobal.com/energy/en/news-research/latest-news/crude-oil/040826-india-spots-opportunity-in-venezuelan-crude-as-hormuz-crisis-squeezes-supplies"
+    publisher: "S&P Global Commodity Insights"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "indian-refiners"
+      name: "Indian refiners"
+      kind: "sector"
+      ticker: null
+      sector: "Refining"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "Gulf crude is bought on a loading basis, so a closed strait strands contracted cargoes and forces refiners onto spot grades their units were not configured for, raising costs and freight even once volumes recover."
+    asOf: "2026-06-30"
+    sources:
+      - title: "India weighs alternate crudes, refining costs, economic fallout as Iran conflict drags on"
+        url: "https://www.spglobal.com/energy/en/news-research/latest-news/crude-oil/030526-india-weighs-alternate-crudes-refining-costs-economic-fallout-as-iran-conflict-drags-on"
+        publisher: "S&P Global Commodity Insights"
+        retrievedAt: "2026-11-20"
+      - title: "India's oil comeback: how refiners navigated the Strait of Hormuz crisis"
+        url: "https://www.outlookbusiness.com/amp/story/economy-and-policy/indias-oil-comeback-how-refiners-navigated-the-strait-of-hormuz-crisis"
+        publisher: "Outlook Business"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "indian-lpg-importers"
+      name: "Indian LPG importers and bottlers"
+      kind: "sector"
+      ticker: null
+      sector: "Fuel distribution"
+    severity: "high"
+    confidence: "inferred"
+    mechanism: "Reported FY2026 figures put 88 per cent of India's LPG imports through the strait, a higher concentration than crude or LNG and with fewer alternative suppliers, so cooking-fuel supply has the least room to reroute."
+    asOf: "2026-05-29"
+    sources:
+      - title: "Is India in an oil and gas crisis? Iran war and Strait of Hormuz disruption"
+        url: "https://www.wrightresearch.in/blog/is-india-in-an-oil-gas-crisis-iran-war-strait-of-hormuz-disruption/"
+        publisher: "Wright Research"
+        retrievedAt: "2026-11-20"
+---
+<p>India is the clearest test of whether diversification works under pressure, and the answer so far is that it works for crude and not for LPG. Angola briefly became India's third-largest crude supplier in March at around 334,000 barrels a day, and S&P Global tracked 12.4 million barrels of Venezuelan crude heading for Sikka in April alone.</p>

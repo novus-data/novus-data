@@ -1,0 +1,80 @@
+---
+id: "russia-fuel-export-restrictions"
+title: "Russian diesel exports cut by refinery strikes and export bans"
+shortLabel: "RUFL"
+status: "active"
+category: "energy"
+startedAt: "2026-07-08"
+updatedAt: "2026-11-20"
+summary: "Ukrainian drone strikes on Russian refineries have cut the output of the world's second-largest diesel exporter, and the IEA estimates a Russian refinery was successfully struck once every three days during the first eight months of 2026. Russia banned diesel exports from 8 July 2026 and began importing fuel, with later restrictions reported on gasoline exports through 31 January and jet fuel exports through the end of November 2026. Kpler data put Russian diesel exports down more than 75 per cent at 141,000 barrels a day in September against 608,000 a year earlier."
+author: "editor"
+places: []
+sources:
+  - title: "How Ukraine's drone strikes on Russia crippled the world's second-largest diesel supplier"
+    url: "https://www.cnbc.com/2026/10/21/ukraine-russia-drone-diesel-refinery-trump-putin-zelenskyy.html"
+    publisher: "CNBC"
+    retrievedAt: "2026-11-20"
+  - title: "Drone strikes cripple half of Russia's top diesel refineries"
+    url: "https://oilprice.com/Latest-Energy-News/World-News/Drone-Strikes-Cripple-Half-of-Russias-Top-Diesel-Refineries.html"
+    publisher: "OilPrice.com"
+    retrievedAt: "2026-11-20"
+  - title: "Russia bans diesel exports after Ukrainian attacks, straining already tense global market"
+    url: "https://www.cnn.com/2026/07/09/business/russia-diesel-ban-ukrainian-strikes-intl"
+    publisher: "CNN"
+    retrievedAt: "2026-11-20"
+  - title: "Russia to extend diesel export ban as Ukrainian drone strikes hit refineries"
+    url: "https://english.nv.ua/business/russia-to-extend-diesel-export-ban-as-ukrainian-drone-strikes-hit-refineries-reuters-50635575.html"
+    publisher: "Reuters, via The New Voice of Ukraine"
+    retrievedAt: "2026-11-20"
+  - title: "How Ukraine uses precision drone strikes to hobble Russian oil refineries"
+    url: "https://www.washingtonpost.com/investigations/interactive/2026/10/11/how-ukraine-uses-precision-drone-strikes-hobble-russian-oil-refineries/"
+    publisher: "The Washington Post"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "global-diesel-buyers"
+      name: "Diesel buyers in import-dependent markets"
+      kind: "sector"
+      ticker: null
+      sector: "Fuel distribution"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Russia was the world's second-largest diesel exporter and its shipments fell by more than three quarters year on year in September, removing barrels from a market already short of Gulf product."
+    asOf: "2026-10-21"
+    sources:
+      - title: "How Ukraine's drone strikes on Russia crippled the world's second-largest diesel supplier"
+        url: "https://www.cnbc.com/2026/10/21/ukraine-russia-drone-diesel-refinery-trump-putin-zelenskyy.html"
+        publisher: "CNBC"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "russian-domestic-fuel-consumers"
+      name: "Russian domestic fuel consumers"
+      kind: "sector"
+      ticker: null
+      sector: "Fuel distribution"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Damage to refineries produced the country's worst fuel crisis since the Soviet collapse, with major fuel companies limiting how much customers can buy and gasoline and diesel prices up about 20 per cent since the start of the year."
+    asOf: "2026-10-11"
+    sources:
+      - title: "How Ukraine uses precision drone strikes to hobble Russian oil refineries"
+        url: "https://www.washingtonpost.com/investigations/interactive/2026/10/11/how-ukraine-uses-precision-drone-strikes-hobble-russian-oil-refineries/"
+        publisher: "The Washington Post"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "jet-fuel-buyers"
+      name: "Jet fuel buyers outside Russia"
+      kind: "sector"
+      ticker: null
+      sector: "Aviation"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "Russia prohibited jet fuel exports through the end of November 2026 to preserve domestic supply, removing another export stream from a tight middle distillate market."
+    asOf: "2026-08-25"
+    sources:
+      - title: "Russia to extend diesel export ban as Ukrainian drone strikes hit refineries"
+        url: "https://english.nv.ua/business/russia-to-extend-diesel-export-ban-as-ukrainian-drone-strikes-hit-refineries-reuters-50635575.html"
+        publisher: "Reuters, via The New Voice of Ukraine"
+        retrievedAt: "2026-11-20"
+---
+<p>This sits behind the existing US diesel squeeze entry rather than beside it: the American shortage is a demand-side and logistics story, while this is the loss of supply that made replacing Gulf barrels harder. Both were running at once through the second half of 2026.</p>

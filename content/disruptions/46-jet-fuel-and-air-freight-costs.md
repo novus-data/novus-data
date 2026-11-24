@@ -1,0 +1,80 @@
+---
+id: "jet-fuel-and-air-freight-costs"
+title: "Jet fuel costs and air freight capacity through peak season"
+shortLabel: "JET"
+status: "active"
+category: "energy"
+startedAt: "2026-10-01"
+updatedAt: "2026-11-20"
+summary: "Jet fuel prices were reported up 118 per cent year on year in late October 2026, prompting carriers to raise fuel surcharges from 1 November. Air cargo demand is meanwhile outrunning capacity: worldwide tonnage rose 7.7 per cent year on year in September against capacity growth of 2.7 per cent, and C.H. Robinson recorded demand in cargo tonne-kilometres up 4.4 per cent in August while available capacity fell 0.1 per cent. Around 60 per cent of new freight contracts now run three months or less, against 25 per cent a year earlier, and committed volumes receive boarding priority."
+author: "editor"
+places: []
+sources:
+  - title: "Air cargo demand outpaces capacity heading into peak season, SEKO says"
+    url: "https://rallies.ai/news/air-cargo-demand-outpaces-capacity-heading-into-peak-season-seko-says-b02b819184ac7d62"
+    publisher: "XLI News"
+    retrievedAt: "2026-11-20"
+  - title: "Technology demand tightens November air freight capacity"
+    url: "https://www.chrobinson.com/en-us/resources/insights-and-advisories/north-america-freight-insights/nov-2026-freight-market-update/air/"
+    publisher: "C.H. Robinson"
+    retrievedAt: "2026-11-20"
+  - title: "Expected airfreight capacity boost flatters the picture, not new space"
+    url: "https://theloadstar.com/expected-airfreight-capacity-boost-flatters-the-picture-not-new-space/"
+    publisher: "The Loadstar"
+    retrievedAt: "2026-11-20"
+  - title: "AI shipments challenge festive-season air cargo capacity"
+    url: "https://www.stattimes.com/air-cargo/ai-shipments-challenge-festive-season-air-cargo-capacity-1361369"
+    publisher: "The STAT Trade Times"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "air-freight-shippers"
+      name: "Air freight shippers without committed capacity"
+      kind: "sector"
+      ticker: null
+      sector: "Logistics"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Space rather than price is the binding constraint through December, and carriers board committed volumes first, so a shipper buying spot capacity is bumped regardless of what it is willing to pay."
+    asOf: "2026-11-19"
+    sources:
+      - title: "Air cargo demand outpaces capacity heading into peak season, SEKO says"
+        url: "https://rallies.ai/news/air-cargo-demand-outpaces-capacity-heading-into-peak-season-seko-says-b02b819184ac7d62"
+        publisher: "XLI News"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "transpacific-technology-shippers"
+      name: "Technology shippers on transpacific lanes"
+      kind: "sector"
+      ticker: null
+      sector: "Electronics manufacturing"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Concentrated technology demand has tightened transpacific services in particular, with China-origin capacity constrained, so the lane carrying AI hardware is the one with the least slack."
+    asOf: "2026-11-20"
+    sources:
+      - title: "Expected airfreight capacity boost flatters the picture, not new space"
+        url: "https://theloadstar.com/expected-airfreight-capacity-boost-flatters-the-picture-not-new-space/"
+        publisher: "The Loadstar"
+        retrievedAt: "2026-11-20"
+      - title: "Technology demand tightens November air freight capacity"
+        url: "https://www.chrobinson.com/en-us/resources/insights-and-advisories/north-america-freight-insights/nov-2026-freight-market-update/air/"
+        publisher: "C.H. Robinson"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "cargo-airlines-fuel-exposure"
+      name: "Cargo and combination airlines"
+      kind: "sector"
+      ticker: null
+      sector: "Aviation"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "Jet fuel up 118 per cent year on year in late October forced fuel surcharge increases from 1 November, which passes cost to shippers but leaves the carrier exposed on any fixed-rate business."
+    asOf: "2026-11-19"
+    sources:
+      - title: "Air cargo demand outpaces capacity heading into peak season, SEKO says"
+        url: "https://rallies.ai/news/air-cargo-demand-outpaces-capacity-heading-into-peak-season-seko-says-b02b819184ac7d62"
+        publisher: "XLI News"
+        retrievedAt: "2026-11-20"
+---
+<p>The capacity that is expected to return in 2027 is largely restoration of what the Gulf conflict removed rather than new aircraft, and consultancies warn it will be concentrated on Asia-Europe, which is not where the pressure is. Russia's ban on jet fuel exports through the end of November 2026 sits behind the fuel side of this.</p>

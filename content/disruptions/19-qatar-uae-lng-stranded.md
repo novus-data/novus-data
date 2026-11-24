@@ -1,0 +1,95 @@
+---
+id: "qatar-uae-lng-stranded"
+title: "Qatari and Emirati LNG exports stranded by the Strait of Hormuz"
+shortLabel: "QLNG"
+status: "active"
+category: "energy"
+startedAt: "2026-03-01"
+updatedAt: "2026-11-20"
+summary: "The IEA says disrupted transit through the Strait of Hormuz has cut LNG supply from Qatar and the United Arab Emirates by more than 300 million cubic metres a day since 1 March 2026, a loss of over 2 billion cubic metres of gas every week. Qatar shut much of its Ras Laffan complex after the strait closed, and the IEA says damage to Qatari liquefaction plant will reduce projected supply growth and delay the expected global LNG supply wave. Around 93 per cent of Qatar's and 96 per cent of the UAE's LNG exports normally pass through the strait."
+author: "editor"
+places: ["hormuz"]
+sources:
+  - title: "The Middle East and global energy markets"
+    url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets"
+    publisher: "International Energy Agency"
+    retrievedAt: "2026-11-20"
+  - title: "Strait of Hormuz: oil and LNG trade facts"
+    url: "https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz"
+    publisher: "International Energy Agency"
+    retrievedAt: "2026-11-20"
+  - title: "Qatar LNG exports remain severely disrupted despite recovery in Gulf oil shipments"
+    url: "https://cyprus-mail.com/2026/10/12/qatar-lng-exports-remain-severely-disrupted-despite-recovery-in-gulf-oil-shipments"
+    publisher: "Cyprus Mail"
+    retrievedAt: "2026-11-20"
+  - title: "There's another energy market that may get hit harder than oil by Strait of Hormuz closure"
+    url: "https://www.cnbc.com/2026/03/09/theres-another-energy-market-that-may-get-hit-harder-than-oil-by-strait-of-hormuz-closure.html"
+    publisher: "CNBC"
+    retrievedAt: "2026-11-20"
+exposures:
+  - entity:
+      id: "qatar-lng-exports"
+      name: "Qatari LNG exports"
+      kind: "sector"
+      ticker: null
+      sector: "Oil and gas"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Almost all Qatari LNG leaves through the Strait of Hormuz, and much of the Ras Laffan liquefaction complex was shut after the strait closed, so cargoes cannot be loaded or sailed."
+    asOf: "2026-10-12"
+    sources:
+      - title: "Qatar LNG exports remain severely disrupted despite recovery in Gulf oil shipments"
+        url: "https://cyprus-mail.com/2026/10/12/qatar-lng-exports-remain-severely-disrupted-despite-recovery-in-gulf-oil-shipments"
+        publisher: "Cyprus Mail"
+        retrievedAt: "2026-11-20"
+      - title: "Strait of Hormuz: oil and LNG trade facts"
+        url: "https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz"
+        publisher: "International Energy Agency"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "uae-lng-exports"
+      name: "Emirati LNG exports"
+      kind: "sector"
+      ticker: null
+      sector: "Oil and gas"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "The IEA puts 96 per cent of UAE LNG exports through the strait and counts the Emirati fall alongside Qatar's in the same supply loss since 1 March."
+    asOf: "2026-10-21"
+    sources:
+      - title: "The Middle East and global energy markets"
+        url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets"
+        publisher: "International Energy Agency"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "asia-lng-buyers"
+      name: "Asian LNG importers"
+      kind: "sector"
+      ticker: null
+      sector: "Utilities"
+    severity: "moderate"
+    confidence: "inferred"
+    mechanism: "Qatari and Emirati cargoes that transit Hormuz go mainly to Asian Pacific buyers, so volumes removed from the market have to be replaced from more distant suppliers at whatever the spot market asks."
+    asOf: "2026-11-20"
+    sources:
+      - title: "Strait of Hormuz: oil and LNG trade facts"
+        url: "https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz"
+        publisher: "International Energy Agency"
+        retrievedAt: "2026-11-20"
+  - entity:
+      id: "european-gas-intensive-industry"
+      name: "Gas-intensive European industry"
+      kind: "sector"
+      ticker: null
+      sector: "Chemicals and materials"
+    severity: "moderate"
+    confidence: "inferred"
+    mechanism: "Europe buys Qatari LNG under long-term contracts, and the removal of about a fifth of world LNG trade from the market raises the price of the gas these plants burn and use as feedstock."
+    asOf: "2026-11-20"
+    sources:
+      - title: "The Middle East and global energy markets"
+        url: "https://www.iea.org/topics/the-middle-east-and-global-energy-markets"
+        publisher: "International Energy Agency"
+        retrievedAt: "2026-11-20"
+---
+<p>The IEA describes the wider oil disruption as the largest in the history of the global oil market. The gas side is slower to unwind than the oil side: Gulf crude shipments recovered through 2026 while LNG did not, because liquefaction plant has to be repaired before cargoes can resume even if the strait reopens.</p>
