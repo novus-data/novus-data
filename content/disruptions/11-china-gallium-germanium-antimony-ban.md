@@ -5,8 +5,8 @@ shortLabel: "GGS"
 status: "watch"
 category: "input"
 startedAt: "2024-12-03"
-updatedAt: "2026-11-18"
-summary: "China banned exports of gallium, germanium, antimony and superhard materials to the United States on 3 December 2024, then suspended the ban until 27 November 2026; the metals still need Chinese export licences, and the bar on military end users stayed in force. China's 9 November 2026 notice extending other suspensions to 10 January 2027 did not cover this one, so it is due to end on 27 November unless extended."
+updatedAt: "2026-11-24"
+summary: "China banned exports of gallium, germanium, antimony and superhard materials to the United States on 3 December 2024, then suspended the ban until 27 November 2026. On 24 November 2026 two outlets reported that the Ministry of Commerce extended the suspension to 27 January 2027; the ministry's notice has not been seen. The metals still need Chinese export licences, and the bar on military end users stays."
 author: "editor"
 sources:
   - title: "China bans exports to US of key high-tech materials in response to chip sanctions"
@@ -25,6 +25,14 @@ sources:
     url: "https://www.skillings.net/china-extends-october-export-control-pause/"
     publisher: "Skillings Mining Review"
     retrievedAt: "2026-11-18"
+  - title: "China extends suspension of gallium export curbs ahead of Xi's US trip"
+    url: "https://en.sedaily.com/world/2026/11/24/china-extends-suspension-of-gallium-export-curbs-ahead-of"
+    publisher: "Seoul Economic Daily"
+    retrievedAt: "2026-11-24"
+  - title: "China extends suspension of select export restrictions on US by two months"
+    url: "https://www.tribuneindia.com/news/beijing/china-extends-suspension-of-select-export-restrictions-on-us-by-two-months"
+    publisher: "The Tribune, relaying ANI and the South China Morning Post"
+    retrievedAt: "2026-11-24"
 exposures:
   - entity:
       id: "us-gallium-germanium-users"
@@ -34,9 +42,13 @@ exposures:
       sector: "Semiconductors"
     severity: "moderate"
     confidence: "inferred"
-    mechanism: "Gallium and germanium go into semiconductors and fibre optics; if the suspension ends on 27 November without renewal, Chinese exports of them to the US fall back under the December 2024 ban."
-    asOf: "2026-11-09"
+    mechanism: "Gallium and germanium go into semiconductors and fibre optics; the suspension now runs to 27 January 2027 on press reports of the 24 November extension, and if it ends without renewal Chinese exports of them to the US fall back under the December 2024 ban."
+    asOf: "2026-11-24"
     sources:
+      - title: "China extends suspension of gallium export curbs ahead of Xi's US trip"
+        url: "https://en.sedaily.com/world/2026/11/24/china-extends-suspension-of-gallium-export-curbs-ahead-of"
+        publisher: "Seoul Economic Daily"
+        retrievedAt: "2026-11-24"
       - title: "China halts ban on gallium, germanium, antimony exports to US, but controls remain"
         url: "https://www.engineeringnews.co.za/article/china-halts-ban-on-gallium-germanium-antimony-exports-to-us-but-controls-remain-2025-11-10"
         publisher: "Reuters, via Engineering News"
@@ -53,9 +65,13 @@ exposures:
       sector: "Aerospace and defence"
     severity: "moderate"
     confidence: "inferred"
-    mechanism: "Antimony is used in ammunition and armour, and exports to military end users stayed barred during the suspension; the end of the suspension would also restore the ban for civilian buyers in the US."
-    asOf: "2026-11-09"
+    mechanism: "Antimony is used in ammunition and armour, and exports to military end users stayed barred during the suspension; the extension reported on 24 November does not lift that bar, and the end of the suspension on 27 January 2027 would restore the ban for civilian buyers in the US."
+    asOf: "2026-11-24"
     sources:
+      - title: "China extends suspension of gallium export curbs ahead of Xi's US trip"
+        url: "https://en.sedaily.com/world/2026/11/24/china-extends-suspension-of-gallium-export-curbs-ahead-of"
+        publisher: "Seoul Economic Daily"
+        retrievedAt: "2026-11-24"
       - title: "China lifts export ban on gallium, germanium and antimony"
         url: "https://theoregongroup.com/commodities/gallium-germanium/china-lifts-export-ban-gallium-germanium-antimony/"
         publisher: "The Oregon Group"
@@ -65,4 +81,4 @@ exposures:
         publisher: "Associated Press, via PBS NewsHour"
         retrievedAt: "2026-11-18"
 ---
-<p>Next: 27 November 2026. Watch for a Ministry of Commerce notice before then; none had been reported when this entry was reviewed.</p>
+<p>Next: 27 January 2027. The extension from 27 November 2026 is reported by Seoul Economic Daily and The Tribune, both on 24 November; the Ministry of Commerce notice has not been seen, so the date and the wording on licences and the military bar are reported, not confirmed. Watch for the notice, and for the outcome of the Xi visit and the 14 and 15 December G20 meeting.</p>
