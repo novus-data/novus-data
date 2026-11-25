@@ -6,7 +6,7 @@ status: "watch"
 category: "policy"
 startedAt: "2025-07-28"
 updatedAt: "2026-11-20"
-summary: "Union Pacific and Norfolk Southern entered a merger agreement on 28 July 2025 under which Union Pacific would acquire Norfolk Southern through two successive mergers, and shareholders of both companies have approved their respective proposals. The amended application to the Surface Transportation Board estimates annual shipper savings of 3.5 billion dollars and single-line service on more than 88,000 county-to-county lanes, and the applicants offered expanded customer protections in July 2026. On 14 November 2026 groups representing major rail shippers again asked the board to reject the application, arguing that no conditions could address what they see as its flaws and that service problems sit in the first and last mile."
+summary: "Union Pacific and Norfolk Southern agreed on 28 July 2025 to merge, and shareholders of both have approved. The amended application to the Surface Transportation Board estimates annual shipper savings of 3.5 billion dollars. On 14 November 2026 groups representing major rail shippers again asked the board to reject it."
 author: "editor"
 places: []
 sources:

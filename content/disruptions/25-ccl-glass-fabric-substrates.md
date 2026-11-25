@@ -6,7 +6,7 @@ status: "active"
 category: "input"
 startedAt: "2026-03-01"
 updatedAt: "2026-11-20"
-summary: "AI server production has pulled the printed circuit board chain into shortage across low-CTE glass cloth, advanced copper foil, copper-clad laminate and ABF substrates, and Taiwan's industry expects it to last through at least 2027 because new capacity arrives too slowly. Nan Ya Plastics' electronic materials division issued a 20 to 25 per cent price adjustment on CCL and prepreg citing severe glass fabric shortages. Reported lead times run past 20 weeks for PCBs and 30 weeks for ABF substrate film, and an industry alert this month named low availability rather than price as the main risk, with meaningful relief unlikely before 2028."
+summary: "AI server production has pulled the printed circuit board chain into shortage across glass cloth, copper foil, copper-clad laminate and ABF substrates, and Taiwan's industry expects it to last through at least 2027. Nan Ya Plastics issued a 20 to 25 per cent price adjustment on CCL and prepreg citing glass fabric shortages. Reported lead times run past 20 weeks for PCBs and 30 weeks for ABF substrate film."
 author: "editor"
 places: []
 sources:

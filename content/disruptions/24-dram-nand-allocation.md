@@ -6,7 +6,7 @@ status: "active"
 category: "input"
 startedAt: "2026-01-01"
 updatedAt: "2026-11-20"
-summary: "IDC expects global DRAM supply to grow only 16 per cent in 2026 and NAND 17 per cent, below historical norms, because memory makers are shifting wafer capacity to high-bandwidth memory for AI buyers. TrendForce measured DRAM lead times at about 20 weeks against roughly eight in a balanced market, and distributors report DDR4 and DDR5 under strict allocation with quoted lead times from 8 to 52 weeks depending on the part. Team Group's chief executive told investors on 2 November 2026 that the shortage has not peaked and that the tightest stretch runs from the fourth quarter of 2026 through the second quarter of 2027."
+summary: "IDC expects global DRAM supply to grow only 16 per cent in 2026 and NAND 17 per cent, because memory makers are shifting wafer capacity to high-bandwidth memory for AI buyers. TrendForce measured DRAM lead times at about 20 weeks against roughly eight in a balanced market. Team Group's chief executive said on 2 November 2026 that the shortage has not peaked."
 author: "editor"
 places: []
 sources:

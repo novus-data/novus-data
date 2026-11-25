@@ -6,7 +6,7 @@ status: "active"
 category: "chokepoint"
 startedAt: "2026-07-15"
 updatedAt: "2026-11-20"
-summary: "The Suez Canal Authority issued a navigation circular raising temporary surcharges on most vessel categories from 15 July 2026, its first broad revision in three years, leaving the base tolls set in 2024 unchanged. Laden crude and product tankers moved to a 37 per cent surcharge on normal dues from 25 per cent, ballast tankers to 27 from 15, LPG and chemical tankers to 32 from 20, LNG carriers to 19 from 7, dry bulk carriers to 22 from 10, and car carriers northbound to 26 from 14. Containerships pay 12 per cent and passenger ships are the one exempt category. The authority had withdrawn a 15 per cent discount for large containerships on 7 April 2026."
+summary: "The Suez Canal Authority raised temporary surcharges on most vessel categories from 15 July 2026, its first broad revision in three years, and left the base tolls unchanged. Laden crude and product tankers moved to a 37 per cent surcharge from 25. Passenger ships are the one exempt category."
 author: "editor"
 places: ["suez"]
 sources:
