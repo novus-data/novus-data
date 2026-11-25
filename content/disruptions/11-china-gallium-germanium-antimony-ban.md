@@ -5,8 +5,8 @@ shortLabel: "GGS"
 status: "watch"
 category: "input"
 startedAt: "2024-12-03"
-updatedAt: "2026-11-24"
-summary: "China banned exports of gallium, germanium, antimony and superhard materials to the United States on 3 December 2024, then suspended the ban until 27 November 2026. On 24 November 2026 two outlets reported that the Ministry of Commerce extended the suspension to 27 January 2027; the ministry's notice has not been seen. The metals still need Chinese export licences, and the bar on military end users stays."
+updatedAt: "2026-11-25"
+summary: "China banned exports of gallium, germanium, antimony and superhard materials to the United States on 3 December 2024, then suspended the ban until 27 November 2026. The Ministry of Commerce's Announcement No. 59 of 2026, published on 24 November 2026, suspends the second paragraph of its Announcement No. 46 of 2024 from 28 November 2026 to 27 January 2027. Press reports say the metals still need Chinese export licences and the bar on military end users stays; the notice does not itself say so."
 author: "editor"
 sources:
   - title: "China bans exports to US of key high-tech materials in response to chip sanctions"
@@ -33,6 +33,10 @@ sources:
     url: "https://www.tribuneindia.com/news/beijing/china-extends-suspension-of-select-export-restrictions-on-us-by-two-months"
     publisher: "The Tribune, relaying ANI and the South China Morning Post"
     retrievedAt: "2026-11-24"
+  - title: "Decision to continue adjusting the implementation of MOFCOM Announcement No. 46 of 2024 (Announcement No. 59 of 2026)"
+    url: "https://www.mofcom.gov.cn/zcfb/blgg/gg/2026/art/2026/art_fc4036b0e6b046e0a84c5579ce09e5b0.html"
+    publisher: "Ministry of Commerce of China"
+    retrievedAt: "2026-11-25"
 exposures:
   - entity:
       id: "us-gallium-germanium-users"
@@ -42,9 +46,13 @@ exposures:
       sector: "Semiconductors"
     severity: "moderate"
     confidence: "inferred"
-    mechanism: "Gallium and germanium go into semiconductors and fibre optics; the suspension now runs to 27 January 2027 on press reports of the 24 November extension, and if it ends without renewal Chinese exports of them to the US fall back under the December 2024 ban."
-    asOf: "2026-11-24"
+    mechanism: "Gallium and germanium go into semiconductors and fibre optics; the Ministry of Commerce's Announcement No. 59 of 2026 extends the suspension to 27 January 2027, and if it ends without renewal Chinese exports of them to the US fall back under the December 2024 ban."
+    asOf: "2026-11-25"
     sources:
+      - title: "Decision to continue adjusting the implementation of MOFCOM Announcement No. 46 of 2024 (Announcement No. 59 of 2026)"
+        url: "https://www.mofcom.gov.cn/zcfb/blgg/gg/2026/art/2026/art_fc4036b0e6b046e0a84c5579ce09e5b0.html"
+        publisher: "Ministry of Commerce of China"
+        retrievedAt: "2026-11-25"
       - title: "China extends suspension of gallium export curbs ahead of Xi's US trip"
         url: "https://en.sedaily.com/world/2026/11/24/china-extends-suspension-of-gallium-export-curbs-ahead-of"
         publisher: "Seoul Economic Daily"
@@ -66,8 +74,12 @@ exposures:
     severity: "moderate"
     confidence: "inferred"
     mechanism: "Antimony is used in ammunition and armour, and exports to military end users stayed barred during the suspension; the extension reported on 24 November does not lift that bar, and the end of the suspension on 27 January 2027 would restore the ban for civilian buyers in the US."
-    asOf: "2026-11-24"
+    asOf: "2026-11-25"
     sources:
+      - title: "Decision to continue adjusting the implementation of MOFCOM Announcement No. 46 of 2024 (Announcement No. 59 of 2026)"
+        url: "https://www.mofcom.gov.cn/zcfb/blgg/gg/2026/art/2026/art_fc4036b0e6b046e0a84c5579ce09e5b0.html"
+        publisher: "Ministry of Commerce of China"
+        retrievedAt: "2026-11-25"
       - title: "China extends suspension of gallium export curbs ahead of Xi's US trip"
         url: "https://en.sedaily.com/world/2026/11/24/china-extends-suspension-of-gallium-export-curbs-ahead-of"
         publisher: "Seoul Economic Daily"
@@ -81,4 +93,4 @@ exposures:
         publisher: "Associated Press, via PBS NewsHour"
         retrievedAt: "2026-11-18"
 ---
-<p>Next: 27 January 2027. The extension from 27 November 2026 is reported by Seoul Economic Daily and The Tribune, both on 24 November; the Ministry of Commerce notice has not been seen, so the date and the wording on licences and the military bar are reported, not confirmed. Watch for the notice, and for the outcome of the Xi visit and the 14 and 15 December G20 meeting.</p>
+<p>Next: 27 January 2027. The Ministry of Commerce published Announcement No. 59 of 2026 on 24 November 2026 (signed 23 November), suspending the second paragraph of Announcement No. 46 of 2024 from 28 November 2026 to 27 January 2027. The notice does not name the metals or mention licences or the military bar, so those two points rest on press reports (Seoul Economic Daily) and on the 2025 suspension. Watch for the outcome of the Xi visit and the 14 and 15 December G20 meeting.</p>
