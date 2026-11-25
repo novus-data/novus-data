@@ -6,7 +6,7 @@ status: "watch"
 category: "policy"
 startedAt: "2027-01-01"
 updatedAt: "2026-11-20"
-summary: "Zimbabwe, Africa's largest lithium producer, announced in June 2025 that it would ban exports of lithium concentrate from January 2027 and permit only lithium sulphate, to force processing onshore. The government has repeatedly confirmed the date will not move: the information minister said on 9 October 2026 there was no reason to delay, and the mines minister told a ministry planning workshop on 2 November 2026 that from January 2027 the country will export only lithium sulphate. Bikita Minerals and Prospect Lithium Zimbabwe are building the sulphate plants, and Zimbabwe exported 33,807 tonnes of lithium sulphate between April and September 2026."
+summary: "Zimbabwe, Africa's largest lithium producer, will ban exports of lithium concentrate from January 2027 and allow only lithium sulphate, to force processing onshore. Government ministers have repeatedly said the date will not move, most recently on 2 November 2026. Shanghai Metals Market reports Zimbabwe exported 33,807 tonnes of lithium sulphate between April and September 2026."
 author: "editor"
 places: []
 sources:

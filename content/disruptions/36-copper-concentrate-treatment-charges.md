@@ -6,7 +6,7 @@ status: "active"
 category: "input"
 startedAt: "2026-01-01"
 updatedAt: "2026-11-20"
-summary: "Reuters reported in December 2025 that Antofagasta and a Chinese smelter agreed treatment and refining charges for 2026 of zero dollars a tonne and zero cents a pound, against 21.25 dollars and 2.125 cents for 2025, and the IEA recorded that annual benchmark on 2 March 2026 as the lowest annual settlement in the series it tracks. Spot charges went further, assessed at minus 78.50 dollars a tonne on 9 April 2026 and reported at minus 126.80 dollars a tonne at the end of June. The collapse reflects a shortage of mined concentrate rather than excess smelting capacity, which leaves smelters processing for nothing or paying for the privilege."
+summary: "Reuters reported in December 2025 that Antofagasta and a Chinese smelter agreed 2026 treatment and refining charges of zero, against 21.25 dollars a tonne for 2025, and the IEA recorded it as the lowest annual settlement in its series. Spot charges were reported at minus 126.80 dollars a tonne at the end of June 2026, which reflects a shortage of mined concentrate."
 author: "editor"
 places: []
 sources:

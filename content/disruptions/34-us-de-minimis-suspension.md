@@ -6,7 +6,7 @@ status: "active"
 category: "policy"
 startedAt: "2026-06-24"
 updatedAt: "2026-11-20"
-summary: "US Customs and Border Protection published two interim final rules on 24 June 2026 that indefinitely suspend the 800 dollar de minimis administrative exemption, one covering merchandise arriving through the international postal network and the other covering every other mode. Every shipment that previously entered duty-free and paperwork-free now needs a formal or informal customs entry with a tariff classification, duties and processing fees. The postal rule took effect on 24 July 2026 with a delayed compliance date of 22 October 2026 for certain requirements, and a statute passed in 2025 removes the exemption from law on 1 July 2027."
+summary: "US Customs and Border Protection published two interim final rules on 24 June 2026 that indefinitely suspend the 800 dollar de minimis exemption, one for postal shipments and one for every other mode. Shipments that entered duty-free now need a customs entry with duties and fees. A 2025 statute removes the exemption from law on 1 July 2027."
 author: "editor"
 places: []
 sources:
