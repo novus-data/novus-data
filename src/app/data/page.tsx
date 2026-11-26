@@ -4,6 +4,7 @@ import { Container } from '@/components/container';
 import { JsonLd } from '@/components/json-ld';
 import { PageHeader } from '@/components/page-header';
 import { StoryBox } from '@/components/story-box';
+import { SubscribePanel } from '@/components/subscribe-panel';
 import { MailLink, TextLink } from '@/components/text-link';
 import { mancaleEnabled } from '@/config/launch';
 import { publication } from '@/config/publication';
@@ -168,6 +169,10 @@ export default async function DataPage() {
             </p>
           </StoryBox>
         ) : null}
+      </Container>
+
+      <Container width="reading" className="mt-8">
+        <SubscribePanel heading="Get the briefing by email" />
       </Container>
 
       <Container width="reading" className="mt-8">

@@ -13,6 +13,7 @@ import { articlesEnabled, mancaleEnabled } from '@/config/launch';
 import { hasCoAuthors, publication, recordedBy } from '@/config/publication';
 import { StatusBadge } from '@/components/status-badge';
 import { StoryBox } from '@/components/story-box';
+import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import type { Exposure } from '@/lib/disruptions';
 import {
@@ -288,6 +289,10 @@ export default async function DisruptionPage(props: PageProps<'/disruptions/[id]
             </ul>
           </StoryBox>
         ) : null}
+      </Container>
+
+      <Container width="reading" className="mt-8">
+        <SubscribePanel heading="Get the briefing by email" />
       </Container>
 
       <Container width="reading" className="mt-8 flex flex-col gap-3">
