@@ -7,6 +7,7 @@ import { PrintPermalink } from '@/components/print-permalink';
 import { SeveritySwatch } from '@/components/severity-legend';
 import { StatusBadge } from '@/components/status-badge';
 import { StoryBox } from '@/components/story-box';
+import { SubscribePanel } from '@/components/subscribe-panel';
 import { TextLink } from '@/components/text-link';
 import type { EntityClaim } from '@/lib/disruptions';
 import {
@@ -209,6 +210,10 @@ export default async function EntityPage(props: PageProps<'/entities/[id]'>) {
           , or read{' '}
           <TextLink href="/about#method">the standard every assessment here has to meet</TextLink>.
         </p>
+      </Container>
+
+      <Container width="reading" className="mt-8">
+        <SubscribePanel heading="Get the briefing by email" />
       </Container>
 
       <Container width="reading" className="mt-8">
