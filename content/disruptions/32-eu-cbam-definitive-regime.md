@@ -72,5 +72,22 @@ exposures:
         url: "https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-definitive-regime_en"
         publisher: "European Commission, Taxation and Customs Union"
         retrievedAt: "2026-11-20"
+  - entity:
+      id: "cf-industries"
+      name: "CF Industries"
+      kind: "company"
+      ticker: "CF"
+      sector: "Fertilizers"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "CF Industries says it expects European demand for low-carbon ammonia to grow as customers try to reduce costs the carbon border adjustment mechanism imposes on imported ammonia, and has sold low-carbon ammonia there at a premium."
+    asOf: "2026-11-05"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1324404/000132440426000025/cf-20260930.htm"
+        publisher: "CF Industries (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>An omnibus simplification exempts importers below 50 tonnes of covered goods a year, which the Commission describes as excluding about 90 per cent of importers while still capturing about 99 per cent of the emissions. The cash consequence arrives in 2027 even though the data obligation started in January 2026.</p>
+
+<p>Filing Watch, 26 November 2026: 1 assessment added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>

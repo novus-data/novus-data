@@ -87,5 +87,22 @@ exposures:
         url: "https://tradersunion.com/news/companies/show/4317293-tsmc-samsung-chip-shipments-china-curbs/"
         publisher: "Traders Union"
         retrievedAt: "2026-11-20"
+  - entity:
+      id: "microchip-technology"
+      name: "Microchip Technology"
+      kind: "company"
+      ticker: "MCHP"
+      sector: "Semiconductors"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Microchip says new export restrictions and staff attrition at the US government have slowed the processing of export licence applications and added due diligence, though without a material effect yet on obtaining licences."
+    asOf: "2026-11-05"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/827054/000082705426000062/mchp-20260930.htm"
+        publisher: "Microchip Technology (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>This entry is a day old and the licensing outcomes are unknown, which is the honest state of it. What has changed structurally is the removal of the self-verification route: the foundry used to be able to establish compliance itself, and now a government decision sits in the middle of each shipment.</p>
+
+<p>Filing Watch, 26 November 2026: 1 assessment added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>
