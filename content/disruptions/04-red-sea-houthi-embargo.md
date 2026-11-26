@@ -92,5 +92,52 @@ exposures:
         url: "https://english.ahram.org.eg/News/577753.aspx"
         publisher: "Ahram Online"
         retrievedAt: "2026-10-14"
+  - entity:
+      id: "cactus"
+      name: "Cactus"
+      kind: "company"
+      ticker: "WHD"
+      sector: "Oilfield services"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Cactus says escalating Houthi attacks in Saudi Arabia and security concerns in the region have added challenges for commercial shipping in the Red Sea, on top of the Hormuz disruption to its supply chain."
+    asOf: "2026-10-30"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1699136/000162828026068341/whd-20260930.htm"
+        publisher: "Cactus, Inc. (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "elbit-systems"
+      name: "Elbit Systems"
+      kind: "company"
+      ticker: "ESLT"
+      sector: "Aerospace and defence"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Elbit Systems says some of its operations have had supply chain disruption, including higher transport costs and delays from Houthi attacks on shipping in the Red Sea."
+    asOf: "2026-11-17"
+    sources:
+      - title: "Third-quarter 2026 results (Form 6-K)"
+        url: "https://www.sec.gov/Archives/edgar/data/1027664/000102766426000025/esltq320266k.htm"
+        publisher: "Elbit Systems Ltd. (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "northern-technologies"
+      name: "Northern Technologies International"
+      kind: "company"
+      ticker: "NTIC"
+      sector: "Chemicals and materials"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Northern Technologies says Houthi attacks on ships entering the Red Sea forced longer routes around Africa during its fiscal 2026, raising shipping costs and delaying its shipments."
+    asOf: "2026-11-19"
+    sources:
+      - title: "Form 10-K for the year ended 31 August 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/875582/000117184326007589/ntic20260831_10k.htm"
+        publisher: "Northern Technologies International Corporation (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>Next: whether the Houthis act on the embargo against ships bound for Yanbu, and who holds the Bab el-Mandeb coast after the 15 November withdrawal.</p>
+
+<p>Filing Watch, 26 November 2026: 3 assessments added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>

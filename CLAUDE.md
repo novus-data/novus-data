@@ -252,6 +252,8 @@ scripts/doctor.ts          State of the project + the next action. Reads INPUT_L
 scripts/new-disruption.ts  Register scaffolder. Mirrors the loader's validation.
 scripts/review-register.ts The review worklist, by how close each entry is to stale.
 scripts/mancale.ts         Weekly refresh of the Mancalë data. Run by hand. See §8.
+scripts/filing-watch.ts    Companies that name a register problem in their SEC filings, as leads. Never writes. See §8.
+scripts/filing-watch-terms.ts  What filing-watch searches for, per entry.
 scripts/build-map-land.ts  Builds src/components/world-land.ts from Natural Earth. See §6a.
 scripts/lib/cli.ts         Shared colour, prompting and .env.local reading.
 src/config/                Every fact the site states, and the navigation.
@@ -853,6 +855,30 @@ copyright@imf.org has confirmed. Skipping a week is safe: the page states the
 as-of date and says when it is more than three weeks old. It is not a
 scheduled job, because §13 keeps those out of this repository.
 
+**Filing Watch (added 26 November 2026).** The register's strongest
+confidence level is `reported`: the company said it. Public companies say a
+great deal in their filings, so once a fortnight or so:
+
+```
+1. npm run filing-watch -- --excerpts        leads from the last 45 days, one per company per entry
+2. Read each lead's passage. Keep it only if the company says how the problem
+   reaches it (higher costs, delays, a curtailment, a shortage it has had).
+   A problem listed among generic forward-looking risks is not an exposure.
+3. Add the exposure to the entry by hand: confidence "reported" when the
+   company names the problem, "inferred" when it describes the effect but not
+   the cause; the filing (its sec.gov address) as the source; the filing
+   date as asOf; the ticker only if it matches the SEC's company_tickers.json.
+4. npm run doctor, commit, push.
+```
+
+`scripts/filing-watch-terms.ts` says which phrases are searched for each
+entry; an entry not listed there is not swept. The script never writes to
+`content/` (scripts/lib/cli.ts rule 2): a person decides what is an exposure.
+EDGAR is a US Government source with no key; the script names itself with
+the contact address and keeps well under the SEC's fair-access rate. It only
+sees companies that file with the SEC, so an empty result is not evidence that
+nobody is exposed.
+
 **Subscribing by email (temporary, 15 October 2026).** While `subscribeVia`
 in `src/config/launch.ts` is `'mailto'`, every subscribe button opens an email
 to `NEXT_PUBLIC_CONTACT_EMAIL` (built once in `src/lib/subscribe.ts`) and the
@@ -1123,6 +1149,7 @@ npm run typecheck        tsc --noEmit
 npm run lint             eslint
 npm run sync-issues      pull new issues from Beehiiv
 npm run mancale          weekly refresh of the Mancalë Index data and ledger (§8; --ledger-only skips the download)
+npm run filing-watch     SEC filings that name a register problem, as a worklist (§8; --excerpts, --since, --entry)
 npm run test:regressions the regression cases, including the scorecard arithmetic
 npm run preview          build the single-file review preview
 ```
