@@ -69,6 +69,12 @@ export const metadata: Metadata = {
   // thumbnail at most. A page that sets its own `robots` (/debug/content, which
   // is noindex) replaces this whole object, which is what it intends.
   robots: { index: true, follow: true, 'max-image-preview': 'large' },
+  // Google Search Console ownership check (HTML tag method). Renders
+  // <meta name="google-site-verification">. Like `alternates` and `robots`
+  // above, a page that sets its own `verification` would replace this object.
+  // None does. The token is public by design: it proves control of the site, it
+  // does not grant any access to it.
+  verification: { google: 'nfXBLkw8nYgoEMR74hhtsb1IsE94RaOCPntBlb7yYqs' },
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
