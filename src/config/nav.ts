@@ -72,6 +72,8 @@ export const footerGroups: NavGroup[] = [
       // rather than the header: it is for the reader who already trusts the
       // record enough to take it away.
       { href: '/data', label: 'Data and downloads' },
+      // Feeds for one company, industry or place: the working part of Alerts.
+      { href: '/follow', label: 'Follow by feed' },
     ],
   },
   {

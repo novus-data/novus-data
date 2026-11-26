@@ -287,6 +287,8 @@ src/app/register.json/     JSON Feed of the register — the alerting seam. See 
 src/app/register.csv/      The register as a spreadsheet, one row per assessment. See 6c.
 src/app/data/              /data: what the register publishes as files, and how to cite it. See 6c.
 src/lib/indicators/mancale-places.ts  The one join between register places and Mancalë ids. See 6c.
+src/lib/follow.ts          Follow feeds (RSS) per company, industry, place and the whole register. See 6c.
+src/app/follow/            /follow and the industry and place feeds. See 6c.
 src/app/                   Routes, metadata routes, icons, error boundaries.
 src/assets/fonts/          Newsreader TTFs, for icon and social card rendering.
                            Static cuts from the variable source — see src/lib/og.ts.
@@ -727,6 +729,28 @@ page shows a box linking to each chokepoint it names that the index scores, and
 `/mancale/[id]` lists the open register entries that name its place, as titles,
 status words and review dates. Neither direction carries a Mancalë label or
 figure off `/mancale`, and the register's assessments never feed the index.
+
+### Follow feeds (26 November 2026): `/follow`
+
+The first working piece of Novus Data Alerts, built without the service §14.2
+describes, because a feed needs nothing stored: the reader's feed reader keeps
+the list of what they follow. `src/lib/follow.ts` builds RSS 2.0 for the whole
+register (`/disruptions/feed.xml`), one company or sector
+(`/entities/<id>/feed.xml`), one industry, meaning an entity's `sector`
+(`/follow/industry/<slug>/feed.xml`), and one place in an entry's `places`
+(`/follow/place/<id>/feed.xml`). All are static; `/privacy` is unchanged.
+
+**A feed reader sees a change through the `<guid>`, and the guid is built only
+from values a person wrote.** On a company or sector feed it is the
+disruption, its status, and that name's severity, confidence and `asOf`; on
+the other feeds it is the disruption, its status, its strongest severity and
+a fingerprint of the ids it reaches. So a new entry, a status change, a
+revised assessment or a company added shows up as a new item, and a review
+that changes none of those does not. That is the first version `/alerts`
+promised, and it invents no events (the reason `/register.json` is state, not
+an event log). Guids are tag URIs, not addresses; an item's `<pubDate>` is
+the record's own date (`asOf` or the review date), never the build date.
+Do not add a figure to an item: a feed travels without its page.
 
 ### `/register.json`
 

@@ -42,7 +42,10 @@ export async function generateMetadata(props: PageProps<'/entities/[id]'>): Prom
   return {
     title: entity.name,
     description,
-    alternates: { canonical: absoluteUrl(`/entities/${entity.id}`) },
+    alternates: {
+      canonical: absoluteUrl(`/entities/${entity.id}`),
+      types: { 'application/rss+xml': [{ url: absoluteUrl(`/entities/${entity.id}/feed.xml`), title: `${entity.name} on Novus Data` }] },
+    },
     openGraph: {
       type: 'article',
       title: entity.name,
@@ -209,6 +212,12 @@ export default async function EntityPage(props: PageProps<'/entities/[id]'>) {
           <TextLink href="/exposure">See {entity.name} alongside every other tracked name</TextLink>
           , or read{' '}
           <TextLink href="/about#method">the standard every assessment here has to meet</TextLink>.
+        </p>
+
+        <p className="max-w-measure text-muted">
+          <TextLink href={`/entities/${entity.id}/feed.xml`}>Follow {entity.name} in a feed reader</TextLink>
+          : a new item appears when a disruption starts to reach it, changes status, or its assessment
+          is revised. <TextLink href="/follow">How following works</TextLink>.
         </p>
       </Container>
 

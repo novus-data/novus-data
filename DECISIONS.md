@@ -497,3 +497,23 @@ is settled until the pull request that adds this entry is merged.
   publication. `newsletter.novusdata.news` still resolves to Beehiiv, so it is
   probably still attached to the first account; that could not be checked from
   here, because Beehiiv blocked the automated request.
+
+## Follow by feed: the first working part of Alerts (proposed 26 November 2026)
+
+Proposed by Claude for `arowsom-oss`, whose call the site's code and a new
+section are (see "Launch calls passed to `arowsom-oss`"). Gavin asked for it
+on 2026-11-26. Nothing here is settled until the pull request that adds this
+entry is merged.
+
+- **What it is:** RSS feeds for the whole register, each company or sector,
+  each industry and each place, listed on a new `/follow` page and linked from
+  `/alerts`, each entity page and the footer. A new item appears when an entry
+  opens, changes status or severity, reaches a new name, or (on a company
+  feed) its assessment is revised. Rules in CLAUDE.md §6c, "Follow feeds".
+- **What it is not:** no account, no email list, no stored preference. The
+  feed reader holds what a reader follows, so `/privacy` stays true word for
+  word. Email alerts would need a mail service and a privacy rewrite, and are
+  a later decision for both founders.
+- **No new kind of data:** every item is a register value already on the
+  site, in another shape. No new dependency.
+

@@ -111,6 +111,15 @@ export default async function DataPage() {
               </dd>
             </div>
             <div>
+              <dt className="font-medium">
+                <TextLink href="/follow">Follow feeds</TextLink>
+              </dt>
+              <dd className="mt-1 text-muted">
+                RSS for one company, sector, industry or place, or the whole register, for any feed
+                reader. A new item appears when the record changes.
+              </dd>
+            </div>
+            <div>
               <dt className="font-medium">Permanent pages</dt>
               <dd className="mt-1 text-muted">
                 Every entry has its own address under <TextLink href="/disruptions">/disruptions</TextLink>{' '}
