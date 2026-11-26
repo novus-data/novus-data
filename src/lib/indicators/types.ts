@@ -88,6 +88,13 @@ export interface MancaleChokepoint {
   /** The GDELT query, or null while no news volume has been collected. */
   newsQuery: string | null;
   hasNews: boolean;
+  /**
+   * False when the method keeps this chokepoint out of the scorecard
+   * (`scorecardHold` in mancale-method.ts). It is still scored and shown.
+   */
+  inScorecard: boolean;
+  /** Why it is kept out of the scorecard, or null. */
+  scorecardHold: string | null;
   baselineTransitsPerDay: number;
   baselineNewsSharePct: number | null;
   weeks: MancaleWeek[];

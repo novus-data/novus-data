@@ -18,7 +18,7 @@ import { MANCALE_METHOD, getMancale, nodeForMancaleId } from '@/lib/indicators';
 /**
  * /mancale/[id] — one chokepoint of the Mancalë Index on its own page.
  *
- * Why it exists: on `/mancale` all seven share one long page, so a reader
+ * Why it exists: on `/mancale` every chokepoint shares one long page, so a reader
  * cannot send a colleague "the Hormuz reading" and have it open on Hormuz, and
  * a shared link cannot carry that chokepoint's own card (opengraph-image.tsx
  * beside this file). The page adds no data. It renders the same scored

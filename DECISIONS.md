@@ -252,6 +252,43 @@ version") and approval to open the pull request. It takes effect when
   outstanding), no per-chokepoint item in the header, and no change to the
   method or the scorecard.
 
+## Mancalë: three more chokepoints and Malacca's news (proposed 26 November 2026)
+
+Proposed by `Novous-Data` on 2026-11-26. Gavin asked for the index to grow and
+fill its gaps. It is the same method (v0.2) applied to more places, and
+nothing is settled until the pull request that adds this entry is merged.
+
+- **Three chokepoints added:** the Cape of Good Hope, the Strait of Gibraltar
+  and the Strait of Dover, each with a news query and a note. Each is already a
+  marker on the home map (`src/lib/live/nodes.ts`), so the `/mancale` map
+  places them with no new geography; the closest pair on the map is still
+  Suez and the Bosporus.
+- **Malacca's news hold is lifted.** Its hold said to decide how to treat a
+  strait that sits above its normal before collecting news. The decision,
+  made before any news was collected: collect it and show its labels, but
+  keep it out of the scorecard with a new per-chokepoint `scorecardHold`, for
+  the reason the hold gave. The Cape gets the same hold for the same reason;
+  Gibraltar and Dover get it until a new scorecard version is agreed. None of
+  the four had news data before, so every count the scorecard has already
+  published is unchanged, and a regression test checks that a held-out
+  chokepoint adds nothing. `SCORECARD_METHOD.version` therefore does not move.
+- **The Bosporus hold stays**, because its reason (PortWatch's count disagrees
+  with the Turkish ministry's) is a data question that more news cannot answer.
+- **Nothing is in the data file yet.** The new chokepoints and Malacca's news
+  arrive with the next `npm run mancale`, run as usual with
+  `--ships-csv` (the IMF has not yet answered on automated download). Until
+  then the page shows the seven it has, and the loader says the others are
+  pending rather than refused. Claude could not test the new news queries:
+  GDELT refused or reset every request from its network on 26 November.
+- **Lighter news downloads.** With a cache for the same query, the refresh now
+  asks GDELT only for the last eight weeks and keeps the rest, instead of the
+  whole history since 2019 for every chokepoint; `--refresh-news-full` asks for
+  all of it. The values are the same series, so nothing in the method changes.
+- **Not done: a refresh that runs itself.** Two existing rules stand in the
+  way, and neither is Claude's to change: CLAUDE.md §13 keeps scheduled
+  workflows out of this repository, and the IMF's terms ask for permission
+  before automated bulk download. Revisit once the IMF has answered.
+
 ## Photographs allowed, with their licence (Rule 3 amended)
 
 Amended by `Novous-Data`, the author of the rules, on 2026-10-21. The site may

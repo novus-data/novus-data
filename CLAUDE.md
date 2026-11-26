@@ -1282,6 +1282,15 @@ label, never by colour alone, and prints the date the ship data runs to. A
 chokepoint with no news volume draws the ship line only and says why. Link
 descriptions carry words and dates, never a figure.
 
+**Three more chokepoints and `scorecardHold`, 26 November 2026.** The Cape of
+Good Hope, Gibraltar and Dover joined the original seven, and Malacca's news
+is collected. A chokepoint whose config carries `scorecardHold` is scored and
+shown in full but adds nothing to the scorecard's calls, its ordinary-week
+rate or its revisions; the box on `/mancale` prints the reason. Every
+chokepoint holding one had no news before that date, so no published count
+moved. Taking a hold off is a scorecard change: give it a new
+`SCORECARD_METHOD.version`.
+
 ### 14.2 An app with notifications
 
 The stated direction is a Novus Data app that notifies readers. The site is

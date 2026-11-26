@@ -51,6 +51,8 @@ function point(id: string, weeks: MancaleWeek[], hasNews = true): MancaleChokepo
     portwatchName: config.portwatchName,
     newsQuery: hasNews ? config.newsQuery : null,
     hasNews,
+    inScorecard: !config.scorecardHold,
+    scorecardHold: config.scorecardHold ?? null,
     baselineTransitsPerDay: 10,
     baselineNewsSharePct: hasNews ? 0.1 : null,
     weeks,
@@ -179,6 +181,18 @@ async function main() {
   assert.ok(ships.ordinary.settled <= hormuz.weeks.length);
   assert.ok(ships.ordinary.followed <= ships.ordinary.settled);
   console.log('PASS ordinary-week baseline is bounded and settled-only');
+
+  // --- A chokepoint held out of the scorecard changes nothing -------------------
+  // Malacca carries `scorecardHold`: it has news and the same weeks as Hormuz,
+  // so if the hold leaked it would double every call and baseline week.
+  const held = point('malacca', series(pairs));
+  assert.equal(held.inScorecard, false, 'Malacca is held out of the scorecard by the method');
+  const withHeld = buildScorecard(index([hormuz, noNews, held]), ledger);
+  const shape = (c: typeof card) =>
+    c.tests.map((t) => [t.calls.length, t.ordinary.settled, t.ordinary.followed, t.history.settled, t.recorded.settled]);
+  assert.deepEqual(shape(withHeld), shape(card), 'a held-out chokepoint adds no call and no baseline week');
+  assert.ok(withHeld.tests.every((t) => t.calls.every((c) => c.chokepointId !== 'malacca')));
+  console.log('PASS a chokepoint held out of the scorecard adds nothing to it');
 
   // --- Ledger parsing ---------------------------------------------------------
   const good = { weekStart: '2026-10-12', recordedOn: '2026-10-25', methodVersion: '0.2', regimes: { hormuz: 'aligned' } };

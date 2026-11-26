@@ -25,8 +25,14 @@ import {
 import { getPhoto } from '@/lib/photos';
 
 const TITLE = 'Mancalë Index';
+
+/** The number of chokepoints in words, read from the data so it never goes stale. */
+function countWord(count: number): string {
+  const words = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  return words[count] ?? String(count);
+}
 const DESCRIPTION =
-  'Whether the news about seven shipping chokepoints is louder or quieter than their ship traffic justifies. Weekly, from IMF PortWatch and GDELT data.';
+  'Whether the news about major shipping chokepoints is louder or quieter than their ship traffic justifies. Weekly, from IMF PortWatch and GDELT data.';
 
 export const metadata: Metadata = {
   // The search result names what the index measures; link previews keep the
@@ -70,7 +76,7 @@ export default async function MancalePage() {
       <PageHeader
         title="Mancalë Index"
         eyebrow={`Index · method v${MANCALE_METHOD.version}`}
-        lede="Is the news about a shipping chokepoint louder or quieter than the ships passing through it justify? Measured each week for seven chokepoints, against a fixed 2019–22 normal."
+        lede="Is the news about a shipping chokepoint louder or quieter than the ships passing through it justify? Measured each week for each chokepoint it tracks, against a fixed 2019–22 normal."
       />
 
       {hero ? (
@@ -110,11 +116,11 @@ export default async function MancalePage() {
           </Container>
 
           <Container className="mt-12 sm:mt-16">
-            <SectionLabel id="chokepoints">The seven chokepoints, weekly since 2019</SectionLabel>
+            <SectionLabel id="chokepoints">{`The ${countWord(index.chokepoints.length)} chokepoints, weekly since 2019`}</SectionLabel>
             {/* Map first in the markup, so it leads below lg; from lg it sits in a
                 sticky right-hand column that stays in view while the charts scroll. */}
             <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
-              <aside aria-label="Map of the seven chokepoints" className="lg:sticky lg:top-6 lg:order-2">
+              <aside aria-label={`Map of the ${countWord(index.chokepoints.length)} chokepoints`} className="lg:sticky lg:top-6 lg:order-2">
                 <MancaleMap points={index.chokepoints.map((point) => ({ id: point.id, label: point.label, regime: point.latest.regime }))} />
               </aside>
               <div className="flex flex-col gap-5 lg:order-1">
