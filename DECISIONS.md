@@ -554,3 +554,42 @@ entry is merged.
 - **No new kind of data:** every item is a register value already on the
   site, in another shape. No new dependency.
 
+## Gavin's answers, 27 November 2026 (proposed)
+
+Gavin answered the overnight batch by email at 00:20 UTC on 27 November.
+Recorded here because an inbox is not an archive. Proposed by Claude for
+`arowsom-oss`; nothing here is settled until the pull request that adds this
+entry is merged. Two lines refer to a proposal of Alex's that Claude could not
+find written down, and say so. Correct them before merging.
+
+- **Filing Watch dating (#86, #89).** Gavin: "yes to your proposal. Stagger
+  the review dates, and go with what you and your Claude record in
+  DECISIONS.md." The proposal itself is not in anything Claude could read, so
+  its wording is left for Alex to add here. What the existing rules already
+  say, and what this entry does not change: an assessment's `asOf` is when it
+  was last true (CLAUDE.md §6a), `STALE_AFTER_DAYS` stays 21, and a company
+  page whose newest assessment is older than that says so. Claude's reading
+  of "stagger", for Alex to confirm or replace: re-read each filing-based
+  claim on a real day, set its `asOf` to that day, and spread those days so
+  the claims do not all fall due together. A review date is never chosen to
+  make a claim look fresh. It is the day someone actually re-read the filing.
+- **Exposure briefs.** Gavin: "not a yes yet. Let's talk it through together
+  and treat it as open." Open. It involves money, so it needs both founders
+  (see "How decisions get made"). The three sample briefs (Mosaic, Cactus,
+  UPS) are not on the site and nothing for them is built.
+- **Sign-off address.** aandg.novusdata@gmail.com, "yes". It is the address
+  the briefing's sign-off carries, from the 27 November issue.
+- **Long summaries.** Gavin: "yes, trim the long ones as you suggested." Which
+  summaries, and to what length, comes from Alex's suggestion, which Claude
+  could not find written down. Nothing is trimmed in this pull request. A
+  register summary is meant to be one or two plain sentences (CLAUDE.md §6a),
+  and the register's claims are Gavin's call, so a trim is read by him before
+  it merges.
+- **Vercel.** Gavin: "yes, move to Pro before the first sponsor." CLAUDE.md §13
+  already says the Hobby plan is for non-commercial use only. It is a payment,
+  so whoever holds the Vercel account makes it, and Claude does not.
+- **Merges.** Gavin: "merge #86 first, then #87, #88 and #89 in order." #87 and
+  #88 were reviewed and merged on 27 November. #86 and #89 wait for Alex to
+  read the severities in #86's description and for the dating line above to be
+  settled.
+
