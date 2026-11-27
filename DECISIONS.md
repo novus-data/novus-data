@@ -630,7 +630,8 @@ find written down, and say so. Correct them before merging.
   being the last Monday issue and Wednesday 2 December the first send on the
   new days. Alex has not confirmed that exact date. He also said Sunday should
   go out later in the day than the others, and Claude took Gavin's 8:00 AM as
-  that. Until the first send on the new days, the site's `publication.cadence`
+  that. Alex then confirmed on 27 November that 8:00 AM is fine, and Gavin was
+  told so by email the same day. Until the first send on the new days, the site's `publication.cadence`
   and the welcome email still say Monday, Wednesday, Friday and Sunday, because
   a schedule stated on the site that the sending does not follow is the slipped
   commitment that entry warned about. This pull request changes
