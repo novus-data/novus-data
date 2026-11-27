@@ -31,15 +31,30 @@ export default function AlertsPage() {
       <PageHeader
         width="reading"
         title={publication.alerts.name}
-        lede="Notifications when something in the register changes. Not built yet — here is what it will be, and what it will not be."
+        lede="Notifications when something in the register changes. The app is not built yet, but following by feed works today."
       />
 
       <Container width="reading" className="mt-8 flex flex-col gap-5">
-        <StoryBox as="section" level={2} id="will" kicker="Scope" kickerTone="muted" title="What it will do">
+        <StoryBox
+          as="section"
+          level={2}
+          id="now"
+          kicker="Available now"
+          title="Follow by feed"
+          footer={<TextLink href="/follow">Every feed: companies, industries, places and the whole register</TextLink>}
+        >
           <p>
-            The register on this site already records what is going wrong and which companies it
-            reaches. Alerts will tell you when that changes: a new disruption opens, one you
-            follow escalates, or an assessment against a company you hold is revised.
+            Every company, sector, industry and place in the register has its own feed. Add one to a
+            feed reader, or to a service that emails you a feed&rsquo;s new items, and a new item
+            appears when a disruption starts to reach it, changes status, or is assessed
+            differently. No account, and nothing stored about you: your feed reader keeps the list.
+          </p>
+        </StoryBox>
+
+        <StoryBox as="section" level={2} id="will" kicker="Scope" kickerTone="muted" title="What the app will add">
+          <p>
+            The feeds already tell you when the register changes. The app will add notifications on
+            your phone and one place to keep everything you follow, without a separate feed reader.
           </p>
           <p>
             The first version will notify on facts this site can already prove: a new entry in
@@ -65,9 +80,9 @@ export default function AlertsPage() {
 
         <StoryBox as="section" level={2} id="privacy" kicker="Privacy" kickerTone="muted" title="What an app would have to store">
           <p>
-            This site currently stores nothing about you: no analytics and no cookies of its own.
-            An alerts app cannot make that claim, because it has to keep a device identifier and
-            your preferences somewhere.
+            This site currently stores nothing about you: no analytics and no cookies of its own,
+            and following by feed does not change that. An alerts app cannot make that claim,
+            because it has to keep a device identifier and your preferences somewhere.
           </p>
           <p>
             When alerts ship, <TextLink href="/privacy">the privacy page</TextLink> will be
@@ -88,8 +103,8 @@ export default function AlertsPage() {
             </p>
           )}
           <p>
-            The email briefing is the channel that exists today, and subscribers will hear about
-            alerts first.
+            Until then, follow by feed, or take the email briefing. Subscribers will hear about the
+            app first.
           </p>
         </StoryBox>
       </Container>
