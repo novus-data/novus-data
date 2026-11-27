@@ -137,7 +137,67 @@ exposures:
         url: "https://www.sec.gov/Archives/edgar/data/875582/000117184326007589/ntic20260831_10k.htm"
         publisher: "Northern Technologies International Corporation (SEC filing)"
         retrievedAt: "2026-11-26"
+  - entity:
+      id: "g-iii-apparel"
+      name: "G-III Apparel Group"
+      kind: "company"
+      ticker: "GIII"
+      sector: "Apparel"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "G-III says Middle East conflict on the Suez Canal and Red Sea routes has delayed shipments and shifted the timing of its inventory receipts, though without a significant loss of sales so far."
+    asOf: "2026-09-08"
+    sources:
+      - title: "Form 10-Q for the quarter ended 31 July 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/821002/000110465926105950/giii-20260731x10q.htm"
+        publisher: "G-III Apparel Group (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "array-technologies"
+      name: "Array Technologies"
+      kind: "company"
+      ticker: "ARRY"
+      sector: "Solar equipment"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Array Technologies says Red Sea disruption has lengthened transit times and raised shipping costs on routes to and from Asia, and it has increased local sourcing to keep deliveries to project sites on time."
+    asOf: "2026-11-09"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1820721/000162828026072048/arry-20260930.htm"
+        publisher: "Array Technologies (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "nextpower"
+      name: "Nextpower"
+      kind: "company"
+      ticker: "NXT"
+      sector: "Solar equipment"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Nextpower says rerouting away from the Red Sea and Suez Canal, together with the curtailment of shipments through Hormuz, has raised its costs and delayed deliveries."
+    asOf: "2026-11-02"
+    sources:
+      - title: "Form 10-Q for the quarter ended 2 October 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1852131/000185213126000058/nxt-20261002.htm"
+        publisher: "Nextpower (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "safe-bulkers"
+      name: "Safe Bulkers"
+      kind: "company"
+      ticker: "SB"
+      sector: "Marine shipping"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Safe Bulkers says it has kept its dry bulk fleet out of the Red Sea since the attacks began, so its ships take longer routes, and it is watching for signs the route normalises."
+    asOf: "2026-11-13"
+    sources:
+      - title: "Third-quarter 2026 report (Form 6-K)"
+        url: "https://www.sec.gov/Archives/edgar/data/1434754/000131786126000056/f111326sb6k.htm"
+        publisher: "Safe Bulkers (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>Next: whether the Houthis act on the embargo against ships bound for Yanbu, and who holds the Bab el-Mandeb coast after the 15 November withdrawal.</p>
 
-<p>Filing Watch, 26 November 2026: 3 assessments added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>
+<p>Filing Watch, 26 November 2026: 7 assessments added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>

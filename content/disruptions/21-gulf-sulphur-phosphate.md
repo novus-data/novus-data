@@ -57,5 +57,22 @@ exposures:
         url: "https://www.cobaltinstitute.org/wp-content/uploads/2026/05/Cobalt-Market-Report-2025.pdf"
         publisher: "Cobalt Institute"
         retrievedAt: "2026-11-20"
+  - entity:
+      id: "mosaic"
+      name: "Mosaic"
+      kind: "company"
+      ticker: "MOS"
+      sector: "Fertilizers"
+    severity: "high"
+    confidence: "reported"
+    mechanism: "Mosaic says its third-quarter gross margin was hurt by higher raw material costs and lower sales volumes, driven largely by increased sulfur prices and supply constraints; it reported a quarterly net loss of $72.1 million."
+    asOf: "2026-11-04"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1285785/000128578526000147/mos-20260930.htm"
+        publisher: "Mosaic (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>Sulphur is the least visible link in the fertiliser chain and the one that carries the disruption furthest from the Gulf. The IFA notes that fertiliser supply is exposed to two chokepoints at once, Hormuz and the Red Sea, which affects finished product and the energy and raw materials needed to make it.</p>
+
+<p>Filing Watch, 26 November 2026: 1 assessment added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>
