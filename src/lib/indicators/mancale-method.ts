@@ -66,12 +66,25 @@ export interface MancaleChokepointConfig {
    * collection, not after seeing what the data would say.
    */
   newsHold?: string;
+  /**
+   * When set, the chokepoint is scored and shown like any other, news
+   * included, but the scorecard (mancale-scorecard.ts) leaves it out of its
+   * calls and its ordinary-week rate, and this says why. Added 26 November
+   * 2026 so a chokepoint can be watched without changing what the scorecard
+   * has already published: every chokepoint carrying it had no news data
+   * before that date, so no earlier count included it.
+   */
+  scorecardHold?: string;
   note: string;
 }
 
 /**
- * The seven chokepoints. ids match src/lib/live/nodes.ts where the site has
- * the same place; Malacca is scored as PortWatch's "Malacca Strait".
+ * The chokepoints the index scores. ids match src/lib/live/nodes.ts where the
+ * site has the same place; Malacca is scored as PortWatch's "Malacca Strait".
+ * The first seven date from 21 October 2026; the Cape of Good Hope, Gibraltar
+ * and Dover were added on 26 November 2026, and are kept out of the scorecard
+ * (`scorecardHold`) so its published counts do not change under the same
+ * scorecard version.
  *
  * Notes carry no figures on purpose: a number in a note would go stale the
  * week after it was written, and nothing would flag it.
@@ -123,8 +136,8 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
     label: 'Strait of Malacca',
     portwatchName: 'Malacca Strait',
     newsQuery: '("Strait of Malacca" OR "Malacca Strait") sourcelang:english',
-    newsHold:
-      'Its traffic sits far above the frozen 2019–22 normal, so its flow stress almost never rises, and counting it would pull the scorecard\'s ordinary-week rate for "News ahead of ships" down. Decide how to treat that before collecting news.',
+    scorecardHold:
+      'Its traffic sits far above the frozen 2019–22 normal, so its flow stress almost never rises and "News ahead of ships" could hardly ever be followed by the ships. Counting it would pull the scorecard\'s ordinary-week rate down for a reason that has nothing to do with the news. Its news is collected and its labels are shown like any other chokepoint\'s, but it makes no scorecard call.',
     note:
       'Flow stress counts only traffic below normal, so a busier strait scores zero. A lasting shift from the 2019–22 level can reflect a change in tracking coverage as well as in trade.',
   },
@@ -137,6 +150,36 @@ export const MANCALE_CHOKEPOINTS: MancaleChokepointConfig[] = [
       'PortWatch\'s count falls from July, but the Turkish Ministry of Transport\'s quarterly counts, to the end of June, show no fall of that size. Check the next official count, or a second ship-tracking source, before collecting news.',
     note:
       'IMF PortWatch estimate from satellite ship-position data, not an official count. Official Turkish figures run to June only. A lasting shift from the 2019–22 level can reflect a change in tracking coverage as well as in trade. Treat a high reading here with more caution than a sudden one.',
+  },
+  {
+    id: 'cape-of-good-hope',
+    label: 'Cape of Good Hope',
+    portwatchName: 'Cape of Good Hope',
+    newsQuery: '"Cape of Good Hope" (shipping OR ships OR vessels OR rerouting OR container OR tanker) sourcelang:english',
+    scorecardHold:
+      'Added on 26 November 2026. Ships that avoid the Red Sea sail around the Cape, so its traffic has sat above the 2019–22 normal, and flow stress counts only traffic below normal. It makes no scorecard call, for the reason given for Malacca.',
+    note:
+      'The way round Africa. Traffic here tends to rise when Suez and Bab el-Mandeb fall, so read it beside them: a busy Cape is usually the other side of a quiet Red Sea. Flow stress counts only traffic below normal, so a busier Cape scores zero.',
+  },
+  {
+    id: 'gibraltar',
+    label: 'Strait of Gibraltar',
+    portwatchName: 'Gibraltar Strait',
+    newsQuery: '("Strait of Gibraltar" OR "Gibraltar Strait") sourcelang:english',
+    scorecardHold:
+      'Added on 26 November 2026. Kept out of the scorecard until a new scorecard version is agreed, so the counts it has already published do not change under the same version.',
+    note:
+      'The western gate of the Mediterranean. Asia to northern Europe services that use Suez also pass Gibraltar, so a diversion around the Cape can lower traffic here. The news query includes coverage of migration and of Gibraltar itself, which can make a week read louder than shipping justifies.',
+  },
+  {
+    id: 'dover',
+    label: 'Strait of Dover',
+    portwatchName: 'Dover Strait',
+    newsQuery: '("Dover Strait" OR "Strait of Dover") (shipping OR ships OR vessels OR ferry OR ferries) sourcelang:english',
+    scorecardHold:
+      'Added on 26 November 2026. Kept out of the scorecard until a new scorecard version is agreed, so the counts it has already published do not change under the same version.',
+    note:
+      'Between England and France, and among the busiest shipping lanes in the world. Its count includes the cross-Channel ferries, which run on timetables, so weekly traffic is steadier here than at most chokepoints. The news query leaves out "English Channel", because most coverage under that name is about small-boat crossings rather than shipping.',
   },
 ];
 

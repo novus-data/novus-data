@@ -110,7 +110,9 @@ export async function readMancale(today: string = new Date().toISOString().slice
   for (const config of MANCALE_CHOKEPOINTS) {
     const entry = entries[config.id];
     if (!entry) {
-      warnings.push(`Refused: ${config.label} is missing from the data file.`);
+      // A chokepoint added to the method is in no data file until the next
+      // `npm run mancale`. That is a wait, not a broken file: say so plainly.
+      warnings.push(`Pending: ${config.label} is not in the data file yet. The next npm run mancale adds it.`);
       continue;
     }
     const transits = series(entry.transits, weekStarts.length);
@@ -160,6 +162,8 @@ export async function readMancale(today: string = new Date().toISOString().slice
       portwatchName: config.portwatchName,
       newsQuery: news ? config.newsQuery : null,
       hasNews: news !== null,
+      inScorecard: !config.scorecardHold,
+      scorecardHold: config.scorecardHold ?? null,
       baselineTransitsPerDay: scored.baselineTransitsPerDay,
       baselineNewsSharePct: scored.baselineNewsSharePct,
       weeks,

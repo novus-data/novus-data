@@ -5,12 +5,13 @@
  *   npm run mancale -- --ships-csv <file> use a PortWatch CSV you downloaded by hand
  *   npm run mancale -- --offline          rebuild from the local cache, no network
  *   npm run mancale -- --refresh-news     re-download news even if the cache is fresh
+ *   npm run mancale -- --refresh-news-full  ...and for the whole history, not only recent weeks
  *   npm run mancale -- --allow-missing-news  write even if news is missing or stops short of the latest week
  *   npm run mancale -- --ledger-only      no download: record the latest week's labels from the file as it is
  *
  * WHAT IT WRITES
  *
- * content/indicators/mancale.json: for each of the seven chokepoints, the mean
+ * content/indicators/mancale.json: for each chokepoint in MANCALE_CHOKEPOINTS, the mean
  * daily ship transits per week (IMF PortWatch) and the mean daily share of
  * English-language news per week (GDELT). Nothing else. Every score on the
  * page is computed from these at build time by src/lib/indicators/
@@ -175,13 +176,32 @@ async function readNewsCache(id: string): Promise<NewsCache | null> {
   }
 }
 
-async function fetchNews(id: string, query: string): Promise<NewsCache | null> {
+/**
+ * How far back an incremental download reaches before the last cached day.
+ * Recent days are re-fetched because GDELT keeps indexing late articles for a
+ * while; eight weeks also keeps the request long enough that GDELT answers in
+ * whole days (a span of only a few days comes back hour by hour).
+ */
+const NEWS_OVERLAP_DAYS = 56;
+
+async function fetchNews(id: string, query: string, cached: NewsCache | null = null): Promise<NewsCache | null> {
+  // With a cache for the same query, ask only for the recent weeks and keep the
+  // rest from the cache. One long request per chokepoint, for the whole history
+  // since 2019, is the request GDELT refuses most often (24 November 2026), and
+  // a short one is lighter on its servers. --refresh-news-full asks for all of it.
+  const lastCached = cached && cached.query === query && cached.points.length > 0 ? cached.points[cached.points.length - 1].date : null;
+  const incremental = lastCached !== null && !flag('--refresh-news-full');
+  const fromDay = incremental
+    ? new Date(Date.parse(`${lastCached.slice(0, 4)}-${lastCached.slice(4, 6)}-${lastCached.slice(6, 8)}T00:00:00Z`) - NEWS_OVERLAP_DAYS * 86_400_000)
+        .toISOString()
+        .slice(0, 10)
+    : START_DAY;
   const url = new URL(GDELT_DOC);
   url.search = new URLSearchParams({
     query,
     mode: 'timelinevol',
     format: 'json',
-    startdatetime: `${START_DAY.replace(/-/g, '')}000000`,
+    startdatetime: `${fromDay.replace(/-/g, '')}000000`,
     enddatetime: `${todayIso().replace(/-/g, '')}235959`,
   }).toString();
 
@@ -193,10 +213,15 @@ async function fetchNews(id: string, query: string): Promise<NewsCache | null> {
         const json = (await response.json()) as { timeline?: { data?: { date: string; value: number }[] }[] };
         const data = json.timeline?.[0]?.data;
         if (Array.isArray(data) && data.length > 0) {
-          const points = data.map((point) => ({ date: point.date.slice(0, 8), value: Number(point.value) }));
+          const fetched = data.map((point) => ({ date: point.date.slice(0, 8), value: Number(point.value) }));
+          // Newly fetched days replace cached ones; older cached days are kept.
+          const byDay = new Map<string, number>();
+          if (incremental) for (const point of cached!.points) byDay.set(point.date, point.value);
+          for (const point of fetched) byDay.set(point.date, point.value);
+          const points = [...byDay].sort(([a], [b]) => (a < b ? -1 : 1)).map(([date, value]) => ({ date, value }));
           const cache: NewsCache = { retrievedAt: todayIso(), query, points };
           await writeFile(path.join(NEWS_CACHE, `${id}.json`), JSON.stringify(cache));
-          ok(`${id}: ${points.length} days of news volume (attempt ${attempt}).`);
+          ok(`${id}: ${points.length} days of news volume${incremental ? `, ${fetched.length} of them fetched now` : ''} (attempt ${attempt}).`);
           return cache;
         }
         warn(`${id}: GDELT answered but sent no timeline (attempt ${attempt}).`);
@@ -357,7 +382,7 @@ async function main() {
       info(`${config.id}: news not collected, on hold. ${config.newsHold}`);
     } else if (!flag('--offline') && (!fresh || flag('--refresh-news'))) {
       if (index > 0) await sleep(10_000);
-      news = (await fetchNews(config.id, config.newsQuery)) ?? (news?.query === config.newsQuery ? news : null);
+      news = (await fetchNews(config.id, config.newsQuery, news)) ?? (news?.query === config.newsQuery ? news : null);
       if (!news) warn(`${config.label}: no news volume yet. It is scored on ships only; run again later.`);
     } else if (news) {
       info(`${config.id}: using cached news volume retrieved ${news.retrievedAt}.`);

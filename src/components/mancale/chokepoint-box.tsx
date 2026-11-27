@@ -72,6 +72,12 @@ export function ChokepointBox({
           <span className="text-fg">Read with care: </span>
           {point.note}
         </p>
+        {point.scorecardHold ? (
+          <p className="text-meta text-muted">
+            <span className="text-fg">Not in the scorecard: </span>
+            {point.scorecardHold}
+          </p>
+        ) : null}
       </div>
     </StoryBox>
   );

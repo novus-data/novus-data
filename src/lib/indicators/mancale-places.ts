@@ -26,6 +26,9 @@ export const MANCALE_NODE_FOR: Readonly<Record<string, string>> = {
   'taiwan-strait': 'taiwan-strait',
   malacca: 'singapore-strait',
   bosphorus: 'bosphorus',
+  'cape-of-good-hope': 'cape-of-good-hope',
+  gibraltar: 'gibraltar',
+  dover: 'dover',
 };
 
 /** The tracked place a Mancalë chokepoint stands for, or null for an id the join does not know. */

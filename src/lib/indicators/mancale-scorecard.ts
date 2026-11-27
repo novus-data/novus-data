@@ -323,7 +323,10 @@ function startsRun(weeks: MancaleWeek[], at: number): boolean {
 
 export function buildScorecard(index: MancaleIndex, ledger: LedgerEntry[]): Scorecard {
   const warnings: string[] = [];
-  const withNews = index.chokepoints.filter((point) => point.hasNews);
+  // Only chokepoints with news can make a call, and a chokepoint the method
+  // holds out of the scorecard (`scorecardHold`) adds nothing to either the
+  // calls or the ordinary-week rate.
+  const withNews = index.chokepoints.filter((point) => point.hasNews && point.inScorecard);
   const byId = new Map<string, MancaleChokepoint>(index.chokepoints.map((point) => [point.id, point]));
 
   const timely = ledger.filter(isTimely);
@@ -338,8 +341,11 @@ export function buildScorecard(index: MancaleIndex, ledger: LedgerEntry[]): Scor
   for (const entry of timely) {
     for (const [id, recorded] of Object.entries(entry.regimes)) {
       const point = byId.get(id);
-      const at = point?.weeks.findIndex((week) => week.weekStart === entry.weekStart) ?? -1;
-      if (!point || at < 0) continue;
+      // A chokepoint held out of the scorecard is not part of it at all, so a
+      // label it had before its news was collected is not a revision.
+      if (!point || !point.inScorecard) continue;
+      const at = point.weeks.findIndex((week) => week.weekStart === entry.weekStart);
+      if (at < 0) continue;
       const now = point.weeks[at].regime;
       if (now !== recorded) {
         revisions.push({ weekStart: entry.weekStart, chokepointId: id, chokepointLabel: point.label, recorded, now, recordedOn: entry.recordedOn });

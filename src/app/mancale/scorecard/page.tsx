@@ -411,7 +411,7 @@ function Method({ dataThrough }: { dataThrough: string }) {
         <div>
           <dt className="text-meta text-fg">Any ordinary week</dt>
           <dd className="mt-1">
-            The comparison. The same outcome is measured from every week, at every chokepoint with news data, in which the
+            The comparison. The same outcome is measured from every week, at every chokepoint with news data that the scorecard counts, in which the
             score that has to move started below {m.baselineStartsBelow}. A score that sits near zero rises easily by chance,
             so this is what a label has to beat. These weeks overlap, so the range around that rate is narrower than the
             evidence behind it.
@@ -446,7 +446,8 @@ function Method({ dataThrough }: { dataThrough: string }) {
           <dd className="mt-1">
             The samples are small, and several chokepoints move together (Suez and the Red Sea share most of their traffic), so
             the calls are fewer independent observations than they look. The index is not seasonally adjusted. A chokepoint
-            without news data cannot make a call. Passing a test would not make the index a forecast, and failing one would
+            without news data cannot make a call, and nor can one the method holds out of the scorecard (the index page
+            says why for each). Passing a test would not make the index a forecast, and failing one would
             say that the labels describe the week and do not predict the next.
           </dd>
         </div>
