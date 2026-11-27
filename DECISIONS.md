@@ -625,13 +625,17 @@ find written down, and say so. Correct them before merging.
 - **Sending schedule.** Gavin proposed Sunday at 8:00 AM Eastern, Wednesday and
   Friday at 6:30 AM Eastern, with Monday dropped. Alex agreed on 27 November.
   This replaces the four-day schedule in "Publishing schedule stated on the
-  site" above, and it has no start date yet. Until Alex names one, the site's
-  `publication.cadence` and the welcome email still say Monday, Wednesday,
-  Friday and Sunday, and they are not changed early, because a schedule stated
-  on the site that the sending does not follow is the slipped commitment that
-  entry warned about. When the start date is set, change `publication.cadence`
-  and the welcome email in the same change as the first send on the new days.
-  Whether Monday 30 November still goes out is open.
+  site" above. Alex then said on 27 November that it starts next week and that
+  Monday 30 November still goes out. Claude read that as Monday 30 November
+  being the last Monday issue and Wednesday 2 December the first send on the
+  new days. Alex has not confirmed that exact date. He also said Sunday should
+  go out later in the day than the others, and Claude took Gavin's 8:00 AM as
+  that. Until the first send on the new days, the site's `publication.cadence`
+  and the welcome email still say Monday, Wednesday, Friday and Sunday, because
+  a schedule stated on the site that the sending does not follow is the slipped
+  commitment that entry warned about. This pull request changes
+  `publication.cadence` and is held until after Monday 30 November's send. The
+  welcome email changes at the same time.
 - **Merges.** Gavin: "merge #86 first, then #87, #88 and #89 in order." All four
   are merged. #87 and #88 went in on 27 November after review. Alex said on 27
   November to merge #86 and #89, and they went in that order, each after its
