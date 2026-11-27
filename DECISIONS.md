@@ -587,3 +587,66 @@ entry is merged.
 - **No new kind of data:** every item is a register value already on the
   site, in another shape. No new dependency.
 
+## Gavin's answers, 27 November 2026 (proposed)
+
+Gavin answered the overnight batch by email at 00:20 UTC on 27 November.
+Recorded here because an inbox is not an archive. Proposed by Claude for
+`arowsom-oss`; nothing here is settled until the pull request that adds this
+entry is merged. Two lines refer to a proposal of Alex's that Claude could not
+find written down, and say so. Correct them before merging.
+
+- **Filing Watch dating (#86, #89).** Gavin: "yes to your proposal. Stagger
+  the review dates, and go with what you and your Claude record in
+  DECISIONS.md." The proposal itself is not in anything Claude could read, so
+  its wording is left for Alex to add here. What the existing rules already
+  say, and what this entry does not change: an assessment's `asOf` is when it
+  was last true (CLAUDE.md §6a), `STALE_AFTER_DAYS` stays 21, and a company
+  page whose newest assessment is older than that says so. Claude's reading
+  of "stagger", for Alex to confirm or replace: re-read each filing-based
+  claim on a real day, set its `asOf` to that day, and spread those days so
+  the claims do not all fall due together. A review date is never chosen to
+  make a claim look fresh. It is the day someone actually re-read the filing.
+- **Exposure briefs.** Gavin: "not a yes yet. Let's talk it through together
+  and treat it as open." Open. It involves money, so it needs both founders
+  (see "How decisions get made"). The three sample briefs (Mosaic, Cactus,
+  UPS) are not on the site and nothing for them is built.
+- **Sign-off address.** aandg.novusdata@gmail.com, "yes". It is the address
+  the briefing's sign-off carries, from the 27 November issue.
+- **Long summaries.** Gavin: "yes, trim the long ones as you suggested." Which
+  summaries, and to what length, comes from Alex's suggestion, which Claude
+  could not find written down. Nothing is trimmed in this pull request. A
+  register summary is meant to be one or two plain sentences (CLAUDE.md §6a),
+  and the register's claims are Gavin's call, so a trim is read by him before
+  it merges.
+- **Vercel.** Gavin: "yes, move to Pro before the first sponsor." Alex agreed
+  on 27 November: Pro comes before the first paid sponsor. CLAUDE.md §13 already
+  says the Hobby plan is for non-commercial use only. It is a payment, so only
+  whoever holds the Vercel account makes it, and Claude does not. Not done yet.
+- **Sending schedule.** Gavin proposed Sunday at 8:00 AM Eastern, Wednesday and
+  Friday at 6:30 AM Eastern, with Monday dropped. Alex agreed on 27 November.
+  This replaces the four-day schedule in "Publishing schedule stated on the
+  site" above, and it has no start date yet. Until Alex names one, the site's
+  `publication.cadence` and the welcome email still say Monday, Wednesday,
+  Friday and Sunday, and they are not changed early, because a schedule stated
+  on the site that the sending does not follow is the slipped commitment that
+  entry warned about. When the start date is set, change `publication.cadence`
+  and the welcome email in the same change as the first send on the new days.
+  Whether Monday 30 November still goes out is open.
+- **Merges.** Gavin: "merge #86 first, then #87, #88 and #89 in order." All four
+  are merged. #87 and #88 went in on 27 November after review. Alex said on 27
+  November to merge #86 and #89, and they went in that order, each after its
+  checks passed. The severities were drafted by Claude, and either founder can
+  change one in a later pull request. The assessments go live with most already
+  showing as stale, as the Filing Watch entry above says they would, and the
+  question there about a longer window for filing-based claims is still open
+  for both founders.
+- **The failed build of #88.** The first production build after #88's merge,
+  commit 38ba64c, failed while fetching the site's Google fonts. The preview
+  build of the same code passed. The production builds for #87 and #88 began 20
+  seconds apart, and #87's passed. That the two collided is a guess, not a
+  finding. The next production build, for #86, passed and included #88's code,
+  and so did the one for #89. The site was therefore not running #88's code on
+  the morning of 27 November, for about ten hours, until #86 was merged. If a
+  font fetch fails again, treat it as a real fault and do not assume it is the
+  same chance.
+
