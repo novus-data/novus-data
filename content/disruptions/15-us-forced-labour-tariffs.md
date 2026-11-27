@@ -71,5 +71,37 @@ exposures:
         url: "https://www.hklaw.com/en/insights/publications/2026/07/and-the-tariff-beat-goes-on"
         publisher: "Holland & Knight"
         retrievedAt: "2026-11-18"
+  - entity:
+      id: "kadant"
+      name: "Kadant"
+      kind: "company"
+      ticker: "KAI"
+      sector: "Industrial machinery"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Kadant says its business has been negatively affected by the Section 301 tariffs of 10% or 12.5% on 60 trading partners imposed on 24 July 2026, alongside 50% Section 338 tariffs on certain Canadian imports."
+    asOf: "2026-11-10"
+    sources:
+      - title: "Form 10-Q for the quarter ended 3 October 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/886346/000088634626000064/kai-20261003.htm"
+        publisher: "Kadant (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "coty"
+      name: "Coty"
+      kind: "company"
+      ticker: "COTY"
+      sector: "Personal care"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "Coty says Section 301 tariffs of 10% to 12.5% took effect on 24 July 2026 and estimates about $29.8 million of gross tariff costs, after mitigation, in fiscal 2027, a figure covering all tariff increases."
+    asOf: "2026-11-05"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1024305/000102430526000074/coty-20260930.htm"
+        publisher: "Coty (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>Next: the Court of International Trade's ruling in the consolidated forced-labour cases.</p>
+
+<p>Filing Watch, 26 November 2026: 2 assessments added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>

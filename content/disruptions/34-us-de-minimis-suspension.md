@@ -72,5 +72,37 @@ exposures:
         url: "https://www.bdo.com/insights/tax/cbp-suspends-de-minimis-exemption-and-introduces-new-postal-entry-requirements"
         publisher: "BDO"
         retrievedAt: "2026-11-20"
+  - entity:
+      id: "lululemon"
+      name: "lululemon athletica"
+      kind: "company"
+      ticker: "LULU"
+      sector: "Apparel"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "lululemon says the end of the de minimis exemption for low-value shipments, together with higher tariffs, has had a significant adverse effect on its business and results in 2025 and 2026."
+    asOf: "2026-09-03"
+    sources:
+      - title: "Form 10-Q for the quarter ended 2 August 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1397187/000139718726000127/lulu-20260802.htm"
+        publisher: "lululemon athletica inc. (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "luxexperience"
+      name: "LuxExperience"
+      kind: "company"
+      ticker: "LUXE"
+      sector: "Retail"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "LuxExperience, the luxury e-commerce group, says some of its export shipments to the United States used to enter duty-free under the de minimis exemption, which no longer applies, and that this may have a material adverse effect on its business."
+    asOf: "2026-09-25"
+    sources:
+      - title: "Annual report for the year ended 30 June 2026 (Form 6-K exhibit)"
+        url: "https://www.sec.gov/Archives/edgar/data/1831907/000110465926110961/tm2626099d1_ex99-1.htm"
+        publisher: "LuxExperience B.V. (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>The February 2026 Supreme Court ruling that reached the IEEPA tariffs did not restore de minimis, because the suspension now rests on CBP regulation rather than on an executive order, and the statutory repeal follows on 1 July 2027.</p>
+
+<p>Filing Watch, 26 November 2026: 2 assessments added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>

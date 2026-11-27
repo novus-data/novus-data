@@ -76,5 +76,37 @@ exposures:
         url: "https://rallies.ai/news/air-cargo-demand-outpaces-capacity-heading-into-peak-season-seko-says-b02b819184ac7d62"
         publisher: "XLI News"
         retrievedAt: "2026-11-20"
+  - entity:
+      id: "ups"
+      name: "United Parcel Service"
+      kind: "company"
+      ticker: "UPS"
+      sector: "Parcel and logistics"
+    severity: "moderate"
+    confidence: "reported"
+    mechanism: "UPS says its third-quarter fuel expense rose $473 million, mainly on higher jet fuel, diesel and gasoline prices, and that purchased transportation rose on air freight market rates and extra charters tied to Middle East disruption."
+    asOf: "2026-11-04"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1090727/000162828026070246/ups-20260930.htm"
+        publisher: "United Parcel Service (SEC filing)"
+        retrievedAt: "2026-11-26"
+  - entity:
+      id: "ch-robinson"
+      name: "C.H. Robinson"
+      kind: "company"
+      ticker: "CHRW"
+      sector: "Freight forwarding"
+    severity: "low"
+    confidence: "reported"
+    mechanism: "C.H. Robinson says Middle East conflict affected airspace and routings and contributed to significantly higher jet fuel prices, which kept the air freight rates it buys and sells elevated in the third quarter."
+    asOf: "2026-10-30"
+    sources:
+      - title: "Form 10-Q for the quarter ended 30 September 2026"
+        url: "https://www.sec.gov/Archives/edgar/data/1043277/000104327726000043/chrw-20260930.htm"
+        publisher: "C.H. Robinson (SEC filing)"
+        retrievedAt: "2026-11-26"
 ---
 <p>The capacity that is expected to return in 2027 is largely restoration of what the Gulf conflict removed rather than new aircraft, and consultancies warn it will be concentrated on Asia-Europe, which is not where the pressure is. Russia's ban on jet fuel exports through the end of November 2026 sits behind the fuel side of this.</p>
+
+<p>Filing Watch, 26 November 2026: 2 assessments added from the companies' own SEC filings, which are each one's source. Drafted by Claude at Gavin McGreevy's request and recorded under the editor; each keeps the date of the filing it rests on. The entry's summary and review date are unchanged.</p>

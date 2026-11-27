@@ -454,6 +454,39 @@ and put up as one pull request; nothing here is settled until it is merged.
   PortWatch-based figures; the Mancalë Index is excluded from the downloads for
   that reason.
 
+## Filing Watch: assessments from companies' own SEC filings (proposed 26 November 2026)
+
+Proposed by `Novous-Data` on 2026-11-26. Gavin asked his Claude to grow the
+register from what companies say about themselves, starting with a pilot.
+Nothing here is settled until the pull request that adds this entry is merged.
+
+- **The register's claims (Gavin's call).** 27 assessments across five entries
+  (Hormuz 12, China's rare earth controls 5, DRAM and NAND 5, the Houthi
+  embargo 3, de minimis 2), each sourced to the company's own filing on
+  sec.gov and dated to it. 25 are `reported` (the company names the problem);
+  RTX and Woodward are `inferred`, because they describe rare earth shortages
+  without naming China's controls, and their mechanism says so. Severities
+  were drafted by Claude under the scale on /about#method; `arowsom-oss`
+  should read them before merging and change any he disagrees with. Tickers
+  were checked against the SEC's company_tickers.json; Seapeak's is left null
+  because only its preferred units are listed.
+- **They will show as stale, and that is the rule working.** Each
+  assessment's `asOf` is its filing's date, and most of these filings are more
+  than 21 days old already, so their company pages say so. Companies file
+  quarterly, so a filing-based assessment can only be refreshed when the next
+  filing arrives (from late January 2027 for most of these). Whether
+  `reported` assessments that rest on a periodic filing should have a longer
+  window than 21 days is a question for both founders; nothing here changes
+  `STALE_AFTER_DAYS`.
+- **Left out on purpose:** companies that only list a problem among
+  forward-looking risks, companies that benefit (the register's severity means
+  harm, so a beneficiary would change its meaning), and one filing whose text
+  closely repeats another company's.
+- **The script (the site's tooling, `arowsom-oss`'s call).**
+  `npm run filing-watch` searches EDGAR's full-text index and prints leads;
+  it never writes to the register. No new dependency. No new kind of data: a
+  filing is a source like any other, held to the same four-field rule.
+
 ## Still open
 
 1. What goes live on launch day: the main branch as it is, or the main branch
