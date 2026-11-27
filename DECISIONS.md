@@ -618,11 +618,35 @@ find written down, and say so. Correct them before merging.
   register summary is meant to be one or two plain sentences (CLAUDE.md §6a),
   and the register's claims are Gavin's call, so a trim is read by him before
   it merges.
-- **Vercel.** Gavin: "yes, move to Pro before the first sponsor." CLAUDE.md §13
-  already says the Hobby plan is for non-commercial use only. It is a payment,
-  so whoever holds the Vercel account makes it, and Claude does not.
-- **Merges.** Gavin: "merge #86 first, then #87, #88 and #89 in order." #87 and
-  #88 were reviewed and merged on 27 November. #86 and #89 wait for Alex to
-  read the severities in #86's description and for the dating line above to be
-  settled.
+- **Vercel.** Gavin: "yes, move to Pro before the first sponsor." Alex agreed
+  on 27 November: Pro comes before the first paid sponsor. CLAUDE.md §13 already
+  says the Hobby plan is for non-commercial use only. It is a payment, so only
+  whoever holds the Vercel account makes it, and Claude does not. Not done yet.
+- **Sending schedule.** Gavin proposed Sunday at 8:00 AM Eastern, Wednesday and
+  Friday at 6:30 AM Eastern, with Monday dropped. Alex agreed on 27 November.
+  This replaces the four-day schedule in "Publishing schedule stated on the
+  site" above, and it has no start date yet. Until Alex names one, the site's
+  `publication.cadence` and the welcome email still say Monday, Wednesday,
+  Friday and Sunday, and they are not changed early, because a schedule stated
+  on the site that the sending does not follow is the slipped commitment that
+  entry warned about. When the start date is set, change `publication.cadence`
+  and the welcome email in the same change as the first send on the new days.
+  Whether Monday 30 November still goes out is open.
+- **Merges.** Gavin: "merge #86 first, then #87, #88 and #89 in order." All four
+  are merged. #87 and #88 went in on 27 November after review. Alex said on 27
+  November to merge #86 and #89, and they went in that order, each after its
+  checks passed. The severities were drafted by Claude, and either founder can
+  change one in a later pull request. The assessments go live with most already
+  showing as stale, as the Filing Watch entry above says they would, and the
+  question there about a longer window for filing-based claims is still open
+  for both founders.
+- **The failed build of #88.** The first production build after #88's merge,
+  commit 38ba64c, failed while fetching the site's Google fonts. The preview
+  build of the same code passed. The production builds for #87 and #88 began 20
+  seconds apart, and #87's passed. That the two collided is a guess, not a
+  finding. The next production build, for #86, passed and included #88's code,
+  and so did the one for #89. The site was therefore not running #88's code on
+  the morning of 27 November, for about ten hours, until #86 was merged. If a
+  font fetch fails again, treat it as a real fault and do not assume it is the
+  same chance.
 
