@@ -5,8 +5,8 @@ shortLabel: "301"
 status: "watch"
 category: "policy"
 startedAt: "2025-12-01"
-updatedAt: "2026-11-10"
-summary: "On 10 November 2026 USTR published a notice extending all 178 exclusions from the Section 301 tariffs on Chinese goods to 11:59 p.m. Eastern on 9 January 2027, a day after the previous extension ended. It said it may consider further extensions."
+updatedAt: "2026-11-27"
+summary: "On 10 November 2026 USTR published a notice extending all 178 exclusions from the Section 301 tariffs on Chinese goods to 11:59 p.m. Eastern on 9 January 2027, a day after the previous extension ended. It said it may consider further extensions. The notice's annexes set the cut-off at before 11:59 p.m. Eastern on 9 January 2027; one sentence in the body of the notice says 10 January, and the annexes govern."
 author: "alex"
 sources:
   - title: "Notice of Product Exclusion Extensions (10 November 2026)"
@@ -81,3 +81,4 @@ exposures:
         retrievedAt: "2026-11-02"
 ---
 <p>Research and sources by Gavin McGreevy; severities assessed by Alex Rowsom on 13 October 2026.</p>
+<p>Reviewed on 27 November 2026 by Gavin McGreevy: checked against the text of the 10 November notice, Federal Register 2026-22925; no later notice found. Status, assessments and severities unchanged.</p>
