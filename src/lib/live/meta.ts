@@ -135,4 +135,16 @@ export const SOURCE_META: Record<LiveSourceId, SourceMeta> = {
     ...SOURCE_CLOCKS.quotes,
     requiresEnv: 'FINNHUB_API_KEY',
   },
+  opensky: {
+    id: 'opensky',
+    name: 'OpenSky Network',
+    publisher: 'OpenSky Network',
+    measures: 'Aircraft near eight air-cargo hubs',
+    homepage: 'https://opensky-network.org/',
+    cadence: 'Latest aircraft states, read once at each fifteen-minute update',
+    terms:
+      "NOT CONFIRMED FOR THIS USE. OpenSky's API is described as for research and non-commercial purposes, and commercial users are asked to contact OpenSky. Hidden until both founders hold OpenSky's written answer (DECISIONS.md). Needs OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET.",
+    ...SOURCE_CLOCKS.opensky,
+    requiresEnv: 'OPENSKY_CLIENT_ID',
+  },
 };

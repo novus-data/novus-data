@@ -97,7 +97,8 @@ export async function buildVesselFeed(summary: AisSummary, options: VesselFeedOp
   if (!options.carriers) {
     try {
       const loaded = await listCarriers();
-      carriers = loaded.carriers;
+      // Ships match shipping lines only; air operators belong to the air section.
+      carriers = loaded.carriers.filter((carrier) => carrier.kind === 'shipping-line');
       const refused = loaded.warnings.filter((w) => w.startsWith('Refused')).length;
       if (refused > 0) notes.push(`${refused} carrier fleet list files failed validation and were not used.`);
     } catch {

@@ -28,7 +28,7 @@
  * long) and a few seconds without one.
  */
 
-import type { LiveSnapshot, LiveSourceId } from '@/lib/live/types';
+import type { LiveSnapshot, SnapshotSourceId } from '@/lib/live/types';
 
 import { blank, blocker, colour, detail, heading, info, loadEnvLocal, ok, plural, warn } from './lib/cli';
 
@@ -136,10 +136,10 @@ async function main(): Promise<void> {
   if (strict && failures > 0) process.exitCode = 1;
 }
 
-type DataOf<K extends LiveSourceId> = Extract<LiveSnapshot[K], { status: 'ok' }>['data'];
+type DataOf<K extends SnapshotSourceId> = Extract<LiveSnapshot[K], { status: 'ok' }>['data'];
 
 /** One or two lines per feed saying what was actually recognised in the response. */
-const DESCRIBE: { [K in LiveSourceId]: (data: DataOf<K>) => string[] } = {
+const DESCRIBE: { [K in SnapshotSourceId]: (data: DataOf<K>) => string[] } = {
   ais: (d) => {
     const heard = d.chokepoints.filter((row) => row.messages > 0);
     const lines = [

@@ -11,6 +11,7 @@ import { EnergyPanel, QuotesTable } from '@/components/live/markets-panel';
 import { PlaceBoard, ReportingRadii } from '@/components/live/place-board';
 import { ReadingBlock } from '@/components/live/reading-block';
 import { ShipsPanel } from '@/components/live/ships-panel';
+import { AirPanel } from '@/components/live/air-panel';
 import { PageHeader } from '@/components/page-header';
 import { ExternalLink, TextLink } from '@/components/text-link';
 import { absoluteUrl } from '@/lib/env';
@@ -22,6 +23,7 @@ import {
   PORTS,
   PROXIMITY_KM,
   SOURCE_META,
+  getAirFeed,
   getLiveSourceName,
   nodeById,
   type AisData,
@@ -91,7 +93,12 @@ export default async function MonitorPage() {
   // of companies already on the exposure chart — see lib/monitor.ts.
   // `vessels: true` builds the ship panels from the same AIS sample as the
   // counts above them: one socket, not two (lib/monitor.ts).
-  const { snapshot, flags, places, registerByPlace, vessels } = await readMonitor({ vessels: true });
+  // The air reading (Vessels Part 3B) is separate from the snapshot, so
+  // /live.json is unchanged; it runs alongside it, not after it.
+  const [{ snapshot, flags, places, registerByPlace, vessels }, air] = await Promise.all([
+    readMonitor({ vessels: true }),
+    getAirFeed(),
+  ]);
   const demo = getLiveSourceName() === 'fixtures';
   const everyFeedAnswered = LIVE_SOURCE_IDS.every((id) => snapshot[id].status !== 'unavailable');
 
@@ -169,6 +176,10 @@ export default async function MonitorPage() {
             <ShipsPanel reading={vessels} register={registerByPlace} />
           </Section>
         ) : null}
+
+        <Section id="air" title="Aircraft at air-cargo hubs">
+          <AirPanel reading={air} />
+        </Section>
 
         <Section id="markets" title="Energy and markets">
           <Intro>

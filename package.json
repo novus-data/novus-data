@@ -19,7 +19,7 @@
     "mancale": "tsx scripts/mancale.ts",
     "filing-watch": "tsx scripts/filing-watch.ts",
     "check": "npm run typecheck && npm run lint && npm run doctor",
-    "test:regressions": "node scripts/tests/rss-sync.mjs && tsx scripts/tests/content.ts && tsx scripts/tests/mancale-scorecard.ts && tsx scripts/tests/vessels.ts && tsx scripts/tests/ships-panel.ts && tsx scripts/tests/carriers.ts",
+    "test:regressions": "node scripts/tests/rss-sync.mjs && tsx scripts/tests/content.ts && tsx scripts/tests/mancale-scorecard.ts && tsx scripts/tests/vessels.ts && tsx scripts/tests/ships-panel.ts && tsx scripts/tests/carriers.ts && tsx scripts/tests/air.ts",
     "build:preview": "NOVUS_ALLOW_INCOMPLETE=1 next build",
     "preview": "tsx scripts/build-preview.ts"
   },

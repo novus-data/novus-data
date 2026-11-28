@@ -600,6 +600,51 @@ Lists older than 90 days at build time are marked "had not been refreshed when
 this page was built" (`CARRIER_STALE_AFTER_DAYS`, a proposal). To refresh one,
 repeat the steps with `--replace`. To remove one, delete its file.
 
+## Part 5c — Aircraft at air-cargo hubs (OpenSky; a terms decision first)
+
+The hidden "Aircraft at air-cargo hubs" section on `/monitor` reads OpenSky
+Network. **Its terms are not confirmed for Novus**: OpenSky describes its API as
+for research and non-commercial purposes and asks commercial users to get in
+touch, and Novus may charge. So:
+
+1. **Email OpenSky first** (Gavin or Alex), describing Novus Data and how the
+   counts would be shown, and ask whether that is permitted. Record the answer,
+   with its date, in DECISIONS.md under "Per-ship data on the monitor". Until a
+   written yes is recorded there, the section stays hidden whatever else is set.
+2. **Create a free OpenSky account**, then on its Account page
+   (https://opensky-network.org/my-opensky/account) create an **API client**
+   and download its credentials. No payment. Never paste them into a chat, an
+   email or a commit.
+3. **Add them as server-only variables**, each in two places: GitHub → Settings
+   → Secrets and variables → Actions, and Vercel → Settings → Environment
+   Variables (Production), named exactly `OPENSKY_CLIENT_ID` and
+   `OPENSKY_CLIENT_SECRET`, with no `NEXT_PUBLIC_` prefix (the build refuses one).
+   Redeploy.
+4. **Budget, as the handoff states it (not checked against OpenSky's live
+   documentation, which could not be reached when this was written):** a free
+   account has 4,000 credits a day; a query over a box of 25 square degrees or
+   less costs one credit. The section queries eight boxes of 0.64 square degrees,
+   so one regeneration costs **8 credits plus one token request**. At most one
+   regeneration per fifteen minutes is 96 a day, **768 credits a day**: well
+   inside a free account, and **more than the 400 an anonymous client gets**, so
+   the account is needed. Builds and previews spend **nothing** while
+   `monitorEnabled` is false, because the page returns 404 before reading any
+   source; once it is on, each build and each preview deployment that renders
+   `/monitor` spends 8 more. A day's allowance running out shows as
+   "unavailable" until it resets; the code never retries in a loop.
+5. **Operators.** No aircraft is named until operator designators are loaded:
+   each one is a record in `content/carriers/` of kind `air-operator`, citing
+   **FAA Order JO 7340.2 (Contractions), Chapter 3** on faa.gov, with the edition
+   named (for example "JO 7340.2N") and the date it was read. The loader refuses
+   any other source. Both founders choose which operators to load; start with a
+   handful of air-cargo operators, looked up by name in the current edition, never
+   from memory. Until then every aircraft is counted, not identified.
+
+### Roll back
+
+Delete the two variables in Vercel and redeploy. The section says "not switched
+on yet"; nothing else changes.
+
 ## Part 6 — Share prices (a licensing decision first)
 
 Energy prices need nothing: they are public-domain U.S. government data. **Share

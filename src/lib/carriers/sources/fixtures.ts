@@ -41,6 +41,21 @@ export function fixtureCarriers(): CarrierRecord[] {
     },
     {
       ...common,
+      // "ZZZ" is chosen because the sample flights use it. Whether it is
+      // allocated to a real airline could not be checked here; it is sample
+      // data, refused in any production build.
+      id: 'sample-air-freight',
+      name: '[SAMPLE] Air Freight',
+      kind: 'air-operator',
+      relationship: 'listed',
+      sourceLabel: '[SAMPLE] FAA Order JO 7340.2, Chapter 3 (sample edition)',
+      asOf: '2026-11-15',
+      sources: [{ url: 'https://example.invalid/faa-7340-2', publisher: '[SAMPLE] FAA' }],
+      imo: [],
+      designators: ['ZZZ'],
+    },
+    {
+      ...common,
       id: 'sample-old-owners',
       name: '[SAMPLE] Old Owners Shipping',
       kind: 'shipping-line',

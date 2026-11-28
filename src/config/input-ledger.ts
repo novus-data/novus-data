@@ -300,3 +300,37 @@ export function assertNoPublicServiceRoleKey(): void {
 assertNoPublicServiceRoleKey();
 
 assertLaunchReady();
+
+/**
+ * Refuses to build or serve while a live-data credential carries the
+ * NEXT_PUBLIC_ prefix, which would publish it in the browser bundle.
+ *
+ * Added 28 November 2026 (Vessels Part 3B). The comments in
+ * src/lib/live/sources/ais.ts, CLAUDE.md and DEPLOY.md already said the build
+ * refused a NEXT_PUBLIC_ AIS key, but no code did; this makes that true and
+ * covers the OpenSky and Finnhub credentials too. Literal names, because Next
+ * only inlines literals. Not gated on NOVUS_ALLOW_INCOMPLETE, for the same
+ * reason as the service role check above.
+ */
+export function assertNoPublicLiveSecrets(): void {
+  const exposed = [
+    process.env.NEXT_PUBLIC_AISSTREAM_API_KEY ? 'NEXT_PUBLIC_AISSTREAM_API_KEY' : null,
+    process.env.NEXT_PUBLIC_FINNHUB_API_KEY ? 'NEXT_PUBLIC_FINNHUB_API_KEY' : null,
+    process.env.NEXT_PUBLIC_OPENSKY_CLIENT_ID ? 'NEXT_PUBLIC_OPENSKY_CLIENT_ID' : null,
+    process.env.NEXT_PUBLIC_OPENSKY_CLIENT_SECRET ? 'NEXT_PUBLIC_OPENSKY_CLIENT_SECRET' : null,
+  ].filter((name): name is string => name !== null);
+  if (exposed.length === 0) return;
+  throw new Error(
+    [
+      '',
+      `${exposed.join(', ')} ${exposed.length === 1 ? 'is' : 'are'} set.`,
+      '',
+      'Live-data credentials must NEVER carry the NEXT_PUBLIC_ prefix: it inlines the',
+      'value into every visitor\'s browser. Rename each without the prefix, and create',
+      'a new key or client with the provider, because the old one must be assumed public.',
+      '',
+    ].join('\n'),
+  );
+}
+
+assertNoPublicLiveSecrets();

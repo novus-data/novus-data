@@ -25,4 +25,5 @@ export const SOURCE_CLOCKS: Record<LiveSourceId, SourceClock> = {
   // two more, so "delayed" starts after four days rather than hours.
   fred: { delayedAfterMinutes: 4 * 24 * 60, staleAfterMinutes: 8 * 24 * 60, asOfPrecision: 'day' },
   quotes: { delayedAfterMinutes: 24 * 60, staleAfterMinutes: 4 * 24 * 60, asOfPrecision: 'minute' },
+  opensky: { delayedAfterMinutes: 30, staleAfterMinutes: 90, asOfPrecision: 'minute' },
 };
