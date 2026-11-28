@@ -10,6 +10,7 @@ import { LiveAge } from '@/components/live/live-age';
 import { EnergyPanel, QuotesTable } from '@/components/live/markets-panel';
 import { PlaceBoard, ReportingRadii } from '@/components/live/place-board';
 import { ReadingBlock } from '@/components/live/reading-block';
+import { ShipsPanel } from '@/components/live/ships-panel';
 import { PageHeader } from '@/components/page-header';
 import { ExternalLink, TextLink } from '@/components/text-link';
 import { absoluteUrl } from '@/lib/env';
@@ -88,7 +89,9 @@ export default async function MonitorPage() {
 
   // The register supplies which entries name which places, and the tickers
   // of companies already on the exposure chart — see lib/monitor.ts.
-  const { snapshot, flags, places, registerByPlace } = await readMonitor();
+  // `vessels: true` builds the ship panels from the same AIS sample as the
+  // counts above them: one socket, not two (lib/monitor.ts).
+  const { snapshot, flags, places, registerByPlace, vessels } = await readMonitor({ vessels: true });
   const demo = getLiveSourceName() === 'fixtures';
   const everyFeedAnswered = LIVE_SOURCE_IDS.every((id) => snapshot[id].status !== 'unavailable');
 
@@ -160,6 +163,12 @@ export default async function MonitorPage() {
           </Intro>
           <ReadingBlock reading={snapshot.ais}>{(data) => <ChokepointTable data={data} />}</ReadingBlock>
         </Section>
+
+        {vessels ? (
+          <Section id="ships" title="Ships at the chokepoints">
+            <ShipsPanel reading={vessels} register={registerByPlace} />
+          </Section>
+        ) : null}
 
         <Section id="markets" title="Energy and markets">
           <Intro>

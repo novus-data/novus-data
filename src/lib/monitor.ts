@@ -10,9 +10,14 @@
  */
 
 import { listDisruptions, type DisruptionSummary } from '@/lib/disruptions';
-import { deriveFlags, derivePlaces, getLiveSnapshot } from '@/lib/live';
+import { deriveFlags, derivePlaces, getLiveSnapshot, getLiveSnapshotWithVessels, type Reading, type VesselFeedData } from '@/lib/live';
 
-export async function readMonitor() {
+/**
+ * `vessels: true` also builds the per-vessel feed from the SAME AIS sample
+ * (no second socket). /monitor asks for it to draw the ship panels; /live.json
+ * does not, so its regeneration never touches the vessel registry.
+ */
+export async function readMonitor(options: { vessels?: boolean } = {}) {
   const open = (await listDisruptions()).filter((d) => d.status !== 'resolved');
 
   // Companies already on the exposure chart are the only ones ever quoted;
@@ -28,11 +33,16 @@ export async function readMonitor() {
     for (const place of d.places) (registerByPlace[place] ??= []).push(d);
   }
 
-  const snapshot = await getLiveSnapshot({
-    extraSymbols: [...tickers].map(([symbol, label]) => ({ symbol, label })),
-  });
+  const snapshotOptions = { extraSymbols: [...tickers].map(([symbol, label]) => ({ symbol, label })) };
+  let vessels: Reading<VesselFeedData> | null = null;
+  let snapshot;
+  if (options.vessels) {
+    ({ snapshot, vessels } = await getLiveSnapshotWithVessels(snapshotOptions));
+  } else {
+    snapshot = await getLiveSnapshot(snapshotOptions);
+  }
   const flags = deriveFlags(snapshot);
   const places = derivePlaces(snapshot, flags);
 
-  return { snapshot, flags, places, registerByPlace };
+  return { snapshot, flags, places, registerByPlace, vessels };
 }

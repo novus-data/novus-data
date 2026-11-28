@@ -689,6 +689,20 @@ nobody has yet read a real AISStream message through it.
    for `npm run live:check` or `npm run ais:capture` at the same moment. If
    that becomes a problem, the three routes would need to share one sample.
 
+**Part 2, the ship panels (drafted 28 November 2026, also not agreed).**
+Built on Part 1 before Part 1 merged, at Gavin's request; its pull request is
+based on Part 1's. `/monitor` gains "Ships at the chokepoints": one card per
+chokepoint with a 1:10m coastline, ships drawn by shape, filters (type, under
+way, flag (from MMSI), name or MMSI) and the open register entries naming the
+place. Still behind `monitorEnabled`; still only seen on sample data. Rules in
+CLAUDE.md §6a, "The ships panel". Further questions for both founders:
+
+7. **Ship names on a public page.** Names are shown, except for ships
+   broadcasting type 35 (military) or 55 (law enforcement), whose names are
+   withheld by default. Both the default and the exception are yours to set.
+8. **Whether this stays on `/monitor`** (as built) or earns its own page and
+   navigation entry later.
+
 **Calls made in the code, for checking:** per-ship data is not in
 `/live.json`; the registry stores static attributes only, never a position;
 the cap is 400 vessels per box and 2,000 in all, with the number dropped
