@@ -647,7 +647,9 @@ function Attribution() {
       </ul>
 
       <dl className="mt-6 border-b border-hairline">
-        {LIVE_SOURCE_IDS.map((id) => {
+        {/* OpenSky is not in the snapshot (/live.json is unchanged), but its
+            data is on this page, so its terms are listed with the rest. */}
+        {[...LIVE_SOURCE_IDS, 'opensky' as const].map((id) => {
           const meta = SOURCE_META[id];
           return (
             <div key={id} className="grid gap-x-6 gap-y-1 border-t border-hairline py-3 sm:grid-cols-[14rem_1fr]">

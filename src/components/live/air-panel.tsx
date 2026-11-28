@@ -3,6 +3,7 @@ import { ExternalLink } from '@/components/text-link';
 import { AIRCRAFT_CATEGORIES, AIRCRAFT_CATEGORY_LABELS, type AirData } from '@/lib/live/air';
 import { AIR_NODES } from '@/lib/live/air-nodes';
 import { formatUtc, formatUtcDateOnly } from '@/lib/live/display';
+import { SOURCE_META } from '@/lib/live/meta';
 import type { Reading } from '@/lib/live/types';
 
 /**
@@ -33,6 +34,7 @@ export function AirPanel({ reading }: { reading: Reading<AirData> }) {
           FAA lists for an operator loaded here, which is an inference: aircraft are sometimes flown for one airline
           under another&rsquo;s designator. Every other aircraft is counted, not identified.
         </p>
+        <p className="text-meta">Terms: {SOURCE_META.opensky.terms}</p>
       </div>
       <ReadingBlock reading={reading}>{(data) => <AirBody data={data} />}</ReadingBlock>
     </>

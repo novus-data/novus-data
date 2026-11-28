@@ -224,6 +224,10 @@ export async function buildAirReading(results: ParseResult[], operatorsOverride?
   const dropped = { noPosition: 0, malformed: 0, notAircraft: 0, outsideBox: 0 };
   for (const r of results) for (const key of Object.keys(dropped) as (keyof typeof dropped)[]) dropped[key] += r.dropped[key];
   const latest = results.map((r) => r.latest).filter((v): v is string => v !== null).sort().pop() ?? null;
+  // With no aircraft anywhere, the age still comes from inside the data:
+  // OpenSky's own response time, never our clock (src/lib/live/types.ts).
+  const responded = results.map((r) => r.responseTime).filter((v): v is string => v !== null).sort().pop() ?? null;
+  if (!latest && !responded) throw new LiveSourceError('OpenSky returned no time with its answer, so its age cannot be stated.');
   const notes: string[] = [];
   const droppedTotal = dropped.noPosition + dropped.malformed + dropped.notAircraft;
   if (droppedTotal > 0) {
@@ -235,8 +239,8 @@ export async function buildAirReading(results: ParseResult[], operatorsOverride?
   return {
     status: 'ok',
     source: 'opensky',
-    asOf: latest ?? new Date().toISOString(),
-    asOfBasis: latest ? 'latest aircraft report received' : 'time of the request (no aircraft in any box)',
+    asOf: latest ?? responded!,
+    asOfBasis: latest ? 'latest aircraft report received' : "OpenSky's response time (no aircraft in any box)",
     data: {
       nodes,
       operators: operators

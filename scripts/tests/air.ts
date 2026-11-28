@@ -65,6 +65,12 @@ async function main() {
     return base;
   };
   assert.deepEqual(air.parseStates({ states: null }, mem).sightings, [], 'null states is an empty sky');
+  assert.equal(air.parseStates({ time: t, states: null }, mem).responseTime, new Date(t * 1000).toISOString(), 'response time kept');
+  // An empty sky everywhere: the age is OpenSky's own response time, never our clock.
+  const { buildAirReading: build } = await import('@/lib/live/sources');
+  const emptySky = await build(AIR_NODES.map((n) => air.parseStates({ time: t, states: null }, n)), []);
+  assert.ok(emptySky.status === 'ok' && emptySky.asOf === new Date(t * 1000).toISOString());
+  await assert.rejects(build([air.parseStates({ states: null }, mem)], []), /no time/);
   assert.deepEqual(air.parseStates(null, mem).sightings, []);
   const parsed = air.parseStates(
     {
@@ -195,7 +201,7 @@ async function main() {
   assert.equal(nameCount, matchedRows, 'operator name only beside matched flights');
   assert.ok(html.includes('No signal in this sample') && html.includes('not an empty sky'), 'empty hub');
   // No operators loaded: the count-only line.
-  const anonymous = await buildAirReading([], []);
+  const anonymous = await buildAirReading(AIR_NODES.map((n) => air.parseStates({ time: t, states: null }, n)), []);
   const anonHtml = renderToStaticMarkup(React.createElement(AirPanel, { reading: anonymous }));
   assert.ok(anonHtml.includes('No operator designators are loaded yet'));
   const off = renderToStaticMarkup(React.createElement(AirPanel, { reading: { status: 'not-configured', source: 'opensky', envVar: 'OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET' } }));

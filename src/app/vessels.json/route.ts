@@ -92,6 +92,14 @@ export async function GET() {
     typeFromSample: data.typeFromSample,
     typeFromRegistry: data.typeFromRegistry,
     /**
+     * The carrier fleet lists held (no IMO lists), so each vessel's
+     * `carrierIds` can be read: name, the list's own wording, its date and
+     * source. A match means the ship's broadcast IMO appears in that list,
+     * nothing more. `carrierMatched` counts vessels with at least one match.
+     */
+    carriers: data.carriers,
+    carrierMatched: data.carrierMatched,
+    /**
      * Field guide: mmsi (9 digits), lat/lon (degrees), sog (knots|null),
      * cog/heading (degrees true|null), seenAt (that vessel's message time),
      * nodeId (chokepoint box), name/callsign (untrusted text|null), imo,

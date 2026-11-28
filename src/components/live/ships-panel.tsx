@@ -54,13 +54,13 @@ export function ShipsPanel({
 }
 
 function ShipsIntro({ reading }: { reading: Reading<VesselFeedData> }) {
-  const seconds = reading.status === 'ok' ? reading.data.windowSeconds : 30;
   return (
     <div className="mb-5 max-w-[72ch] space-y-2 text-[0.9375rem] leading-[1.55] text-muted">
       <p>
-        Each ship below is drawn where it reported itself during one {seconds}-second sample, taken
-        about every fifteen minutes, so ships move on between samples. The picture shows traffic, not
-        cargo.
+        {reading.status === 'ok'
+          ? `Each ship below is drawn where it reported itself during one ${reading.data.windowSeconds}-second sample, taken about every fifteen minutes, so ships move on between samples.`
+          : 'When this is switched on, each ship is drawn where it reported itself during one short sample, taken about every fifteen minutes.'}{' '}
+        The picture shows traffic, not cargo.
       </p>
       <p>
         Everything here is reported by the ship: its position, speed and type. None of it is checked,

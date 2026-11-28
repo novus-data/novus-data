@@ -69,7 +69,21 @@ function typeKnownHow(ship: ShipDot): string {
 }
 
 export function ShipsExplorer({ data, cards }: { data: ShipsData; cards: ShipCard[] }) {
-  const [filters, setFilters] = useState<ShipFilters>(NO_FILTERS);
+  const [chosen, setFilters] = useState<ShipFilters>(NO_FILTERS);
+  // After the five-minute refresh a chosen flag or carrier may no longer be in
+  // the sample. Treat it as "all" rather than filtering every card to zero
+  // behind a control that no longer shows it.
+  const filters: ShipFilters = useMemo(
+    () => ({
+      ...chosen,
+      flag: chosen.flag === 'all' || data.flags.includes(chosen.flag) ? chosen.flag : 'all',
+      carrier:
+        chosen.carrier === 'all' || chosen.carrier === 'none' || data.carriers.some((c) => c.id === chosen.carrier)
+          ? chosen.carrier
+          : 'all',
+    }),
+    [chosen, data],
+  );
   const [selected, setSelected] = useState<{ nodeId: string; mmsi: string } | null>(null);
   const ids = useId();
 
@@ -79,7 +93,7 @@ export function ShipsExplorer({ data, cards }: { data: ShipsData; cards: ShipCar
     return out;
   }, [cards, data, filters]);
 
-  const update = (patch: Partial<ShipFilters>) => setFilters((current) => ({ ...current, ...patch }));
+  const update = (patch: Partial<ShipFilters>) => setFilters({ ...filters, ...patch });
   const filtering = hasFilters(filters);
   const totalShown = Object.values(shown).reduce((sum, list) => sum + list.length, 0);
   const totalHeard = cards.reduce((sum, card) => sum + (data.byNode[card.nodeId]?.length ?? 0), 0);

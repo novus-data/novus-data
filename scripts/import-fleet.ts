@@ -42,6 +42,29 @@ export interface ImportResult {
   imo: number[];
 }
 
+/** One CSV line into cells, honouring double quotes (a quoted comma stays in its cell; a doubled quote is a quote). */
+export function splitCsvLine(line: string): string[] {
+  const cells: string[] = [];
+  let cell = '';
+  let quoted = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (quoted) {
+      if (ch === '"' && line[i + 1] === '"') {
+        cell += '"';
+        i += 1;
+      } else if (ch === '"') quoted = false;
+      else cell += ch;
+    } else if (ch === '"') quoted = true;
+    else if (ch === ',') {
+      cells.push(cell);
+      cell = '';
+    } else cell += ch;
+  }
+  cells.push(cell);
+  return cells;
+}
+
 /** Read the "imo" values from a saved CSV or JSON file's text. */
 export function readImoColumn(text: string, format: 'csv' | 'json'): string[] {
   if (format === 'json') {
@@ -53,7 +76,7 @@ export function readImoColumn(text: string, format: 'csv' | 'json'): string[] {
   }
   const lines = text.split(/\r?\n/).filter((line) => line.trim() !== '');
   if (lines.length === 0) return [];
-  const cells = (line: string) => line.split(',').map((cell) => cell.trim().replace(/^"(.*)"$/, '$1').trim());
+  const cells = (line: string) => splitCsvLine(line).map((cell) => cell.trim());
   const column = cells(lines[0]).findIndex((header) => header.toLowerCase() === 'imo');
   if (column === -1) throw new Error('The file has no column named "imo".');
   return lines.slice(1).map((line) => cells(line)[column] ?? '');

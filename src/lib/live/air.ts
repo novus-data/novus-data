@@ -114,6 +114,8 @@ export interface ParseResult {
   sightings: AircraftSighting[];
   /** Latest time inside the data, ISO, or null if no aircraft. */
   latest: string | null;
+  /** The response's own `time` (when OpenSky produced the states), ISO, or null. */
+  responseTime: string | null;
   dropped: { noPosition: number; malformed: number; notAircraft: number; outsideBox: number };
 }
 
@@ -127,7 +129,9 @@ const finite = (value: unknown) => (typeof value === 'number' && Number.isFinite
  * outside the node's box are dropped and counted, never guessed.
  */
 export function parseStates(body: unknown, node: AirNode): ParseResult {
-  const result: ParseResult = { sightings: [], latest: null, dropped: { noPosition: 0, malformed: 0, notAircraft: 0, outsideBox: 0 } };
+  const result: ParseResult = { sightings: [], latest: null, responseTime: null, dropped: { noPosition: 0, malformed: 0, notAircraft: 0, outsideBox: 0 } };
+  const responseSeconds = typeof body === 'object' && body !== null ? seconds((body as { time?: unknown }).time) : null;
+  if (responseSeconds !== null) result.responseTime = new Date(responseSeconds * 1000).toISOString();
   const states = typeof body === 'object' && body !== null ? (body as { states?: unknown }).states : null;
   if (!Array.isArray(states)) return result;
   const [[south, west], [north, east]] = node.box;
