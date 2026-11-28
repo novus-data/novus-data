@@ -151,3 +151,36 @@ export async function readVesselFeed(): Promise<Reading<VesselFeedData>> {
       : withKey('ais', async (key) => buildVesselFeed(await fetchAis(key))),
   );
 }
+
+/**
+ * The snapshot AND the per-vessel feed from ONE AIS sample — what /monitor
+ * needs once it draws ships. The vessel feed is built from the same summary
+ * the chokepoint counts came from (via onAisSummary), so the page opens no
+ * second socket. When the AIS reading itself failed or is not configured, the
+ * vessel reading says the same thing rather than inventing a second outcome.
+ */
+export async function readLiveSnapshotWithVessels(
+  options: SnapshotOptions = {},
+): Promise<{ snapshot: LiveSnapshot; vessels: Reading<VesselFeedData> }> {
+  let summary: AisSummary | null = null;
+  const snapshot = await readLiveSnapshot({
+    ...options,
+    onAisSummary: (captured) => {
+      summary = captured;
+      options.onAisSummary?.(captured);
+    },
+  });
+  const sample = summary as AisSummary | null;
+  let vessels: Reading<VesselFeedData>;
+  if (snapshot.ais.status === 'not-configured') vessels = snapshot.ais;
+  else if (snapshot.ais.status === 'unavailable' || !sample) {
+    vessels = {
+      status: 'unavailable',
+      source: 'ais',
+      reason: snapshot.ais.status === 'unavailable' ? snapshot.ais.reason : 'AISStream could not be read.',
+    };
+  } else {
+    vessels = await settle('ais', () => buildVesselFeed(sample));
+  }
+  return { snapshot, vessels };
+}

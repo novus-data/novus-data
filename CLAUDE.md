@@ -255,6 +255,7 @@ scripts/mancale.ts         Weekly refresh of the Mancalë data. Run by hand. See
 scripts/filing-watch.ts    Companies that name a register problem in their SEC filings, as leads. Never writes. See §8.
 scripts/filing-watch-terms.ts  What filing-watch searches for, per entry.
 scripts/build-map-land.ts  Builds src/components/world-land.ts from Natural Earth. See §6a.
+scripts/build-chokepoint-land.ts  Builds src/components/chokepoint-land.ts from Natural Earth 1:10m. See §6a.
 scripts/lib/cli.ts         Shared colour, prompting and .env.local reading.
 src/config/                Every fact the site states, and the navigation.
   publication.ts             The facts. Pure data, no side effects, safe anywhere.
@@ -267,6 +268,8 @@ src/lib/indicators/        The indicators layer (§14.1): the Mancalë Index, sc
 src/lib/live/              The live layer: public feeds for /monitor, /live.json and /vessels.json. See §6d.
   vessels.ts                 Per-vessel types, ship-type categories, flag (from MMSI), text sanitiser. Pure.
   registry/                  Static vessel attributes only, behind VESSEL_STORE. SERVER ONLY.
+  panel-geo.ts               The ship panels' window and projection, shared with the land build. Pure.
+  vessel-filter.ts           Compact ships for the browser, and the filters. Pure.
 src/lib/photos/            Photo licence allow-list and checker. See Rule 3.
 src/lib/accounts/          The account contract and its Supabase store. See 6b.
 src/lib/supabase/          Supabase clients. admin.ts is SERVER ONLY. See 6b.
@@ -284,6 +287,9 @@ src/components/            Presentational components. One client component.
   mancale/chokepoint-box.tsx One chokepoint's reading and charts, shared by /mancale and /mancale/[id]. See §14.1.
   world-land.ts              The land (Natural Earth, public domain), generated. Do not hand-edit.
   world-outline.ts           The hand-placed sea lanes.
+  chokepoint-land.ts         Per-chokepoint coastlines (Natural Earth 1:10m), generated. Do not hand-edit.
+  live/ships-panel.tsx       Ships at the chokepoints on /monitor (server). See §6a.
+  live/ships-explorer.tsx    Its filters, marks and tables: the one client component.
 src/app/account/           The signed-in page and its server actions. Dynamic.
 src/app/auth/              Magic-link callback and sign-out. Dynamic.
 src/proxy.ts               Session refresh. NOT middleware.ts — renamed in Next 16.
@@ -595,6 +601,57 @@ missing id throws at build. Its marker links are HTML links over the SVG, hidden
 below `sm` like the home map's, because an `<svg role="img">` hides anything inside
 it from assistive technology.
 
+### The ships panel (Vessels Part 2, drafted 28 November 2026, behind `monitorEnabled`)
+
+"Ships at the chokepoints" on `/monitor`, directly after the Chokepoints
+table, which stays. One card per chokepoint: a zoomed coastline, the sampling
+box, every ship heard drawn as a shape, a computed summary, a counts-by-type
+table, a ship table, and the open register entries naming the place. Built
+in `src/components/live/ships-panel.tsx` (server) and
+`ships-explorer.tsx` (the one client component). Not public: the page 404s
+until both founders agree (DECISIONS.md, "Per-ship data on the monitor").
+
+- **A finer coastline, generated.** The locator maps' 1:50m land is about a
+  quarter of a degree per unit, so a one-degree sampling box would be a blob.
+  `src/components/chokepoint-land.ts` is Natural Earth **1:10m** (public
+  domain, the same Rule 3 basis as `world-land.ts`), clipped and simplified
+  per place by `scripts/build-chokepoint-land.ts`. Do not hand-edit it. The
+  GeoJSON is not committed. At this detail the Suez and Panama canals are
+  narrower than the data and draw as land; ships in them plot over it.
+- **One projection.** `src/lib/live/panel-geo.ts` holds the window (the box
+  padded 35% a side, widened to a 4:3 panel) and `project()`, cos-latitude
+  corrected. The build script and the panels both use it, so a ship and its
+  coast cannot drift apart.
+- **Shapes, not colour.** Every ship is one ink (`--accent-text`); the type
+  is the shape (`ship-shapes.tsx`), not under way is smaller and lighter, and
+  the key gives every shape its words. **The register status colours are never
+  used on a ship**: they mean register status, as on both locator maps.
+- **Place to register, nothing finer.** A card lists the open entries whose
+  `places` include its chokepoint. A ship is never connected to a company, by
+  proximity, name or anything else.
+- **The dots are decorative** (`aria-hidden`); the counts-by-type table
+  (server-rendered, always visible) and the ship table (in `<details>`, at
+  most 100 rows, the rest counted) carry the information. Without JavaScript
+  every summary, count and mark is still on the page; only the filters stop.
+- **What a ship's details may show:** name (or "Name not heard"), MMSI, flag
+  (from MMSI), type and how it is known, under way or not with the speed it
+  reported, course if reported, and the time it was heard. Nothing else: no
+  company, cargo, destination, owner or trail.
+- **Copy rules.** The section says, in its own words, that everything is
+  reported by the ship and unchecked (GPS interference is documented in the
+  Gulf and Red Sea); that coverage is from receivers on land, so a gap is no
+  signal, not no ship; that ships not under way are under-represented; that
+  type says nothing about what a ship carries (never write "carrying" as a
+  claim); that flag (from MMSI) usually but not always matches registration;
+  how many ships had a known type (computed); and that it is one short sample
+  about every fifteen minutes.
+- **Names of military (type 35) and law-enforcement (type 55) ships are not
+  sent to the browser** (`NAME_WITHHELD_TYPES` in `vessel-filter.ts`). A
+  proposed default awaiting both founders.
+- **Payload.** Ships travel as compact `ShipDot`s (projected position, flag
+  as an index, times as offsets). `scripts/tests/ships-panel.ts` fails if the
+  island's props exceed 250 KB at the 2,000-vessel cap.
+
 ## 6b. The account layer
 
 `src/lib/accounts/` is a **contract with no implementation behind it**, built
@@ -862,6 +919,12 @@ Rules that hold this together:
    query without encoding.
 5. **Every AIS caveat travels with per-vessel output**: no signal is not no
    ship; stationary vessels are undercounted; coverage is terrestrial.
+
+**Part 2 (28 November 2026)** draws this on `/monitor` ("The ships panel",
+§6a). The page builds the vessel feed from the same AIS sample as its counts
+(`readMonitor({ vessels: true })`, `getLiveSnapshotWithVessels`), so it still
+opens one socket; `/live.json` does not ask for vessels and never touches the
+registry.
 
 Switching any of this on, or showing ships by name, is a decision for both
 founders (DECISIONS.md, "Per-ship data on the monitor"). Until the first
