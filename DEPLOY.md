@@ -466,6 +466,95 @@ is set, and GitHub masks secrets in logs.
 Delete `AISSTREAM_API_KEY` in Vercel and redeploy. The vessel panel returns to
 "not switched on yet"; nothing else changes.
 
+**The AIS key is still the only thing the chokepoint vessel counts need.** The
+per-vessel feed and its registry (Part 5a) are optional and switched off; the
+counts work exactly as above without them.
+
+## Part 5a — Vessel registry (optional)
+
+The hidden per-vessel feed (`/vessels.json`, CLAUDE.md §6d) knows a ship's type
+only if it heard that ship's static message. Static messages come about every
+six minutes and the sample is 30 seconds, so without a registry most ships read
+"type unknown". The registry remembers **static attributes only** (name, call
+sign, IMO number, ship type, and when they were broadcast) between samples. It
+never stores a position.
+
+**None of this is needed to merge or deploy the code.** `VESSEL_STORE` defaults
+to `none`, and the monitor is switched off. Do these steps only once both
+founders have decided to use the registry (DECISIONS.md, "Per-ship data on the
+monitor"). All of them need account access, so they are yours (Rule 7).
+
+### 0. Load the flag table (independent of the registry)
+
+"Flag (from MMSI)" needs the ITU's table of Maritime Identification Digits,
+which could not be fetched where the code was written, so every flag is
+unknown until this is done.
+
+1. Open <https://www.itu.int/en/ITU-R/terrestrial/fmd/Pages/mid.aspx>.
+2. Select the whole table, copy it, and paste it into a text file outside the
+   repository, for example `~/mids.txt`.
+3. Run, with today's date:
+
+   ```
+   npx tsx scripts/build-mid-table.ts ~/mids.txt --retrieved YYYY-MM-DD
+   ```
+
+4. Read the diff of `src/lib/live/mid-table.ts`, run `npm run test:regressions`,
+   and commit it.
+
+### 1. Create the table (Supabase SQL editor)
+
+This uses the Supabase project from Part 4. In Supabase → **SQL Editor**, run:
+
+```sql
+create table if not exists public.vessel_static (
+  mmsi            text primary key check (mmsi ~ '^[0-9]{9}$'),
+  name            text check (char_length(name) <= 40),
+  imo             integer check (imo between 1000000 and 9999999),
+  callsign        text check (char_length(callsign) <= 40),
+  ship_type       smallint check (ship_type between 1 and 99),
+  static_seen_at  timestamptz not null,
+  updated_at      timestamptz not null default now()
+);
+
+-- Row-level security ON with NO policies: only the service role can read or
+-- write. Nothing public, no signed-in reader.
+alter table public.vessel_static enable row level security;
+revoke all on table public.vessel_static from anon, authenticated;
+```
+
+There is deliberately no column for a position, a course or a time series.
+Do not add one.
+
+### 2. Switch it on
+
+1. Vercel → Settings → Environment Variables: `VESSEL_STORE` = `supabase`
+   (Production). `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   and `SUPABASE_SERVICE_ROLE_KEY` from Part 4 must already be set.
+2. Redeploy.
+
+### 3. Check it
+
+Locally, with the same values in `.env.local`, run `npm run live:check`. Its
+AISStream section prints how many ship types came from this sample, how many
+from the registry and how many are unknown. It reads the registry but never
+writes to it. The site writes to it on each regeneration of `/vessels.json`.
+
+### Retention (not set; a decision)
+
+Nothing deletes old rows yet. A proposal for both founders: delete rows whose
+`updated_at` is more than 90 days old, by hand or with a scheduled job, which
+CLAUDE.md §13 currently keeps out of this repository.
+
+```sql
+delete from public.vessel_static where updated_at < now() - interval '90 days';
+```
+
+### Roll back
+
+Set `VESSEL_STORE` to `none` (or delete it) and redeploy. To remove the data
+too: `drop table public.vessel_static;`.
+
 ## Part 6 — Share prices (a licensing decision first)
 
 Energy prices need nothing: they are public-domain U.S. government data. **Share

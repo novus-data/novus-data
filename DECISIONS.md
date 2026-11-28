@@ -650,3 +650,48 @@ find written down, and say so. Correct them before merging.
   font fetch fails again, treat it as a real fault and do not assume it is the
   same chance.
 
+
+## Per-ship data on the monitor (DRAFT — not agreed, 28 November 2026)
+
+**Draft. Nothing here is agreed.** Drafted by Claude for Gavin (`Novous-Data`)
+from his handoff `docs/vessels-part-1.md`. Per-ship data is a new kind of data,
+so it needs both founders ("How decisions get made"). Merging the code does
+not settle any question below, and this entry should not be marked agreed
+until both have answered.
+
+**What is built (Part 1 of 3, data layer only).** Per-vessel records from the
+existing AIS sample, a hidden feed `/vessels.json` (404 while `monitorEnabled`
+is false), an optional static-data registry behind `VESSEL_STORE` (default
+`none`), and tests. No page shows a ship. `/live.json` and the chokepoint
+counts are unchanged. Rules in CLAUDE.md §6d. Tested on sample data only:
+nobody has yet read a real AISStream message through it.
+
+**What both founders must decide:**
+
+1. **Turning any of it on.** `monitorEnabled` stays false.
+2. **Whether to show individual ships by name and MMSI on a public page.**
+   AIS is a public broadcast, but a named-vessel map is a product and
+   reputation call, not a technical one.
+3. **Whether Novus may rely on AISStream commercially.** Its documentation
+   states no terms of service and no uptime guarantee. Someone should email
+   AISStream and record the answer here. Until then, do not assume it is fine.
+4. **Registry: Supabase or nothing**, and if Supabase, **retention** (proposed:
+   delete rows not updated in 90 days; DEPLOY.md Part 5a).
+5. **Writing to a database during a page regeneration.** The registry is
+   updated as a side effect of `/vessels.json` regenerating. That is unusual.
+   It is bounded (at most one row per vessel heard) and idempotent (an upsert
+   per MMSI), which is why it was built that way. The alternative is a
+   separate scheduled job, which CLAUDE.md §13 keeps out of this repository
+   today.
+6. **AISStream connections.** `/monitor`, `/live.json` and `/vessels.json`
+   each open one socket when they regenerate, and AISStream allows three per
+   key. On a busy cycle all three can be open at once, which leaves no room
+   for `npm run live:check` or `npm run ais:capture` at the same moment. If
+   that becomes a problem, the three routes would need to share one sample.
+
+**Calls made in the code, for checking:** per-ship data is not in
+`/live.json`; the registry stores static attributes only, never a position;
+the cap is 400 vessels per box and 2,000 in all, with the number dropped
+reported; the window stays 30 seconds; categories are coarse and AIS is never
+used for a cargo claim; flag is "flag (from MMSI)" and is null until the ITU
+table is loaded (DEPLOY.md Part 5a, step 0).

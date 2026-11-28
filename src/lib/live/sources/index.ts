@@ -21,7 +21,8 @@ import { MARKET_SYMBOLS, type MarketSymbol } from '@/config/markets';
 
 import { SOURCE_META } from '../meta';
 import type { LiveSnapshot, LiveSourceId, Reading } from '../types';
-import { fetchAis, parseAis } from './ais';
+import type { VesselFeedData } from '../vessels';
+import { fetchAis, parseAis, type AisSummary } from './ais';
 import { fetchEonet, parseEonet } from './eonet';
 import * as fixtures from './fixtures';
 import { fetchFred, parseFred } from './fred';
@@ -31,6 +32,7 @@ import { LiveSourceError } from './http';
 import { fetchNhc, parseNhc } from './nhc';
 import { fetchQuotes, parseQuotes } from './quotes';
 import { fetchUsgs, parseUsgs } from './usgs';
+import { buildVesselFeed } from './vessels';
 import { fetchWeather, parseWeather } from './weather';
 
 export type LiveSourceName = 'network' | 'fixtures';
@@ -81,6 +83,17 @@ export interface SnapshotOptions {
    * the register itself — layers stay independent — so the page passes them.
    */
   extraSymbols?: MarketSymbol[];
+  /**
+   * Called with the raw AIS sample before it becomes a Reading. Lets
+   * `npm run live:check` report on the per-vessel records from the SAME
+   * sample rather than opening a second socket. The page never passes it.
+   */
+  onAisSummary?: (summary: AisSummary) => void;
+}
+
+function tap(summary: AisSummary, options: SnapshotOptions): AisSummary {
+  options.onAisSummary?.(summary);
+  return summary;
 }
 
 export async function readLiveSnapshot(options: SnapshotOptions = {}): Promise<LiveSnapshot> {
@@ -89,7 +102,9 @@ export async function readLiveSnapshot(options: SnapshotOptions = {}): Promise<L
 
   const [ais, gdelt, usgs, gdacs, nhc, eonet, weather, fred, quotes] = await Promise.all([
     settle('ais', async () =>
-      demo ? parseAis(fixtures.fixtureAis()) : withKey('ais', async (key) => parseAis(await fetchAis(key))),
+      demo
+        ? parseAis(tap(fixtures.fixtureAis(), options))
+        : withKey('ais', async (key) => parseAis(tap(await fetchAis(key), options))),
     ),
     settle('gdelt', async () => parseGdelt(demo ? fixtures.fixtureGdelt() : await fetchGdelt())),
     settle('usgs', async () => parseUsgs(demo ? fixtures.fixtureUsgs() : await fetchUsgs())),
@@ -119,4 +134,20 @@ export async function readLiveSnapshot(options: SnapshotOptions = {}): Promise<L
     fred,
     quotes,
   };
+}
+
+/**
+ * The per-vessel feed behind /vessels.json. One AIS socket per call, exactly
+ * like the snapshot: AISStream allows three connections per key, and /monitor,
+ * /live.json and /vessels.json each regenerate on their own schedule, so at
+ * worst three are open at once. Settled like every other reading — a failure
+ * is "unavailable", a missing key is "not-configured".
+ */
+export async function readVesselFeed(): Promise<Reading<VesselFeedData>> {
+  const demo = getLiveSourceName() === 'fixtures';
+  return settle('ais', async () =>
+    demo
+      ? buildVesselFeed(fixtures.fixtureAis())
+      : withKey('ais', async (key) => buildVesselFeed(await fetchAis(key))),
+  );
 }

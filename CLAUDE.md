@@ -264,6 +264,9 @@ src/config/                Every fact the site states, and the navigation.
 src/lib/content/           The issue content layer. See section 6.
 src/lib/disruptions/       The register and exposure layer. See section 6a.
 src/lib/indicators/        The indicators layer (§14.1): the Mancalë Index, scored at build time.
+src/lib/live/              The live layer: public feeds for /monitor, /live.json and /vessels.json. See §6d.
+  vessels.ts                 Per-vessel types, ship-type categories, flag (from MMSI), text sanitiser. Pure.
+  registry/                  Static vessel attributes only, behind VESSEL_STORE. SERVER ONLY.
 src/lib/photos/            Photo licence allow-list and checker. See Rule 3.
 src/lib/accounts/          The account contract and its Supabase store. See 6b.
 src/lib/supabase/          Supabase clients. admin.ts is SERVER ONLY. See 6b.
@@ -647,7 +650,8 @@ rows. Two consequences worth knowing:
   account, because that is an enumeration hole.
 
 **`SUPABASE_SERVICE_ROLE_KEY` bypasses every policy.** It is used for exactly
-one thing — deleting from `auth.users`, which the anon key cannot do. The
+two things — deleting from `auth.users`, which the anon key cannot do, and the
+optional vessel registry (§6d), a table with RLS on and no policies. The
 realistic way it leaks is not theft but somebody prefixing it with
 `NEXT_PUBLIC_` to silence an undefined variable, which inlines it into the
 browser bundle. `src/lib/supabase/admin.ts` **throws at module load** if it
@@ -800,6 +804,69 @@ layout's object wholesale and takes `types` with it. Every page here sets
 element instead, React hoists it into `<head>` everywhere. **Do not "tidy" it
 back into metadata** — it fails silently, on every page, with nothing in the
 build output to say so.
+
+## 6d. The live layer, and per-vessel records
+
+`src/lib/live/` reads public feeds for `/monitor` and `/live.json`, both
+hidden behind `monitorEnabled` (`src/config/launch.ts`). Its rules are in the
+header of `src/lib/live/types.ts`: a reading's age comes from a timestamp
+inside the upstream data, never from when our code ran, and a reading that
+failed carries no data and no stale placeholder. `monitor/page.tsx` and
+`sources/gdelt.ts` cite "§6d findings" from the first real GDELT runs; those
+findings were never written into this file and are not reconstructed here.
+Add them if someone has them.
+
+### Per-vessel records (27 November 2026, data layer only)
+
+Part 1 of a vessel map (`docs/vessels-part-1.md`). **Nothing visible was
+built.** What exists:
+
+- **The sample.** `sources/ais.ts` still opens one socket per regeneration
+  and listens 30 seconds. It now also subscribes to static messages
+  (`ShipStaticData`, Class B `StaticDataReport`) and keeps, per MMSI, the
+  latest position heard inside a box and any static attributes. **The
+  chokepoint counts are made by exactly the old code**: static messages are
+  diverted before it, and `scripts/tests/vessels.ts` holds a copy of the
+  accumulator from 951df0c and proves the counts match. `/live.json`'s shape
+  is unchanged: vessels never enter `AisData`.
+- **Pure tables** in `src/lib/live/vessels.ts`: a coarse category from the
+  AIS ship-type code (cited to the GPSD AIVDM document, which reproduces
+  ITU-R M.1371), MMSI validation, "flag (from MMSI)", and a sanitiser for
+  crew-typed text. The MID → country table (`mid-table.ts`) is **empty** until
+  `scripts/build-mid-table.ts` is run against the ITU's own page, so every
+  flag is null in this build.
+- **The hidden feed** `/vessels.json`: `force-static`, literal
+  `revalidate = 900`, 404 unless `monitorEnabled`. At most 400 vessels per box
+  and 2,000 in all, under way first then lowest MMSI, and the number left out
+  is always reported (`capped`). `caveats` travels with the data.
+- **The registry** (`src/lib/live/registry/`), chosen by `VESSEL_STORE`:
+  `none` (default), `memory` (development) or `supabase` (table
+  `vessel_static`, DEPLOY.md "Vessel registry (optional)"). It exists only so
+  a ship's type survives between samples. A registry that is down or
+  misconfigured degrades to `none` with a note and never fails the reading.
+
+Rules that hold this together:
+
+1. **Static attributes only, never a track.** The registry stores name, call
+   sign, IMO, ship type and when they were broadcast. No position, course,
+   speed or box, not now and not as a convenience. `VesselStatic` has no field
+   for one.
+2. **No cargo, owner or operator claims from AIS.** AIS carries none. The
+   hazard digit of a type code is not a cargo. Company names belong to the
+   register (and to a sourced carrier table in a later part), never to a ship
+   in this layer.
+3. **Unknown is a displayed state.** A type not heard is `unknown`; a MID not
+   in the table is `null`. Neither is ever guessed.
+4. **Crew text is untrusted.** Names and call signs are sanitised, but are
+   still radio input: never `dangerouslySetInnerHTML`, never into a URL or
+   query without encoding.
+5. **Every AIS caveat travels with per-vessel output**: no signal is not no
+   ship; stationary vessels are undercounted; coverage is terrestrial.
+
+Switching any of this on, or showing ships by name, is a decision for both
+founders (DECISIONS.md, "Per-ship data on the monitor"). Until the first
+real capture (`npm run ais:capture`) is read, the layer has only run on
+fixtures.
 
 ## 7. Dependencies
 
@@ -1153,10 +1220,12 @@ four answers here.**
 | `ACCOUNT_STORE` | `none` (default), `memory` (dev) or `supabase` | No — unset means no accounts | Site |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Only with `ACCOUNT_STORE=supabase` | Site |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Publishable key. Public by design — RLS is the guard | Only with `ACCOUNT_STORE=supabase` | Site |
-| `SUPABASE_SERVICE_ROLE_KEY` | Deletes from `auth.users`. **Bypasses all RLS — never `NEXT_PUBLIC_`** | Only to delete accounts | **Server only** |
+| `SUPABASE_SERVICE_ROLE_KEY` | Deletes from `auth.users`; reads and writes the optional vessel registry (§6d). **Bypasses all RLS — never `NEXT_PUBLIC_`** | Only to delete accounts, or with `VESSEL_STORE=supabase` | **Server only** |
 | `NOVUS_ALLOW_INCOMPLETE` | Allows a production build with unanswered inputs | No — **never set on Vercel** | Site |
 | `NOVUS_CONTENT_DIR` | Overrides the issue archive directory | No — review tooling only, **never set on Vercel** | Site |
 | `NOVUS_DISRUPTIONS_DIR` | Overrides the register directory | No — review tooling only, **never set on Vercel** | Site |
+| `AISSTREAM_API_KEY` | Chokepoint vessel counts and `/vessels.json` (§6d). **Never `NEXT_PUBLIC_`** | No — that panel says "not switched on yet" | **Server only** |
+| `VESSEL_STORE` | `none` (default), `memory` (dev) or `supabase`: the vessel static-data registry (§6d) | No — unset means no registry | **Server only** |
 | `BEEHIIV_RSS_URL` | The feed to sync from | Only to run the sync | **Sync script only** — not needed on Vercel |
 
 ## 12. Commands
@@ -1174,6 +1243,7 @@ npm run lint             eslint
 npm run sync-issues      pull new issues from Beehiiv
 npm run mancale          weekly refresh of the Mancalë Index data and ledger (§8; --ledger-only skips the download)
 npm run filing-watch     SEC filings that name a register problem, as a worklist (§8; --excerpts, --since, --entry)
+npm run ais:capture      raw AISStream messages to a git-ignored file, to check the shape by hand (§6d)
 npm run test:regressions the regression cases, including the scorecard arithmetic
 npm run preview          build the single-file review preview
 ```

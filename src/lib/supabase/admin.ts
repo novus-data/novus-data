@@ -3,8 +3,11 @@ import { createClient } from '@supabase/supabase-js';
 import { requireSupabaseEnv } from '@/lib/env';
 
 /**
- * The service-role client. SERVER ONLY, and used for exactly one thing:
- * deleting a row from `auth.users`, which the anon key cannot do.
+ * The service-role client. SERVER ONLY, and used for exactly two things:
+ * deleting a row from `auth.users`, which the anon key cannot do, and the
+ * optional vessel registry (src/lib/live/registry/supabase.ts), whose table
+ * holds no reader data and has row-level security on with no policies, so
+ * nothing else can reach it. A third use needs the same scrutiny.
  *
  * ---------------------------------------------------------------------------
  * THIS KEY BYPASSES EVERY ROW-LEVEL SECURITY POLICY IN THE DATABASE.
@@ -41,7 +44,7 @@ if (typeof window !== 'undefined') {
 }
 
 /**
- * Only `deleteAccount` should call this. If you find yourself reaching for it
+ * Only `deleteAccount` and the vessel registry should call this. If you find yourself reaching for it
  * to read a reader's rows, use the request-scoped server client instead — the
  * point of RLS is that ordinary code cannot escape it.
  */
