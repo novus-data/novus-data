@@ -125,10 +125,11 @@ function fixtureVesselMessages(): unknown[] {
     },
     MetaData: { MMSI: mmsi, ShipName: '[SAMPLE] VESSEL', ...at, time_utc: aisAgo(minutesAgo) },
   });
-  const shipStatic = (mmsi: number, name: string, type: number, minutesAgo: number) => ({
+  // IMO numbers 100000x match the [SAMPLE] carrier lists in src/lib/carriers/sources/fixtures.ts.
+  const shipStatic = (mmsi: number, name: string, type: number, minutesAgo: number, imo = 0) => ({
     MessageType: 'ShipStaticData',
     Message: {
-      ShipStaticData: { UserID: mmsi, Valid: true, Name: name, Type: type, CallSign: '[SAMPLE]', ImoNumber: 0, Destination: '[SAMPLE] PORT' },
+      ShipStaticData: { UserID: mmsi, Valid: true, Name: name, Type: type, CallSign: '[SAMPLE]', ImoNumber: imo, Destination: '[SAMPLE] PORT' },
     },
     MetaData: { MMSI: mmsi, ShipName: name, time_utc: aisAgo(minutesAgo) },
   });
@@ -136,7 +137,7 @@ function fixtureVesselMessages(): unknown[] {
   return [
     // 1. Static data heard in this sample: type known, typeSource "this-sample".
     position(999_100_001, inBox('suez', 0.3), 11.2, 1.5),
-    shipStatic(999_100_001, '[SAMPLE] NORTHERN ALPHA@@@@', 70, 2),
+    shipStatic(999_100_001, '[SAMPLE] NORTHERN ALPHA@@@@', 70, 2, 1_000_007),
     // 2. No static message: type unknown, never guessed.
     position(999_100_002, inBox('hormuz', 0.4), 13.4, 1.2),
     // 3. Class B: position, then name (Part A) and type (Part B) in separate messages.
@@ -155,11 +156,15 @@ function fixtureVesselMessages(): unknown[] {
     },
     // 4. Speed not available (102.3): kept, with sog null — not a fast ship, not under way.
     position(999_100_004, inBox('gibraltar', 0.5), 102.3, 1.4),
-    shipStatic(999_100_004, '[SAMPLE] TANKER SENTINEL', 80, 3),
+    // Listed by two carriers, one of them stale: both matches are kept.
+    shipStatic(999_100_004, '[SAMPLE] TANKER SENTINEL', 80, 3, 1_000_019),
     // 5. Outside every box: in neither the counts nor the vessel list.
     position(999_100_005, { latitude: 30, longitude: -40 }, 12, 1),
     // 6. Hostile text: markup, control characters, 200+ characters. Sanitised, capped, still only text.
     position(999_100_006, inBox('singapore-strait', 0.7), 8.8, 1.3),
+    // Named like a carrier, with an IMO in no list: no match. Names are never evidence.
+    position(999_100_007, inBox('hormuz', 0.6), 12.5, 1.25),
+    shipStatic(999_100_007, '[SAMPLE] EXAMPLE LINES EXPRESS', 70, 2.2, 1_000_021),
     shipStatic(999_100_006, `<script>alert("[SAMPLE]")</script>\u0007\u0000${'X'.repeat(200)}@@@@`, 52, 1.8),
     // 7. Malformed MMSIs: counted as before, left out of the vessel list, and the drop noted.
     position(12_345, inBox('panama', 0.5), 9, 1.6),

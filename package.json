@@ -14,11 +14,12 @@
     "review": "tsx scripts/review-register.ts",
     "live:check": "tsx scripts/live-check.ts",
     "ais:capture": "tsx scripts/ais-capture.ts",
+    "carriers:import": "tsx scripts/import-fleet.ts",
     "new-disruption": "tsx scripts/new-disruption.ts",
     "mancale": "tsx scripts/mancale.ts",
     "filing-watch": "tsx scripts/filing-watch.ts",
     "check": "npm run typecheck && npm run lint && npm run doctor",
-    "test:regressions": "node scripts/tests/rss-sync.mjs && tsx scripts/tests/content.ts && tsx scripts/tests/mancale-scorecard.ts && tsx scripts/tests/vessels.ts && tsx scripts/tests/ships-panel.ts",
+    "test:regressions": "node scripts/tests/rss-sync.mjs && tsx scripts/tests/content.ts && tsx scripts/tests/mancale-scorecard.ts && tsx scripts/tests/vessels.ts && tsx scripts/tests/ships-panel.ts && tsx scripts/tests/carriers.ts",
     "build:preview": "NOVUS_ALLOW_INCOMPLETE=1 next build",
     "preview": "tsx scripts/build-preview.ts"
   },

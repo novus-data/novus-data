@@ -7,15 +7,18 @@ import { formatUtc, formatUtcDateOnly } from '@/lib/live/display';
 import { PANEL_HEIGHT, PANEL_WIDTH } from '@/lib/live/panel-geo';
 import {
   NO_FILTERS,
+  carrierIndicesOf,
   dayToDate,
   filterVessels,
   heardAt,
   hasFilters,
   shipCategoryOf,
+  typeSourceOf,
   type ShipDot,
   type ShipFilters,
   type ShipsData,
 } from '@/lib/live/vessel-filter';
+import { CARRIER_STALE_AFTER_DAYS, RELATIONSHIP_LABELS } from '@/lib/carriers/types';
 import { SHIP_CATEGORIES, SHIP_CATEGORY_LABELS, type ShipCategory } from '@/lib/live/vessels';
 
 /**
@@ -60,8 +63,9 @@ function nameOf(ship: ShipDot): string {
 }
 
 function typeKnownHow(ship: ShipDot): string {
-  if (ship.k === 2) return ship.r !== undefined ? `from earlier reports, last heard ${formatUtcDateOnly(dayToDate(ship.r))}` : 'from earlier reports';
-  return TYPE_SOURCE_WORDS[ship.k];
+  const k = typeSourceOf(ship);
+  if (k === 2) return ship.r !== undefined ? `from earlier reports, last heard ${formatUtcDateOnly(dayToDate(ship.r))}` : 'from earlier reports';
+  return TYPE_SOURCE_WORDS[k];
 }
 
 export function ShipsExplorer({ data, cards }: { data: ShipsData; cards: ShipCard[] }) {
@@ -71,7 +75,7 @@ export function ShipsExplorer({ data, cards }: { data: ShipsData; cards: ShipCar
 
   const shown = useMemo(() => {
     const out: Record<string, ShipDot[]> = {};
-    for (const card of cards) out[card.nodeId] = filterVessels(data.byNode[card.nodeId] ?? [], filters, data.flags);
+    for (const card of cards) out[card.nodeId] = filterVessels(data.byNode[card.nodeId] ?? [], filters, data.flags, data.carriers);
     return out;
   }, [cards, data, filters]);
 
@@ -135,6 +139,26 @@ export function ShipsExplorer({ data, cards }: { data: ShipsData; cards: ShipCar
               </select>
             </label>
 
+            {data.carriers.length > 0 ? (
+              <label htmlFor={`${ids}-carrier`} className="flex flex-col gap-1 text-muted">
+                Carrier (from published fleet lists)
+                <select
+                  id={`${ids}-carrier`}
+                  value={filters.carrier}
+                  onChange={(event) => update({ carrier: event.target.value })}
+                  className="min-h-[2.75rem] max-w-full rounded-[2px] border border-rule bg-surface px-2 text-fg"
+                >
+                  <option value="all">All</option>
+                  {data.carriers.map((carrier) => (
+                    <option key={carrier.id} value={carrier.id}>
+                      {carrier.name}
+                    </option>
+                  ))}
+                  <option value="none">No match in the lists we hold</option>
+                </select>
+              </label>
+            ) : null}
+
             <label htmlFor={`${ids}-search`} className="flex min-w-0 flex-col gap-1 text-muted">
               Name or MMSI
               <input
@@ -159,6 +183,9 @@ export function ShipsExplorer({ data, cards }: { data: ShipsData; cards: ShipCar
             ) : null}
           </div>
 
+          {data.carriers.length === 0 ? (
+            <p className="mt-2 text-meta text-muted">No heard ship matched a fleet list we hold.</p>
+          ) : null}
           {data.flags.length === 0 ? (
             <p className="mt-2 text-meta text-muted">No flag (from MMSI) is known for any ship in this sample.</p>
           ) : null}
@@ -304,6 +331,23 @@ function ShipDetails({ ship, data, onClose }: { ship: ShipDot; data: ShipsData; 
         <dt className="text-muted">Position heard</dt>
         <dd className="text-fg">{formatUtc(heardAt(data, ship))}</dd>
       </dl>
+      {carrierIndicesOf(ship).map((index) => {
+        const carrier = data.carriers[index];
+        if (!carrier) return null;
+        return (
+          <p key={carrier.id} className="mt-2 border-t border-hairline pt-2 text-fg">
+            Reports an IMO number that appears in {carrier.name}&rsquo;s published fleet list (
+            {RELATIONSHIP_LABELS[carrier.relationship]} wording; list dated {formatUtcDateOnly(carrier.asOf)}; source:{' '}
+            <a href={carrier.url} rel="noopener noreferrer" target="_blank" className="text-link underline underline-offset-2">
+              {carrier.publisher}
+            </a>
+            ).
+            {carrier.stale ? (
+              <span className="text-muted"> The list had not been refreshed in over {CARRIER_STALE_AFTER_DAYS} days when this page was built.</span>
+            ) : null}
+          </p>
+        );
+      })}
       {ship.w ? (
         <p className="mt-1 text-muted">Names of military and law-enforcement ships are not shown.</p>
       ) : null}

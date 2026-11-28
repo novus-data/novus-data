@@ -13,6 +13,8 @@
  * if VESSEL_STORE were "none". It never fails the reading.
  */
 
+import { buildImoIndex, listCarriers, summariseCarrier, type CarrierRecord } from '@/lib/carriers';
+
 import { getVesselRegistry, type VesselRegistry } from '../registry';
 import type { Reading } from '../types';
 import {
@@ -33,6 +35,8 @@ export interface VesselFeedOptions {
   write?: boolean;
   /** A registry to use instead of the one VESSEL_STORE selects. Tests only. */
   registry?: VesselRegistry | null;
+  /** Carrier lists to use instead of the active source. Tests only. */
+  carriers?: CarrierRecord[];
 }
 
 /** The caveats every consumer of the feed must see. Carried in the feed itself, because a file travels without its page. */
@@ -88,8 +92,24 @@ export async function buildVesselFeed(summary: AisSummary, options: VesselFeedOp
     }
   }
 
-  // 4. Join and count.
-  const vessels = joinVessels(kept, sampleStatics, registryStatics).sort(
+  // 4. Join, match to carrier fleet lists BY IMO ONLY, and count.
+  let carriers: CarrierRecord[] = options.carriers ?? [];
+  if (!options.carriers) {
+    try {
+      const loaded = await listCarriers();
+      carriers = loaded.carriers;
+      const refused = loaded.warnings.filter((w) => w.startsWith('Refused')).length;
+      if (refused > 0) notes.push(`${refused} carrier fleet list files failed validation and were not used.`);
+    } catch {
+      notes.push('The carrier fleet lists could not be read, so no ship is matched to one.');
+    }
+  }
+  const imoIndex = buildImoIndex(carriers);
+  const joined = joinVessels(kept, sampleStatics, registryStatics);
+  for (const record of joined) {
+    record.carrierIds = record.imo !== null ? (imoIndex.get(record.imo) ?? []).map((carrier) => carrier.id) : [];
+  }
+  const vessels = joined.sort(
     (a, b) => a.nodeId.localeCompare(b.nodeId) || (a.mmsi < b.mmsi ? -1 : a.mmsi > b.mmsi ? 1 : 0),
   );
   const typeFromSample = vessels.filter((v) => v.typeSource === 'this-sample').length;
@@ -131,6 +151,8 @@ export async function buildVesselFeed(summary: AisSummary, options: VesselFeedOp
       typeUnknown: vessels.length - typeFromSample - typeFromRegistry,
       typeFromSample,
       typeFromRegistry,
+      carriers: carriers.map((carrier) => summariseCarrier(carrier)),
+      carrierMatched: vessels.filter((v) => v.carrierIds.length > 0).length,
       vessels,
     },
     // Caveats are not repeated here: /vessels.json carries them as its own

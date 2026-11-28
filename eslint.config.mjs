@@ -49,6 +49,11 @@ const LAYER_BOUNDARIES = [
       "Import from '@/lib/disruptions' instead. The register's storage stays behind its public API.",
   },
   {
+    group: ["@/lib/carriers/sources", "@/lib/carriers/sources/*"],
+    message:
+      "Import from '@/lib/carriers' (server) or '@/lib/carriers/types' (components) instead. Where fleet lists are read from stays behind the layer's API.",
+  },
+  {
     group: ["@/lib/accounts/sources", "@/lib/accounts/sources/*"],
     message:
       "Import from '@/lib/accounts' instead. Which account store is in use is not a page's business.",
