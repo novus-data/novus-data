@@ -31,6 +31,11 @@ import { fetchGdelt, parseGdelt } from './gdelt';
 import { LiveSourceError } from './http';
 import { fetchNhc, parseNhc } from './nhc';
 import { fetchQuotes, parseQuotes } from './quotes';
+import { listCarriers } from '@/lib/carriers';
+
+import { AIR_NODES } from '../air-nodes';
+import { parseStates, summariseAir, type AirData, type ParseResult } from '../air';
+import { fetchOpenSky } from './opensky';
 import { fetchUsgs, parseUsgs } from './usgs';
 import { buildVesselFeed } from './vessels';
 import { fetchWeather, parseWeather } from './weather';
@@ -183,4 +188,67 @@ export async function readLiveSnapshotWithVessels(
     vessels = await settle('ais', () => buildVesselFeed(sample));
   }
   return { snapshot, vessels };
+}
+
+/**
+ * Aircraft near the eight air-cargo hubs (Vessels Part 3B). Separate from the
+ * snapshot, so /live.json is unchanged. Not configured, and no network call,
+ * unless BOTH OpenSky credentials are set (they are read here and passed
+ * straight to the adapter, never stored).
+ *
+ * Only approved operator designators (carrier records of kind air-operator,
+ * each citing FAA Order JO 7340.2) identify a flight; every other aircraft is
+ * a count. Returns the Reading only: no icao24 or callsign of an unmatched
+ * aircraft is in it.
+ */
+export async function readAirFeed(): Promise<Reading<AirData>> {
+  const demo = getLiveSourceName() === 'fixtures';
+  const clientId = process.env.OPENSKY_CLIENT_ID?.trim();
+  const clientSecret = process.env.OPENSKY_CLIENT_SECRET?.trim();
+  if (!demo && (!clientId || !clientSecret)) {
+    return { status: 'not-configured', source: 'opensky', envVar: 'OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET' };
+  }
+  return settle('opensky', async () => {
+    const results: ParseResult[] = demo
+      ? fixtures.fixtureOpenSky().map(({ node, body }) => parseStates(body, AIR_NODES.find((n) => n.id === node)!))
+      : (await fetchOpenSky(clientId!, clientSecret!)).results;
+    return buildAirReading(results);
+  });
+}
+
+/** Results to a Reading. Exported for the tests. */
+export async function buildAirReading(results: ParseResult[], operatorsOverride?: { id: string; name: string; designators: string[]; asOf: string; sources: { url: string; publisher: string }[] }[]): Promise<Reading<AirData>> {
+  const operators = operatorsOverride ?? (await listCarriers()).carriers.filter((c) => c.kind === 'air-operator');
+  const sightings = results.flatMap((r) => r.sightings);
+  const { nodes, matchedOperatorIds } = summariseAir(AIR_NODES, sightings, operators);
+  const dropped = { noPosition: 0, malformed: 0, notAircraft: 0, outsideBox: 0 };
+  for (const r of results) for (const key of Object.keys(dropped) as (keyof typeof dropped)[]) dropped[key] += r.dropped[key];
+  const latest = results.map((r) => r.latest).filter((v): v is string => v !== null).sort().pop() ?? null;
+  // With no aircraft anywhere, the age still comes from inside the data:
+  // OpenSky's own response time, never our clock (src/lib/live/types.ts).
+  const responded = results.map((r) => r.responseTime).filter((v): v is string => v !== null).sort().pop() ?? null;
+  if (!latest && !responded) throw new LiveSourceError('OpenSky returned no time with its answer, so its age cannot be stated.');
+  const notes: string[] = [];
+  const droppedTotal = dropped.noPosition + dropped.malformed + dropped.notAircraft;
+  if (droppedTotal > 0) {
+    notes.push(`${droppedTotal} records were left out (${dropped.noPosition} with no position, ${dropped.notAircraft} surface vehicles or obstacles, ${dropped.malformed} malformed).`);
+  }
+  if (sightings.some((s) => s.timeBasis === 'last-contact')) {
+    notes.push('Where OpenSky had no recent position time, the time shown is its last contact with the transponder.');
+  }
+  return {
+    status: 'ok',
+    source: 'opensky',
+    asOf: latest ?? responded!,
+    asOfBasis: latest ? 'latest aircraft report received' : "OpenSky's response time (no aircraft in any box)",
+    data: {
+      nodes,
+      operators: operators
+        .filter((o) => matchedOperatorIds.has(o.id))
+        .map((o) => ({ id: o.id, name: o.name, designators: o.designators, asOf: o.asOf, publisher: o.sources[0].publisher, url: o.sources[0].url })),
+      designatorsLoaded: operators.reduce((n, o) => n + o.designators.length, 0),
+      dropped,
+    },
+    notes,
+  };
 }

@@ -721,6 +721,20 @@ register, applied to ships), not for volume. Further questions for both:
 11. **The stale threshold for a fleet list** (proposed 90 days) and **starting
     with three to five carriers**, and which ones.
 
+**Part 3B, aircraft (drafted 28 November 2026, also not agreed).** Counts of
+aircraft by category at eight air-cargo hubs, from OpenSky. **OpenSky's terms
+are not confirmed for a product that may charge: it must not go public until
+both founders hold OpenSky's written answer, recorded here.** Unmatched
+aircraft are counted, never identified; no operator is loaded, so for now every
+aircraft is a count. Planes are the lowest-value piece of the three parts.
+Further questions for both:
+
+12. **OpenSky's written answer** on commercial use (whoever emails them records
+    it here, with the date).
+13. **Which airports and which air-cargo operators** (each operator's
+    designator from FAA Order JO 7340.2, current edition).
+14. **Whether planes are worth keeping at all** once that answer arrives.
+
 **Calls made in the code, for checking:** per-ship data is not in
 `/live.json`; the registry stores static attributes only, never a position;
 the cap is 400 vessels per box and 2,000 in all, with the number dropped

@@ -212,8 +212,10 @@ async function main() {
       return { code: e.status, out: `${e.stdout}${e.stderr}` };
     }
   };
+  const { splitCsvLine } = await import('../import-fleet');
+  assert.deepEqual(splitCsvLine('"Ever X, Ltd",9074729,"say ""hi"" there"'), ['Ever X, Ltd', '9074729', 'say "hi" there']);
   const csv = path.join(dir, 'fleet.csv');
-  await writeFile(csv, 'Name,IMO\n"[SAMPLE] A",1000007\n[SAMPLE] B,1000019\n[SAMPLE] C,1000019\n[SAMPLE] D,1000000\n[SAMPLE] E,12345\n');
+  await writeFile(csv, 'Name,IMO\n"[SAMPLE] A, Ltd",1000007\n[SAMPLE] B,1000019\n[SAMPLE] C,1000019\n[SAMPLE] D,1000000\n[SAMPLE] E,12345\n');
   const flags = [
     '--id', 'imported-lines', '--name', '[SAMPLE] Imported Lines', '--relationship', 'owned',
     '--source-url', 'https://example.invalid/fleet', '--publisher', '[SAMPLE] Imported Lines',

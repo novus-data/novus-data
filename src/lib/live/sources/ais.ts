@@ -36,7 +36,9 @@
  * AISSTREAM_API_KEY is server-only. It is written into the subscription
  * message and nowhere else: not into a Reading, not into an error, not into
  * anything that can be serialised to the page or to /live.json. The build
- * refuses to run if it is ever prefixed NEXT_PUBLIC_ (input-ledger.ts).
+ * refuses to run if it is ever prefixed NEXT_PUBLIC_ (assertNoPublicLiveSecrets
+ * in input-ledger.ts, added 28 November 2026: the claim was made here before
+ * any code enforced it).
  * ---------------------------------------------------------------------------
  */
 

@@ -49,9 +49,19 @@ export type LiveSourceId =
   | 'eonet'
   | 'weather'
   | 'fred'
-  | 'quotes';
+  | 'quotes'
+  /**
+   * Aircraft near air-cargo hubs (Vessels Part 3B). In the union so its
+   * Reading can use ReadingBlock and LiveAge, but deliberately NOT in
+   * LIVE_SOURCE_IDS or LiveSnapshot: /live.json is unchanged, and the air
+   * reading is made separately (sources/index.ts, readAirFeed).
+   */
+  | 'opensky';
 
-export const LIVE_SOURCE_IDS: LiveSourceId[] = [
+/** The sources in the snapshot (/monitor's panels and /live.json): every source except OpenSky. */
+export type SnapshotSourceId = Exclude<LiveSourceId, 'opensky'>;
+
+export const LIVE_SOURCE_IDS: SnapshotSourceId[] = [
   'gdelt',
   'ais',
   'usgs',

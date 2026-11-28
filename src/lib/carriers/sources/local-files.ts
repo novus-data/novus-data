@@ -115,6 +115,13 @@ export function parseCarrier(raw: unknown, label: string, warnings: string[], to
     if (valid.length !== imo.length) warnings.push(`Corrected ${label}: collapsed ${valid.length - imo.length} duplicate IMO numbers.`);
     if (imo.length === 0) return refuse('no valid IMO number in "imo".');
   } else {
+    // An operator designator is only as good as its citation: FAA Order JO
+    // 7340.2 (Contractions), Chapter 3, named with its edition in sourceLabel,
+    // from faa.gov. Anything else is refused, so no designator rests on memory.
+    const faa = sources.some((source) => /^https:\/\/(www\.)?faa\.gov\//i.test(source.url));
+    if (!faa || !/7340\.2/.test(sourceLabel)) {
+      return refuse('an air operator must cite FAA Order JO 7340.2 on faa.gov, with the edition in "sourceLabel".');
+    }
     const rawList = Array.isArray(r.designators) ? r.designators : [];
     designators = [...new Set(rawList.filter((d): d is string => typeof d === 'string' && DESIGNATOR_PATTERN.test(d)))];
     if (designators.length !== rawList.length) warnings.push(`Corrected ${label}: dropped designators that are not three capital letters, or repeated.`);

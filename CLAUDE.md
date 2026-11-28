@@ -664,6 +664,19 @@ until both founders agree (DECISIONS.md, "Per-ship data on the monitor").
   loaded by a person with `npm run carriers:import` (DEPLOY.md Part 5b), never
   written by an assistant or from memory. A transparency table lists every list
   held, with its date and source.
+- **Aircraft at air-cargo hubs (Part 3B, drafted 28 November 2026).** A second
+  hidden section, `id="air"`, from OpenSky (`src/lib/live/sources/opensky.ts`,
+  `air.ts`, `air-nodes.ts`, `components/live/air-panel.tsx`): counts by
+  category at eight hubs named by place. **OpenSky's terms are not confirmed
+  for a product that may charge; it stays hidden until both founders hold
+  OpenSky's written answer.** No call is made unless both
+  `OPENSKY_CLIENT_ID` and `OPENSKY_CLIENT_SECRET` are set; one token and one
+  query per hub, sequentially; a 429 stops with no retry. **Unmatched aircraft
+  are counted, never identified**: their callsign and transponder address
+  never leave the server. An aircraft is listed only when its callsign begins
+  with a designator from an `air-operator` record citing FAA Order JO 7340.2,
+  worded as an inference. Not in `LIVE_SOURCE_IDS` or the snapshot, so
+  `/live.json` is unchanged. No coastlines, runways or map.
 - **Payload.** Ships travel as compact `ShipDot`s (projected position, flag
   as an index, times as offsets). `scripts/tests/ships-panel.ts` fails if the
   island's props exceed 250 KB at the 2,000-vessel cap.
@@ -1306,6 +1319,7 @@ four answers here.**
 | `AISSTREAM_API_KEY` | Chokepoint vessel counts and `/vessels.json` (§6d). **Never `NEXT_PUBLIC_`** | No — that panel says "not switched on yet" | **Server only** |
 | `VESSEL_STORE` | `none` (default), `memory` (dev) or `supabase`: the vessel static-data registry (§6d) | No — unset means no registry | **Server only** |
 | `NOVUS_CARRIERS_DIR` | Overrides the carrier fleet list directory | No — tests and review tooling only, **never set on Vercel** | Site |
+| `OPENSKY_CLIENT_ID` / `OPENSKY_CLIENT_SECRET` | Aircraft at air-cargo hubs on `/monitor` (§6a). **Never `NEXT_PUBLIC_`**; terms unconfirmed, DEPLOY.md Part 5c | No — the section says "not switched on yet" | **Server only** |
 | `BEEHIIV_RSS_URL` | The feed to sync from | Only to run the sync | **Sync script only** — not needed on Vercel |
 
 ## 12. Commands

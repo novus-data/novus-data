@@ -441,3 +441,38 @@ export function fixtureQuotes(symbols: MarketSymbol[]): QuotesRaw {
     }),
   };
 }
+
+/**
+ * OpenSky: sample state vectors for the eight air nodes, run through the real
+ * parser. icao24 values are in the low 000xxx block; whether ICAO leaves it
+ * unallocated could not be checked here (the allocation document was not
+ * reachable), so it is the least collision-prone choice available, and every
+ * callsign is sample text. Includes: a matched flight (ZZZ + digit), an
+ * unmatched commercial-shaped callsign, a registration, a null callsign, a
+ * surface vehicle (dropped), a row with no position (dropped), a null
+ * time_position (last_contact used), and an empty sky.
+ */
+export function fixtureOpenSky(): { node: string; body: unknown }[] {
+  const t = Math.floor(Date.now() / 1000) - 60;
+  const row = (icao24: string, callsign: string | null, lat: number | null, lon: number | null, ground: boolean, category: number, timePosition: number | null = t) => [
+    icao24, callsign, '[SAMPLE] Country', timePosition, t, lon, lat, 3000, ground, 120, 90, 0, null, 3050, null, false, 0, category,
+  ];
+  return [
+    { node: 'memphis', body: { time: t, states: [
+      row('000a01', 'ZZZ1234 ', 35.05, -89.98, false, 6),
+      row('000a02', 'ZZZ88   ', 35.04, -89.97, true, 6),
+      row('000a03', 'QQQ5501 ', 35.1, -89.9, false, 4),
+      row('000a04', 'N123AB  ', 35.0, -90.0, false, 2),
+      row('000a05', null, 35.02, -89.95, true, 0),
+      row('000a06', 'TUG1    ', 35.04, -89.98, true, 17),
+      row('000a07', 'ZZZ77   ', null, null, false, 6),
+    ] } },
+    { node: 'louisville', body: { time: t, states: [row('000b01', 'QQQ210  ', 38.2, -85.7, false, 5, null)] } },
+    { node: 'anchorage', body: { time: t, states: [row('000c01', 'ZZZ5    ', 61.2, -150.0, false, 6), row('000c02', 'RRR9    ', 61.18, -149.95, true, 8)] } },
+    { node: 'hong-kong', body: { time: t, states: [row('000d01', 'SSS33   ', 22.3, 113.9, false, 4), row('000d02', 'SSS34   ', 22.32, 113.92, true, 3)] } },
+    { node: 'shanghai-pudong', body: { time: t, states: null } },
+    { node: 'leipzig-halle', body: { time: t, states: [row('000f01', 'ZZZ901  ', 51.4, 12.2, false, 6)] } },
+    { node: 'cologne-bonn', body: { time: t, states: [row('000f11', 'QQQ7    ', 50.87, 7.15, true, 4)] } },
+    { node: 'dubai', body: { time: t, states: [row('000f21', '<b>x</b>', 25.25, 55.37, false, 6), row('000f22', 'QQQ4    ', 25.26, 55.38, false, 1)] } },
+  ];
+}
