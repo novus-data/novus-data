@@ -46,3 +46,7 @@ next-env.d.ts
 
 # Mancalë refresh cache (raw downloads; only content/indicators/ is committed)
 /.mancale-cache/
+
+# Raw AISStream messages captured by `npm run ais:capture`, for checking the
+# message shape by hand. Never committed or published.
+/.ais-capture/

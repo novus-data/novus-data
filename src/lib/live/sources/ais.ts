@@ -22,6 +22,15 @@
  * beside every zero.
  *
  * ---------------------------------------------------------------------------
+ * PER-VESSEL RECORDS (added 27 November 2026, hidden behind /vessels.json)
+ *
+ * The same sample also keeps, per MMSI, the latest position heard inside a
+ * box and any static attributes broadcast (name, call sign, IMO, ship type).
+ * They are held in memory for one regeneration and become the hidden feed.
+ * Positions are never stored anywhere; only static attributes may go to the
+ * optional registry (../registry). The counts are made exactly as before.
+ *
+ * ---------------------------------------------------------------------------
  * THE KEY
  *
  * AISSTREAM_API_KEY is server-only. It is written into the subscription
@@ -33,6 +42,14 @@
 
 import { CHOKEPOINTS, chokepointContaining } from '../nodes';
 import type { AisData, ChokepointSample, Reading } from '../types';
+import {
+  mergeStatic,
+  normaliseMmsi,
+  normaliseShipType,
+  sanitiseShipText,
+  type VesselSighting,
+  type VesselStatic,
+} from '../vessels';
 import { LiveSourceError, isRecord, num, str } from './http';
 
 const STREAM_URL = 'wss://stream.aisstream.io/v0/stream';
@@ -40,13 +57,61 @@ const AIS_WINDOW_SECONDS = 30;
 const CONNECT_TIMEOUT_MS = 10_000;
 const UNDERWAY_KNOTS = 1;
 
-/** What the sample produced, before it becomes a Reading. Counts only — no raw messages kept. */
+/**
+ * The message types subscribed to. The two position types are the ones the
+ * counts have always been made from. The two static types (Class A message 5,
+ * Class B message 24) were added for the per-vessel feed and carry name, call
+ * sign, IMO number and ship type. Field names checked against AISStream's
+ * published OpenAPI schema, https://raw.githubusercontent.com/aisstream/
+ * ais-message-models/master/type-definition.yaml, retrieved 27 November 2026.
+ * That schema leaves MetaData untyped, so whether a static message's MetaData
+ * carries a position is NOT known until a real capture is read
+ * (`npm run ais:capture`). Nothing here depends on it: static attributes are
+ * keyed by MMSI alone.
+ */
+const POSITION_MESSAGE_TYPES = ['PositionReport', 'StandardClassBPositionReport'] as const;
+const STATIC_MESSAGE_TYPES = ['ShipStaticData', 'StaticDataReport'] as const;
+export const AIS_SUBSCRIBED_MESSAGE_TYPES = [...POSITION_MESSAGE_TYPES, ...STATIC_MESSAGE_TYPES];
+
+/** A ceiling on static records held in one sample, so a flood of junk MMSIs cannot grow memory without bound. */
+const MAX_STATICS_PER_SAMPLE = 20_000;
+
+/**
+ * What the sample produced, before it becomes a Reading.
+ *
+ * `perNode` and the totals are the counts /monitor and /live.json have always
+ * shown, made by exactly the same code as before. `vessels` was added for the
+ * hidden per-vessel feed (/vessels.json): each vessel's LATEST sighting in a
+ * box and whatever static attributes it broadcast. Still no raw messages are
+ * kept, and nothing here is ever written anywhere as a position or a track.
+ */
 export interface AisSummary {
   sampledAt: string;
   windowSeconds: number;
   latestMessageAt: string | null;
   totalMessages: number;
   perNode: Record<string, { vessels: number; underway: number; messages: number }>;
+  vessels: AisVesselSample;
+}
+
+export interface AisVesselSample {
+  /** One per MMSI: the latest valid position report heard inside a box. */
+  sightings: VesselSighting[];
+  /** One per MMSI: static attributes heard, merged field by field. */
+  statics: VesselStatic[];
+  /** Static messages received, valid or not. */
+  staticMessages: number;
+  /** Messages left out of the per-vessel records, by reason. The counts above are unaffected. */
+  dropped: {
+    /** MMSI missing, or not a nine-digit identity. */
+    invalidMmsi: number;
+    /** No readable `time_utc`, so no honest age. */
+    noTime: number;
+    /** A static message AISStream's decoder marked invalid, or with no usable field. */
+    invalidStatic: number;
+    /** Static records beyond MAX_STATICS_PER_SAMPLE. */
+    overflow: number;
+  };
 }
 
 /** AISStream writes `time_utc` in Go's format: "2026-09-22 17:41:03.318353 +0000 UTC". */
@@ -57,14 +122,142 @@ function aisTime(value: unknown): string | null {
   return Number.isNaN(date.getTime()) ? null : date.toISOString();
 }
 
+/** True for a Class A or Class B static message — these never enter the counts. */
+function isStaticMessage(message: Record<string, unknown>, body: Record<string, unknown> | null): boolean {
+  const type = str(message.MessageType);
+  if (type) return (STATIC_MESSAGE_TYPES as readonly string[]).includes(type);
+  return !!body && (isRecord(body.ShipStaticData) || isRecord(body.StaticDataReport));
+}
+
+/** A seven-digit IMO number, or null. 0 and junk are "not available". */
+function imoNumber(value: unknown): number | null {
+  const n = num(value);
+  return n !== null && Number.isInteger(n) && n >= 1_000_000 && n <= 9_999_999 ? n : null;
+}
+
+/**
+ * The attributes a static message carries, or null if it carries none.
+ * Class B splits them: Part A (PartNumber false) is the name, Part B
+ * (PartNumber true) the type and call sign.
+ */
+function staticAttributes(body: Record<string, unknown> | null): Omit<VesselStatic, 'mmsi' | 'staticSeenAt'> | null {
+  if (!body) return null;
+  const empty = { name: null, imo: null, callsign: null, shipType: null };
+  let attributes: Omit<VesselStatic, 'mmsi' | 'staticSeenAt'> | null = null;
+
+  if (isRecord(body.ShipStaticData)) {
+    const report = body.ShipStaticData;
+    if (report.Valid === false) return null;
+    attributes = {
+      name: sanitiseShipText(report.Name),
+      imo: imoNumber(report.ImoNumber),
+      callsign: sanitiseShipText(report.CallSign),
+      shipType: normaliseShipType(num(report.Type)),
+    };
+  } else if (isRecord(body.StaticDataReport)) {
+    const report = body.StaticDataReport;
+    if (report.Valid === false) return null;
+    if (report.PartNumber === false && isRecord(report.ReportA) && report.ReportA.Valid !== false) {
+      attributes = { ...empty, name: sanitiseShipText(report.ReportA.Name) };
+    } else if (report.PartNumber === true && isRecord(report.ReportB) && report.ReportB.Valid !== false) {
+      attributes = {
+        ...empty,
+        callsign: sanitiseShipText(report.ReportB.CallSign),
+        shipType: normaliseShipType(num(report.ReportB.ShipType)),
+      };
+    }
+  }
+  if (!attributes) return null;
+  const { name, imo, callsign, shipType } = attributes;
+  return name === null && imo === null && callsign === null && shipType === null ? null : attributes;
+}
+
+/** A value inside [min, max), else null — for AIS's "not available" sentinels. */
+function within(value: number | null, min: number, maxExclusive: number): number | null {
+  return value !== null && value >= min && value < maxExclusive ? value : null;
+}
+
 /**
  * Counts messages as they arrive. Shared by the live socket and the fixtures,
  * so the fixtures exercise the real bucketing rather than a copy of it.
+ *
+ * The counting path below is unchanged from before the per-vessel feed. Two
+ * things were added around it, and neither can move a count: static messages
+ * are diverted BEFORE it (they were never subscribed to before, so counting
+ * them would change every number), and the per-vessel sighting is recorded
+ * AFTER it. scripts/tests/vessels.ts holds a copy of the old accumulator and
+ * proves the counts match on the same messages.
  */
 export function createAisAccumulator() {
   const perNode = new Map<string, { mmsi: Set<string>; underway: Set<string>; messages: number }>();
   let latestMessageAt: string | null = null;
   let totalMessages = 0;
+
+  const sightings = new Map<string, VesselSighting>();
+  const statics = new Map<string, VesselStatic>();
+  let staticMessages = 0;
+  const dropped = { invalidMmsi: 0, noTime: 0, invalidStatic: 0, overflow: 0 };
+
+  function addStatic(meta: Record<string, unknown>, body: Record<string, unknown> | null): void {
+    staticMessages += 1;
+    const report =
+      (body && isRecord(body.ShipStaticData) && body.ShipStaticData) ||
+      (body && isRecord(body.StaticDataReport) && body.StaticDataReport) ||
+      null;
+    const mmsi = normaliseMmsi(meta.MMSI) ?? normaliseMmsi(report?.UserID);
+    if (!mmsi) {
+      dropped.invalidMmsi += 1;
+      return;
+    }
+    const at = aisTime(meta.time_utc);
+    if (!at) {
+      dropped.noTime += 1;
+      return;
+    }
+    const attributes = staticAttributes(body);
+    if (!attributes) {
+      dropped.invalidStatic += 1;
+      return;
+    }
+    if (!statics.has(mmsi) && statics.size >= MAX_STATICS_PER_SAMPLE) {
+      dropped.overflow += 1;
+      return;
+    }
+    statics.set(mmsi, mergeStatic(statics.get(mmsi), { mmsi, ...attributes, staticSeenAt: at }));
+  }
+
+  function addSighting(
+    meta: Record<string, unknown>,
+    report: Record<string, unknown> | null,
+    nodeId: string,
+    lat: number,
+    lon: number,
+  ): void {
+    const mmsi = normaliseMmsi(meta.MMSI);
+    if (!mmsi) {
+      dropped.invalidMmsi += 1;
+      return;
+    }
+    const seenAt = aisTime(meta.time_utc);
+    if (!seenAt) {
+      dropped.noTime += 1;
+      return;
+    }
+    const heading = report ? num(report.TrueHeading) : null;
+    const sighting: VesselSighting = {
+      mmsi,
+      lat,
+      lon,
+      // 102.3 is "not available"; 360 and 511 are the same for course and heading.
+      sog: within(report ? num(report.Sog) : null, 0, 102.2),
+      cog: within(report ? num(report.Cog) : null, 0, 360),
+      heading: heading !== null && Number.isInteger(heading) ? within(heading, 0, 360) : null,
+      seenAt,
+      nodeId,
+    };
+    const previous = sightings.get(mmsi);
+    if (!previous || previous.seenAt <= seenAt) sightings.set(mmsi, sighting);
+  }
 
   return {
     add(message: unknown): void {
@@ -72,6 +265,11 @@ export function createAisAccumulator() {
       const meta = isRecord(message.MetaData) ? message.MetaData : null;
       const body = isRecord(message.Message) ? message.Message : null;
       if (!meta) return;
+
+      if (isStaticMessage(message, body)) {
+        addStatic(meta, body);
+        return;
+      }
 
       const lat = num(meta.latitude);
       const lon = num(meta.longitude);
@@ -97,6 +295,8 @@ export function createAisAccumulator() {
       // 102.3 is AIS's "speed not available" sentinel, not a fast ship.
       if (sog !== null && sog >= UNDERWAY_KNOTS && sog < 102.2) bucket.underway.add(String(mmsi));
       perNode.set(node.id, bucket);
+
+      addSighting(meta, report || null, node.id, lat, lon);
     },
 
     summary(sampledAt: string, windowSeconds: number): AisSummary {
@@ -111,6 +311,12 @@ export function createAisAccumulator() {
             { vessels: bucket.mmsi.size, underway: bucket.underway.size, messages: bucket.messages },
           ]),
         ),
+        vessels: {
+          sightings: [...sightings.values()],
+          statics: [...statics.values()],
+          staticMessages,
+          dropped: { ...dropped },
+        },
       };
     },
   };
@@ -125,10 +331,15 @@ function decode(data: unknown): string | null {
 
 /** Open the socket, listen for the window, close it. Resolves with counts; rejects with a safe reason. */
 /**
- * `url` exists only so the socket logic can be exercised against a local mock
- * server; production always uses AISStream.
+ * `url` and `windowSeconds` exist only so the socket logic can be exercised
+ * against a local mock server (scripts/tests/vessels.ts); production always
+ * uses AISStream and the thirty-second window.
  */
-export function fetchAis(apiKey: string, url: string = STREAM_URL): Promise<AisSummary> {
+export function fetchAis(
+  apiKey: string,
+  url: string = STREAM_URL,
+  windowSeconds: number = AIS_WINDOW_SECONDS,
+): Promise<AisSummary> {
   return new Promise((resolve, reject) => {
     const accumulator = createAisAccumulator();
     let settled = false;
@@ -148,7 +359,7 @@ export function fetchAis(apiKey: string, url: string = STREAM_URL): Promise<AisS
         // Closing a socket that never opened can throw; nothing to recover.
       }
       if (error) reject(error);
-      else resolve(accumulator.summary(new Date().toISOString(), AIS_WINDOW_SECONDS));
+      else resolve(accumulator.summary(new Date().toISOString(), windowSeconds));
     };
 
     const connectTimer = setTimeout(
@@ -164,10 +375,10 @@ export function fetchAis(apiKey: string, url: string = STREAM_URL): Promise<AisS
         JSON.stringify({
           APIKey: apiKey,
           BoundingBoxes: CHOKEPOINTS.flatMap((node) => (node.box ? [node.box] : [])),
-          FilterMessageTypes: ['PositionReport', 'StandardClassBPositionReport'],
+          FilterMessageTypes: AIS_SUBSCRIBED_MESSAGE_TYPES,
         }),
       );
-      windowTimer = setTimeout(() => finish(), AIS_WINDOW_SECONDS * 1000);
+      windowTimer = setTimeout(() => finish(), windowSeconds * 1000);
     });
 
     socket.addEventListener('message', (event) => {

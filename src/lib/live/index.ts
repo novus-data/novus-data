@@ -14,5 +14,7 @@
 export * from './types';
 export { SOURCE_META } from './meta';
 export { CHOKEPOINTS, INDUSTRIAL, PORTS, nodeById } from './nodes';
-export { getLiveSourceName, readLiveSnapshot as getLiveSnapshot } from './sources';
+export { getLiveSourceName, readLiveSnapshot as getLiveSnapshot, readVesselFeed as getVesselFeed } from './sources';
+export { vesselCaveats } from './sources/vessels';
+export * from './vessels';
 export { deriveFlags, derivePlaces, FLAG_RULES } from './derive';

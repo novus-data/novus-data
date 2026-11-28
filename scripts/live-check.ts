@@ -55,7 +55,10 @@ async function main(): Promise<void> {
   info('Reading every feed — about 35 seconds…');
 
   const started = Date.now();
-  const snapshot = await readLiveSnapshot();
+  // The raw AIS sample, captured from the same socket the counts came from,
+  // so the vessel lines below cost no second connection.
+  let aisSummary: import('@/lib/live/sources/ais').AisSummary | null = null;
+  const snapshot = await readLiveSnapshot({ onAisSummary: (summary) => (aisSummary = summary) });
   info(`Done in ${((Date.now() - started) / 1000).toFixed(1)} s.`);
 
   let failures = 0;
@@ -89,6 +92,23 @@ async function main(): Promise<void> {
     // `id` is a union here, so TypeScript cannot pair each describer with its data.
     for (const summary of DESCRIBE[id](reading.data as never)) detail(summary);
     for (const note of reading.notes) detail(colour.dim(`note: ${note}`));
+
+    if (id === 'ais' && aisSummary) {
+      // Per-vessel records (/vessels.json), from the same sample. Read only:
+      // `write: false` keeps this check from writing to the registry.
+      const { buildVesselFeed } = await import('@/lib/live/sources/vessels');
+      const { vesselStoreName } = await import('@/lib/live/registry');
+      const feed = await buildVesselFeed(aisSummary, { write: false });
+      if (feed.status === 'ok') {
+        const d = feed.data;
+        detail(`Vessels: ${d.heard} heard with a valid position in a box; ${d.vessels.length} in the feed, ${d.capped} capped.`);
+        detail(
+          `Ship type: ${d.typeFromSample} from this sample, ${d.typeFromRegistry} from the registry (VESSEL_STORE=${vesselStoreName()}), ${d.typeUnknown} unknown.`,
+        );
+        detail(`Static messages received: ${d.staticMessages}.`);
+        for (const note of feed.notes) detail(colour.dim(`vessel note: ${note}`));
+      }
+    }
   }
 
   // The same refusal from every keyless feed at once is the signature of the

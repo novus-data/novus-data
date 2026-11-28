@@ -94,7 +94,77 @@ export function fixtureAis(): AisSummary {
       mmsi += 1;
     }
   }
+  for (const message of fixtureVesselMessages()) accumulator.add(message);
   return accumulator.summary(iso(1), 30);
+}
+
+/** AISStream's Go-format time, `minutes` ago. */
+const aisAgo = (minutes: number) => `${iso(minutes).replace('T', ' ').slice(0, 19)}.000000 +0000 UTC`;
+
+/** A point inside a chokepoint's box, a fixed fraction of the way across it. */
+function inBox(id: string, fraction = 0.5): { latitude: number; longitude: number } {
+  const node = CHOKEPOINTS.find((candidate) => candidate.id === id);
+  if (!node?.box) throw new Error(`fixture: no box for ${id}`);
+  const [[south, west], [north, east]] = node.box;
+  return { latitude: south + fraction * (north - south), longitude: west + fraction * (east - west) };
+}
+
+/**
+ * Named sample ships for the per-vessel feed (/vessels.json), added AFTER the
+ * generated traffic above so its seeded sequence, and the counts the demo has
+ * always shown, are unchanged apart from these few vessels. Each one exists to
+ * make a rule visible. MetaData positions on static messages are an
+ * ASSUMPTION — AISStream's schema leaves MetaData untyped — and nothing reads
+ * them: static attributes are keyed by MMSI.
+ */
+function fixtureVesselMessages(): unknown[] {
+  const position = (mmsi: number, at: { latitude: number; longitude: number }, sog: number, minutesAgo: number, classB = false) => ({
+    MessageType: classB ? 'StandardClassBPositionReport' : 'PositionReport',
+    Message: {
+      [classB ? 'StandardClassBPositionReport' : 'PositionReport']: { Sog: sog, Cog: 87.5, TrueHeading: classB ? 511 : 88 },
+    },
+    MetaData: { MMSI: mmsi, ShipName: '[SAMPLE] VESSEL', ...at, time_utc: aisAgo(minutesAgo) },
+  });
+  const shipStatic = (mmsi: number, name: string, type: number, minutesAgo: number) => ({
+    MessageType: 'ShipStaticData',
+    Message: {
+      ShipStaticData: { UserID: mmsi, Valid: true, Name: name, Type: type, CallSign: '[SAMPLE]', ImoNumber: 0, Destination: '[SAMPLE] PORT' },
+    },
+    MetaData: { MMSI: mmsi, ShipName: name, time_utc: aisAgo(minutesAgo) },
+  });
+
+  return [
+    // 1. Static data heard in this sample: type known, typeSource "this-sample".
+    position(999_100_001, inBox('suez', 0.3), 11.2, 1.5),
+    shipStatic(999_100_001, '[SAMPLE] NORTHERN ALPHA@@@@', 70, 2),
+    // 2. No static message: type unknown, never guessed.
+    position(999_100_002, inBox('hormuz', 0.4), 13.4, 1.2),
+    // 3. Class B: position, then name (Part A) and type (Part B) in separate messages.
+    position(999_100_003, inBox('dover', 0.6), 5.1, 1.1, true),
+    {
+      MessageType: 'StaticDataReport',
+      Message: { StaticDataReport: { UserID: 999_100_003, Valid: true, PartNumber: false, ReportA: { Valid: true, Name: '[SAMPLE] SMALL CRAFT' } } },
+      MetaData: { MMSI: 999_100_003, time_utc: aisAgo(2.5) },
+    },
+    {
+      MessageType: 'StaticDataReport',
+      Message: {
+        StaticDataReport: { UserID: 999_100_003, Valid: true, PartNumber: true, ReportB: { Valid: true, ShipType: 37, CallSign: '[SAMPLE]' } },
+      },
+      MetaData: { MMSI: 999_100_003, time_utc: aisAgo(2.4) },
+    },
+    // 4. Speed not available (102.3): kept, with sog null — not a fast ship, not under way.
+    position(999_100_004, inBox('gibraltar', 0.5), 102.3, 1.4),
+    shipStatic(999_100_004, '[SAMPLE] TANKER SENTINEL', 80, 3),
+    // 5. Outside every box: in neither the counts nor the vessel list.
+    position(999_100_005, { latitude: 30, longitude: -40 }, 12, 1),
+    // 6. Hostile text: markup, control characters, 200+ characters. Sanitised, capped, still only text.
+    position(999_100_006, inBox('singapore-strait', 0.7), 8.8, 1.3),
+    shipStatic(999_100_006, `<script>alert("[SAMPLE]")</script>\u0007\u0000${'X'.repeat(200)}@@@@`, 52, 1.8),
+    // 7. Malformed MMSIs: counted as before, left out of the vessel list, and the drop noted.
+    position(12_345, inBox('panama', 0.5), 9, 1.6),
+    position(1_234_567_890, inBox('bosphorus', 0.5), 9, 1.7),
+  ];
 }
 
 /**
