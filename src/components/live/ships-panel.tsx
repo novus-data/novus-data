@@ -4,6 +4,8 @@ import { ReadingBlock } from '@/components/live/reading-block';
 import { SHAPE_FOR, ShipIcon } from '@/components/live/ship-shapes';
 import { ShipsExplorer, type ShipCard } from '@/components/live/ships-explorer';
 import { StatusBadge } from '@/components/status-badge';
+import { RELATIONSHIP_LABELS, type CarrierSummary } from '@/lib/carriers/types';
+import { formatUtcDateOnly } from '@/lib/live/display';
 import { TextLink } from '@/components/text-link';
 import { CHOKEPOINTS } from '@/lib/live/nodes';
 import { PANEL_HEIGHT, PANEL_WIDTH, boxRect, panelWindow } from '@/lib/live/panel-geo';
@@ -84,7 +86,8 @@ function underway(record: VesselRecord): boolean {
 }
 
 function ShipsBody({ data, register }: { data: VesselFeedData; register: Record<string, PlaceRegisterEntry[]> }) {
-  const ships = toShipsData(data.vessels, BOXES);
+  const ships = toShipsData(data.vessels, BOXES, data.carriers);
+  const listsHeld = data.carriers.filter((carrier) => carrier.kind === 'shipping-line');
   const total = data.vessels.length;
 
   const cards: ShipCard[] = CHOKEPOINTS.filter((node) => node.box).map((node) => {
@@ -92,7 +95,7 @@ function ShipsBody({ data, register }: { data: VesselFeedData; register: Record<
     return {
       nodeId: node.id,
       name: node.name,
-      header: <CardHeader name={node.name} note={node.note} records={records} />,
+      header: <CardHeader name={node.name} note={node.note} records={records} listsHeld={listsHeld.length > 0} />,
       map: <CardMap nodeId={node.id} box={node.box!} />,
       footer: <CardRegister entries={register[node.id] ?? []} />,
     };
@@ -113,13 +116,25 @@ function ShipsBody({ data, register }: { data: VesselFeedData; register: Record<
           </>
         )}
       </p>
+      <CarrierLists carriers={listsHeld} matched={data.carrierMatched} total={total} />
       <ShipsExplorer data={ships} cards={cards} />
     </>
   );
 }
 
-function CardHeader({ name, note, records }: { name: string; note?: string; records: VesselRecord[] }) {
+function CardHeader({
+  name,
+  note,
+  records,
+  listsHeld,
+}: {
+  name: string;
+  note?: string;
+  records: VesselRecord[];
+  listsHeld: boolean;
+}) {
   const moving = records.filter(underway).length;
+  const matched = records.filter((record) => record.carrierIds.length > 0).length;
   const known = records.filter((record) => record.typeSource !== 'unknown').length;
   const counts = SHIP_CATEGORIES.map((category) => ({
     category,
@@ -141,6 +156,12 @@ function CardHeader({ name, note, records }: { name: string; note?: string; reco
           for <span data-numeric>{known}</span>.
         </p>
       )}
+      {listsHeld && records.length > 0 ? (
+        <p className="mt-1 text-meta text-muted">
+          <span data-numeric className="text-fg">{matched}</span> of <span data-numeric>{records.length}</span> heard
+          matched to a listed fleet; the rest are unmatched, not unaffiliated.
+        </p>
+      ) : null}
       {note ? <p className="mt-1 text-meta text-muted">{note}</p> : null}
       {counts.length > 0 ? (
         <table className="mt-2 w-full border-collapse text-meta">
@@ -213,5 +234,78 @@ function CardRegister({ entries }: { entries: PlaceRegisterEntry[] }) {
         </ul>
       )}
     </footer>
+  );
+}
+
+/**
+ * The fleet lists Novus holds: the point of the carrier matching. Every list
+ * shows its own wording, date, size and source, so a reader can check any
+ * match against the carrier's own page. No logos, no colours: words only.
+ */
+function CarrierLists({ carriers, matched, total }: { carriers: CarrierSummary[]; matched: number; total: number }) {
+  return (
+    <div className="mb-5 max-w-[72ch] text-[0.9375rem] leading-[1.55] text-muted">
+      <h3 className="kicker kicker-muted mb-2">Carrier fleet lists</h3>
+      {carriers.length === 0 ? (
+        <p>Novus has not loaded any carrier fleet lists yet, so no ship is matched to a carrier.</p>
+      ) : (
+        <>
+          <p>
+            A match means a ship&rsquo;s broadcast IMO number appears in that carrier&rsquo;s own published list. It
+            does not show who is carrying what, and a line carries other firms&rsquo; cargo. The IMO number is typed
+            in by the crew and can be wrong or falsified. Lists are held for only the carriers below, so a ship with no
+            match may belong to any carrier, or to none loaded here. Lists change; each shows its own date. A
+            carrier&rsquo;s ship at a place is not a statement that the carrier is affected by anything happening
+            there.
+          </p>
+          <p className="mt-2">
+            <span data-numeric className="text-fg">{matched}</span> of <span data-numeric>{total}</span> ships heard
+            matched a list.
+          </p>
+          <details className="mt-2">
+            <summary className="flex min-h-[2.75rem] cursor-pointer items-center text-meta text-link">
+              The <span data-numeric className="mx-1">{carriers.length}</span> lists held
+            </summary>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-meta">
+                <caption className="sr-only">Carrier fleet lists held, with their wording, date, size and source</caption>
+                <thead>
+                  <tr className="border-b border-rule text-left text-muted">
+                    <th scope="col" className="py-1.5 pr-3 font-normal">Carrier</th>
+                    <th scope="col" className="py-1.5 pr-3 font-normal">Wording</th>
+                    <th scope="col" className="py-1.5 pr-3 font-normal">List dated</th>
+                    <th scope="col" className="py-1.5 pr-3 text-right font-normal">IMO entries</th>
+                    <th scope="col" className="py-1.5 font-normal">Source</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {carriers.map((carrier) => (
+                    <tr key={carrier.id} className="border-b border-hairline align-top text-fg">
+                      <td className="py-1.5 pr-3">{carrier.name}</td>
+                      <td className="py-1.5 pr-3">{RELATIONSHIP_LABELS[carrier.relationship]}</td>
+                      <td className="py-1.5 pr-3">
+                        {formatUtcDateOnly(carrier.asOf)}
+                        {carrier.stale ? (
+                          <span className="block text-muted">Had not been refreshed when this page was built.</span>
+                        ) : null}
+                      </td>
+                      <td className="py-1.5 pr-3 text-right">
+                        <span data-numeric>{carrier.entries}</span>
+                      </td>
+                      <td className="py-1.5">
+                        <a href={carrier.sources[0].url} rel="noopener noreferrer" target="_blank" className="text-link underline underline-offset-2">
+                          {carrier.sources[0].publisher}
+                        </a>
+                        <span className="block text-muted">{carrier.sourceLabel}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </>
+      )}
+    </div>
   );
 }

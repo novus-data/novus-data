@@ -270,6 +270,8 @@ src/lib/live/              The live layer: public feeds for /monitor, /live.json
   registry/                  Static vessel attributes only, behind VESSEL_STORE. SERVER ONLY.
   panel-geo.ts               The ship panels' window and projection, shared with the land build. Pure.
   vessel-filter.ts           Compact ships for the browser, and the filters. Pure.
+src/lib/carriers/          Carrier fleet lists, IMO check and matching (Part 3A). types.ts is pure; the index reads files.
+content/carriers/          One JSON per carrier fleet list, written by npm run carriers:import from the carrier's own page.
 src/lib/photos/            Photo licence allow-list and checker. See Rule 3.
 src/lib/accounts/          The account contract and its Supabase store. See 6b.
 src/lib/supabase/          Supabase clients. admin.ts is SERVER ONLY. See 6b.
@@ -648,6 +650,20 @@ until both founders agree (DECISIONS.md, "Per-ship data on the monitor").
 - **Names of military (type 35) and law-enforcement (type 55) ships are not
   sent to the browser** (`NAME_WITHHELD_TYPES` in `vessel-filter.ts`). A
   proposed default awaiting both founders.
+- **Carriers, by IMO only (Part 3A, drafted 28 November 2026).** A ship can
+  show that its broadcast IMO number appears in a carrier's own published fleet
+  list (`src/lib/carriers/`, files in `content/carriers/`). Matching is by IMO
+  number only, checked with its check digit, never by name, MMSI, call sign,
+  flag or proximity. The wording is "Reports an IMO number that appears in
+  {carrier}'s published fleet list", with the list's wording, date and source,
+  because crews type the IMO in. A carrier is words only: no logo, no colour.
+  **Never join a carrier to the register** (no register entry looked up by
+  carrier name, no status beside a carrier): that would read as an exposure
+  claim nobody has checked. A carrier record cannot load without a followable
+  source, its dates, and a note that the page's terms were read; lists are
+  loaded by a person with `npm run carriers:import` (DEPLOY.md Part 5b), never
+  written by an assistant or from memory. A transparency table lists every list
+  held, with its date and source.
 - **Payload.** Ships travel as compact `ShipDot`s (projected position, flag
   as an index, times as offsets). `scripts/tests/ships-panel.ts` fails if the
   island's props exceed 250 KB at the 2,000-vessel cap.
@@ -1289,6 +1305,7 @@ four answers here.**
 | `NOVUS_DISRUPTIONS_DIR` | Overrides the register directory | No — review tooling only, **never set on Vercel** | Site |
 | `AISSTREAM_API_KEY` | Chokepoint vessel counts and `/vessels.json` (§6d). **Never `NEXT_PUBLIC_`** | No — that panel says "not switched on yet" | **Server only** |
 | `VESSEL_STORE` | `none` (default), `memory` (dev) or `supabase`: the vessel static-data registry (§6d) | No — unset means no registry | **Server only** |
+| `NOVUS_CARRIERS_DIR` | Overrides the carrier fleet list directory | No — tests and review tooling only, **never set on Vercel** | Site |
 | `BEEHIIV_RSS_URL` | The feed to sync from | Only to run the sync | **Sync script only** — not needed on Vercel |
 
 ## 12. Commands
@@ -1307,6 +1324,7 @@ npm run sync-issues      pull new issues from Beehiiv
 npm run mancale          weekly refresh of the Mancalë Index data and ledger (§8; --ledger-only skips the download)
 npm run filing-watch     SEC filings that name a register problem, as a worklist (§8; --excerpts, --since, --entry)
 npm run ais:capture      raw AISStream messages to a git-ignored file, to check the shape by hand (§6d)
+npm run carriers:import  turn a fleet list saved from a carrier's own page into content/carriers/<id>.json (DEPLOY.md Part 5b)
 npm run test:regressions the regression cases, including the scorecard arithmetic
 npm run preview          build the single-file review preview
 ```

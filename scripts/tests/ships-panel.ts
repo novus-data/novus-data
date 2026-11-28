@@ -55,7 +55,7 @@ async function main() {
   const record = (mmsi: string, nodeId: string, patch: Partial<import('@/lib/live/vessels').VesselRecord>) => {
     const base = {
       mmsi, lat: 30.6, lon: 32.4, sog: 10, cog: 90, heading: 90, seenAt: '2026-11-27T12:00:00.000Z', nodeId,
-      name: null, imo: null, callsign: null, shipType: null, staticSeenAt: null, flag: null, typeSource: 'unknown' as const,
+      name: null, imo: null, callsign: null, shipType: null, staticSeenAt: null, flag: null, typeSource: 'unknown' as const, carrierIds: [] as string[],
       ...patch,
     };
     return { ...base, category: vessels.shipCategory(base.shipType) };
@@ -88,8 +88,8 @@ async function main() {
   assert.deepEqual(ids(filterVessels(ships, { ...NO_FILTERS, search: '(tanker).*' }, data.flags)), ['999000002'], 'regex characters are plain text');
   assert.deepEqual(filterVessels(ships, { ...NO_FILTERS, search: '.*' }, data.flags).map((s) => s.m), ['999000002']);
   assert.deepEqual(ids(filterVessels(ships, { ...NO_FILTERS, search: '<script>' }, data.flags)), ['999000003']);
-  assert.deepEqual(ids(filterVessels(ships, { category: 'cargo', underwayOnly: true, flag: '[SAMPLE] Aland', search: 'ALP' }, data.flags)), ['999000001']);
-  assert.deepEqual(filterVessels(ships, { category: 'cargo', underwayOnly: false, flag: '[SAMPLE] Borduria', search: '' }, data.flags), [], 'empty result');
+  assert.deepEqual(ids(filterVessels(ships, { category: 'cargo', underwayOnly: true, flag: '[SAMPLE] Aland', search: 'ALP', carrier: 'all' }, data.flags)), ['999000001']);
+  assert.deepEqual(filterVessels(ships, { category: 'cargo', underwayOnly: false, flag: '[SAMPLE] Borduria', search: '', carrier: 'all' }, data.flags), [], 'empty result');
   assert.deepEqual(filterVessels(ships, { ...NO_FILTERS, search: 'grey' }, data.flags), [], 'a withheld name cannot be searched');
   const grey = ships.find((s) => s.m === '999000005')!;
   assert.equal(grey.n, undefined);

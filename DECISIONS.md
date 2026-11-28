@@ -703,6 +703,24 @@ CLAUDE.md §6a, "The ships panel". Further questions for both founders:
 8. **Whether this stays on `/monitor`** (as built) or earns its own page and
    navigation entry later.
 
+**Part 3A, carriers (drafted 28 November 2026, also not agreed).** Built on
+Part 2, at Gavin's request, before Parts 1 and 2 merged. A ship can show that
+its broadcast IMO number appears in a carrier's own published fleet list, with
+the list's wording, date and source; a transparency table lists every list
+held. No real list is included: a person loads each one from the carrier's own
+page after reading its terms (DEPLOY.md Part 5b). Expect very few matches: a
+ship's IMO arrives only in its static message, heard rarely in a 30-second
+sample, so matches stay near zero until the vessel registry has run for days.
+It is worth having for credibility (the same standard of proof as the
+register, applied to ships), not for volume. Further questions for both:
+
+9. **Whether a ship-to-carrier display is shown publicly at all**, and whether
+   carrier names sit next to individual named ships.
+10. **Never joining carriers to register entries** (recommended: not in code;
+    if ever, through a register entry with its four required fields).
+11. **The stale threshold for a fleet list** (proposed 90 days) and **starting
+    with three to five carriers**, and which ones.
+
 **Calls made in the code, for checking:** per-ship data is not in
 `/live.json`; the registry stores static attributes only, never a position;
 the cap is 400 vessels per box and 2,000 in all, with the number dropped

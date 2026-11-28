@@ -21,6 +21,8 @@
  * ---------------------------------------------------------------------------
  */
 
+import type { CarrierSummary } from '@/lib/carriers/types';
+
 import { MID_TABLE, MID_TABLE_SOURCE } from './mid-table';
 
 export { MID_TABLE_SOURCE };
@@ -129,6 +131,12 @@ export interface VesselRecord extends VesselSighting {
    */
   flag: string | null;
   typeSource: TypeSource;
+  /**
+   * Carrier fleet lists this ship's broadcast IMO number appears in (ids into
+   * VesselFeedData.carriers). Matched by IMO only (src/lib/carriers/match.ts).
+   * Empty means no match in the lists held, NOT unaffiliated.
+   */
+  carrierIds: string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -359,6 +367,7 @@ export function joinVessels(
       category: shipCategory(shipType),
       flag: flagFromMmsi(sighting.mmsi),
       typeSource,
+      carrierIds: [],
     };
   });
 }
@@ -391,5 +400,9 @@ export interface VesselFeedData {
   typeUnknown: number;
   typeFromSample: number;
   typeFromRegistry: number;
+  /** Every carrier fleet list held, without the lists themselves: the transparency table. */
+  carriers: CarrierSummary[];
+  /** Of `vessels`, how many matched at least one list. */
+  carrierMatched: number;
   vessels: VesselRecord[];
 }

@@ -555,6 +555,51 @@ delete from public.vessel_static where updated_at < now() - interval '90 days';
 Set `VESSEL_STORE` to `none` (or delete it) and redeploy. To remove the data
 too: `drop table public.vessel_static;`.
 
+## Part 5b — Loading a carrier's fleet list
+
+The ship panels on `/monitor` can say that a ship's broadcast IMO number appears
+in a carrier's **own published fleet list**. Novus holds no lists until a person
+loads one, and Claude must not: a list must come from the carrier's own page,
+read by a person, never from memory, a tracking site, a commercial vessel
+database or Wikipedia. Start with **three to five carriers at most** (a proposal
+for both founders), and expect that some carriers publish no list with IMO
+numbers at all; they are simply not loaded.
+
+1. **Open the carrier's own fleet page.** Note its exact address, the publisher
+   (the company, as the page names itself), the heading the list sits under,
+   and the date the list says it is true (if it gives none, use the day you read
+   it, and say so in the terms note).
+2. **Read the site's terms** (usually "Terms of use" or "Legal" in the footer).
+   If they forbid copying the content or automated use, **stop: do not load that
+   carrier.** Otherwise note in one sentence what they say.
+3. **Record the company's exact name.** Never shorten it, and never merge two
+   companies that share a brand. One lead to check, not a fact: Maersk Tankers
+   is a separate company from the Maersk container line, and each would be
+   recorded under its own exact name or not at all.
+4. **Save the list** as a CSV with a column headed `imo` (or JSON), outside the
+   repository, for example `~/fleet.csv`.
+5. **Run the import**, filling in every value. For example:
+
+   ```
+   npm run carriers:import -- ~/fleet.csv --id example-lines --name "Example Lines A/S" \
+     --relationship operated --source-url "https://example.com/fleet" --publisher "Example Lines A/S" \
+     --retrieved 2026-12-01 --as-of 2026-12-01 --source-label "Our fleet" \
+     --terms-note "Terms of use read 1 Dec 2026; no restriction on quoting fleet data."
+   ```
+
+   `--relationship` is the page's own wording: `owned`, `operated`, `managed`,
+   `chartered-in`, or `listed` when the page does not say. The script prints how
+   many rows were valid, any IMO numbers that failed the check digit (look each
+   up on the page: a typo in your file, or on theirs) and the file it wrote,
+   `content/carriers/<id>.json`. It makes no network call.
+6. **Open the written file and read it against the page.**
+7. **Commit it through a pull request**, so the other founder sees the diff.
+   `npm run test:regressions` and the build both re-validate it.
+
+Lists older than 90 days at build time are marked "had not been refreshed when
+this page was built" (`CARRIER_STALE_AFTER_DAYS`, a proposal). To refresh one,
+repeat the steps with `--replace`. To remove one, delete its file.
+
 ## Part 6 — Share prices (a licensing decision first)
 
 Energy prices need nothing: they are public-domain U.S. government data. **Share
